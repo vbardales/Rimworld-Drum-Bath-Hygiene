@@ -18,7 +18,10 @@ reflection:
 - the drum bath still declares `Hed_BathingAtDrumBathPassive` with no `hediffClass` of its own,
   which is the whole reason the patch has a first half;
 - the drum is `DrumBath`, it carries a `CompRefuelable` on wood, and the bath job runs for
-  `joyDuration` 4000 ticks.
+  `joyDuration` 4000 ticks;
+- the joy giver rejects any drum whose fuel is at or below ten per cent, and the bath driver never
+  reads the fuel at all. The fire has two states and only two, lit and out: nothing in the drum,
+  in the bath job or in Dubs Bad Hygiene knows a fire that is too strong.
 
 So a failure seen below is not a renamed member. It is the mod.
 
@@ -88,22 +91,28 @@ repeating in the log while it sits at full.
 leans on Dubs Bad Hygiene clamping its own need. A gauge that overshoots, or a log that fills up
 during the second half of every bath, means it does not.
 
-## 3. Hot water and cold water
+## 3. Hot water, and the cold water nobody can order
 
-**Do.** Bathe once in a drum with wood burning. Then empty the fuel with the dev gizmo on the
-drum and bathe again.
+**Do.** Bathe once in a drum with wood burning. For the cold case, wait until a colonist is
+walking toward a bath of their own accord, and empty the drum's fuel with the dev gizmo **while
+they are still on their way**.
 
 **Expect.** The `hot bath` memory the first time, `cold bath` the second, both in the mood tab,
 both from Dubs Bad Hygiene and both worth +3.
 
-**Why it matters.** The drum is read through its own `CompRefuelable` at the moment the pawn gets
-in, and never again. Two consequences to check while you are there: emptying the fuel mid-bath
-must **not** turn a hot bath cold, and a pawn bathing in a drum that was never fuelled must get
-the cold thought rather than none at all.
+**Why the detour.** A colonist cannot be ordered into a bath: joy is scheduled, and the drum
+offers no right-click option. The only thing that hands out the job refuses any drum at or below
+ten per cent fuel, so nobody ever sets off toward a cold bath. The job, once given, never looks
+at the fuel again — and this mod reads it at the moment the pawn gets in. Emptying the drum
+during the walk is therefore the only way to reach the cold branch on purpose.
 
-**If the pawn refuses to enter an unfuelled drum**, the cold branch cannot be reached in play.
-Say so — that is a result, and it means the branch only ever fires on a drum that burns out
-between the order and the arrival.
+**It is reachable by accident too, and worth knowing.** The drum burns no fuel standing idle, but
+it loses about eighteen wood a day when rain falls on it unroofed, which empties a full one in
+half a day. An outdoor drum just above the ten per cent line can be dry by the time its bather
+arrives.
+
+**Also check.** Emptying the fuel *mid-bath* must **not** turn a hot bath cold. The reading
+happens once, on the way in.
 
 ## 4. The room is judged
 
