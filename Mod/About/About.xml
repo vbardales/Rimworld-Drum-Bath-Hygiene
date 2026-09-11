@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Drum Bath Hygiene</name>
+  <author>nelim</author>
+  <packageId>nelim.drumbathhygiene</packageId>
+  <url>https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene</url>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>Makes the drum can bath actually wash people, by connecting MMDrumcanMOD to Dubs Bad Hygiene.
+
+On its own, soaking in a drum bath is pure recreation: it gives joy, a warm mood buff and a rest bonus, but a colonist climbs out exactly as filthy as they got in. This bridges the two.
+
+While a colonist is in the bath:
+- their hygiene need fills,
+- onlookers react to the sight, as with any DBH bathing,
+- the water is judged hot or cold depending on whether the drum still has fuel burning,
+- the room gives its usual bathroom thought,
+- the "soaking wet" memory is cleared, and so is the filth carried on their body when they climb out.
+
+Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. Nothing breaks if you load this without them: with no drum bath mod nothing is patched, and with no Dubs Bad Hygiene the component sits inert. No error is thrown either way.
+
+No save data of its own: the mod can be added to or removed from a game in progress.
+
+IF I GO QUIET
+
+If I do not answer within a reasonable time after being contacted, anyone may freely update this or any other of my mods, including publishing a continuation of it. All credit must be preserved.
+
+AI-GENERATED
+
+This mod's code was written with Claude Code (Anthropic) and its images generated with DALL-E (OpenAI), under human direction, review and testing. Stated openly: designing with these tools is my job.
+
+THANKS
+
+Mlie, for keeping MMDrumcanMOD (Continued) alive. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756
+
+Dubwise, for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
+https://steamcommunity.com/sharedfiles/filedetails/?id=836308268
+
+No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
+
+Claude Code (Anthropic) and DALL-E (OpenAI).</description>
+  <modDependencies>
+    <li>
+      <packageId>Mlie.MMDrumcanMOD</packageId>
+      <displayName>MMDrumcanMOD (Continued)</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3417093756</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>Dubwise.DubsBadHygiene</packageId>
+      <displayName>Dubs Bad Hygiene</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/836308268</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>Dubwise.DubsBadHygiene</li>
+    <li>Mlie.MMDrumcanMOD</li>
+  </loadAfter>
+</ModMetaData>
