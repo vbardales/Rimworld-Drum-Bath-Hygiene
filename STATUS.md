@@ -1,13 +1,14 @@
 ---
-mod:        Drum Bath Hygiene
-packageId:  nelim.drumbathhygiene
-repo:       Rimworld-Drum-Bath-Hygiene
-visibility: public
-detached:   yes
-stage:      done
-licence:    original
-licence_at: original work, MIT. Nothing is reused from either source mod - no code, no def, no texture. The mod is the wire between MMDrumcanMOD and Dubs Bad Hygiene, both credited in ATTRIBUTION.
-showcase:   complete
+mod:          Drum Bath Hygiene
+packageId:    nelim.drumbathhygiene
+repo:         Rimworld-Drum-Bath-Hygiene
+visibility:   public
+detached:     yes
+stage:        done
+licence:      original
+licence_at:   original work, MIT. Nothing is reused from either source mod - no code, no def, no texture. The mod is the wire between MMDrumcanMOD and Dubs Bad Hygiene, both credited in ATTRIBUTION.
+dependencies: declared
+showcase:     complete
 tested_on:
 workshop:
 remaining:
@@ -20,8 +21,8 @@ remaining:
     node warning on the next load (scenario 12).
   - feature: a fire that could be too strong, parked in `BACKLOG.md` rather than forgotten. The
     drum has two states today, lit and out, and nothing anywhere models an intensity.
-session:    local_86846e45-ee66-436e-978d-5b312225c26f
-updated:    2026-09-12, the mod's own session
+session:      local_86846e45-ee66-436e-978d-5b312225c26f
+updated:      2026-09-12, the mod's own session
 ---
 
 # Drum Bath Hygiene — status
@@ -35,6 +36,11 @@ session that holds this mod. They were filled the same day:
 - **`stage`** — `done`, confirmed. The mod is written, it compiles, it is detached and
   documented. What is left is not development, it is the in-game check.
 - **`tested_on`** — left empty, and that is exact rather than an omission: this mod has never run
+- **`dependencies`** — `declared` when every mod this one needs is named in the About's
+  `modDependencies`, `to check` when a non-vanilla `loadAfter` suggests a dependency that is not
+  declared, `none` when the mod needs nothing. An undeclared dependency is not cosmetic: on
+  2026-09-11 Reequilibrage animaux took 47 vanilla animals down with it, Muffalo included, because
+  the class it injects belongs to a mod that was not declared and not loaded.
   in a game. Nothing it does has ever been observed by anyone, neither a hygiene bar moving nor a
   memory cleared.
 - **`remaining`** — the catch-all line the sweep leaves there is replaced by four real ones, now
@@ -55,4 +61,5 @@ The `session` field was not touched: it comes from the sweep and names the sessi
 conversation.
 
 The `licence` vocabulary: `open` an explicit licence, `silent` no licence and a dead source,
-`alive` no licence but a living source, `forbidden` a written refusal, `original` nothing reused.
+`alive` no licence but a living source, `forbidden` a written refusal, `original` owing nothing
+to anyone — not a name, not an idea traceable to one mod, not a value derived from its assets.
