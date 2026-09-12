@@ -224,6 +224,20 @@ next load. One warning, once, and no repeat.
 
 ---
 
+## Language display check — English and French
+
+Execution status: not run. Repeat scenarios 0–6 with English selected, then with French
+selected, restarting the game after changing language. Record RimWorld and dependency
+versions and the language for each result.
+
+Inspect the drum bath's label and description, the bathing hediff, the hygiene need,
+and the hot/cold bath, bathroom and privacy thoughts produced by the integration.
+These texts belong to MMDrumcanMOD or Dubs Bad Hygiene; this bridge adds no text of its
+own. Check for raw keys, unexpected English fallback in French, broken formatting and
+clipping. Record any issue with the owning dependency and a screenshot; do not treat
+the bridge's `not_applicable` translation fields as proof of dependency coverage.
+Technical `[Drum Bath Hygiene]` logs intentionally remain English.
+
 ## What to send back
 
 The `Player.log` of the session, and for scenario 1 the two hygiene percentages, before and

@@ -1,4 +1,7 @@
 ---
+localization: not_applicable
+translation_en: not_applicable
+translation_fr: not_applicable
 mod:          Drum Bath Hygiene
 packageId:    nelim.drumbathhygiene
 repo:         Rimworld-Drum-Bath-Hygiene
@@ -17,11 +20,12 @@ showcase:     preview approved by user; visual QA passed at full size and thumbn
 tested_on:    automated checks on Windows, 2026-09-12; no in-game validation recorded
 workshop:
 remaining:
+  - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
   - unverified: live compatibility of reflection calls with the installed dependency versions; historical inspection is not a current automated integration test.
   - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.
-updated:      2026-09-12
+updated:      2026-09-13
 ---
 
 # Drum Bath Hygiene — status
@@ -70,6 +74,43 @@ identifiers and calls DBH methods; both dependencies are credited in `ATTRIBUTIO
 consistent with the author's stated permission to reuse and continue this code with attribution.
 It does not relicense RimWorld, MMDrumcanMOD or Dubs Bad Hygiene. Preview/icon generation is
 credited separately in the attribution file. This audit retains the existing license.
+
+## Translation audit — 2026-09-13
+
+Applied `../PUBLISHING.md` and `../TRANSLATIONS.md` to revision
+`b9d23a8b1594cd55191271dd6153be667217fccc` (source and shipped XML unchanged).
+All three translation fields are `not_applicable`: the inventory found no owned
+player-facing text added or changed by this integration.
+
+- Reviewed all three C# files in `Source/`, the project/build configuration, and every
+  file under `Mod/`. There are no alternate version folders, LoadFolders, language
+  resources, settings, gizmos, menus, messages, inspect strings or generated sentences.
+- Traced `HediffComp_DrumBathHygiene` through `DbhBridge`: it updates the existing hygiene
+  need and delegates temperature, bathroom and privacy effects to DBH. The existing
+  need, thoughts and drum-bath hediff retain their dependency-owned texts. No dependency
+  translation keys are explicitly resolved, copied or overridden here.
+- Reviewed both branches of `Mod/Patches/AddComp.xml`: they only set `hediffClass` and
+  add the component with numeric tuning values. No label, description or other
+  translatable field is added or replaced.
+- The five logging call sites in `DbhBridge.cs` are technical diagnostics and remain
+  English. Reflection names, defNames and the save keys `started`/`ticks` are internal
+  identifiers. About metadata, documentation, licences and promotional image text are
+  outside the in-game translation gate under the shared protocol.
+
+Inventory commands: `rg --files --hidden -g '!.git'`,
+`Get-ChildItem Mod -Recurse -File`, and
+`rg -n 'Translate|label|description|Message|Log\.' Source Mod`, followed by full source
+and XML review and tracing of the delegated calls. Owned Keyed keys: 0; owned
+DefInjected paths: 0; owned grammar/string resources: 0. Parameter, duplicate-key and
+injection-path checks therefore have no targets; `Check-DefInjected.ps1` is not applicable.
+No empty language folders or duplicate dependency translations are needed.
+
+This passes the translation gate by justified non-applicability, without changing the
+historical `validation` stage. It does not certify the installed dependencies' English
+or French coverage. Their visible integration effects still require the bilingual
+in-game check recorded in `remaining`. No in-game language tests were run. Repeat this
+inventory after source, Def, patch or text changes; reset affected fields to `unchecked`
+until reviewed again.
 
 ## Reproducible automated checks
 
