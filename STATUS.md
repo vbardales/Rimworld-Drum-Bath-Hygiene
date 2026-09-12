@@ -30,7 +30,7 @@ updated:      2026-09-12, the mod's own session
 Status card, read by a pass over every mod rather than by asking each thread one at a time. It
 lives at the root, never inside `Mod/`, so Steam never receives it.
 
-The fields above were read off the disk on 2026-09-12. Three could not be, and waited for the
+The fields above were read off the disk on 2026-09-12. Four could not be, and waited for the
 session that holds this mod. They were filled the same day:
 
 - **`stage`** — `done`, confirmed. The mod is written, it compiles, it is detached and
