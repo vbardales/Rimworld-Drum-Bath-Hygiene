@@ -61,6 +61,10 @@ colonist to bathe and open their Health tab while they soak.
 - `[Drum Bath Hygiene] Dubs Bad Hygiene found, but Need_Hygiene.clean could not be resolved` —
   the bridge broke on a Dubs Bad Hygiene update. The bath still gives joy and warmth, and washes
   nobody. This is the one line that says the mod is inert while everything looks fine.
+- `FieldAccessException` naming `carriedFilth`, at the **end** of a bath rather than at startup —
+  the assembly was built without its access waiver. That fault shipped once, on 2026-09-12, and
+  was caught by reading the assembly's attributes rather than by playing; see
+  `Source/AccessChecks.cs`. It would take scenario 7 down, and the last onlooker check with it.
 - Any other line beginning `[Drum Bath Hygiene]`. Each names the DBH call that failed.
 
 **If it fails here, stop.** Everything below assumes the component is on the hediff.

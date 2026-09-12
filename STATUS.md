@@ -36,13 +36,15 @@ session that holds this mod. They were filled the same day:
 - **`stage`** — `done`, confirmed. The mod is written, it compiles, it is detached and
   documented. What is left is not development, it is the in-game check.
 - **`tested_on`** — left empty, and that is exact rather than an omission: this mod has never run
+  in a game. Nothing it does has ever been observed by anyone, neither a hygiene bar moving nor a
+  memory cleared.
 - **`dependencies`** — `declared` when every mod this one needs is named in the About's
   `modDependencies`, `to check` when a non-vanilla `loadAfter` suggests a dependency that is not
   declared, `none` when the mod needs nothing. An undeclared dependency is not cosmetic: on
   2026-09-11 Reequilibrage animaux took 47 vanilla animals down with it, Muffalo included, because
-  the class it injects belongs to a mod that was not declared and not loaded.
-  in a game. Nothing it does has ever been observed by anyone, neither a hygiene bar moving nor a
-  memory cleared.
+  the class it injects belongs to a mod that was not declared and not loaded. Here both source
+  mods are declared, and both are genuinely optional: without either one, nothing happens and
+  nothing breaks.
 - **`remaining`** — the catch-all line the sweep leaves there is replaced by four real ones, now
   that `_tools/FUNCTIONAL-SCENARIOS.md` says precisely what has not been checked. Two of them are
   questions the disk cannot answer, which is why they are scenarios rather than tests.
