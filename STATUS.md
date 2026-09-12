@@ -1,46 +1,58 @@
 ---
 mod:        Drum Bath Hygiene
 packageId:  nelim.drumbathhygiene
-depot:      Rimworld-Drum-Bath-Hygiene
-visibilite: public
-detache:    oui
-etape:      done
+repo:       Rimworld-Drum-Bath-Hygiene
+visibility: public
+detached:   yes
+stage:      done
 licence:    original
-licence_ou: création originale, MIT
-vitrine:    complete
-teste_le:
-workshop:   
-reste:
-  - non_verifie: les treize scenarios de _tools/FUNCTIONAL-SCENARIOS.md, aucun joue, le scenario 0 compris
-  - non_verifie: la branche eau froide, qui ne s'atteint qu'en vidant le fut pendant le trajet du baigneur (scenario 3)
-  - non_verifie: une sauvegarde faite pendant un bain, mod retire ensuite, laisse-t-elle un avertissement d'orphelin (scenario 12)
-  - feature: le feu qui pourrait etre trop fort, parque dans BACKLOG.md
+licence_at: original work, MIT. Nothing is reused from either source mod - no code, no def, no texture. The mod is the wire between MMDrumcanMOD and Dubs Bad Hygiene, both credited in ATTRIBUTION.
+showcase:   complete
+tested_on:
+workshop:
+remaining:
+  - unverified: the thirteen scenarios of `_tools/FUNCTIONAL-SCENARIOS.md`, none played, starting
+    with the zeroth: until that one passes, the other twelve prove nothing.
+  - unverified: the cold water branch, which is reached only by emptying the drum while the
+    bather is still walking to it (scenario 3). No colonist ever sets off toward a cold bath -
+    the joy giver rejects any drum at or below ten per cent fuel.
+  - unverified: whether a save made mid-bath, with the mod removed afterwards, leaves an orphan
+    node warning on the next load (scenario 12).
+  - feature: a fire that could be too strong, parked in `BACKLOG.md` rather than forgotten. The
+    drum has two states today, lit and out, and nothing anywhere models an intensity.
 session:    local_86846e45-ee66-436e-978d-5b312225c26f
-maj:        2026-09-12, revu a la main par le fil du mod
+updated:    2026-09-12, the mod's own session
 ---
 
-# Drum Bath Hygiene — etat
+# Drum Bath Hygiene — status
 
-Fiche d'etat, lue par une passe sur tous les mods plutot qu'en interrogeant les fils un a un.
-Elle vit a la racine, jamais dans `Mod/`, donc Steam ne la recoit pas.
+Status card, read by a pass over every mod rather than by asking each thread one at a time. It
+lives at the root, never inside `Mod/`, so Steam never receives it.
 
-Les champs ci-dessus ont ete deduits du disque le 2026-09-12, puis les trois qui ne peuvent pas
-l'etre ont ete remplis par le fil qui tient ce mod :
+The fields above were read off the disk on 2026-09-12. Three could not be, and waited for the
+session that holds this mod. They were filled the same day:
 
-- **`etape`** — `done`. Le mod est ecrit, il compile, il est detache et documente. Il n'a jamais
-  tourne en jeu, ce que dit `teste_le` et non `etape`.
-- **`teste_le`** — la date du dernier essai en jeu. Vide veut dire jamais, et c'est le cas ici.
-- **`reste`** — ce qu'il reste a faire, en trois categories : `feature` pour une
-  fonctionnalite manquante au premier jet, `defaut` pour un defaut connu non corrige,
-  `non_verifie` pour ce qui n'a pas pu etre verifie.
+- **`stage`** — `done`, confirmed. The mod is written, it compiles, it is detached and
+  documented. What is left is not development, it is the in-game check.
+- **`tested_on`** — left empty, and that is exact rather than an omission: this mod has never run
+  in a game. Nothing it does has ever been observed by anyone, neither a hygiene bar moving nor a
+  memory cleared.
+- **`remaining`** — the catch-all line the sweep leaves there is replaced by four real ones, now
+  that `_tools/FUNCTIONAL-SCENARIOS.md` says precisely what has not been checked. Two of them are
+  questions the disk cannot answer, which is why they are scenarios rather than tests.
 
-Ce mod ne declare aucune def, aucun libelle et aucune texture : il n'y a donc **rien a traduire**,
-et l'absence de dossier `Languages/` n'est pas un manque.
+The `remaining` categories: `feature` for something missing from the first pass, `defect` for a
+known fault left unfixed, `unverified` for what could not be checked.
 
-Ce qui reste tient en une phrase : **tout est ecrit, rien n'a ete joue.** Les treize scenarios de
-`_tools/FUNCTIONAL-SCENARIOS.md` attendent une partie, et deux d'entre eux posent une question a
-laquelle le disque ne peut pas repondre. Le premier essai en jeu videra presque tout ce bloc d'un
-coup ; d'ici la, ne pas publier d'item Workshop.
+**There is nothing to translate here.** The mod declares no def, no label and no texture, so the
+missing `Languages/` folder is not a gap, and no `feature` line records one.
 
-Vocabulaire de `licence` : `open` licence explicite, `silent` aucune licence et source morte,
-`alive` aucune licence mais source vivante, `forbidden` refus ecrit, `original` rien de repris.
+What is left fits in a sentence: **everything is written, nothing has been played.** One play
+session will empty most of that list at once. Until then, no Workshop item should be created —
+the showcase has never been seen in place.
+
+The `session` field was not touched: it comes from the sweep and names the session group, not this
+conversation.
+
+The `licence` vocabulary: `open` an explicit licence, `silent` no licence and a dead source,
+`alive` no licence but a living source, `forbidden` a written refusal, `original` nothing reused.
