@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Drum Bath Hygiene preview</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0 }
+html, body { width:896px; height:504px; overflow:hidden; font-family:"Segoe UI",system-ui,sans-serif }
+body { background:url('Preview.png') center / cover no-repeat; }
+.veil { position:absolute; inset:0; background:radial-gradient(circle at 0% 0%, rgb(var(--veil-rgb) / .90) 0%, rgb(var(--veil-rgb) / .55) 45%, rgb(var(--veil-rgb) / 0) 85%); }
+.copy { position:absolute; left:50px; top:54px; color:var(--inkPrimary); text-shadow:0 3px 10px rgba(0,0,0,.75) }
+h1 { width:max-content; font-size:46px; font-weight:600; line-height:1.1; letter-spacing:0; white-space:nowrap }
+.rule { width:58px; height:3px; background:var(--accent); margin:20px 0 16px }
+p { width:430px; font-size:21px; font-weight:400; line-height:1.45; letter-spacing:0 }
+.badge { position:absolute; right:0; top:0; width:80px; height:80px; background:var(--accent); clip-path:polygon(0 0,100% 0,100% 100%) }
+.version { position:absolute; left:869px; top:27px; transform:translate(-50%,-50%) rotate(45deg); color:var(--badgeInk); font-size:26px; font-weight:700; line-height:1; }
+</style>
+<div class="veil"></div>
+<main class="copy"><h1>Drum Bath Hygiene</h1><div class="rule"></div><p>The drum bath finally washes the colonist soaking in it.</p></main>
+<div class="badge"></div><div class="version"></div>
+<script>
+window.previewReady = (async () => {
+ const palette = await (await fetch('preview-palette.json')).json();
+ for (const [key,value] of Object.entries(palette)) document.documentElement.style.setProperty('--'+key,value);
+ document.documentElement.style.setProperty('--veil-rgb',palette.veil.match(/\w\w/g).map(x=>parseInt(x,16)).join(' '));
+ const about = new DOMParser().parseFromString(await (await fetch('../Mod/About/About.xml')).text(),'application/xml');
+ const versions = [...about.querySelectorAll('supportedVersions li')].map(x=>x.textContent.trim()).filter(x=>/^\d+\.\d+$/.test(x)).sort((a,b)=>{const aa=a.split('.').map(Number),bb=b.split('.').map(Number);return bb[0]-aa[0]||bb[1]-aa[1]});
+ if (!versions.length) throw Error('No stable supported version');
+ document.querySelector('.version').textContent=versions[0];
+ await document.fonts.ready;
+ await new Promise((resolve,reject)=>{const img=new Image(); img.onload=resolve;img.onerror=reject;img.src='Preview.png'});
+})();
+</script></html>

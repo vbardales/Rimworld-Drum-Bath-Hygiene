@@ -40,7 +40,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=836308268
 
 No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
 
-Claude Code (Anthropic) and DALL-E (OpenAI).</description>
+Claude Code (Anthropic) and DALL-E (OpenAI).
+
+[url=https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene]Source code on GitHub[/url]</description>
   <modDependencies>
     <li>
       <packageId>Mlie.MMDrumcanMOD</packageId>

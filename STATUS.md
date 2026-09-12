@@ -2,66 +2,144 @@
 mod:          Drum Bath Hygiene
 packageId:    nelim.drumbathhygiene
 repo:         Rimworld-Drum-Bath-Hygiene
+remote:       https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene.git
+folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
+repo_visibility: public
 detached:     yes
-stage:        done
-licence:      original
-licence_at:   original work, MIT. Nothing is reused from either source mod - no code, no def, no texture. The mod is the wire between MMDrumcanMOD and Dubs Bad Hygiene, both credited in ATTRIBUTION.
+stage:        validation
+licence:      open
+license_spdx: MIT
+licence_at:   LICENSE and Mod/LICENSE; original integration code, third-party dependencies credited in ATTRIBUTION.md
+owner:        Codex, task attached to this local repository
 dependencies: declared
-showcase:     complete
-tested_on:
+showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
+tested_on:    automated checks on Windows, 2026-09-12; no in-game validation recorded
 workshop:
 remaining:
-  - unverified: the thirteen scenarios of `_tools/FUNCTIONAL-SCENARIOS.md`, none played, starting
-    with the zeroth: until that one passes, the other twelve prove nothing.
-  - unverified: the cold water branch, which is reached only by emptying the drum while the
-    bather is still walking to it (scenario 3). No colonist ever sets off toward a cold bath -
-    the joy giver rejects any drum at or below ten per cent fuel.
-  - unverified: whether a save made mid-bath, with the mod removed afterwards, leaves an orphan
-    node warning on the next load (scenario 12).
-  - feature: a fire that could be too strong, parked in `BACKLOG.md` rather than forgotten. The
-    drum has two states today, lit and out, and nothing anywhere models an intensity.
-session:      local_86846e45-ee66-436e-978d-5b312225c26f
-updated:      2026-09-12, the mod's own session
+  - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
+  - unverified: live compatibility of reflection calls with the installed dependency versions; historical inspection is not a current automated integration test.
+  - unverified: cold water on arrival and removal of the mod from a mid-bath save.
+  - feature: fire intensity, deferred in BACKLOG.md.
+updated:      2026-09-12
 ---
 
 # Drum Bath Hygiene — status
 
-Status card, read by a pass over every mod rather than by asking each thread one at a time. It
-lives at the root, never inside `Mod/`, so Steam never receives it.
+## Ownership and repository
 
-The fields above were read off the disk on 2026-09-12. Four could not be, and waited for the
-session that holds this mod. They were filled the same day:
+Codex now maintains this file as part of work on this repository. Update it whenever changes,
+checks or remaining issues change; only record checks actually performed. This responsibility
+applies to this local task, without an automatic background schedule.
 
-- **`stage`** — `done`, confirmed. The mod is written, it compiles, it is detached and
-  documented. What is left is not development, it is the in-game check.
-- **`tested_on`** — left empty, and that is exact rather than an omission: this mod has never run
-  in a game. Nothing it does has ever been observed by anyone, neither a hygiene bar moving nor a
-  memory cleared.
-- **`dependencies`** — `declared` when every mod this one needs is named in the About's
-  `modDependencies`, `to check` when a non-vanilla `loadAfter` suggests a dependency that is not
-  declared, `none` when the mod needs nothing. An undeclared dependency is not cosmetic: on
-  2026-09-11 Reequilibrage animaux took 47 vanilla animals down with it, Muffalo included, because
-  the class it injects belongs to a mod that was not declared and not loaded. Here both source
-  mods are declared, and both are genuinely optional: without either one, nothing happens and
-  nothing breaks.
-- **`remaining`** — the catch-all line the sweep leaves there is replaced by four real ones, now
-  that `_tools/FUNCTIONAL-SCENARIOS.md` says precisely what has not been checked. Two of them are
-  questions the disk cannot answer, which is why they are scenarios rather than tests.
+The Git top level is `C:/Users/nelim/Documents/rimworld/DrumBathHygiene`. Its Git directory is
+`.git`, and Git reports no superproject. This is an independent local repository, outside the
+former monorepo. Both fetch and push use the remote above. GitHub visibility was verified as
+`PUBLIC` using `gh repo view` on 2026-09-12.
 
-The `remaining` categories: `feature` for something missing from the first pass, `defect` for a
-known fault left unfixed, `unverified` for what could not be checked.
+## Title, description and license
 
-**There is nothing to translate here.** The mod declares no def, no label and no texture, so the
-missing `Languages/` folder is not a gap, and no `feature` line records one.
+`visibility` describes the mod's intended distribution, not GitHub repository visibility.
+This mod is intended for public distribution: it is an original MIT-licensed integration,
+with no copied dependency source files reported in ATTRIBUTION.md. This decision is independent
+of the repository being public, recorded separately as `repo_visibility`.
+No Workshop ID is recorded locally; current Steam visibility has not been verified.
+Public distribution remains pending in-game validation.
 
-What is left fits in a sentence: **everything is written, nothing has been played.** One play
-session will empty most of that list at once. Until then, no Workshop item should be created —
-the showcase has never been seen in place.
+Rules rechecked in `../PUBLISHING.md` (License section, 2026-09-12): `alive` requires a private
+mod and `(prohibited)`; any private mod requires `(prohibited)` and the personal-use notice;
+a public `silent` mod requires `(unofficial)` and the unofficial notice. Neither case applies
+to this original MIT integration. A dependency being maintained does not itself make this
+independently written bridge an `alive` reuse of unlicensed source content.
 
-The `session` field was not touched: it comes from the sweep and names the session group, not this
-conversation.
+Keep **Drum Bath Hygiene** without a suffix. This repository implements an original compatibility
+bridge, not a continuation or republication of MMDrumcanMOD. The dependency retains its own
+name, **MMDrumcanMOD (Continued)**. No evidence in this repository calls for a title suffix.
 
-The `licence` vocabulary: `open` an explicit licence, `silent` no licence and a dead source,
-`alive` no licence but a living source, `forbidden` a written refusal, `original` owing nothing
-to anyone — not a name, not an idea traceable to one mod, not a value derived from its assets.
+`Mod/About/About.xml` contains the GitHub URL both in `<url>` and, since this audit, in the
+visible `<description>` as its final Steam-formatted source link, as required by
+`../PUBLISHING.md`. The package ID stays `nelim.drumbathhygiene`.
+
+The actual license is **MIT**, copyright 2026 nelim. `LICENSE` and the distributed `Mod/LICENSE`
+are identical. The status category is `open`; `original` describes provenance, not the license
+name. The previous claim that this mod owed no names or ideas to another mod was too broad.
+
+Justification for retaining MIT: the repository documents independently written integration
+code and distributes no copied source files from the two dependency mods. It references their
+identifiers and calls DBH methods; both dependencies are credited in `ATTRIBUTION.md`. MIT is
+consistent with the author's stated permission to reuse and continue this code with attribution.
+It does not relicense RimWorld, MMDrumcanMOD or Dubs Bad Hygiene. Preview/icon generation is
+credited separately in the attribution file. This audit retains the existing license.
+
+## Reproducible automated checks
+
+Run from this repository with .NET SDK and PowerShell 7:
+
+```powershell
+dotnet build Source/DrumBathHygiene.csproj -c Release
+pwsh -NoProfile -File _tools/Test-Mod.ps1
+```
+
+Audit results on 2026-09-12:
+
+- Release build with `--no-restore`: passed, zero warnings and errors, using the existing NuGet cache.
+- All shipped XML files parse successfully; title, package ID, source link, dependency load order,
+  matching license copies and exclusion of `Assembly-CSharp.dll` from the mod package pass.
+- Ten XML patch cases pass: missing target def, plus all nine combinations of absent/plain/comp-capable
+  hediff class and absent/empty/populated comps. Checks cover the final class, a single comps
+  container, a single added component, tuning values, and preservation of existing content.
+- Compiled DLL metadata checks pass: both component types exist and the assembly actually carries
+  `IgnoresAccessChecksTo("Assembly-CSharp")`, needed for access to carried filth.
+
+The XML suite applies the real patch XPath and payload through a small test interpreter. It is
+not the RimWorld patch engine. Compilation and metadata checks do not execute the C# gameplay
+or DBH reflection calls. Automated gameplay integration coverage remains absent; manual checks
+below are required before claiming the mod works in game. No test project or reproducible
+script was present before this audit; `_tools/Test-Mod.ps1` now provides the checks above.
+
+## Manual functional validation
+
+The thirteen scenarios in `_tools/FUNCTIONAL-SCENARIOS.md` exist and specify setup, actions and
+expected outcomes. They cover startup and patch loading, hygiene progression/clamping, hot/cold
+water, room thoughts, privacy, soaking-wet removal, carried filth, save/reload, successive baths,
+missing dependencies, and adding/removing the mod from a save.
+
+**Execution status: not run in this audit; no recorded in-game results.** Start with scenario 0,
+then complete 1–12. Record game and dependency versions, pass/fail per scenario, hygiene values
+for scenario 1 and the session Player.log. A prior reflection inspection is documented in the
+scenario file, but its conclusions must be rechecked if dependency versions change.
+
+Do not mark the mod ready for Workshop based solely on a successful build. No new Workshop
+publication was performed. Fire intensity remains a deferred feature in `BACKLOG.md`.
+
+## Preview overlay — 2026-09-12
+
+Recomposed according to `../STYLE_RIMWORLD.md`. Retained the original illustration from
+`Art/Preview-source.png` and copied it unchanged to canonical source `Art/Preview.png`.
+No illustration was replaced; the existing full-resolution original remains preserved.
+The title and summary were preserved exactly. No status tag or reduced title words apply.
+The user approved the final preview and requested commit and push of this audit and its assets.
+
+- Delivered image: `Mod/About/Preview.png`, 896 × 504, 518,417 bytes (under 900 KB).
+- Composition and layout parameters: `Art/preview.html`; renderer: `Art/render-preview.cjs`.
+- Single color reference: `Art/preview-palette.json`, loaded directly by the HTML.
+- QA artifacts: `Art/preview-qa.json`, `Art/preview-background.png` (text hidden),
+  and `Art/preview-268.png` (thumbnail).
+
+The veil comes from the broad dark stone floor. The secondary ink is a lightened warm ochre
+from the dominant stone/metal material family. The accent comes from the blue-green bath water,
+with saturation and brightness increased: its cool turquoise clearly separates from the warm
+stone family instead of repeating the orange lantern/fire. No secondary-colored text is needed
+for this title, but its palette value is retained for future use.
+
+Chrome rendered directly at final resolution after `document.fonts.ready` and source-image load.
+Actual platform fonts were checked through Chrome DevTools: Segoe UI Semibold for the title,
+Segoe UI regular for the summary, and Segoe UI Bold for the badge; no fallback was used.
+The badge reads the highest stable version declared in the shipped About.xml: currently 1.6.
+
+Contrast was measured against the text-hidden rendered PNG across every pixel of the full title
+and summary rectangles, not merely their corners: minimum 11.04:1 for title and 5.96:1 for summary.
+Badge contrast is 10.51:1. Tag contrast is not applicable because no tag is displayed.
+Visual inspection at 896 × 504 and 268 px wide confirmed identifiable title/version, a visible
+rule, no clipped glyphs or overlaps, and the bath remaining recognizable. The summary is intended
+for the full-size image, as specified by the guide. Nothing was published.
