@@ -11,7 +11,7 @@ First version. RimWorld 1.6.
 
 ### Added
 
-- Soaking in a drum can bath now fills the Dubs Bad Hygiene hygiene need, at a rate that empties a full gauge over half a bath rather than turning it into a quick shower.
+- Soaking in a drum can bath now fills the Dubs Bad Hygiene hygiene need, at a rate that fills an empty gauge over half a bath rather than turning it into a quick shower.
 - Onlookers react to a colonist bathing, re-checked while the bath lasts, as with any DBH bathing.
 - The water counts as hot or cold depending on whether the drum still has fuel burning.
 - The room gives its usual DBH bathroom thought on entering the bath.
@@ -22,4 +22,4 @@ First version. RimWorld 1.6.
 - The mod adds no building, texture or def of its own: it is a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, and does nothing without both.
 - No Harmony patch. The component is grafted by XML onto the hediff the drum bath mod already applies while a pawn is soaking, and the patch is conditional on that hediff existing rather than on a mod identifier.
 - The Dubs Bad Hygiene side is reached entirely by reflection, so a rework on their end degrades the mod instead of breaking it.
-- No data is added to the save: the mod can be added to or removed from an ongoing game.
+- The component saves two temporary values (`started` and `ticks`) on the bathing hediff. Adding the mod to an existing game and removing it outside or during a bath still require in-game validation.

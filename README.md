@@ -57,8 +57,9 @@ Nothing throws either way.
 ## Saves
 
 The component stores two values (`started`, `ticks`) on a hediff that only exists while a pawn is
-in the bath. Nothing persists beyond that, and the mod can be added to or removed from a game in
-progress.
+in the bath. Those values disappear with the hediff. Adding the mod to an existing game and
+removing it outside or during a bath still require in-game validation; see
+`_tools/FUNCTIONAL-SCENARIOS.md` for the expected behavior and test procedure.
 
 ## Repository layout
 

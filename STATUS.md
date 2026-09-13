@@ -10,16 +10,24 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-stage:        validation
+stage:        done
+settings_audit: not_applicable
+build_audit: complete
+automated_tests: complete
+xml_tests: complete
+functional_scenarios: complete
+in_game_tests: unchecked
+audit_revision: 5758baa7c07581f7db27726ffbe1a5add0c8720d
 licence:      open
 license_spdx: MIT
 licence_at:   LICENSE and Mod/LICENSE; original integration code, third-party dependencies credited in ATTRIBUTION.md
 owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
-tested_on:    automated checks on Windows, 2026-09-12; no in-game validation recorded
+tested_on:    Release rebuild and automated/XML checks on Windows, 2026-09-13; no in-game validation recorded
 workshop:
 remaining:
+  - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
   - unverified: live compatibility of reflection calls with the installed dependency versions; historical inspection is not a current automated integration test.
@@ -29,6 +37,119 @@ updated:      2026-09-13
 ---
 
 # Drum Bath Hygiene — status
+
+## Workflow audit — 2026-09-13
+
+Follow-up documentation corrections, 2026-09-13, on the same base revision: corrected
+About.xml and CHANGELOG.md to describe the temporary bath state and leave save compatibility
+explicitly unverified; aligned README.md with that limitation. Corrected the changelog's
+hygiene direction and both attribution copies' SoakingWet entry timing. Replaced the
+scenario introduction's unconditional failure attribution with a dependency-version check.
+The documentation defects listed later in this dated audit are now resolved. Existing audit
+edits were preserved. The audit-only change description below records the earlier audit,
+not this follow-up. No gameplay code, patch behavior or images changed; `done` and the
+justified settings/localization exclusions remain valid. The automated/XML suite was rerun
+successfully after these edits; attribution copies match and `git diff --check` passes.
+In-game checks remain pending. Optional repository housekeeping remains a recommendation.
+
+Audited revision: `5758baa7c07581f7db27726ffbe1a5add0c8720d`. The working tree was
+clean before the audit. Only this STATUS.md is changed by the audit; the forced Release
+rebuild reproduced the shipped DLL byte for byte. No source, XML, image, scenario or
+historical result was changed; nothing was committed or published.
+
+Applied `../PUBLISHING.md`, `../STYLE_RIMWORLD.md`, `../MOD_SETTINGS.md` and
+`../TRANSLATIONS.md`, with the user's ordered workflow and interpretation taking precedence.
+The previous `validation` value was a legacy label, not evidence of any particular gate.
+The new `stage: done` uses the workflow's literal state: all gates through `preTest -> done`
+are established, ready for final in-game validation, **not** `tested`.
+
+| Transition | Result | Current evidence |
+| --- | --- | --- |
+| dansMonoRepo -> horsMonoRepo | Validated | Independent Git top level and `.git`, no superproject; configured GitHub origin; live public repository and remote HEAD equal audited revision. English README, attribution, MIT license and changelog exist; distributed license and attribution match root copies. Original bridge code, no bundled dependency/game code; public/open classification remains justified. Package ID, display name, repository and directory consistently identify this integration; no continuation/private suffix applies. |
+| horsMonoRepo -> ModIcon generated | Validated | Current scoped implementation complete; fire intensity is explicitly deferred, not unfinished promised functionality. Forced Release rebuild passes and matches shipped DLL. Directly inspected PNG icon: 128 x 128, 22,318 bytes, mascot and bathing objects recognizable. |
+| ModIcon generated -> Preview generated | Validated | Directly inspected delivered PNG: 896 x 504, 518,417 bytes, below 1 MB. Original and composition files preserved in Art/. No concrete camera defect identified; no historical generation report or recorded game-camera comparison required. |
+| Preview generated -> preOptions | Validated | Inspected full-size preview and existing 268-pixel thumbnail; title/version readable, no clipping, subject identifiable. Cool turquoise accent separates from warm ochre secondary ink in the palette; HTML consumes that JSON. English description and title; no prefix, suffix or linking word requires reduction. |
+| preOptions -> options | Justified not applicable | Settings inventory below: no relevant user settings, empty page or MainButtons shortcut. In-game checks are not required for this gate under the user's interpretation. |
+| options -> l10n | Justified not applicable | Re-read all three C# files and shipped XML: no owned UI text or translatable Def fields introduced/overridden. All three translation fields remain not_applicable. |
+| l10n -> preTest | Validated | Installed dependency About files match both declared IDs and support 1.6; both are loaded before this integration. Actual upstream root Defs contain DrumBath and Hed_BathingAtDrumBathPassive. No own LoadFolders or additional version/optional patches. Both mods are required for useful behavior; graceful absence handling does not make their dependency declarations incorrect. |
+| preTest -> done | Validated | Existing thirteen functional scenarios have setup, actions and expected outcomes. Existing automated metadata/packaging tests and ten XML patch cases executed successfully against the identical shipped DLL and XML. |
+| done -> tested | Unverified | No gameplay execution, bilingual UI inspection, session log validation or new/existing-save runtime result produced. Settings UI, persistence and shortcut checks are not applicable; bath-state save/reload remains required. |
+
+### Settings audit
+
+Reviewed all of Source/ and Mod/, including component properties, bridge calls and both
+XML branches. `cleanPerTick = 0.0005` is the internal integration rate (2000 ticks to fill
+an empty gauge); `privacyCheckInterval = 300` is an internal polling cadence. These are
+fixed compatibility defaults, not a documented player configuration contract. No concrete
+need to expose the polling interval or introduce a separate balancing interface was found.
+Water temperature, room and privacy effects delegate to dependency behavior. There is no
+inherited settings class, config file, settings window or MainButtonDef in this package.
+The only saved values are per-bath `started` and `ticks`, not user settings. Searches for
+ModSettings, SettingsCategory, DoSettingsWindowContents, MainButton and MainTabWindow,
+plus full source/XML reading, confirm absence of an empty page and shortcut.
+Therefore `settings_audit: not_applicable`; no RIMMSQOL or other customization integration
+was tested or is claimed. Option input/reset/migration and option persistence tests have
+no target. The shipped XML defaults are checked by the executed XML suite.
+
+### Executed checks and limits
+
+- `git rev-parse --show-toplevel --git-dir --show-superproject-working-tree`,
+  `git status --short`, `git remote -v`, `git log -1`: independent repository at the
+  recorded folder; clean starting tree. No requirement to restore a monorepo remote.
+- `gh repo view vbardales/Rimworld-Drum-Bath-Hygiene --json name,visibility,url` and
+  `git ls-remote origin HEAD`: PUBLIC, correct URL, remote HEAD equals audited revision.
+- `dotnet build Source/DrumBathHygiene.csproj -c Release --no-restore -t:Rebuild`:
+  passed, zero warnings/errors, cached Krafs.Rimworld.Ref 1.6.4871 and Publicizer 2.3.2.
+  Initial sandbox attempts could not access GitHub/SDK paths; the authorized retry succeeded.
+  These initial environment errors are not mod build defects.
+- DLL SHA256 before and after rebuild:
+  `865ACC8A92D27700C182C48F6BE82346F43EA73D4A644B68D9A486E57F017003`.
+- `pwsh -NoProfile -File _tools/Test-Mod.ps1`: passed before and after the successful
+  rebuild. Ten XML cases, metadata/licensing/packaging, component types and access waiver.
+  The XML interpreter is not the game patch engine; metadata tests do not execute gameplay.
+  No isolated gameplay harness exists. Pawn/map/DBH runtime behavior is assigned to the
+  written game scenarios, not falsely reported as automated coverage or non-applicable.
+- Direct image inspection and System.Drawing decoding established PNG formats/dimensions;
+  file sizes checked from disk. Historical contrast/font measurements remain historical;
+  they were not rerun, and no visual issue was identified requiring a new render.
+- Installed dependency metadata read under
+  `C:/Program Files (x86)/Steam/steamapps/workshop/content/294100/`:
+  `3417093756` (MMDrumcanMOD, root Defs plus 1.6 assembly) and `836308268`
+  (DBH modVersion 3.1.2800, 1.6 assembly). Both About IDs match the shipped declarations;
+  neither has a LoadFolders.xml. MMDrumcanMOD declares its own Harmony dependency;
+  this bridge does not directly use Harmony and need not duplicate that transitive dependency.
+  No unestablished minimum dependency version is invented.
+- Current dependency DLL SHA256: DrumBath.dll
+  `EAF75AE3DFE08285F0018D275E9858D290EB599BF7F2F780CA0E3A70CF399D8F`;
+  BadHygiene.dll `511A4EC97D04C232F09E3F1E7EFDE20C44B66B52563E03FB4359E3823AAAB597`.
+  Runtime reflection compatibility is still unverified; the historical reflection check
+  is not a current integration test.
+- Localization tracing confirms zero owned Keyed keys, DefInjected paths or parameterized
+  messages. Technical logs/internal names are excluded. Native dependency text is neither
+  copied nor explicitly translated here; no redundant EN/FR resources or path checker needed.
+
+### Remaining gate and separate findings
+
+To reach `tested`, execute scenarios 0-12 and the English/French language display check
+in `_tools/FUNCTIONAL-SCENARIOS.md`, explicitly covering a new colony and an existing save.
+Record game/dependency versions, observed outcomes, hygiene values and Player.log. Include
+cold arrival, mid-bath reload/removal and missing dependencies; fix any failures actually
+observed and rerun affected regressions. The installed files do not substitute for an
+interactive game session. No gameplay failure is established by this audit.
+
+Separate documentation defects, not failures of the next runtime gate: About.xml says
+no save data of its own and CHANGELOG.md says no data is added to the save, whereas
+CompExposeData writes two values. CHANGELOG.md says the rate empties a full gauge instead
+of filling an empty one. Both attribution copies place SoakingWet removal on exit,
+whereas OnEnterBath invokes it on entry. Historical scenario prose saying a future failure
+cannot be a renamed member is too absolute; dependency signatures were not rechecked here.
+These statements should be corrected before publication; no gameplay correction is inferred.
+
+Optional repository housekeeping: the autonomous repository lacks the suggested
+`.gitattributes` and IDE ignore patterns. No damaged artifact or tracked IDE file was found;
+these are not promoted to extra mandatory workflow gates. Fire intensity remains optional
+backlog work. The historical sections below are preserved as dated evidence, superseded
+by this audit where they describe the old stage or old execution date.
 
 ## Ownership and repository
 

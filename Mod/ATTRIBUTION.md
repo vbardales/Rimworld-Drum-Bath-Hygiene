@@ -33,7 +33,7 @@ Everything a bath is supposed to do is handed over to DBH, through reflection on
 | `PrivacyUtil.BathingPrivacyLOS(Pawn, float)` | onlookers reacting to the sight |
 | `SanitationUtil.WaterTempCheck(Pawn, bool, bool)` | the hot-bath or cold-bath thought |
 | `SanitationUtil.ApplyBathroomThought(Pawn, Thing)` | the room's own bathroom thought |
-| `DubDef.SoakingWet` | clearing the "soaking wet" memory on the way out |
+| `DubDef.SoakingWet` | clearing the "soaking wet" memory on entering the bath |
 
 These members are internal to DBH. Reflection is deliberate, and for two reasons: a hard
 reference would make DBH a hard dependency, when this mod is meant to sit inert without it; and

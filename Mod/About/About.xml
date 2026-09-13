@@ -20,7 +20,7 @@ While a colonist is in the bath:
 
 Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. Nothing breaks if you load this without them: with no drum bath mod nothing is patched, and with no Dubs Bad Hygiene the component sits inert. No error is thrown either way.
 
-No save data of its own: the mod can be added to or removed from a game in progress.
+The mod stores two temporary values on the bathing hediff while a pawn is in the bath. Adding it to an existing game and removing it outside or during a bath still require in-game validation.
 
 IF I GO QUIET
 

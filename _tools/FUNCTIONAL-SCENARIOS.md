@@ -23,7 +23,8 @@ reflection:
   reads the fuel at all. The fire has two states and only two, lit and out: nothing in the drum,
   in the bath job or in Dubs Bad Hygiene knows a fire that is too strong.
 
-So a failure seen below is not a renamed member. It is the mod.
+These findings apply to the dependency versions inspected on that date. If a scenario fails,
+recheck the installed versions and member signatures before attributing the failure to this mod.
 
 ---
 
