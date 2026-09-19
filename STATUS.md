@@ -185,7 +185,7 @@ name, **MMDrumcanMOD (Continued)**. No evidence in this repository calls for a t
 visible `<description>` as its final Steam-formatted source link, as required by
 `../PUBLISHING.md`. The package ID stays `nelim.drumbathhygiene`.
 
-The actual license is **MIT**, copyright 2026 nelim. `LICENSE` and the distributed `Mod/LICENSE`
+The actual license is **MIT**, copyright 2026 Nelim. `LICENSE` and the distributed `Mod/LICENSE`
 are identical. The status category is `open`; `original` describes provenance, not the license
 name. The previous claim that this mod owed no names or ideas to another mod was too broad.
 
