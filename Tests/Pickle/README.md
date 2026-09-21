@@ -44,13 +44,16 @@ on a real filth tracker with real filth in it.
 `../../TESTING.md` holds the table. In short, and the count is small on purpose:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene
-powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -Language French
+powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sans-facultatifs.map
+powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sans-facultatifs.map -Language French
 ```
 
+`-DepMap` is not optional here. `wsl-deps.sans-facultatifs.map` holds the Workshop ids of the two
+hard dependencies, which the shared table in `stage-pickle-wsl.sh` does not know; without it the
+staging stops with `no Workshop id known for Mlie.MMDrumcanMOD`. It is **not** a set of optional mods.
+
 There is **no pass with optional mods**: `About.xml` declares `loadAfter` on Core and its two hard
-dependencies and nothing else, and hard dependencies are staged on every pass. A `wsl-deps.map`
-would therefore be a second name for the first pass. There is **no incompatibility pass** either:
+dependencies and nothing else. There is **no incompatibility pass** either:
 this mod declares no `incompatibleWith`, and neither the README nor the changelog claims anything
 fails with it. Both of those change the day the mod declares an optional mod or an
 incompatibility, and `TESTING.md` says so where a reader will meet it.

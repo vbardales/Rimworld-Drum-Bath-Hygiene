@@ -137,7 +137,10 @@ step assembly. What it covers, and why each scenario needs the game, is in
 ### Remaining gate and separate items
 
 To reach `tested`: run the Pickle suite twice, once per language, through
-`scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene` and the same with `-Language French`, reading
+`scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sans-facultatifs.map` and the
+same with `-Language French` (`-DepMap` is required: the shared staging table does not know the
+Workshop ids of the two hard dependencies, and a first attempt on 2026-09-21 stopped there before
+launching anything), reading
 `exitReason` before the numbers and scenarios played against features discovered before either;
 then open the `@review` capture of each pass rather than counting its green. Then play
 scenarios 0-12 and the English/French display check of
