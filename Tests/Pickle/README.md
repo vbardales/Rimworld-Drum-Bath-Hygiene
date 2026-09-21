@@ -105,7 +105,7 @@ test what was just changed.
   against which other pastimes would be testing that mod\x27s code. This mod begins after the decision.
   A colonist sent by the joy giver and one ordered by the suite run the same job through the same
   driver, and the component sees the same hediff either way - the fifth run\x27s film is that path, from
-  the walk to \"Relaxing in the bath\". The one place it touches this repository is documentation:
+  the walk to "Relaxing in the bath". The one place it touches this repository is documentation:
   `_tools/FUNCTIONAL-SCENARIOS.md` scenario 3 says nobody sets off toward a cold bath, which is a
   statement about the joy giver and ages if the drum mod changes it. Behaviour does not.
 - **The `PushingDrumcan` building**, which ships in the same mod but is an unrelated joy building
