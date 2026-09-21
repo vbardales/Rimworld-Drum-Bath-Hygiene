@@ -17,26 +17,95 @@ automated_tests: complete
 xml_tests: complete
 functional_scenarios: complete
 in_game_tests: unchecked
-audit_revision: 5758baa7c07581f7db27726ffbe1a5add0c8720d
+audit_revision: b23b20b32afe60086e64120e4db4594ec08b9eed
 licence:      open
 license_spdx: MIT
 licence_at:   LICENSE and Mod/LICENSE; original integration code, third-party dependencies credited in ATTRIBUTION.md
 owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
-tested_on:    Release rebuild and automated/XML checks on Windows, 2026-09-13; no in-game validation recorded
+tested_on:    Release rebuild, XML patch suite and static dependency-signature check on Windows, 2026-09-21; no in-game validation recorded
 workshop:
 remaining:
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
-  - unverified: live compatibility of reflection calls with the installed dependency versions; historical inspection is not a current automated integration test.
+  - unverified: runtime behavior of the reflection calls in game. Their five targets were re-read statically on 2026-09-21 in the installed BadHygiene.dll (DBH 3.1.2800) and all resolve with the exact public signatures the bridge asks for; that shows the members exist, not that the calls behave.
   - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.
-updated:      2026-09-13
+updated:      2026-09-21
 ---
 
 # Drum Bath Hygiene — status
+
+`stage` uses the workflow's own state names: `done` = `preTest -> done` established, the next
+state is `tested`. Codes used by this file: `done` (this one), `tested`, `prepublished`, `published`.
+
+## Workflow audit — 2026-09-21
+
+Audited revision: `b23b20b32afe60086e64120e4db4594ec08b9eed` (HEAD of `main`, equal to the
+remote HEAD). Working tree clean before the audit; the only local change is this STATUS.md,
+left uncommitted. Nothing was published, generated or launched: **no RimWorld process was
+started**, and none was running on the Windows side when checked (`Get-Process RimWorldWin64`
+found nothing). The WSL side was not queried because nothing here needs a game.
+
+Result: **`done` → `done`, unchanged.** The previous audit was on `5758baa`; two commits
+followed (`212757c`, `b23b20b`) that only respell the author and copyright holder as
+`Nelim` in `About.xml`, `LICENSE`, `Mod/LICENSE` and STATUS.md. No source, patch, image or
+DLL changed, so no independent validation from the 2026-09-13 audit was invalidated. The
+workflow's 2026-09-21 clarification (no in-game test is required to reach `done`; every
+in-game check, Pickle included, belongs to `done → tested`) matches how this mod was already
+classified: the `done` criteria were met without any game session.
+
+| Transition | Result | Evidence re-checked today |
+| --- | --- | --- |
+| dansMonoRepo -> horsMonoRepo | Validated | Top level `C:/Users/nelim/Documents/rimworld/DrumBathHygiene`, git dir `.git`, no superproject. `origin` = `github.com/vbardales/Rimworld-Drum-Bath-Hygiene`; `gh repo view` says PUBLIC, `git ls-remote origin HEAD` = local HEAD. README, ATTRIBUTION, CHANGELOG, MIT LICENSE present; `LICENSE`/`Mod/LICENSE` and both `ATTRIBUTION.md` copies byte-identical (`diff`). Licence `open`, visibility `public`, package ID / name / repo / folder coherent. |
+| horsMonoRepo -> ModIcon | Validated | Forced Release rebuild: 0 warnings, 0 errors, DLL SHA256 `865ACC8A…F017003`, identical to the shipped one before and after (git status stays clean). `Mod/About/ModIcon.png` opened: 128 x 128, 22,318 bytes, mascot with towel and duck legible. |
+| ModIcon -> Preview | Validated | `Mod/About/Preview.png` opened at full size: 896 x 504, 518,417 bytes (< 1 MB); title, summary, 1.6 badge readable, bath and lantern identifiable, no clipping. |
+| Preview -> preOptions | Validated | Turquoise accent rule vs warm ochre stone visibly distinct in the opened image. `About.xml`: English description, no prefix/suffix/linking word issue, ends with `[url=https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene]Source code on GitHub[/url]`, same repository as `<url>` and the remote. |
+| preOptions -> options | Justified not applicable | Unchanged source: no settings class, window, `MainButtonDef` or empty page (`settings_audit: not_applicable`, see the 2026-09-13 section). Nothing in this audit touches options. |
+| options -> l10n | Justified not applicable | Unchanged source: no owned Keyed key, DefInjected path or player-facing string; logs are technical English. All three translation fields stay `not_applicable`. |
+| l10n -> preTest | Validated | Installed dependency `About.xml` files still match `Mlie.MMDrumcanMOD` (1.6 listed) and `Dubwise.DubsBadHygiene` (modVersion 3.1.2800, 1.6 listed); both DLL SHA256 values are the ones recorded on 2026-09-13, so nothing moved. Both are in `modDependencies` and `loadAfter`. `DrumBath` and `Hed_BathingAtDrumBathPassive` are still defined in `Defs/Drumcan_Bath.xml` of the drum mod. No own `LoadFolders.xml`. |
+| preTest -> done | Validated | Thirteen functional scenarios (0-12) plus the language check are written in `_tools/FUNCTIONAL-SCENARIOS.md`. XML suite: ten patch cases, metadata, licence/packaging checks pass (see below). No Pickle suite and no unit-test project: a Gherkin suite would only restate what a game must show and no logic is testable outside the game, so their absence is justified rather than a gap. |
+| done -> tested | Unverified | No scenario played in game, no bilingual display check, no Player.log, no new-colony or existing-save run. Requires a RimWorld run, which this audit does not perform. |
+
+### Executed checks and limits
+
+- `git rev-parse --show-toplevel --git-dir --show-superproject-working-tree`, `git status
+  --short`, `git ls-remote origin HEAD`, `gh repo view ... --json name,visibility,url`,
+  `git diff --check`: as described above.
+- `dotnet build Source/DrumBathHygiene.csproj -c Release --no-restore -t:Rebuild`: passed.
+- `_tools/Test-Mod.ps1`: `pwsh` (PowerShell 7) is **not installed** on this machine today, so
+  the script was not run as written. Under Windows PowerShell 5.1 its first half **passed**
+  (metadata, licensing, packaging, ten XML patch cases); its second half stops there because
+  `System.Reflection.PortableExecutable` is not available in 5.1. That second half (access
+  waiver and component types in the compiled DLL) was replaced by an equivalent throwaway
+  .NET 8 metadata reader that lives outside the repository: `IgnoresAccessChecksTo("Assembly-CSharp")`
+  present, both `HediffCompProperties_DrumBathHygiene` and `HediffComp_DrumBathHygiene`
+  present. `_tools/Test-Mod.ps1` was not modified; running it under PowerShell 7 remains the
+  reproducible route.
+- Static check of the reflection targets, same throwaway reader, against the installed
+  `BadHygiene.dll`: `Need_Hygiene.clean(Single)` public instance; `PrivacyUtil.BathingPrivacyLOS
+  (Pawn, Single)` public static; `SanitationUtil.WaterTempCheck(Pawn, Boolean, Boolean)` and
+  `ApplyBathroomThought(Pawn, Thing)` public static; `DubDef.SoakingWet` public static
+  `ThoughtDef`. This is metadata only: it says nothing about behavior at runtime.
+- The three images were opened and looked at directly; sizes read from disk and from
+  `System.Drawing`.
+
+### Remaining gate and separate items
+
+To reach `tested`: play scenarios 0-12 and the English/French display check of
+`_tools/FUNCTIONAL-SCENARIOS.md` in a game the owner starts, on a new colony and an existing
+save, recording game and dependency versions, per-scenario outcome, hygiene values and
+Player.log; include cold arrival, mid-bath reload and removal, and both missing-dependency
+cases; rerun the regressions of any fix.
+
+Optional, not blocking any transition up to `tested`: no `.gitattributes` and no IDE ignore
+patterns; `CHANGELOG.md` still says `1.0.0 — unreleased` with no tag or release; `About.xml`
+credits Claude Code for the code while the `owner` field above names Codex, worth aligning
+the next time the file is edited. Items belonging to `tested → prepublished` (a
+`PUBLICATION.md`, thank-you messages, Steam release notes, adult-content answers, capture
+order) were not evaluated and are not defects.
 
 ## Workflow audit — 2026-09-13
 
