@@ -30,7 +30,12 @@ Feature: a capture of a colonist in the bath
   Background:
     Given the save "test-colony" is loaded
 
-  @timeout:240
+  # FILMED, and the camera follows the colonist from BEFORE the order. Three runs of this scenario
+  # went green over a still of a colonist far from the drum, and a still cannot say why: whether she
+  # never set off, set off and was sent elsewhere, or reached the drum and left it. A film of the
+  # walk can. Following and zooming come first for that reason - after the wait, as they used to,
+  # the footage of the walk would have been the whole map at default zoom.
+  @film @timeout:240
   Scenario: a colonist soaking in a burning drum, in whichever language the pass was staged with
     Given a colonist "Bather" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
@@ -38,19 +43,19 @@ Feature: a capture of a colonist in the bath
     And "Bather" needs "Hygiene" is set to 10 percent
     And "Bather" needs "Joy" is set to 10 percent
     And game speed is ultrafast
-    When Drum Bath Hygiene: "Bather" is ordered to bathe in the drum at x=142 z=155
-    Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
-    When I wait 300 ticks
-    # Asserted AGAIN, after the wait, and it is the line that keeps this capture honest. The first
-    # two runs of this scenario were green over an image of a colonist a long way from the drum with
-    # the info panel reading "Washing.": the bath had started, ended almost at once, and Dubs Bad
-    # Hygiene had sent her off to wash elsewhere. Asserting the bath at the start says it began; only
-    # asserting it at the shot says it is still what the image shows.
-    Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
     When I select "Bather"
     And I follow "Bather"
     And I zoom all the way in
-    And I wait 30 ticks
+    And Drum Bath Hygiene: "Bather" is ordered to bathe in the drum at x=142 z=155
+    Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
+    When I wait 300 ticks
+    # Asserted AGAIN, after the wait, and it is the line that keeps this capture honest. The first
+    # three runs of this scenario were green over an image of a colonist a long way from the drum
+    # with the info panel reading "Washing." - the last two because the step meant to catch it had
+    # never awaited anything. Asserting the bath at the start says it began; only asserting it at the
+    # shot says it is still what the image shows.
+    Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
+    When I wait 30 ticks
     Then the inspect pane shows "Bather"
     When I take a screenshot "bather-in-the-drum"
     And I stop following
