@@ -70,6 +70,10 @@ built-in form, and a plausible-looking invention would be an undefined step and 
 rest of the assembly is fixtures the built-ins cannot build — a stuffed drum spawned with its fire
 lit or out, a named animal — and readings they cannot take.
 
+What each step does, whether it has been played, and which are general enough to lift into another mod's
+suite is indexed in `PickleTools/Elsewhere/DrumBathHygiene.md`, so a second mod finds them before writing
+its own. Nothing here is staged from PickleTools: copy the method and change the prefix.
+
 Every step text starts with `Drum Bath Hygiene:`. Pickle loads the steps of every active suite into
 one namespace, and two suites declaring the same text make healthy scenarios fail with "Ambiguous
 step". No step text uses parentheses or slashes, which Cucumber expressions read as optional text
