@@ -191,5 +191,23 @@ could run, so the step now catches it and reports the colonist's job trace (each
 position and whether the hediff was on), the driver, whether the drum is reachable, and the state of
 the pawn.
 
+**Fifth run, with the diagnostic step and a filmed capture: 16 of 16 played, 11 passed, 5 failed, `exitReason: failed`.**
+The same five, but this time they said why, and it reverses the reading of the fourth run. **The real
+bath works.** The job trace of the end-to-end scenario has the colonist walking across the map, then
+`Job_BathingAtDrumBath` at (85,190), then `Job_BathingAtDrumBath+hediff` **at (142,155), the drum's own
+cell**, for about ten seconds, then hauling. The film Pickle encoded (`ffmpeg` had just been installed
+in the WSL) shows her sitting in the red drum with the panel reading "Relaxing in the bath while
+watching the passing clouds". So the drum mod's driver places the bather where this mod looks for the
+drum, and the bath the component runs under is a real one.
+
+The failures were ours, twice over. **The step's condition demanded `CurJob.targetA.Thing == drum`**,
+which the driver evidently rewrites once it has the pawn, so it never came true while the bath was
+plainly under way; it now asks where the pawn stands. **The animal never took its order**: its trace
+is wandering and nothing else, the drum mod bathing animals through its own component. That scenario is
+now a colonist who has lost the hygiene need, ordered through the real job - the branch this mod owns.
+
+Both changes are untested. Whether the chilled colonist keeps Hypothermia long enough for the component's
+first tick, so that `HotBath` is granted, is the thing the sixth run will say.
+
 **The suite as it stands now has not been run.** `STATUS.md` carries the execution as `unverified`,
 and it belongs to `done -> tested`.

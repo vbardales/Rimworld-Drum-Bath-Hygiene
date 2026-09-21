@@ -224,9 +224,15 @@ namespace DrumBathHygiene.PickleSteps
         {
             Thing drum = DrumAt(ctx, x, z);
             Pawn pawn = PawnNamed(ctx, name);
+            // WHERE THE PAWN STANDS, not what the job targets. The first version also demanded
+            // `CurJob.targetA.Thing == drum`, and the fifth run showed it never true: the trace had the
+            // colonist on the drum's own cell with the job running and the hediff on, for ten seconds,
+            // and the film showed her sitting in it, panel reading "Relaxing in the bath". The driver
+            // evidently rewrites the job's target once it has the pawn. What the bridge relies on is
+            // the pawn standing where the drum is, so that is what is asserted.
             bool Bathing() => pawn.CurJob != null
                 && pawn.CurJob.def.defName == BathJob
-                && pawn.CurJob.targetA.Thing == drum
+                && pawn.Position.DistanceTo(drum.Position) < 2.5f
                 && pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff);
 
             // A TRACE, because a timeout says nothing. `WaitUntil` throws when it gives up, before any
@@ -245,8 +251,11 @@ namespace DrumBathHygiene.PickleSteps
                 string now = $"{job}{(hediff ? "+hediff" : "")}";
                 if (now != last)
                 {
+                    LocalTargetInfo target = pawn.CurJob?.targetA ?? LocalTargetInfo.Invalid;
+                    string aim = target.HasThing ? target.Thing.def.defName
+                        + (target.Thing == drum ? "(the drum)" : "") : target.Cell.IsValid ? "a cell" : "-";
                     trace.Add($"+{UnityEngine.Time.realtimeSinceStartup - t0:0.0}s {now} at "
-                        + $"({pawn.Position.x},{pawn.Position.z})");
+                        + $"({pawn.Position.x},{pawn.Position.z}) target {aim}");
                     last = now;
                 }
                 return Bathing();
@@ -313,24 +322,24 @@ namespace DrumBathHygiene.PickleSteps
         }
 
         /// <summary>
-        /// A muffalo, named so a scenario can refer to it. It is here for one reason: Dubs Bad
-        /// Hygiene gives animals no hygiene need, so an animal in the bath is the live case for the
-        /// component's quietest branch - `ResolveCleanAction` returning null and staying null.
+        /// Takes the hygiene need off a colonist, so the component meets a pawn it has nothing to
+        /// fill: `ResolveCleanAction` returns null and has to stay null for the whole bath.
+        ///
+        /// This replaced an animal. The drum mod does bathe animals, but through its own component
+        /// (CompDrumBathAnimalJobManager) and not through an ordered job: the fifth run ordered a
+        /// muffalo into the drum and its job trace shows nothing but wandering, the order never taking.
+        /// Reaching that path would mean driving the drum mod's gizmo, which is testing its code. The
+        /// branch this mod owns is the missing need, and a colonist without one reaches it through the
+        /// real job.
         /// </summary>
-        [Given("Drum Bath Hygiene: an animal {string} stands at x={int} z={int}")]
-        public void SpawnAnimal(PickleContext ctx, string name, int x, int z)
+        [Given("Drum Bath Hygiene: {string} loses the hygiene need")]
+        public void LoseHygiene(PickleContext ctx, string name)
         {
-            Map map = CurrentMap(ctx);
-            var cell = new IntVec3(x, 0, z);
-            ctx.Require(cell.InBounds(map), $"x={x} z={z} is off the map");
-
-            PawnKindDef kind = DefDatabase<PawnKindDef>.GetNamedSilentFail("Muffalo");
-            ctx.Require(kind != null, "no PawnKindDef \"Muffalo\" in this game");
-
-            Pawn animal = PawnGenerator.GeneratePawn(kind, Faction.OfPlayer);
-            animal.Name = new NameSingle(name);
-            GenSpawn.Spawn(animal, cell, map);
-            ctx.Assert(animal.Spawned, $"{name} did not spawn at x={x} z={z}");
+            Pawn pawn = PawnNamed(ctx, name);
+            Need need = HygieneOf(pawn);
+            ctx.Require(need != null, $"{name} has no hygiene need to lose: Dubs Bad Hygiene is out of the modlist");
+            pawn.needs.AllNeeds.Remove(need);
+            ctx.Assert(HygieneOf(pawn) == null, $"{name} still has a hygiene need after losing it");
         }
 
         [Given("Drum Bath Hygiene: {string} is carrying filth")]

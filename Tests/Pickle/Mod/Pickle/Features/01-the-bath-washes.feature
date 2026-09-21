@@ -90,23 +90,23 @@ Feature: the drum bath washes the colonist soaking in it
     And no errors were logged
 
   # The quiet branch: ResolveCleanAction returns null for a pawn with no hygiene need, and has to
-  # keep returning nothing for the rest of the bath rather than looking again every tick. An animal
-  # is the live case. The precondition is asserted rather than assumed, so that the day Dubs Bad
-  # Hygiene gives animals the need, this scenario says so instead of quietly testing nothing.
+  # keep returning nothing for the rest of the bath rather than looking again every tick. It is
+  # reached through a colonist who has lost the need, and through the REAL job.
   #
-  # THROUGH THE REAL JOB, not by giving the animal the hediff. The drum mod really does bathe animals
-  # (it ships a CompDrumBathAnimalJobManager), so this is a state the game reaches. Giving the hediff
-  # by hand was not: the first run of this scenario, 2026-09-21, ended on a NullReferenceException in
-  # the DRUM MOD's own render patch, DrumBath_Harmony.PawnRenderer_RenderPawnAt, which reads
-  # pawn.CurJob.targetA the moment the hediff is present and finds no job. Nothing to do with this
-  # mod; everything to do with a state no player produces.
+  # IT WAS AN ANIMAL, AND IT COULD NOT STAY ONE. The drum mod does bathe animals, but through its own
+  # component and not through an ordered job. Given the hediff by hand, a muffalo made the drum mod's
+  # own render patch (DrumBath_Harmony.PawnRenderer_RenderPawnAt) throw on a pawn with the hediff and
+  # no job - a state no player produces. Ordered into the drum, it never took the order: its job trace
+  # in the fifth run is wandering and nothing else. The branch this mod owns is the missing need, and
+  # a colonist without one reaches it just as well.
   @timeout:240
-  Scenario: an animal in the bath is left alone, and nothing is logged
-    Given Drum Bath Hygiene: a drum bath stands at x=142 z=155
+  Scenario: a colonist with no hygiene need is left alone in the bath, and nothing is logged
+    Given a colonist "Shaggy" exists
+    And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
-    And Drum Bath Hygiene: an animal "Shaggy" stands at x=145 z=155
+    And Drum Bath Hygiene: "Shaggy" loses the hygiene need
     Then Drum Bath Hygiene: "Shaggy" has no hygiene need
-    Given Drum Bath Hygiene: "Shaggy" is bored
+    Given "Shaggy" needs "Joy" is set to 10 percent
     And game speed is ultrafast
     When Drum Bath Hygiene: "Shaggy" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Shaggy" is bathing in the drum at x=142 z=155
