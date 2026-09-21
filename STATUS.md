@@ -30,6 +30,7 @@ remaining:
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
+  - unverified: the Pickle suite under Tests/Pickle/ is written and its steps are all defined, but no pass has been executed. Two passes are owed, English and French; see TESTING.md.
   - unverified: runtime behavior of the reflection calls in game. Their five targets were re-read statically on 2026-09-21 in the installed BadHygiene.dll (DBH 3.1.2800) and all resolve with the exact public signatures the bridge asks for; that shows the members exist, not that the calls behave.
   - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.
@@ -66,7 +67,7 @@ classified: the `done` criteria were met without any game session.
 | preOptions -> options | Justified not applicable | Unchanged source: no settings class, window, `MainButtonDef` or empty page (`settings_audit: not_applicable`, see the 2026-09-13 section). Nothing in this audit touches options. |
 | options -> l10n | Justified not applicable | Unchanged source: no owned Keyed key, DefInjected path or player-facing string; logs are technical English. All three translation fields stay `not_applicable`. |
 | l10n -> preTest | Validated | Installed dependency `About.xml` files still match `Mlie.MMDrumcanMOD` (1.6 listed) and `Dubwise.DubsBadHygiene` (modVersion 3.1.2800, 1.6 listed); both DLL SHA256 values are the ones recorded on 2026-09-13, so nothing moved. Both are in `modDependencies` and `loadAfter`. `DrumBath` and `Hed_BathingAtDrumBathPassive` are still defined in `Defs/Drumcan_Bath.xml` of the drum mod. No own `LoadFolders.xml`. |
-| preTest -> done | Validated | Thirteen functional scenarios (0-12) plus the language check are written in `_tools/FUNCTIONAL-SCENARIOS.md`. XML suite: ten patch cases, metadata, licence/packaging checks pass (see below). No Pickle suite and no unit-test project: a Gherkin suite would only restate what a game must show and no logic is testable outside the game, so their absence is justified rather than a gap. |
+| preTest -> done | Validated | Thirteen functional scenarios (0-12) plus the language check are written in `_tools/FUNCTIONAL-SCENARIOS.md`. XML suite: ten patch cases, metadata, licence/packaging checks pass (see below). Pickle suite written on 2026-09-21 under `Tests/Pickle/`, with its scope justified in `TESTING.md` and `Tests/Pickle/README.md`; it is not executed, which this transition does not ask for. |
 | done -> tested | Unverified | No scenario played in game, no bilingual display check, no Player.log, no new-colony or existing-save run. Requires a RimWorld run, which this audit does not perform. |
 
 ### Executed checks and limits
@@ -92,9 +93,54 @@ classified: the `done` criteria were met without any game session.
 - The three images were opened and looked at directly; sizes read from disk and from
   `System.Drawing`.
 
+### Correction of the same day: the Pickle suite was missing, and its absence was wrongly justified
+
+The first version of this audit passed `preTest -> done` while recording that no Pickle suite
+existed, on the grounds that "a Gherkin suite would only restate what a game must show". That
+reads the criterion backwards. `preTest -> done` asks that what **only a running game can show**
+stay in Gherkin, and for this mod that is nearly everything it does: a gauge filled through
+another mod's method bound by reflection, two memories decided by the fuel in a real drum, filth
+cleared out of a live tracker. None of it can be read in a def file. The suite was therefore owed,
+not excluded, and the transition was not established when it was declared.
+
+`Tests/Pickle/` now holds it: a companion mod that is never published, four feature files, and a
+step assembly. What it covers, and why each scenario needs the game, is in
+`Tests/Pickle/README.md`; how many passes it takes, and why two rather than the three families
+`../AUDIT.md` asks about, is in `TESTING.md`.
+
+- **A step assembly was necessary.** Pickle ships `{string} needs {string} is below {int} percent`
+  and no matching "is above". This mod's central claim is that a gauge goes UP, so its main
+  assertion had no built-in form; inventing a plausible one would have been an undefined step and
+  a wasted run. `DrumBathHygiene.PickleSteps.csproj` builds clean, 0 warnings, 0 errors, into
+  `Tests/Pickle/Mod/Pickle/Assemblies/`. It references no Dubs Bad Hygiene type: hygiene is read
+  through vanilla `Need.CurLevel` and filth through `Pawn_FilthTracker.CarriedFilthListForReading`,
+  both public.
+- **Every step line was checked against the catalogue before being written down.** The 201
+  built-in patterns were read out of the Pickle assemblies' own attribute blobs and the 16 own
+  patterns out of the built step DLL, then matched against all 110 step lines in the four feature
+  files. All resolve. Five lines matched nothing in that scan — `the save {string} is loaded` and
+  `I save and reload` — because Pickle registers those through its fluent API rather than an
+  attribute; both appear verbatim in Pickle's own shipped sample features, which is what
+  establishes them. This is a static check, not a run: it proves no step is undefined, not that
+  any scenario passes.
+- **Three prose scenarios stay out of the suite, and are named where a reader meets them:** the
+  bathroom thought, which asserts DBH's room grading rather than this bridge's call and needs a
+  scored room the fixture has not got; and prose scenarios 10, 11 and 12, which need a modlist
+  without a hard dependency, or the mod removed mid-save, neither of which a run can arrange for
+  itself.
+- **Two passes, not three families.** No pass with optional mods: `loadAfter` names only Core and
+  the two hard dependencies, all staged on every pass, so a named set would be a second name for
+  the first one. No incompatibility pass: nothing declares an `incompatibleWith` and no document
+  claims a conflict, so there is no assertion to go and re-check. The second pass is
+  `-Language French`, which the suite supports because no step spells an English label.
+
 ### Remaining gate and separate items
 
-To reach `tested`: play scenarios 0-12 and the English/French display check of
+To reach `tested`: run the Pickle suite twice, once per language, through
+`scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene` and the same with `-Language French`, reading
+`exitReason` before the numbers and scenarios played against features discovered before either;
+then open the `@review` capture of each pass rather than counting its green. Then play
+scenarios 0-12 and the English/French display check of
 `_tools/FUNCTIONAL-SCENARIOS.md` in a game the owner starts, on a new colony and an existing
 save, recording game and dependency versions, per-scenario outcome, hygiene values and
 Player.log; include cold arrival, mid-bath reload and removal, and both missing-dependency

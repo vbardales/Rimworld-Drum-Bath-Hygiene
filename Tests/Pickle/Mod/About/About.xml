@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Drum Bath Hygiene - Pickle tests</name>
+  <author>Nelim</author>
+  <packageId>nelim.drumbathhygiene.pickletests</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>In-game functional tests for Drum Bath Hygiene, run by Pickle. Development only: never published.
+
+The scenarios spawn their own drum and give the bathing hediff themselves, so they need no save of their own beyond Pickle's test colony, and they leave nothing behind but the pawns and drums they made.
+
+A scenario fails on its first step if Dubs Bad Hygiene or MMDrumcanMOD is out of the modlist, naming the def it could not find.</description>
+  <modDependencies>
+    <li>
+      <packageId>nelim.drumbathhygiene</packageId>
+      <displayName>Drum Bath Hygiene</displayName>
+    </li>
+    <li>
+      <packageId>rimworks.pickle</packageId>
+      <displayName>Pickle</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3791648678</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>nelim.drumbathhygiene</li>
+    <li>rimworks.pickle</li>
+  </loadAfter>
+</ModMetaData>
