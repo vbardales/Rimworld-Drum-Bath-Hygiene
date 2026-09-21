@@ -30,7 +30,7 @@ remaining:
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
-  - unverified: the Pickle suite under Tests/Pickle/ has run once (English, 2026-09-21: 8 of 11 passed, 3 failed, none a defect of the mod) and was then changed in response; the changed suite has not been run. Two passes are owed, English and French, on the changed suite; see TESTING.md.
+  - unverified: the Pickle suite under Tests/Pickle/ has run twice (English, 2026-09-21: 8 of 11, then 12 of 16 passed; no failure a defect of the mod) and was changed after each run; the suite as it now stands has not been run. Two passes are owed, English and French, on the changed suite; see TESTING.md.
   - unverified: runtime behavior of the reflection calls in game. Their five targets were re-read statically on 2026-09-21 in the installed BadHygiene.dll (DBH 3.1.2800) and all resolve with the exact public signatures the bridge asks for; that shows the members exist, not that the calls behave.
   - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.
