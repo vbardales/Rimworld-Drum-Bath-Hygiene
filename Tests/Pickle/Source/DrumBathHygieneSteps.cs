@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using RimWorks.Pickle;
 using RimWorld;
 using Verse;
@@ -208,21 +209,31 @@ namespace DrumBathHygiene.PickleSteps
         /// Waits for the bath to be under way, as the drum mod sees it: the job is running AND the
         /// hediff is on the pawn. Both, because the hediff is what this mod hangs its component on,
         /// and a pawn who merely walks toward the drum has neither.
+        ///
+        /// AN `async Task`, AND THE `await` IS THE STEP. This was first written as a `void` calling
+        /// `ctx.AssertEventually(...)` and discarding what it returned. That method returns a Task -
+        /// its own documentation says "completes once the condition holds, faulted with the described
+        /// failure when it never does" - so nothing was ever awaited: the step returned at once, never
+        /// waited, and never failed. Every scenario that used it ran its next step on the same frame,
+        /// before the colonist had taken a single step toward the drum, and the capture was green over
+        /// an image of a colonist nowhere near it. Three runs in a row, 2026-09-21, before the log
+        /// showed the whole scenario lasting 9.9 seconds.
         /// </summary>
         [Then("Drum Bath Hygiene: {string} is bathing in the drum at x={int} z={int}")]
-        public void IsBathing(PickleContext ctx, string name, int x, int z)
+        public async Task IsBathing(PickleContext ctx, string name, int x, int z)
         {
             Thing drum = DrumAt(ctx, x, z);
             Pawn pawn = PawnNamed(ctx, name);
-            ctx.AssertEventually(
-                () => pawn.CurJob != null
-                    && pawn.CurJob.def.defName == BathJob
-                    && pawn.CurJob.targetA.Thing == drum
-                    && pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff),
-                () => $"{name} is not bathing in the drum: job {pawn.CurJob?.def.defName ?? "none"}, "
-                    + "hediffs: " + string.Join(", ",
-                        pawn.health.hediffSet.hediffs.Select(h => h.def.defName)),
-                90);
+            bool Bathing() => pawn.CurJob != null
+                && pawn.CurJob.def.defName == BathJob
+                && pawn.CurJob.targetA.Thing == drum
+                && pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff);
+
+            await ctx.WaitUntil(Bathing, 90f);
+            ctx.Assert(Bathing(),
+                $"{name} is not bathing in the drum: job {pawn.CurJob?.def.defName ?? "none"}, "
+                + "hediffs: " + string.Join(", ",
+                    pawn.health.hediffSet.hediffs.Select(h => h.def.defName)));
         }
 
         /// <summary>

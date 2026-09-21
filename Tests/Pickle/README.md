@@ -160,13 +160,24 @@ suite meeting the drum mod's real behaviour:
 | Failed scenario | Cause |
 | --- | --- |
 | an animal in the bath | still given the hediff by hand. The stack said `DrumBath_Harmony.PawnRenderer_RenderPawnAt.Prefix`: **the drum mod's own render patch** reads `pawn.CurJob.targetA` as soon as the hediff is present and finds no job. Not this mod. And not an impossible state either: the drum mod ships a `CompDrumBathAnimalJobManager`, animals really do bathe |
-| the end-to-end wash, and the chilled pair through the real job | the bath ended at once. A test colonist arrives with joy full and the driver ends the job through `JoyUtility.JoyTickCheckEnd`, then removes the hediff with it, so the component never had a first tick. The capture, opened, confirmed it a second time: Bather a long way from the drum, "Washing." |
+| the end-to-end wash, and the chilled pair through the real job | **cause first guessed wrong, see the third run.** I read "the bath ended at once" - a test colonist arrives with joy full and the driver ends the job through `JoyUtility.JoyTickCheckEnd` - and set joy low. That is a real property of the driver and the setting stays, but it was not what failed here |
 
-Both fixed the way AnimaSong fixed the same trap: joy is set low before a real bath is ordered, the
-animal goes through the real job too, and the chilled colonist gets a hypothermia of chosen severity
-(the driver adjusts it on every tick, and a hediff that starts near zero is gone before the first).
-The capture and the end-to-end scenario now **assert the bath again after the wait**, so a green can
-no longer sit over an image of a colonist who left.
+Changed in response: joy is set low before a real bath, the animal goes through the real job, the
+chilled colonist gets a hypothermia of chosen severity (the driver adjusts it every tick), and the
+capture and the end-to-end scenario assert the bath a second time after the wait.
+
+**Third run, same day: 16 of 16 played, 13 passed, 3 failed, `exitReason: failed`.** The animal and the
+capture passed; the three real-job scenarios failed exactly as before, on the step right after "is
+bathing". That was the tell. The whole scenario had lasted 9.9 seconds in the game log, with no
+warning about a job: nothing had waited for anything. **`is bathing` was a `void` step calling
+`ctx.AssertEventually(...)` and discarding its result.** That method returns a `Task` - "faulted with
+the described failure when it never does" - so it was never awaited: the step returned at once,
+never waited, and could never fail. Every use of it was vacuous, the capture's second assertion
+included: the capture was green a third time over an image of a colonist far from the drum reading
+"Washing.". The step is now `async Task` with `await ctx.WaitUntil(...)` and a real assertion, the
+pattern AnimaSong uses. Its failure message names the colonist's actual job and hediffs, so if the bath
+really never starts (unreachable drum, refused reservation) the report says what happened instead of
+guessing.
 
 **The suite as it stands now has not been run.** `STATUS.md` carries the execution as `unverified`,
 and it belongs to `done -> tested`.
