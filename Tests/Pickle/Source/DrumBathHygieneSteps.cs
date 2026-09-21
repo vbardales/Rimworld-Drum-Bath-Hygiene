@@ -3,6 +3,7 @@ using System.Linq;
 using RimWorks.Pickle;
 using RimWorld;
 using Verse;
+using Verse.AI;
 
 namespace DrumBathHygiene.PickleSteps
 {
@@ -30,6 +31,7 @@ namespace DrumBathHygiene.PickleSteps
     public class DrumBathHygieneSteps
     {
         public const string BathHediff = "Hed_BathingAtDrumBathPassive";
+        public const string BathJob = "Job_BathingAtDrumBath";
         public const string DrumDef = "DrumBath";
         public const string HygieneNeed = "Hygiene";
 
@@ -168,6 +170,79 @@ namespace DrumBathHygiene.PickleSteps
             pawn.Notify_Teleported();
             ctx.Assert(pawn.Position.GetThingList(pawn.Map).Contains(drum),
                 $"{name} is not standing on the drum after being moved onto it");
+        }
+
+        /// <summary>
+        /// The REAL bath: the drum bath mod's own job, ordered the way a player's right-click
+        /// would, so the drum mod's driver walks the pawn over, places them, and applies the
+        /// hediff itself. Nothing else in this suite goes through it, and that is the point of
+        /// this step.
+        ///
+        /// Why the teleport is not enough. The component finds the drum by looking at the things
+        /// under the pawn's feet, and answers "cold" when it finds none. A pawn teleported onto
+        /// the drum's origin cell is under those feet by construction. A pawn placed by the real
+        /// driver is wherever the drum mod puts a bather, which is a different question - and if
+        /// the answer were "a cell the lookup misses", every real bath would be judged cold, hot
+        /// water would never happen, and no teleport could see it.
+        ///
+        /// The bath driver never reads the fuel, so this reaches a COLD bath on purpose too,
+        /// which the joy giver's ten-per-cent threshold makes unreachable by play.
+        /// </summary>
+        [When("Drum Bath Hygiene: {string} is ordered to bathe in the drum at x={int} z={int}")]
+        public void OrderBath(PickleContext ctx, string name, int x, int z)
+        {
+            Thing drum = DrumAt(ctx, x, z);
+            Pawn pawn = PawnNamed(ctx, name);
+            JobDef def = DefDatabase<JobDef>.GetNamedSilentFail(BathJob);
+            ctx.Assert(def != null,
+                $"no JobDef \"{BathJob}\": MMDrumcanMOD is out of the modlist, or renamed its job");
+
+            Job job = JobMaker.MakeJob(def, drum);
+            bool taken = pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+            ctx.Assert(taken,
+                $"{name} refused the order to bathe in the drum at x={x} z={z}. Current job: "
+                + (pawn.CurJob?.def.defName ?? "none"));
+        }
+
+        /// <summary>
+        /// Waits for the bath to be under way, as the drum mod sees it: the job is running AND the
+        /// hediff is on the pawn. Both, because the hediff is what this mod hangs its component on,
+        /// and a pawn who merely walks toward the drum has neither.
+        /// </summary>
+        [Then("Drum Bath Hygiene: {string} is bathing in the drum at x={int} z={int}")]
+        public void IsBathing(PickleContext ctx, string name, int x, int z)
+        {
+            Thing drum = DrumAt(ctx, x, z);
+            Pawn pawn = PawnNamed(ctx, name);
+            ctx.AssertEventually(
+                () => pawn.CurJob != null
+                    && pawn.CurJob.def.defName == BathJob
+                    && pawn.CurJob.targetA.Thing == drum
+                    && pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff),
+                () => $"{name} is not bathing in the drum: job {pawn.CurJob?.def.defName ?? "none"}, "
+                    + "hediffs: " + string.Join(", ",
+                        pawn.health.hediffSet.hediffs.Select(h => h.def.defName)),
+                90);
+        }
+
+        /// <summary>
+        /// The bathing hediff, given by a step of this suite rather than by Pickle's own
+        /// `{string} is given hediff {string}`. That one finds its pawn by NICKNAME among the
+        /// colonists and fails with "no pawn nicknamed 'Shaggy'" for anything else - which is how
+        /// the animal scenario failed on its first run, on 2026-09-21, for a reason that had
+        /// nothing to do with this mod. This one resolves the name the way every other step here
+        /// does, so it holds for the animal too.
+        /// </summary>
+        [When("Drum Bath Hygiene: {string} is given the bathing hediff")]
+        public void GiveBathingHediff(PickleContext ctx, string name)
+        {
+            Pawn pawn = PawnNamed(ctx, name);
+            HediffDef def = DefDatabase<HediffDef>.GetNamedSilentFail(BathHediff);
+            ctx.Assert(def != null,
+                $"no HediffDef \"{BathHediff}\": MMDrumcanMOD is out of the modlist");
+            pawn.health.AddHediff(HediffMaker.MakeHediff(def, pawn));
+            ctx.Assert(pawn.health.hediffSet.HasHediff(def),
+                $"{name} does not carry \"{BathHediff}\" after being given it");
         }
 
         /// <summary>

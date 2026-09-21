@@ -31,7 +31,7 @@ Everything a bath is supposed to do is handed over to DBH, through reflection on
 | --- | --- |
 | `Need_Hygiene.clean(float)` | filling the hygiene need while soaking |
 | `PrivacyUtil.BathingPrivacyLOS(Pawn, float)` | onlookers reacting to the sight |
-| `SanitationUtil.WaterTempCheck(Pawn, bool, bool)` | the hot-bath or cold-bath thought |
+| `SanitationUtil.WaterTempCheck(Pawn, bool, bool)` | the water temperature memory. The mod only says whether the water is cold; which memory follows is DBH's own rule (cold water for a healthy colonist, a hot-bath memory only for one with hypothermia, none for warm water on a healthy one) |
 | `SanitationUtil.ApplyBathroomThought(Pawn, Thing)` | the room's own bathroom thought |
 | `DubDef.SoakingWet` | clearing the "soaking wet" memory on entering the bath |
 

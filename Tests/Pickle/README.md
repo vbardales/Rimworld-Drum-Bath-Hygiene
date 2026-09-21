@@ -25,7 +25,7 @@ matters here more than usual: `SteamUGC.SetItemContent` sends `Mod/` whole, with
 | half a bath fills an empty gauge | `0.0005` per tick is a number in a file until 2000 ticks have passed. It also crosses six privacy re-checks |
 | an animal is left alone | `ResolveCleanAction` returning null for a pawn with no hygiene need, and staying null. The branch that throws if it is wrong |
 | a save and a reload mid-bath | the two scribed values, and the delegate deliberately not scribed, which has to bind again after the load |
-| hot water and cold water | `cold` is read off `CompRefuelable.HasFuel` on the drum under the pawn's feet. Two scenarios differing by one line, asserting opposite memories |
+| hot water and cold water | `cold` is read off `CompRefuelable.HasFuel` on the drum under the pawn's feet. What follows is DBH's rule, so it is played as two pairs, each asserting on both sides: a healthy colonist (burning: no `ColdWater`; burnt out: `ColdWater`) and a chilled one (burning: `HotBath`; burnt out: `ColdWater`) |
 | soaking wet forgotten on the way in | a reflected `ThoughtDef` lookup and a memory removal on a live pawn |
 | carried filth cleared on the way out | **the access waiver, executing.** See below |
 | the gauge stops when the bath does | a comp that had outlived its hediff would pass every other scenario and fail this one |
@@ -132,5 +132,25 @@ discovered: `-pickle-include-wip` has been seen to truncate a run to its first f
 
 ## Status
 
-**Written, not yet executed.** No pass of this suite has been run. `STATUS.md` carries the
-execution as `unverified`, and it belongs to the `done -> tested` transition, not to `done`.
+**First run, 2026-09-21, English, `sans-facultatifs`: 11 of 11 scenarios played, 8 passed, 3 failed,
+`exitReason: failed`.** None of the three was a defect of the mod, and each taught the suite
+something:
+
+| Failed scenario | Cause | Fix |
+| --- | --- | --- |
+| an animal in the bath | Pickle's own `is given hediff` finds pawns by nickname among colonists, so it could not find a muffalo | a step of this suite, `is given the bathing hediff` |
+| a burning drum makes the water hot | **my assumption about Dubs Bad Hygiene was wrong.** `WaterTempCheck` grants `HotBath` only to a pawn with hypothermia; warm water on a healthy pawn grants nothing | the pair is now played twice, on a healthy and on a chilled colonist, with a positive assertion on both sides |
+| a drum that burnt out makes the water cold | I named the memory `ColdBath`; DBH's is `ColdWater`. The report showed `ColdWater (-3)` on the pawn, so the mod did what it should | the right name |
+
+The run also showed a capture of a colonist standing **beside** the drum, info panel reading
+"Washing.", with the scenario green — the `@review` trap in person. Free colonists at low hygiene get
+a job of their own from DBH, so every `given` scenario now drafts its pawn (control included), and the
+capture asks the game for a real bath and asserts it is under way before shooting.
+
+Three scenarios now go through the drum mod's own job, which the first run did not: an end-to-end
+wash, and the chilled pair in a burning and a burnt-out drum. They are the only ones that can see the
+component's drum lookup miss under a pawn the real driver placed — in which case `cold` defaults to
+`true` and hot water never happens.
+
+**The suite as it stands now has not been run.** The passes above are the ones before these changes.
+`STATUS.md` carries the execution as `unverified`, and it belongs to `done -> tested`.

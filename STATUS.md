@@ -30,7 +30,7 @@ remaining:
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
-  - unverified: the Pickle suite under Tests/Pickle/ is written and its steps are all defined, but no pass has been executed. Two passes are owed, English and French; see TESTING.md.
+  - unverified: the Pickle suite under Tests/Pickle/ has run once (English, 2026-09-21: 8 of 11 passed, 3 failed, none a defect of the mod) and was then changed in response; the changed suite has not been run. Two passes are owed, English and French, on the changed suite; see TESTING.md.
   - unverified: runtime behavior of the reflection calls in game. Their five targets were re-read statically on 2026-09-21 in the installed BadHygiene.dll (DBH 3.1.2800) and all resolve with the exact public signatures the bridge asks for; that shows the members exist, not that the calls behave.
   - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.
@@ -133,6 +133,44 @@ step assembly. What it covers, and why each scenario needs the game, is in
   the first one. No incompatibility pass: nothing declares an `incompatibleWith` and no document
   claims a conflict, so there is no assertion to go and re-check. The second pass is
   `-Language French`, which the suite supports because no step spells an English label.
+
+### First Pickle run — 2026-09-21, English pass
+
+Run through `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene` in the WSL, under Xvfb, after a queue
+wait behind other sessions; nothing was launched on the Windows install. Read in the order the
+protocol requires: `exitReason: failed` (the run went to the end, it was not killed), then scenarios
+played against scenarios written — **11 of 11** — then the numbers: **8 passed, 3 failed**.
+
+None of the three failures was a defect of the mod, and STATUS records them as findings, not as
+corrections to the mod: an animal scenario whose hediff step (Pickle's, which looks colonists up by
+nickname) could not find a muffalo; and two water scenarios that asserted a Dubs Bad Hygiene
+behaviour DBH does not have. `WaterTempCheck`, read from the IL of BadHygiene.dll 3.1.2800, grants a
+hot-bath memory only to a pawn with hypothermia, and nothing for warm water on a healthy one. The
+cold case was mis-named (`ColdBath` for `ColdWater`); the report showed `ColdWater (-3)` on the
+pawn, so the mod did what it should.
+
+What passed, and is worth stating plainly: the patch lands on the hediff the game built; the gauge
+climbs, with a control that does not; half a bath fills an empty gauge; a bath survives a save and a
+reload and goes on washing; the soaking-wet memory is forgotten on the way in; the carried filth is
+cleared on the way out — which is the `IgnoresAccessChecksTo` waiver executing on a live tracker; and
+the gauge stops when the bath does.
+
+**The `@review` capture, opened: it did not show a colonist in the bath.** The colonist stands beside
+the drum with the info panel reading "Washing." while the scenario was green. Cause: free colonists at
+low hygiene get a job of their own from Dubs Bad Hygiene, and the scenario had teleported one onto
+the drum and let go. This is the trap the audit protocol names, met in this session. It also means the
+green `hygiene rose` assertions of that run were not fully insulated from a colonist doing something
+else, so the suite was changed rather than trusted: every scenario that puts a pawn in the bath by
+teleport now drafts it, the control included, and four scenarios go through the drum mod's own
+job — one end-to-end wash, the chilled pair in a burning and in a burnt-out drum, and the capture.
+The chilled pair is the only thing that can see the component's drum lookup miss under a pawn the
+real driver placed; if it did, `cold` would default to true and hot water would never happen.
+
+**That first run is superseded and the changed suite has not been run.** The French pass is also
+owed. Both remain `unverified` under `done -> tested`. Nothing about the mod was changed; the
+documents that asserted the wrong DBH behaviour were: scenario 3 of
+`_tools/FUNCTIONAL-SCENARIOS.md` (which expected a `hot bath` memory for a healthy colonist) and both
+`ATTRIBUTION.md` copies (which spoke of "the hot-bath or cold-bath thought").
 
 ### Remaining gate and separate items
 

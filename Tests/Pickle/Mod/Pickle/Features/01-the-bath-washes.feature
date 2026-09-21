@@ -22,12 +22,21 @@
 #     throws if it is wrong.
 #   - a save and a reload in the middle of a bath, which is the one thing the component scribes.
 #
-# THE BATH IS GIVEN, NOT ORDERED. Every scenario below puts the hediff on the pawn itself rather
-# than waiting for the joy giver to send a colonist to bathe. That is the mod's actual contract:
-# the component is grafted onto Hed_BathingAtDrumBathPassive and does its work for as long as that
-# hediff is there, however it got there. Ordering a bath instead would drag in pathing, job
-# reservations and the joy giver's own ten-per-cent fuel threshold - three things this mod does not
-# touch, each able to fail a scenario for a reason that is not a defect here.
+# TWO WAYS TO PUT A COLONIST IN THE BATH, AND WHY BOTH.
+#
+#   - GIVEN: the scenario teleports the pawn onto the drum and gives the hediff itself. That is the
+#     mod's actual contract - the component does its work for as long as Hed_BathingAtDrumBathPassive
+#     is there, however it got there - and it isolates it from pathing and the joy giver.
+#   - ORDERED: the drum mod's own job, so its driver walks the pawn over, places them and applies the
+#     hediff. Exactly one scenario below, the last, and the two hot-and-cold ones in the next file.
+#     It is what proves the component finds the drum under a pawn placed by the REAL driver.
+#
+# A GIVEN PAWN IS PINNED. The first run of this suite, 2026-09-21, showed a capture of a colonist
+# standing beside the drum with the info panel reading "Washing.": at 10 per cent hygiene Dubs Bad
+# Hygiene gives a free colonist a job of their own, and the teleport had put them there for one tick
+# and not one more. A pawn free to walk away makes every hygiene and filth reading depend on
+# something that is not this mod, so each is drafted the moment it is in place, and the control
+# below is drafted the same way: the ONLY difference between them is the bath.
 Feature: the drum bath washes the colonist soaking in it
 
   Background:
@@ -41,6 +50,7 @@ Feature: the drum bath washes the colonist soaking in it
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And "Soaker" needs "Hygiene" is set to 10 percent
     When Drum Bath Hygiene: "Soaker" climbs into the drum at x=142 z=155
+    And I draft "Soaker"
     And Drum Bath Hygiene: I remember "Soaker" hygiene
     And "Soaker" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 600 ticks
@@ -54,7 +64,8 @@ Feature: the drum bath washes the colonist soaking in it
   Scenario: a colonist who is not bathing is not washed
     Given a colonist "Dusty" exists
     And "Dusty" needs "Hygiene" is set to 10 percent
-    When Drum Bath Hygiene: I remember "Dusty" hygiene
+    When I draft "Dusty"
+    And Drum Bath Hygiene: I remember "Dusty" hygiene
     And I wait 600 ticks
     Then Drum Bath Hygiene: "Dusty" hygiene did not rise
     And no errors were logged
@@ -72,6 +83,7 @@ Feature: the drum bath washes the colonist soaking in it
     And "Patient" needs "Hygiene" is set to 10 percent
     And game speed is ultrafast
     When Drum Bath Hygiene: "Patient" climbs into the drum at x=142 z=155
+    And I draft "Patient"
     And "Patient" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 2000 ticks
     Then Drum Bath Hygiene: "Patient" hygiene is above 0.9
@@ -86,7 +98,7 @@ Feature: the drum bath washes the colonist soaking in it
     And Drum Bath Hygiene: an animal "Shaggy" stands at x=145 z=155
     Then Drum Bath Hygiene: "Shaggy" has no hygiene need
     When Drum Bath Hygiene: "Shaggy" climbs into the drum at x=142 z=155
-    And "Shaggy" is given hediff "Hed_BathingAtDrumBathPassive"
+    And Drum Bath Hygiene: "Shaggy" is given the bathing hediff
     And I wait 300 ticks
     Then no errors were logged
 
@@ -100,6 +112,7 @@ Feature: the drum bath washes the colonist soaking in it
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And "Keeper" needs "Hygiene" is set to 10 percent
     When Drum Bath Hygiene: "Keeper" climbs into the drum at x=142 z=155
+    And I draft "Keeper"
     And "Keeper" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 300 ticks
     And I save and reload
@@ -108,4 +121,23 @@ Feature: the drum bath washes the colonist soaking in it
     When Drum Bath Hygiene: I remember "Keeper" hygiene
     And I wait 600 ticks
     Then Drum Bath Hygiene: "Keeper" hygiene rose
+    And no errors were logged
+
+  # The whole path, played by the drum mod's own driver. Everything above hands the component a
+  # hediff; this asks the game to give it one. It proves the hediff the driver creates is the one
+  # the patch grafted onto, that the component starts on it, and that a colonist ordered into a
+  # burning drum at low hygiene comes out washed - through nothing but the real job.
+  @timeout:240
+  Scenario: a colonist ordered into the drum by the real job is washed
+    Given a colonist "Bather" exists
+    And Drum Bath Hygiene: a drum bath stands at x=142 z=155
+    And Drum Bath Hygiene: the drum at x=142 z=155 is burning
+    And "Bather" needs "Hygiene" is set to 10 percent
+    And game speed is ultrafast
+    When Drum Bath Hygiene: "Bather" is ordered to bathe in the drum at x=142 z=155
+    Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
+    And Drum Bath Hygiene: the bathing hediff of "Bather" carries the component
+    When Drum Bath Hygiene: I remember "Bather" hygiene
+    And I wait 600 ticks
+    Then Drum Bath Hygiene: "Bather" hygiene rose
     And no errors were logged

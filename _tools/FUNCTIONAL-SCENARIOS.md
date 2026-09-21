@@ -102,8 +102,13 @@ during the second half of every bath, means it does not.
 walking toward a bath of their own accord, and empty the drum's fuel with the dev gizmo **while
 they are still on their way**.
 
-**Expect.** The `hot bath` memory the first time, `cold bath` the second, both in the mood tab,
-both from Dubs Bad Hygiene and both worth +3.
+**Expect.** With a healthy colonist: **no water memory at all** the first time, and `cold water`
+(worth -3, from Dubs Bad Hygiene) the second. That is Dubs Bad Hygiene's rule, not a defect here:
+`SanitationUtil.WaterTempCheck` grants `HotBath` only to a pawn with hypothermia, `ColdBath` only
+to one with heatstroke, and `ColdWater` for cold water otherwise (read from the IL of BadHygiene.dll
+3.1.2800 on 2026-09-21, after the first Pickle run asserted a `hot bath` memory for a healthy
+colonist and failed). To see `hot bath` (+3), start from a colonist with hypothermia. The Pickle
+suite plays both pairs; this scenario is the one a person watches in the mood tab.
 
 **Why the detour.** A colonist cannot be ordered into a bath: joy is scheduled, and the drum
 offers no right-click option. The only thing that hands out the job refuses any drum at or below

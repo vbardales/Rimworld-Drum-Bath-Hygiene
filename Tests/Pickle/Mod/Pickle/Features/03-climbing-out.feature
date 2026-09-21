@@ -27,6 +27,7 @@ Feature: climbing out of the bath
     And Drum Bath Hygiene: "Muddy" is carrying filth
     Then Drum Bath Hygiene: "Muddy" carries filth
     When Drum Bath Hygiene: "Muddy" climbs into the drum at x=142 z=155
+    And I draft "Muddy"
     And "Muddy" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 60 ticks
     Then Drum Bath Hygiene: "Muddy" carries filth
@@ -41,6 +42,7 @@ Feature: climbing out of the bath
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And "Done" needs "Hygiene" is set to 10 percent
     When Drum Bath Hygiene: "Done" climbs into the drum at x=142 z=155
+    And I draft "Done"
     And "Done" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 300 ticks
     And "Done" is cured of hediff "Hed_BathingAtDrumBathPassive"
