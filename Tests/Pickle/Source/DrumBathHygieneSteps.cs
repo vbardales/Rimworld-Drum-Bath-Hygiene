@@ -229,11 +229,51 @@ namespace DrumBathHygiene.PickleSteps
                 && pawn.CurJob.targetA.Thing == drum
                 && pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff);
 
-            await ctx.WaitUntil(Bathing, 90f);
+            // A TRACE, because a timeout says nothing. `WaitUntil` throws when it gives up, before any
+            // message of ours can run, and the fourth run of this suite failed five scenarios at
+            // ninety seconds each with the log reading only "timed out": whether the colonist never set
+            // off, was sent elsewhere, or reached the drum and left it was unrecoverable, and each run
+            // costs a ticket in a queue of other sessions. Every CHANGE of job is noted with where the
+            // colonist stood and whether the hediff was on them.
+            var trace = new List<string>();
+            string last = null;
+            float t0 = UnityEngine.Time.realtimeSinceStartup;
+            bool Sample()
+            {
+                string job = pawn.CurJob?.def.defName ?? "none";
+                bool hediff = pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff);
+                string now = $"{job}{(hediff ? "+hediff" : "")}";
+                if (now != last)
+                {
+                    trace.Add($"+{UnityEngine.Time.realtimeSinceStartup - t0:0.0}s {now} at "
+                        + $"({pawn.Position.x},{pawn.Position.z})");
+                    last = now;
+                }
+                return Bathing();
+            }
+
+            try
+            {
+                await ctx.WaitUntil(Sample, 90f);
+            }
+            catch (System.Exception)
+            {
+                // Deliberately swallowed: the assertion below reports the same failure with the
+                // evidence attached, and re-checks the condition once more.
+            }
+
+            bool reachable = pawn.Spawned && drum.Spawned
+                && pawn.CanReach(drum, Verse.AI.PathEndMode.Touch, Danger.Deadly);
             ctx.Assert(Bathing(),
-                $"{name} is not bathing in the drum: job {pawn.CurJob?.def.defName ?? "none"}, "
-                + "hediffs: " + string.Join(", ",
-                    pawn.health.hediffSet.hediffs.Select(h => h.def.defName)));
+                $"{name} is not bathing in the drum at x={x} z={z}. "
+                + $"Now: job {pawn.CurJob?.def.defName ?? "none"} "
+                + $"(driver {pawn.jobs?.curDriver?.GetType().Name ?? "none"}), "
+                + $"at ({pawn.Position.x},{pawn.Position.z}), drum at ({drum.Position.x},{drum.Position.z}), "
+                + $"reachable {reachable}, drafted {pawn.Drafted}, downed {pawn.Downed}, "
+                + $"mental state {(pawn.InMentalState ? "yes" : "no")}, "
+                + "hediffs [" + string.Join(", ", pawn.health.hediffSet.hediffs.Select(h => h.def.defName)) + "], "
+                + "joy " + (pawn.needs?.AllNeeds.FirstOrDefault(n => n.def.defName == "Joy")?.CurLevelPercentage.ToString("0.00") ?? "n/a")
+                + ". Job trace: " + (trace.Count == 0 ? "(nothing sampled)" : string.Join(" | ", trace)));
         }
 
         /// <summary>

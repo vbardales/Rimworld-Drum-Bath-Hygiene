@@ -179,5 +179,17 @@ pattern AnimaSong uses. Its failure message names the colonist's actual job and 
 really never starts (unreachable drum, refused reservation) the report says what happened instead of
 guessing.
 
+**Fourth run, same day, with the step awaiting: 16 of 16 played, 11 passed, 5 failed, `exitReason: failed`.** The
+five failures are exactly the five scenarios that go through the drum mod's real job - the animal, the
+end-to-end wash, both chilled scenarios, and the capture - each ending at about 98 seconds: the 90 of
+the wait, plus setup. **No colonist or animal ever reached "job running and hediff on" in ninety
+seconds of ultrafast**, and the log says nothing else: no job warning, no error, only the timeout.
+The eleven scenarios that do not order a real bath all passed. So the bath the drum mod's own driver
+runs has not been observed once, and why is open: never set off, sent elsewhere, unreachable drum, or
+a job that ends before it can be seen. `WaitUntil` throws on timeout before any message of ours
+could run, so the step now catches it and reports the colonist's job trace (each change of job, with
+position and whether the hediff was on), the driver, whether the drum is reachable, and the state of
+the pawn.
+
 **The suite as it stands now has not been run.** `STATUS.md` carries the execution as `unverified`,
 and it belongs to `done -> tested`.
