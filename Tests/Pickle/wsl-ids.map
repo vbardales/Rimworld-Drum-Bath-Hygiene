@@ -1,0 +1,21 @@
+# The Workshop ids of the two hard dependencies of this mod, for a table that does not know them.
+#
+# scripts/stage-pickle-wsl.sh places every hard dependency declared in Mod/About/About.xml and needs
+# each one's Workshop id. Its shared table knows six mods, and neither of these is among them, so
+# without this file a run stops in staging, before anything is launched:
+#
+#   error: no Workshop id known for Mlie.MMDrumcanMOD
+#
+# This file is read in EVERY pass, the bare one included, and it only RESOLVES: nothing listed here
+# is activated. What gets activated stays what About.xml declares under modDependencies. No option
+# is needed on the command line, and the pass is named sans-facultatifs by default - which is what
+# it is, since this mod has no optional mod to add.
+#
+# An earlier version of this file was named wsl-deps.sans-facultatifs.map and had to be passed with
+# -DepMap. That worked, but it mislabelled a resolution table as a mod set and staged both mods
+# twice. It was replaced on 2026-09-21 by this mechanism (scripts/PICKLE-WSL.md, "Hard dependencies
+# the shared table does not know").
+#
+# packageId                      workshopId
+Mlie.MMDrumcanMOD                3417093756   # the drum bath, and Hed_BathingAtDrumBathPassive
+Dubwise.DubsBadHygiene           836308268    # the hygiene need, DubDef.SoakingWet, the bath memories

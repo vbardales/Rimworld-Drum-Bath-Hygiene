@@ -30,22 +30,15 @@ the reasons are the sort that expire:
 
 | Pass | Command | What it proves |
 | --- | --- | --- |
-| `sans-facultatifs` | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sans-facultatifs.map` | the whole suite against Core, the DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod. This is the only set the mod can be loaded in today |
-| French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sans-facultatifs.map -Language French` | the same suite under a French game. No step spells an English label, so the features are unchanged; what differs is the capture a person then opens |
+| `sans-facultatifs` | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene ` | the whole suite against Core, the DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod. This is the only set the mod can be loaded in today |
+| French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -Language French` | the same suite under a French game. No step spells an English label, so the features are unchanged; what differs is the capture a person then opens |
 
 **No pass with optional mods.** `Mod/About/About.xml` declares `loadAfter` on `Ludeon.RimWorld`,
 `Dubwise.DubsBadHygiene` and `Mlie.MMDrumcanMOD` — Core and the two hard dependencies. There is no
 optional mod to add, so no second set exists. **The day `loadAfter` names a mod that is not a hard
 dependency, this table is wrong** and that mod needs a named set of its own.
 
-**`-DepMap` is needed anyway, and it is not an optional set.** `Tests/Pickle/wsl-deps.sans-facultatifs.map`
-holds only the two hard dependencies. The shared table in `stage-pickle-wsl.sh` does not know their
-Workshop ids, and a dependency it cannot place stops the run before anything is launched — which
-is what the first attempt on 2026-09-21 did (`no Workshop id known for Mlie.MMDrumcanMOD`). The
-script stages them twice, once as a dependency and once as an overlay entry, and the game tolerates
-that: `AdaptiveStorageNeolithicRenew` is staged the same way. Without `-DepMap`, `Run-PickleWsl.ps1`
-passes `none` and the run stops there again. The file is named for the pass because `-pickle-set-name`
-takes its name off the file name, and this pass is the one without optional mods.
+**`Tests/Pickle/wsl-ids.map` holds the two hard dependencies, and needs no option.** The shared table in `stage-pickle-wsl.sh` does not know their Workshop ids, and a dependency it cannot place stops the run before anything is launched — which is what the first attempt on 2026-09-21 did (`no Workshop id known for Mlie.MMDrumcanMOD`). That file is read in every pass, the bare one included, and it only *resolves*: nothing on it is activated, so it is not an optional set and it does not rename the pass. An earlier version of it was named `wsl-deps.sans-facultatifs.map` and had to be passed with `-DepMap`; it mislabelled a resolution table as a mod set and staged both mods twice, and the harness now has a place made for it (`scripts/PICKLE-WSL.md`, "Hard dependencies the shared table does not know").
 
 **No incompatibility pass.** The mod declares no `incompatibleWith`, and neither `README.md` nor
 `CHANGELOG.md` claims it breaks with anything. There is no assertion to go and re-check. The day
