@@ -63,7 +63,7 @@ Pickle scenario it names has passed, and none of the changed suite has yet.**
 | --- | --- | --- |
 | 0. It loads, both halves of the patch take | `01`: the patch lands on the hediff the game built; every scenario ends on `no errors were logged` | reading `Player.log` for the four lines the scenario lists |
 | 1. The bath washes | `01`: the gauge climbs (with its control), and the end-to-end wash through the real job | the two hygiene percentages, which the report holds |
-| 2. Half a bath is enough, nothing spills over | `01`: half a bath fills an empty gauge (above 0.9) | **"nothing spills over"**: no step asserts the level stops at 1, and the rate would overshoot it |
+| 2. Half a bath is enough, nothing spills over | `01`: half a bath fills an empty gauge (above 0.9), then **stays at or below 1 after 3000 ticks** (1.60 if unclamped) with no warning from the mod | |
 | 3. Hot water, and the cold water nobody can order | `02`: two pairs, and the pair through the real job. The cold branch is reached on purpose, which no player can | the joy giver's own refusal at ten per cent, which is the drum mod's, see `Tests/Pickle/README.md` |
 | 4. The room is judged | nothing: it asserts DBH's grading of a scored room | **all of it** |
 | 5. Onlookers keep noticing | nothing: the component's re-check is crossed by the 2000-tick scenario, but no onlooker is asserted | **all of it** |
@@ -76,7 +76,7 @@ Pickle scenario it names has passed, and none of the changed suite has yet.**
 | 12. Into a running save, and out of one | nothing: a run cannot change its own modlist | **all of it** |
 | Language check, English and French | the French pass, and the capture of each language | opening both captures. Text is DBH's and the drum mod's, not this bridge's |
 
-So Pickle plays scenarios 0, 1, 3, 6, 7 and 8 fully, 2 in part, and the language check in part. Scenarios **4, 5, 9,
+So Pickle plays scenarios 0, 1, 2, 3, 6, 7 and 8, and the language check in part. Scenarios **4, 5, 9,
 10, 11 and 12 are for a person**, on a game she starts: they need a scored room, onlookers, a second bath, or a
 modlist a run cannot build. Until they are played, `done -> tested` stays unverified for them, and says so.
 

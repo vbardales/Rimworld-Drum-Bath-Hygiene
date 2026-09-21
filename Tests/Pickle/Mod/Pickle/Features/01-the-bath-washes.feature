@@ -85,8 +85,14 @@ Feature: the drum bath washes the colonist soaking in it
     When Drum Bath Hygiene: "Patient" climbs into the drum at x=142 z=155
     And I draft "Patient"
     And "Patient" is given hediff "Hed_BathingAtDrumBathPassive"
-    And I wait 2000 ticks
+    And I wait 3000 ticks
     Then Drum Bath Hygiene: "Patient" hygiene is above 0.9
+    # AND NOTHING SPILLS OVER. The fill has no stop condition of its own: it leans on Dubs Bad Hygiene
+    # clamping its need. From 0.10, 2000 ticks at 0.0005 reach 1.10 and 3000 reach 1.60, so a need that
+    # was not clamped would read above 1 here; "above 0.9" alone passed either way, which is why the
+    # wait was lengthened. The mod's name catches a warning repeating while the gauge sits at full.
+    And Drum Bath Hygiene: "Patient" hygiene is below 1.001
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # The quiet branch: ResolveCleanAction returns null for a pawn with no hygiene need, and has to
