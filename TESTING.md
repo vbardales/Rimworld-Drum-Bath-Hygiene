@@ -65,6 +65,8 @@ mid-run would hang on a game being torn down under the runner.
 
 ## Status
 
-The offline suite passes. The Pickle suite is **written and not executed**: no pass has been run.
-`STATUS.md` carries that as `unverified` under the `done -> tested` transition, where it belongs —
-writing the scenarios is what `preTest -> done` asks for; running them is not.
+The offline suite passes. The Pickle suite has **run once** — English, 2026-09-21, 11 of 11 played,
+8 passed, 3 failed, none a defect of the mod — and was **changed in response**, so the suite as it
+stands has not been run. `STATUS.md` carries the two passes owed as `unverified` under the
+`done -> tested` transition, where they belong: writing the scenarios is what `preTest -> done`
+asks for; running them is not. The first run's findings are in `Tests/Pickle/README.md`.
