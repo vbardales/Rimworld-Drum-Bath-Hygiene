@@ -93,13 +93,24 @@ Feature: the drum bath washes the colonist soaking in it
   # keep returning nothing for the rest of the bath rather than looking again every tick. An animal
   # is the live case. The precondition is asserted rather than assumed, so that the day Dubs Bad
   # Hygiene gives animals the need, this scenario says so instead of quietly testing nothing.
+  #
+  # THROUGH THE REAL JOB, not by giving the animal the hediff. The drum mod really does bathe animals
+  # (it ships a CompDrumBathAnimalJobManager), so this is a state the game reaches. Giving the hediff
+  # by hand was not: the first run of this scenario, 2026-09-21, ended on a NullReferenceException in
+  # the DRUM MOD's own render patch, DrumBath_Harmony.PawnRenderer_RenderPawnAt, which reads
+  # pawn.CurJob.targetA the moment the hediff is present and finds no job. Nothing to do with this
+  # mod; everything to do with a state no player produces.
+  @timeout:240
   Scenario: an animal in the bath is left alone, and nothing is logged
     Given Drum Bath Hygiene: a drum bath stands at x=142 z=155
+    And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And Drum Bath Hygiene: an animal "Shaggy" stands at x=145 z=155
     Then Drum Bath Hygiene: "Shaggy" has no hygiene need
-    When Drum Bath Hygiene: "Shaggy" climbs into the drum at x=142 z=155
-    And Drum Bath Hygiene: "Shaggy" is given the bathing hediff
-    And I wait 300 ticks
+    Given Drum Bath Hygiene: "Shaggy" is bored
+    And game speed is ultrafast
+    When Drum Bath Hygiene: "Shaggy" is ordered to bathe in the drum at x=142 z=155
+    Then Drum Bath Hygiene: "Shaggy" is bathing in the drum at x=142 z=155
+    When I wait 300 ticks
     Then no errors were logged
 
   # The two scribed values, and the delegate that is deliberately not scribed. A save loaded in the
@@ -133,6 +144,7 @@ Feature: the drum bath washes the colonist soaking in it
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And "Bather" needs "Hygiene" is set to 10 percent
+    And "Bather" needs "Joy" is set to 10 percent
     And game speed is ultrafast
     When Drum Bath Hygiene: "Bather" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
@@ -140,4 +152,5 @@ Feature: the drum bath washes the colonist soaking in it
     When Drum Bath Hygiene: I remember "Bather" hygiene
     And I wait 600 ticks
     Then Drum Bath Hygiene: "Bather" hygiene rose
+    And Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
     And no errors were logged

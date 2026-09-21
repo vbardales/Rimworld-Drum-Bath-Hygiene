@@ -152,5 +152,21 @@ wash, and the chilled pair in a burning and a burnt-out drum. They are the only 
 component's drum lookup miss under a pawn the real driver placed — in which case `cold` defaults to
 `true` and hot water never happens.
 
-**The suite as it stands now has not been run.** The passes above are the ones before these changes.
-`STATUS.md` carries the execution as `unverified`, and it belongs to `done -> tested`.
+**Second run, same day: 16 of 16 played, 12 passed, 4 failed, `exitReason: failed`.** The four
+scenarios that stayed on the teleport path all passed, including the chilled pair — which confirms
+the reading of Dubs Bad Hygiene above. The four that failed were all new, and all came from the
+suite meeting the drum mod's real behaviour:
+
+| Failed scenario | Cause |
+| --- | --- |
+| an animal in the bath | still given the hediff by hand. The stack said `DrumBath_Harmony.PawnRenderer_RenderPawnAt.Prefix`: **the drum mod's own render patch** reads `pawn.CurJob.targetA` as soon as the hediff is present and finds no job. Not this mod. And not an impossible state either: the drum mod ships a `CompDrumBathAnimalJobManager`, animals really do bathe |
+| the end-to-end wash, and the chilled pair through the real job | the bath ended at once. A test colonist arrives with joy full and the driver ends the job through `JoyUtility.JoyTickCheckEnd`, then removes the hediff with it, so the component never had a first tick. The capture, opened, confirmed it a second time: Bather a long way from the drum, "Washing." |
+
+Both fixed the way AnimaSong fixed the same trap: joy is set low before a real bath is ordered, the
+animal goes through the real job too, and the chilled colonist gets a hypothermia of chosen severity
+(the driver adjusts it on every tick, and a hediff that starts near zero is gone before the first).
+The capture and the end-to-end scenario now **assert the bath again after the wait**, so a green can
+no longer sit over an image of a colonist who left.
+
+**The suite as it stands now has not been run.** `STATUS.md` carries the execution as `unverified`,
+and it belongs to `done -> tested`.

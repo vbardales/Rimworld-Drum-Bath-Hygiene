@@ -36,11 +36,18 @@ Feature: a capture of a colonist in the bath
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And "Bather" needs "Hygiene" is set to 10 percent
+    And "Bather" needs "Joy" is set to 10 percent
     And game speed is ultrafast
     When Drum Bath Hygiene: "Bather" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
     When I wait 300 ticks
-    And I select "Bather"
+    # Asserted AGAIN, after the wait, and it is the line that keeps this capture honest. The first
+    # two runs of this scenario were green over an image of a colonist a long way from the drum with
+    # the info panel reading "Washing.": the bath had started, ended almost at once, and Dubs Bad
+    # Hygiene had sent her off to wash elsewhere. Asserting the bath at the start says it began; only
+    # asserting it at the shot says it is still what the image shows.
+    Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
+    When I select "Bather"
     And I follow "Bather"
     And I zoom all the way in
     And I wait 30 ticks

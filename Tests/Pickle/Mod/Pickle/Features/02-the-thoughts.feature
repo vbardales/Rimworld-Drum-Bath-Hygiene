@@ -116,7 +116,8 @@ Feature: the memories a bath leaves
     Given a colonist "Shivering" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
-    And "Shivering" is given hediff "Hypothermia"
+    And Drum Bath Hygiene: "Shivering" is chilled to severity 0.5
+    And "Shivering" needs "Joy" is set to 10 percent
     And game speed is ultrafast
     When Drum Bath Hygiene: "Shivering" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Shivering" is bathing in the drum at x=142 z=155
@@ -132,7 +133,8 @@ Feature: the memories a bath leaves
     Given a colonist "Shaking" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 has burnt out
-    And "Shaking" is given hediff "Hypothermia"
+    And Drum Bath Hygiene: "Shaking" is chilled to severity 0.5
+    And "Shaking" needs "Joy" is set to 10 percent
     And game speed is ultrafast
     When Drum Bath Hygiene: "Shaking" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Shaking" is bathing in the drum at x=142 z=155

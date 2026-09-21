@@ -166,7 +166,9 @@ job — one end-to-end wash, the chilled pair in a burning and in a burnt-out dr
 The chilled pair is the only thing that can see the component's drum lookup miss under a pawn the
 real driver placed; if it did, `cold` would default to true and hot water would never happen.
 
-**That first run is superseded and the changed suite has not been run.** The French pass is also
+**A second run, the same afternoon, on the changed suite: 16 of 16 played, 12 passed, 4 failed.** The teleported scenarios all passed, chilled pair included, which confirms the reading of `WaterTempCheck` above. The four failures were all in what the changed suite had added, and again none was a defect of this mod: the animal scenario still gave the hediff by hand and the drum mod's own render patch (`DrumBath_Harmony.PawnRenderer_RenderPawnAt.Prefix`) threw on a pawn with the hediff and no job; and the three real-job scenarios ended their bath at once, because a test colonist arrives with joy full and the drum mod's driver ends the job on `JoyTickCheckEnd`, removing the hediff with it. The second capture, opened, showed it again: the colonist far from the drum, "Washing.", green. Joy is now set low before a real bath, the animal goes through the real job (the drum mod really bathes animals), and the capture asserts the bath a second time right before the shot.
+
+**Those two runs are superseded and the suite as it now stands has not been run.** The French pass is also
 owed. Both remain `unverified` under `done -> tested`. Nothing about the mod was changed; the
 documents that asserted the wrong DBH behaviour were: scenario 3 of
 `_tools/FUNCTIONAL-SCENARIOS.md` (which expected a `hot bath` memory for a healthy colonist) and both

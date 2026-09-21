@@ -226,23 +226,39 @@ namespace DrumBathHygiene.PickleSteps
         }
 
         /// <summary>
-        /// The bathing hediff, given by a step of this suite rather than by Pickle's own
-        /// `{string} is given hediff {string}`. That one finds its pawn by NICKNAME among the
-        /// colonists and fails with "no pawn nicknamed 'Shaggy'" for anything else - which is how
-        /// the animal scenario failed on its first run, on 2026-09-21, for a reason that had
-        /// nothing to do with this mod. This one resolves the name the way every other step here
-        /// does, so it holds for the animal too.
+        /// Joy pulled low, on any pawn by the name a scenario gave it and quietly ignored if the pawn
+        /// has no such need. NOT optional before ordering a REAL bath: the drum mod's driver ends the job
+        /// through JoyUtility.JoyTickCheckEnd the moment joy is full, and a test colonist arrives with
+        /// it full. The hediff is removed with the job, so a bath that ends at once leaves the
+        /// component with no first tick at all - no memory, no hygiene, nothing - and the scenario
+        /// reads as a defect of the mod when it is a bath that never lasted. The first run of the
+        /// real-job scenarios, 2026-09-21, failed exactly so, three times.
         /// </summary>
-        [When("Drum Bath Hygiene: {string} is given the bathing hediff")]
-        public void GiveBathingHediff(PickleContext ctx, string name)
+        [Given("Drum Bath Hygiene: {string} is bored")]
+        public void Bored(PickleContext ctx, string name)
         {
             Pawn pawn = PawnNamed(ctx, name);
-            HediffDef def = DefDatabase<HediffDef>.GetNamedSilentFail(BathHediff);
-            ctx.Assert(def != null,
-                $"no HediffDef \"{BathHediff}\": MMDrumcanMOD is out of the modlist");
-            pawn.health.AddHediff(HediffMaker.MakeHediff(def, pawn));
-            ctx.Assert(pawn.health.hediffSet.HasHediff(def),
-                $"{name} does not carry \"{BathHediff}\" after being given it");
+            Need joy = pawn.needs?.AllNeeds.FirstOrDefault(n => n.def.defName == "Joy");
+            if (joy != null) joy.CurLevelPercentage = 0.1f;
+        }
+
+        /// <summary>
+        /// Hypothermia at a severity the scenario chooses, because Pickle's own hediff step gives it
+        /// whatever the def starts at, and the drum mod's bath driver adjusts Hypothermia's severity
+        /// on every tick of the bath: a hediff that starts near zero can be gone before the
+        /// component's first tick, and Dubs Bad Hygiene then sees a healthy pawn and grants no
+        /// hot-bath memory at all.
+        /// </summary>
+        [Given("Drum Bath Hygiene: {string} is chilled to severity {float}")]
+        public void Chilled(PickleContext ctx, string name, float severity)
+        {
+            Pawn pawn = PawnNamed(ctx, name);
+            HediffDef def = DefDatabase<HediffDef>.GetNamedSilentFail("Hypothermia");
+            ctx.Require(def != null, "no HediffDef \"Hypothermia\" in this game");
+            Hediff hediff = HediffMaker.MakeHediff(def, pawn);
+            hediff.Severity = severity;
+            pawn.health.AddHediff(hediff);
+            ctx.Assert(pawn.health.hediffSet.HasHediff(def), $"{name} is not chilled after being given Hypothermia");
         }
 
         /// <summary>
