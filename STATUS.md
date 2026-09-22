@@ -17,16 +17,18 @@ automated_tests: complete
 xml_tests: complete
 functional_scenarios: complete
 in_game_tests: unchecked
-audit_revision: b23b20b32afe60086e64120e4db4594ec08b9eed
+audit_revision: d7e1737b56b44b560ae3eeb71401f03f5dfd353f
 licence:      open
 license_spdx: MIT
 licence_at:   LICENSE and Mod/LICENSE; original integration code, third-party dependencies credited in ATTRIBUTION.md
 owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
-tested_on:    Release rebuild, XML patch suite and static dependency-signature check on Windows, 2026-09-21; no in-game validation recorded
-workshop:
+tested_on:    Release rebuild and first half of the Windows PowerShell XML/packaging suite on Windows, 2026-09-22; no in-game validation recorded
+workshop:      3806137182; Workshop publication of 0.1.0 reported by the owner on 2026-09-22; item visibility and live page were not queried during this audit
 remaining:
+  - publication: local main is ahead of origin/main by seven commits, including d7e1737 which records Workshop ID 3806137182; push the audited commits before treating the published item as reproducible from the repository.
+  - publication: CHANGELOG.md still records an unreleased 1.0.0, not the owner-reported 0.1.0 Workshop publication; align the release record and publish the matching tag/release before a future prepublished claim.
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
@@ -34,13 +36,44 @@ remaining:
   - unverified: runtime behavior of the reflection calls in game. Their five targets were re-read statically on 2026-09-21 in the installed BadHygiene.dll (DBH 3.1.2800) and all resolve with the exact public signatures the bridge asks for; that shows the members exist, not that the calls behave.
   - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.
-updated:      2026-09-21
+updated:      2026-09-22
 ---
 
 # Drum Bath Hygiene — status
 
 `stage` uses the workflow's own state names: `done` = `preTest -> done` established, the next
 state is `tested`. Codes used by this file: `done` (this one), `tested`, `prepublished`, `published`.
+
+## Workflow audit — 2026-09-22
+
+Audited revision: `d7e1737b56b44b560ae3eeb71401f03f5dfd353f` (`main`). The working tree was clean
+before the audit. The only audit action before the checks was the requested local commit of
+`Mod/About/PublishedFileId.txt`, which contains Workshop item `3806137182`; the owner reports
+that version `0.1.0` has been published. `main` is seven commits ahead of `origin/main`, including
+that ID commit, so the remote does not yet preserve the current publication state. No Steam page,
+visibility or subscription was queried, and RimWorld was not launched.
+
+Result: **`done` -> `done`, unchanged.** A Workshop item existing does not establish the
+intermediate `done -> tested` and `tested -> prepublished` criteria retroactively. The current
+Pickle suite was changed after its recorded runs and has not been rerun; the documented manual
+scenarios, bilingual in-game display, Player.log, new-colony and existing-save validation remain
+unverified. `CHANGELOG.md` also still describes an unreleased `1.0.0`, so it does not document
+the owner-reported `0.1.0` publication or provide release notes for it. That is a publication
+record discrepancy, not evidence of a gameplay defect.
+
+| Transition / control | Result | Evidence checked on 2026-09-22 |
+| --- | --- | --- |
+| horsMonoRepo -> ModIcon | Validated | `dotnet build Source/DrumBathHygiene.csproj -c Release --no-restore -t:Rebuild`: 0 warnings, 0 errors. Distributed DLL SHA256 remains `865ACC8A92D27700C182C48F6BE82346F43EA73D4A644B68D9A486E57F017003`. `ModIcon.png` decoded as PNG, 128 x 128, 22,318 bytes, and was directly inspected. |
+| ModIcon -> Preview | Validated | `Preview.png` decoded as PNG, 896 x 504, 518,417 bytes (< 1 MB), and was directly inspected: title, summary, 1.6 badge and drum bath are legible; no clipping was found. |
+| preOptions -> options | Justified not applicable | Current source/XML search again found no settings class, settings window, `MainButtonDef` or `MainTabWindow`; only technical log text was found. No empty settings UI or shortcut is warranted. |
+| options -> l10n | Justified not applicable | Current source/XML search found no owned `Translate()`/Keyed/DefInjected player-facing resource. The technical `Log.Warning` strings remain outside the player-translation gate. |
+| preTest -> done | Validated, retained | The source and distributed mod artefacts remain unchanged since the earlier static validation; the build above succeeded. Windows PowerShell 5.1 ran the metadata, licence, packaging and ten XML patch cases successfully, then could not load `System.Reflection.PortableExecutable.PEReader`; PowerShell 7 remains the reproducible route for its final metadata section. |
+| done -> tested | Unverified | No game was launched. The changed Pickle suite, manual scenarios 0-12, EN/FR in-game display, logs and save coverage have not been newly established. |
+| tested -> prepublished / prepublished -> published | Not established | The committed ID preserves the reported Workshop item locally, but `main` is ahead of `origin/main` by seven commits. A push, release tag, matching published release, aligned `0.1.0` changelog/release notes, live-item subscription test, Steam visibility check and required publication materials are not established by this audit. |
+
+`git diff --check` passed and the tree remained clean after the rebuild. The build initially
+needed access to the local Windows SDK cache; once permitted, it completed successfully. This
+environment restriction is not a mod defect.
 
 ## Workflow audit — 2026-09-21
 
