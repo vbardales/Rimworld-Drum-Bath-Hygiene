@@ -27,7 +27,6 @@ showcase:     preview approved by user; visual QA passed at full size and thumbn
 tested_on:    Release rebuild and first half of the Windows PowerShell XML/packaging suite on Windows, 2026-09-22; no in-game validation recorded
 workshop:      3806137182; Workshop publication of 0.1.0 reported by the owner on 2026-09-22; item visibility and live page were not queried during this audit
 remaining:
-  - publication: local main is ahead of origin/main by seven commits, including d7e1737 which records Workshop ID 3806137182; push the audited commits before treating the published item as reproducible from the repository.
   - publication: CHANGELOG.md still records an unreleased 1.0.0, not the owner-reported 0.1.0 Workshop publication; align the release record and publish the matching tag/release before a future prepublished claim.
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
@@ -49,9 +48,10 @@ state is `tested`. Codes used by this file: `done` (this one), `tested`, `prepub
 Audited revision: `d7e1737b56b44b560ae3eeb71401f03f5dfd353f` (`main`). The working tree was clean
 before the audit. The only audit action before the checks was the requested local commit of
 `Mod/About/PublishedFileId.txt`, which contains Workshop item `3806137182`; the owner reports
-that version `0.1.0` has been published. `main` is seven commits ahead of `origin/main`, including
-that ID commit, so the remote does not yet preserve the current publication state. No Steam page,
-visibility or subscription was queried, and RimWorld was not launched.
+that version `0.1.0` has been published. At the time of that audit, `main` was seven commits ahead
+of `origin/main`, including that ID commit. The audit record was subsequently committed as
+`b4b6480` and pushed; `git ls-remote origin refs/heads/main` confirmed that the remote points to
+the same commit. No Steam page, visibility or subscription was queried, and RimWorld was not launched.
 
 Result: **`done` -> `done`, unchanged.** A Workshop item existing does not establish the
 intermediate `done -> tested` and `tested -> prepublished` criteria retroactively. The current
@@ -69,7 +69,7 @@ record discrepancy, not evidence of a gameplay defect.
 | options -> l10n | Justified not applicable | Current source/XML search found no owned `Translate()`/Keyed/DefInjected player-facing resource. The technical `Log.Warning` strings remain outside the player-translation gate. |
 | preTest -> done | Validated, retained | The source and distributed mod artefacts remain unchanged since the earlier static validation; the build above succeeded. Windows PowerShell 5.1 ran the metadata, licence, packaging and ten XML patch cases successfully, then could not load `System.Reflection.PortableExecutable.PEReader`; PowerShell 7 remains the reproducible route for its final metadata section. |
 | done -> tested | Unverified | No game was launched. The changed Pickle suite, manual scenarios 0-12, EN/FR in-game display, logs and save coverage have not been newly established. |
-| tested -> prepublished / prepublished -> published | Not established | The committed ID preserves the reported Workshop item locally, but `main` is ahead of `origin/main` by seven commits. A push, release tag, matching published release, aligned `0.1.0` changelog/release notes, live-item subscription test, Steam visibility check and required publication materials are not established by this audit. |
+| tested -> prepublished / prepublished -> published | Not established | The committed ID is now pushed to `origin/main` (remote HEAD confirmed at `b4b6480`). A release tag, matching published release, aligned `0.1.0` changelog/release notes, live-item subscription test, Steam visibility check and required publication materials are not established by this audit. |
 
 `git diff --check` passed and the tree remained clean after the rebuild. The build initially
 needed access to the local Windows SDK cache; once permitted, it completed successfully. This
