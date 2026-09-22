@@ -55,3 +55,53 @@ reach.
 3. Check what happens to an animal or a pawn without a hygiene need, as always here: the existing
    component takes a quiet exit, and any new effect has to take the same one.
 4. Apply the usual duplicate search on the Workshop before writing anything.
+
+### Duplicate search — 2026-09-22
+
+Checked the current Workshop results for drum baths, overheating/scalding, Dubs Bad Hygiene and
+hot-spring compatibility. MMDrumcanMOD (Continued) remains a fuelled recreation bath; Dubs Bad
+Hygiene provides hot/cold bathing and heating systems; and the DBH & VFEC/Hot Spring Compatibility
+mod makes hot springs raise hygiene. None of the results identified a RimWorld 1.6 feature that
+turns excessive fuel in the MMDrumcanMOD drum bath into an overheating consequence. This clears
+the duplicate-search prerequisite only; it does not decide the intensity source or whether this
+belongs in the present bridge rather than a separate mod.
+
+Pages reviewed: [MMDrumcanMOD (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756),
+[Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), and
+[DBH & VFEC/Hot Spring Compatibility](https://steamcommunity.com/sharedfiles/filedetails/?id=2949772583).
+
+### Design decision — 2026-09-22
+
+**Source of intensity: a dedicated heat component on the drum. Scope: a separate mod.** This
+decision follows a fresh read of the installed MMDrumcanMOD (Continued) 1.6 `Drumcan_Bath.xml`:
+`CompProperties_Refuelable` has capacity `10.0`, a fixed consumption rate `5.0`,
+`initialFuelPercent` of `1`, and `consumeFuelOnlyWhenUsed` enabled. More stored wood does not
+make the flame stronger. Fuel percentage is therefore not a defensible temperature proxy, and
+`HasFuel` alone remains the correct hot/cold input for this hygiene bridge. The heat pusher is
+capped at 28 °C, so room temperature does not expose the water temperature either.
+
+The separate mod should attach a persistent component to `DrumBath`, with a bounded thermal
+state that increases while a fueled bath is occupied and cools while idle. It should explicitly
+model *heat retained after sustained use*, rather than claim that refuelling intensifies the
+flame. Its first gameplay consequence should be a discomfort thought with severity tied to the
+heat excess. That avoids an unproven job interruption and permanent burn while still making a
+long succession of baths costly. Do not alter the upstream hediff's temperature offsets or the
+DBH hot/cold integration. Animals and pawns without a hygiene need need their own explicit
+behavior in the new mod; the existing bridge's quiet exit is not a sufficient test for them.
+
+Before implementation, establish the upstream driver's actual occupied state and how its
+`CompRefuelable` reports use, then set heating/cooling rates and thresholds from observed bath
+duration (`joyDuration` is 4000 ticks). Write offline tests for the component's state transitions,
+save/reload and threshold math; keep the real bath and mood display as in-game scenarios. The
+new mod requires its own repository, package ID, rights/attribution review, localization and
+publication audit. No source code or distributed files for that separate mod belong in this
+bridge's `Mod/` folder.
+
+The installed 1.6 `DrumBath.dll` was decompiled for the occupied-state question. Its
+`JobDriver_BathingAtDrumBath` adds `Hed_BathingAtDrumBathPassive` in the bath toil's
+`initAction`, removes it in that toil's finish action, and gives that toil a 4000-tick duration
+for humanlike pawns or 2000 ticks for other pawns. This is the specific occupancy signal the
+new component can read without guessing from `CurJob.targetA` (the driver rewrites its targets).
+`Building_DrumBath.Tick()` delegates to `ThingWithComps.Tick()`; it does not report a variable
+fire intensity. Whether `CompRefuelable` burns and how it signals active use remain to be
+verified before choosing thermal rates. No game process was started for this inspection.
