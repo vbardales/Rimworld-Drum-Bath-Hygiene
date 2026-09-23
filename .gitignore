@@ -12,3 +12,14 @@ Source/bin/
 
 # Windows shortcuts dropped in the mod folder, never content.
 *.lnk
+
+# The Pickle step assembly is a build artefact of the test companion mod, rebuilt by
+# `dotnet build Tests/Pickle/Source/DrumBathHygiene.PickleSteps.csproj -c Release` and read from
+# this folder by the WSL staging. It stays on disk, never in git. Mod/Assemblies/ is NOT ignored:
+# that DLL is the deliverable the Workshop uploader sends, and it must match Source/.
+Tests/Pickle/Mod/Pickle/Assemblies/
+
+# IDE state and per-user files (PUBLISHING.md, "Dépôt").
+.vs/
+.idea/
+*.user
