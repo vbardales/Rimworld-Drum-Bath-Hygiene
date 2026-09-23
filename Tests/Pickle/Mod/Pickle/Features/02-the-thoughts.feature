@@ -41,15 +41,25 @@ Feature: the memories a bath leaves
   # Healthy pawn, drum burning: DBH grants nothing for warm water on a pawn with neither heatstroke
   # nor hypothermia. The assertion is the ABSENCE of the cold memory - which is what an inverted
   # fuel reading would produce - not the absence of every memory.
+  #
+  # AN ABSENCE PROVES NOTHING ON ITS OWN: it is equally true if the component never ran. So the same
+  # scenario asserts a POSITIVE marker that only a running component can produce - the hygiene gauge
+  # rising, which starts on the component's first tick - and the wait is long enough for the rise to
+  # clear the step's margin of 0.02 (41 ticks at 0.0005, so 60).
   Scenario: a healthy colonist in a drum that still burns gets no cold-water memory
     Given a colonist "Warm" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
+    And "Warm" needs "Hygiene" is set to 10 percent
     When Drum Bath Hygiene: "Warm" climbs into the drum at x=142 z=155
+    And I draft "Warm"
+    And Drum Bath Hygiene: I remember "Warm" hygiene
     And "Warm" is given hediff "Hed_BathingAtDrumBathPassive"
-    And I wait 10 ticks
-    Then "Warm" has no thought "ColdWater"
+    And I wait 60 ticks
+    Then Drum Bath Hygiene: "Warm" hygiene rose
+    And "Warm" has no thought "ColdWater"
     And "Warm" has no thought "HotBath"
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # The other half of the pair: the same colonist, the drum burnt out. This is the one that says
@@ -62,6 +72,7 @@ Feature: the memories a bath leaves
     And "Chilly" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 10 ticks
     Then "Chilly" has thought "ColdWater"
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # The only case where warm water leaves a memory, and so the only positive assertion for a
@@ -76,6 +87,7 @@ Feature: the memories a bath leaves
     And I wait 10 ticks
     Then "Frozen" has thought "HotBath"
     And "Frozen" has no thought "ColdWater"
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # And its mirror: the same chilled colonist in cold water is made worse, and remembers it.
@@ -89,6 +101,7 @@ Feature: the memories a bath leaves
     And I wait 10 ticks
     Then "Numb" has thought "ColdWater"
     And "Numb" has no thought "HotBath"
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # Climbing into a bath means being wet by definition, so the malus for it is cleared on the way
@@ -103,6 +116,7 @@ Feature: the memories a bath leaves
     And "Damp" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 10 ticks
     Then "Damp" has no thought "SoakingWet"
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # THE REAL PATH, WARM. The component finds the drum by looking at the things under the pawn's feet
@@ -127,6 +141,7 @@ Feature: the memories a bath leaves
     When I wait 10 ticks
     Then "Shivering" has thought "HotBath"
     And "Shivering" has no thought "ColdWater"
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # THE REAL PATH, COLD. Reachable by no player: the joy giver refuses a drum at or below ten per cent
@@ -147,4 +162,28 @@ Feature: the memories a bath leaves
     When I wait 10 ticks
     Then "Shaking" has thought "ColdWater"
     And "Shaking" has no thought "HotBath"
+    And no warnings from mod "Drum Bath Hygiene"
+    And no errors were logged
+
+  # THE FUEL IS READ ONCE, ON THE WAY IN. Prose scenario 3, "Also check": emptying the drum in the
+  # MIDDLE of a bath must not turn a hot bath cold. If the read moved into the per-tick path, every
+  # scenario above would still pass, because none of them changes the fuel after the bath has begun.
+  # The colonist is chilled so that a cold reading has something to grant: with Hypothermia, DBH gives
+  # ColdWater for cold water (and worsens it), and a healthy pawn in warm water gets nothing either way.
+  # The hot-bath memory is asserted first, so the drum was read as burning at the door.
+  Scenario: emptying the drum in the middle of a hot bath does not turn it cold
+    Given a colonist "Steady" exists
+    And Drum Bath Hygiene: a drum bath stands at x=142 z=155
+    And Drum Bath Hygiene: the drum at x=142 z=155 is burning
+    And Drum Bath Hygiene: "Steady" is chilled to severity 0.5
+    When Drum Bath Hygiene: "Steady" climbs into the drum at x=142 z=155
+    And I draft "Steady"
+    And "Steady" is given hediff "Hed_BathingAtDrumBathPassive"
+    And I wait 10 ticks
+    Then "Steady" has thought "HotBath"
+    When Drum Bath Hygiene: the drum at x=142 z=155 has burnt out
+    And I wait 700 ticks
+    Then "Steady" has no thought "ColdWater"
+    And Drum Bath Hygiene: the bathing hediff of "Steady" carries the component
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged

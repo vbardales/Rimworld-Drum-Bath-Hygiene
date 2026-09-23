@@ -56,6 +56,7 @@ Feature: the drum bath washes the colonist soaking in it
     And I wait 600 ticks
     Then Drum Bath Hygiene: the bathing hediff of "Soaker" carries the component
     And Drum Bath Hygiene: "Soaker" hygiene rose
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # The control, and it is not optional: Dubs Bad Hygiene moves this need by itself, so a rise in
@@ -85,13 +86,16 @@ Feature: the drum bath washes the colonist soaking in it
     When Drum Bath Hygiene: "Patient" climbs into the drum at x=142 z=155
     And I draft "Patient"
     And "Patient" is given hediff "Hed_BathingAtDrumBathPassive"
-    And I wait 3000 ticks
+    And I wait 2000 ticks
     Then Drum Bath Hygiene: "Patient" hygiene is above 0.9
-    # AND NOTHING SPILLS OVER. The fill has no stop condition of its own: it leans on Dubs Bad Hygiene
-    # clamping its need. From 0.10, 2000 ticks at 0.0005 reach 1.10 and 3000 reach 1.60, so a need that
-    # was not clamped would read above 1 here; "above 0.9" alone passed either way, which is why the
-    # wait was lengthened. The mod's name catches a warning repeating while the gauge sits at full.
-    And Drum Bath Hygiene: "Patient" hygiene is below 1.001
+    # THE GAUGE REACHES FULL AT TICK 1800 (0.10 + 1800 * 0.0005) AND THE COMPONENT KEEPS FILLING FOR THE
+    # LAST 200, so the mod calls Need_Hygiene.clean at a gauge that is already full. "Nothing spills
+    # over" is not asserted, because it cannot be observed: the fill goes through Need_Hygiene.clean,
+    # which reads CurLevel = Min(CurLevel + x, 1), and the vanilla CurLevel setter clamps to MaxLevel as
+    # well (both read from the IL, 2026-09-23). An earlier version of this scenario waited 3000 ticks
+    # and asserted "below 1.001": it could not fail, and it lowered the floor of the rate check from
+    # 0.0004 to 0.00027 per tick. What the mod itself could still get wrong at a full gauge is a
+    # warning of its own, which is what the line below catches.
     And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
@@ -117,7 +121,15 @@ Feature: the drum bath washes the colonist soaking in it
     When Drum Bath Hygiene: "Shaggy" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Shaggy" is bathing in the drum at x=142 z=155
     When I wait 300 ticks
-    Then no errors were logged
+    # THE NULL BRANCH, PROVED TO HAVE RUN. The need is taken off the pawn's list by hand, so the
+    # precondition is asserted again here, after the walk and some ticks of bath: if the game had given
+    # the need back, the component would have bound `clean` and washed, and this scenario would have
+    # stayed green without ever reaching the branch it is named for. The component being on the hediff
+    # says it was there to take that branch.
+    Then Drum Bath Hygiene: "Shaggy" has no hygiene need
+    And Drum Bath Hygiene: the bathing hediff of "Shaggy" carries the component
+    And no warnings from mod "Drum Bath Hygiene"
+    And no errors were logged
 
   # The two scribed values, and the delegate that is deliberately not scribed. A save loaded in the
   # middle of a bath has to bind again, against whatever Dubs Bad Hygiene is loaded that time - so
@@ -138,6 +150,7 @@ Feature: the drum bath washes the colonist soaking in it
     When Drum Bath Hygiene: I remember "Keeper" hygiene
     And I wait 600 ticks
     Then Drum Bath Hygiene: "Keeper" hygiene rose
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   # The whole path, played by the drum mod's own driver. Everything above hands the component a
@@ -159,4 +172,5 @@ Feature: the drum bath washes the colonist soaking in it
     And I wait 600 ticks
     Then Drum Bath Hygiene: "Bather" hygiene rose
     And Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged

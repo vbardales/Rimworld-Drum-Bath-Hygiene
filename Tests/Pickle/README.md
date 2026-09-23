@@ -70,7 +70,7 @@ It exists because Pickle ships `{string} needs {string} is below {int} percent` 
 "is above"**. This mod's whole job is to make a gauge go up, so its central assertion has no
 built-in form, and a plausible-looking invention would be an undefined step and a wasted run. The
 rest of the assembly is fixtures the built-ins cannot build — a stuffed drum spawned with its fire
-lit or out, a named animal — and readings they cannot take.
+lit or out, a hygiene need taken away from a colonist — and readings they cannot take.
 
 What each step does, whether it has been played, and which are general enough to lift into another mod's
 suite is indexed in `PickleTools/Elsewhere/DrumBathHygiene.md`, so a second mod finds them before writing
@@ -92,6 +92,10 @@ dotnet build Tests/Pickle/Source/DrumBathHygiene.PickleSteps.csproj -c Release
 
 Step DLLs are read at game start: a report produced without restarting after a rebuild does not
 test what was just changed.
+
+**The built DLL is not in git.** `Tests/Pickle/Mod/Pickle/Assemblies/` is ignored: it is a build artefact, and
+the WSL staging copies it from disk, so a fresh clone has to run the build above before a pass, or the run
+fails on undefined steps. (`Mod/Assemblies/DrumBathHygiene.dll`, the deliverable, is tracked and is not affected.)
 
 ## What is deliberately not here
 
@@ -225,7 +229,7 @@ is wandering and nothing else, the drum mod bathing animals through its own comp
 now a colonist who has lost the hygiene need, ordered through the real job - the branch this mod owns.
 
 Both changes are untested. Whether the chilled colonist keeps Hypothermia long enough for the component's
-first tick, so that `HotBath` is granted, is the thing the sixth run will say.
+first tick, so that `HotBath` is granted, is what the next run will say.
 
 **The suite as it stands now has not been run.** `STATUS.md` carries the execution as `unverified`,
 and it belongs to `done -> tested`.

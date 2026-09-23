@@ -34,6 +34,7 @@ Feature: climbing out of the bath
     When "Muddy" is cured of hediff "Hed_BathingAtDrumBathPassive"
     And I wait 10 ticks
     Then Drum Bath Hygiene: "Muddy" carries no filth
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
   Scenario: the gauge stops when the bath does
@@ -50,4 +51,5 @@ Feature: climbing out of the bath
     When Drum Bath Hygiene: I remember "Done" hygiene
     And I wait 600 ticks
     Then Drum Bath Hygiene: "Done" hygiene did not rise
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged

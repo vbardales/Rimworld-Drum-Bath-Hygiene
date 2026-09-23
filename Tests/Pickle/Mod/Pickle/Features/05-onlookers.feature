@@ -36,11 +36,17 @@ Feature: onlookers notice the bather, and keep noticing
   Scenario: an onlooker who arrives halfway is noticed at the next check, and the memory stacks
     Given a colonist "Modest" exists
     And "Modest" gender is female
-    And Drum Bath Hygiene: "Modest" is easily embarrassed
+    And I take the trait "Nudist" from "Modest"
     And a colonist "Watcher" exists
     And "Watcher" gender is male
+    And I draft "Watcher"
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
+    # THE BASELINE NEEDS AN EMPTY NEIGHBOURHOOD, and this says so loudly if it is not: drafting a pawn
+    # does not move it, and Dubs Bad Hygiene gives the bather the memory as soon as ANY opposite-gender
+    # human with a line of sight is within six cells. Watcher is drafted above so that it stays where
+    # Pickle put it until it is placed on purpose.
+    And Drum Bath Hygiene: no one but "Modest" stands within 6 cells of the drum at x=142 z=155
     And game speed is ultrafast
     When Drum Bath Hygiene: "Modest" climbs into the drum at x=142 z=155
     And I draft "Modest"
@@ -48,8 +54,8 @@ Feature: onlookers notice the bather, and keep noticing
     And I wait 400 ticks
     Then "Modest" has no thought "WashPrivacy"
     When Drum Bath Hygiene: "Watcher" stands 3 cells east of the drum at x=142 z=155
-    And I draft "Watcher"
     And I wait 700 ticks
     Then Drum Bath Hygiene: "Modest" has at least 2 memories of "WashPrivacy"
     And Drum Bath Hygiene: the bathing hediff of "Modest" carries the component
+    And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged

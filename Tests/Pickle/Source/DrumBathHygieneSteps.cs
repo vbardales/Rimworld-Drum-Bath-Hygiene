@@ -31,17 +31,64 @@ namespace DrumBathHygiene.PickleSteps
     [PickleSteps]
     public class DrumBathHygieneSteps
     {
-        public const string BathHediff = "Hed_BathingAtDrumBathPassive";
-        public const string BathJob = "Job_BathingAtDrumBath";
-        public const string DrumDef = "DrumBath";
-        public const string HygieneNeed = "Hygiene";
+        private const string BathHediff = "Hed_BathingAtDrumBathPassive";
+        private const string BathJob = "Job_BathingAtDrumBath";
+        private const string DrumDef = "DrumBath";
+        private const string HygieneNeed = "Hygiene";
+        private const string JoyNeed = "Joy";
+        private const string HypothermiaHediff = "Hypothermia";
+        private const string DirtFilth = "Filth_Dirt";
 
         /// <summary>
         /// Hygiene levels remembered by "I remember ... hygiene", keyed by the name the scenario
-        /// uses. A plain dictionary rather than the scenario bag: two pawns are remembered at once
-        /// in the control scenario, and each overwrite is meant to be the latest reading.
+        /// uses. Static, because a step class is instantiated per call; and therefore cleared before
+        /// every scenario by <see cref="ResetRemembered"/>. Pickle reloads the saved colony for each
+        /// scenario, but a static in this assembly outlives the reload: without the reset, a scenario
+        /// that asserted a rise without remembering first would compare against another scenario's
+        /// reading of a pawn that no longer exists, and the "remember first" guard would never fire.
         /// </summary>
         private static readonly Dictionary<string, float> Remembered = new Dictionary<string, float>();
+
+        [BeforeScenario]
+        public void ResetRemembered()
+        {
+            Remembered.Clear();
+        }
+
+        /// <summary>
+        /// Polls a condition once per rendered frame against a deadline in real seconds, and reports
+        /// whether it held. The steps that wait use this rather than `ctx.WaitUntil`, which THROWS on
+        /// timeout before any message of ours can run: catching that exception meant catching every
+        /// exception, including a NullReferenceException thrown inside the condition and a scenario
+        /// abort, and re-evaluating the same condition afterwards to report a bare failure with no
+        /// trace. Here a timeout is an ordinary `false`, and anything the condition throws is a real
+        /// failure that propagates as itself.
+        /// </summary>
+        private static async Task<bool> PollUntil(PickleContext ctx, System.Func<bool> condition, float seconds)
+        {
+            float deadline = UnityEngine.Time.realtimeSinceStartup + seconds;
+            while (!condition())
+            {
+                if (UnityEngine.Time.realtimeSinceStartup >= deadline) return false;
+                await ctx.WaitFrames(1);
+            }
+            return true;
+        }
+
+        private static bool HasBathHediff(Pawn pawn)
+        {
+            List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
+            for (var i = 0; i < hediffs.Count; i++)
+            {
+                if (hediffs[i].def.defName == BathHediff) return true;
+            }
+            return false;
+        }
+
+        private static string HediffNames(Pawn pawn)
+        {
+            return string.Join(", ", pawn.health.hediffSet.hediffs.Select(h => h.def.defName));
+        }
 
         // ------------------------------------------------------------------ finding things
 
@@ -63,9 +110,14 @@ namespace DrumBathHygiene.PickleSteps
                 (p.Name is NameTriple triple && triple.Nick == name)
                 || (p.Name is NameSingle single && single.Name == name)
                 || p.LabelShort == name);
-            ctx.Assert(found != null,
-                $"no spawned pawn named \"{name}\"; the map holds: "
-                + string.Join(", ", spawned.Select(p => p.LabelShort)));
+            // The message lists every pawn on the map: built only when the lookup failed, not on
+            // every step that resolves a name.
+            if (found == null)
+            {
+                ctx.Assert(false,
+                    $"no spawned pawn named \"{name}\"; the map holds: "
+                    + string.Join(", ", spawned.Select(p => p.LabelShort)));
+            }
             return found;
         }
 
@@ -95,9 +147,12 @@ namespace DrumBathHygiene.PickleSteps
             var cell = new IntVec3(x, 0, z);
             ctx.Require(cell.InBounds(map), $"x={x} z={z} is off the map");
             Thing drum = cell.GetThingList(map).FirstOrDefault(t => t.def.defName == DrumDef);
-            ctx.Assert(drum != null,
-                $"no {DrumDef} at x={x} z={z}; the cell holds: "
-                + string.Join(", ", cell.GetThingList(map).Select(t => t.def.defName)));
+            if (drum == null)
+            {
+                ctx.Assert(false,
+                    $"no {DrumDef} at x={x} z={z}; the cell holds: "
+                    + string.Join(", ", cell.GetThingList(map).Select(t => t.def.defName)));
+            }
             return drum;
         }
 
@@ -224,82 +279,62 @@ namespace DrumBathHygiene.PickleSteps
         {
             Thing drum = DrumAt(ctx, x, z);
             Pawn pawn = PawnNamed(ctx, name);
-            // WHERE THE PAWN STANDS, not what the job targets. The first version also demanded
-            // `CurJob.targetA.Thing == drum`, and the fifth run showed it never true: the trace had the
-            // colonist on the drum's own cell with the job running and the hediff on, for ten seconds,
-            // and the film showed her sitting in it, panel reading "Relaxing in the bath". The driver
-            // evidently rewrites the job's target once it has the pawn. What the bridge relies on is
-            // the pawn standing where the drum is, so that is what is asserted.
+
+            // THE COMPONENT'S OWN QUESTION: is the drum among the things on the pawn's cell? That is
+            // exactly what `FindBath` reads to decide hot water from cold, and the real-path scenarios
+            // exist to prove it holds for a pawn the drum mod's driver placed. The first version asked
+            // `CurJob.targetA.Thing == drum`, which the driver rewrites once it has the pawn; the second
+            // used a radius of 2.5 cells, which also accepts a pawn standing BESIDE the drum, where the
+            // lookup would miss and `cold` would silently default to true.
             bool Bathing() => pawn.CurJob != null
                 && pawn.CurJob.def.defName == BathJob
-                && pawn.Position.DistanceTo(drum.Position) < 2.5f
-                && pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff);
+                && pawn.Position.GetThingList(pawn.Map).Contains(drum)
+                && HasBathHediff(pawn);
 
-            // A TRACE, because a timeout says nothing. `WaitUntil` throws when it gives up, before any
-            // message of ours can run, and the fourth run of this suite failed five scenarios at
-            // ninety seconds each with the log reading only "timed out": whether the colonist never set
-            // off, was sent elsewhere, or reached the drum and left it was unrecoverable, and each run
-            // costs a ticket in a queue of other sessions. Every CHANGE of job is noted with where the
-            // colonist stood and whether the hediff was on them.
+            // A TRACE, because a timeout says nothing and each run costs a ticket in a queue of other
+            // sessions: whether the colonist never set off, was sent elsewhere, or reached the drum and
+            // left it was unrecoverable from a bare "timed out". Every CHANGE of job is noted with where
+            // the colonist stood and whether the hediff was on them. The comparison is made on the two
+            // things that change, and the string is only built when one of them did.
             var trace = new List<string>();
-            string last = null;
+            JobDef lastJob = null;
+            bool lastHediff = false;
+            bool first = true;
             float t0 = UnityEngine.Time.realtimeSinceStartup;
             bool Sample()
             {
-                string job = pawn.CurJob?.def.defName ?? "none";
-                bool hediff = pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff);
-                string now = $"{job}{(hediff ? "+hediff" : "")}";
-                if (now != last)
+                JobDef job = pawn.CurJob?.def;
+                bool hediff = HasBathHediff(pawn);
+                if (first || job != lastJob || hediff != lastHediff)
                 {
                     LocalTargetInfo target = pawn.CurJob?.targetA ?? LocalTargetInfo.Invalid;
                     string aim = target.HasThing ? target.Thing.def.defName
                         + (target.Thing == drum ? "(the drum)" : "") : target.Cell.IsValid ? "a cell" : "-";
-                    trace.Add($"+{UnityEngine.Time.realtimeSinceStartup - t0:0.0}s {now} at "
+                    trace.Add($"+{UnityEngine.Time.realtimeSinceStartup - t0:0.0}s "
+                        + $"{job?.defName ?? "none"}{(hediff ? "+hediff" : "")} at "
                         + $"({pawn.Position.x},{pawn.Position.z}) target {aim}");
-                    last = now;
+                    lastJob = job;
+                    lastHediff = hediff;
+                    first = false;
                 }
                 return Bathing();
             }
 
-            try
-            {
-                await ctx.WaitUntil(Sample, 90f);
-            }
-            catch (System.Exception)
-            {
-                // Deliberately swallowed: the assertion below reports the same failure with the
-                // evidence attached, and re-checks the condition once more.
-            }
+            const float seconds = 90f;
+            if (await PollUntil(ctx, Sample, seconds)) return;
 
             bool reachable = pawn.Spawned && drum.Spawned
                 && pawn.CanReach(drum, Verse.AI.PathEndMode.Touch, Danger.Deadly);
-            ctx.Assert(Bathing(),
-                $"{name} is not bathing in the drum at x={x} z={z}. "
+            Need joy = pawn.needs?.AllNeeds.FirstOrDefault(n => n.def.defName == JoyNeed);
+            ctx.Assert(false,
+                $"{name} is not bathing in the drum at x={x} z={z} after {seconds:0} seconds. "
                 + $"Now: job {pawn.CurJob?.def.defName ?? "none"} "
                 + $"(driver {pawn.jobs?.curDriver?.GetType().Name ?? "none"}), "
                 + $"at ({pawn.Position.x},{pawn.Position.z}), drum at ({drum.Position.x},{drum.Position.z}), "
                 + $"reachable {reachable}, drafted {pawn.Drafted}, downed {pawn.Downed}, "
                 + $"mental state {(pawn.InMentalState ? "yes" : "no")}, "
-                + "hediffs [" + string.Join(", ", pawn.health.hediffSet.hediffs.Select(h => h.def.defName)) + "], "
-                + "joy " + (pawn.needs?.AllNeeds.FirstOrDefault(n => n.def.defName == "Joy")?.CurLevelPercentage.ToString("0.00") ?? "n/a")
-                + ". Job trace: " + (trace.Count == 0 ? "(nothing sampled)" : string.Join(" | ", trace)));
-        }
-
-        /// <summary>
-        /// Joy pulled low, on any pawn by the name a scenario gave it and quietly ignored if the pawn
-        /// has no such need. NOT optional before ordering a REAL bath: the drum mod's driver ends the job
-        /// through JoyUtility.JoyTickCheckEnd the moment joy is full, and a test colonist arrives with
-        /// it full. The hediff is removed with the job, so a bath that ends at once leaves the
-        /// component with no first tick at all - no memory, no hygiene, nothing - and the scenario
-        /// reads as a defect of the mod when it is a bath that never lasted. The first run of the
-        /// real-job scenarios, 2026-09-21, failed exactly so, three times.
-        /// </summary>
-        [Given("Drum Bath Hygiene: {string} is bored")]
-        public void Bored(PickleContext ctx, string name)
-        {
-            Pawn pawn = PawnNamed(ctx, name);
-            Need joy = pawn.needs?.AllNeeds.FirstOrDefault(n => n.def.defName == "Joy");
-            if (joy != null) joy.CurLevelPercentage = 0.1f;
+                + $"hediffs [{HediffNames(pawn)}], joy {(joy != null ? joy.CurLevelPercentage.ToString("0.00") : "n/a")}. "
+                + "Job trace: " + (trace.Count == 0 ? "(nothing sampled)" : string.Join(" | ", trace)));
         }
 
         /// <summary>
@@ -313,8 +348,8 @@ namespace DrumBathHygiene.PickleSteps
         public void Chilled(PickleContext ctx, string name, float severity)
         {
             Pawn pawn = PawnNamed(ctx, name);
-            HediffDef def = DefDatabase<HediffDef>.GetNamedSilentFail("Hypothermia");
-            ctx.Require(def != null, "no HediffDef \"Hypothermia\" in this game");
+            HediffDef def = DefDatabase<HediffDef>.GetNamedSilentFail(HypothermiaHediff);
+            ctx.Require(def != null, $"no HediffDef \"{HypothermiaHediff}\" in this game");
             Hediff hediff = HediffMaker.MakeHediff(def, pawn);
             hediff.Severity = severity;
             pawn.health.AddHediff(hediff);
@@ -342,17 +377,23 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Assert(HygieneOf(pawn) == null, $"{name} still has a hygiene need after losing it");
         }
 
-        [Given("Drum Bath Hygiene: {string} is carrying filth")]
-        public void GiveFilth(PickleContext ctx, string name)
+        private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)
         {
             Pawn pawn = PawnNamed(ctx, name);
             ctx.Require(pawn.filth != null, $"{name} has no filth tracker");
+            return pawn.filth;
+        }
 
-            ThingDef dirt = DefDatabase<ThingDef>.GetNamedSilentFail("Filth_Dirt");
-            ctx.Require(dirt != null, "no ThingDef \"Filth_Dirt\" in this game");
+        [Given("Drum Bath Hygiene: {string} is carrying filth")]
+        public void GiveFilth(PickleContext ctx, string name)
+        {
+            Pawn_FilthTracker filth = FilthOf(ctx, name);
 
-            pawn.filth.GainFilth(dirt);
-            ctx.Assert(pawn.filth.CarriedFilthListForReading.Count > 0,
+            ThingDef dirt = DefDatabase<ThingDef>.GetNamedSilentFail(DirtFilth);
+            ctx.Require(dirt != null, $"no ThingDef \"{DirtFilth}\" in this game");
+
+            filth.GainFilth(dirt);
+            ctx.Assert(filth.CarriedFilthListForReading.Count > 0,
                 $"{name} picked up no filth; the tracker still reads empty");
         }
 
@@ -435,31 +476,20 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Assert(now > level, $"{name} hygiene is {now:0.###}, not above {level:0.###}");
         }
 
-        [Then("Drum Bath Hygiene: {string} hygiene is below {float}")]
-        public void HygieneBelow(PickleContext ctx, string name, float level)
-        {
-            float now = RequireHygiene(ctx, PawnNamed(ctx, name), name).CurLevel;
-            ctx.Assert(now < level, $"{name} hygiene is {now:0.###}, not below {level:0.###}");
-        }
-
-        [Then("Drum Bath Hygiene: {string} has a hygiene need")]
-        public void HasHygiene(PickleContext ctx, string name)
-        {
-            RequireHygiene(ctx, PawnNamed(ctx, name), name);
-        }
-
         /// <summary>
-        /// The precondition of the animal scenario, asserted rather than assumed: if a future Dubs
-        /// Bad Hygiene gives animals the need, that scenario stops being about the null branch and
-        /// has to be rewritten. This line is what says so.
+        /// The precondition of the no-need scenario, asserted rather than assumed, and asserted AGAIN
+        /// after the bath has run for a while: the need is taken off the pawn's list by hand, and
+        /// the game could give it back (a need refresh) between the walk and the component's first
+        /// tick, in which case the bath would wash and the null branch would never run while the
+        /// scenario stayed green.
         /// </summary>
         [Then("Drum Bath Hygiene: {string} has no hygiene need")]
         public void HasNoHygiene(PickleContext ctx, string name)
         {
             Pawn pawn = PawnNamed(ctx, name);
             ctx.Assert(HygieneOf(pawn) == null,
-                $"{name} does carry a \"{HygieneNeed}\" need, so this is no longer the case of a "
-                + "pawn the mod has nothing to fill");
+                $"{name} carries a \"{HygieneNeed}\" need, so this is not the case of a pawn the mod has "
+                + "nothing to fill: the game gave it back, or Dubs Bad Hygiene now does");
         }
 
         // ------------------------------------------------------------------ carried filth
@@ -467,9 +497,7 @@ namespace DrumBathHygiene.PickleSteps
         [Then("Drum Bath Hygiene: {string} carries no filth")]
         public void CarriesNoFilth(PickleContext ctx, string name)
         {
-            Pawn pawn = PawnNamed(ctx, name);
-            ctx.Require(pawn.filth != null, $"{name} has no filth tracker");
-            List<Filth> carried = pawn.filth.CarriedFilthListForReading;
+            List<Filth> carried = FilthOf(ctx, name).CarriedFilthListForReading;
             ctx.Assert(carried.Count == 0,
                 $"{name} still carries {carried.Count} filth: "
                 + string.Join(", ", carried.Select(f => f.def.defName)));
@@ -478,30 +506,11 @@ namespace DrumBathHygiene.PickleSteps
         [Then("Drum Bath Hygiene: {string} carries filth")]
         public void CarriesFilth(PickleContext ctx, string name)
         {
-            Pawn pawn = PawnNamed(ctx, name);
-            ctx.Require(pawn.filth != null, $"{name} has no filth tracker");
-            ctx.Assert(pawn.filth.CarriedFilthListForReading.Count > 0,
+            ctx.Assert(FilthOf(ctx, name).CarriedFilthListForReading.Count > 0,
                 $"{name} carries no filth, so there is nothing for the bath to take off");
         }
 
         // ------------------------------------------------------------------ onlookers
-
-        /// <summary>
-        /// Takes the Nudist trait off a pawn, if it has one. Dubs Bad Hygiene's privacy check returns at
-        /// once for a nudist, so a bather generated with the trait would never be embarrassed and the
-        /// scenario would fail for a reason that is not this mod's. The ideology clause of the same check
-        /// (an ideo that prefers nudity) is not handled here; the failure message lists the memories so
-        /// that it shows if it ever bites.
-        /// </summary>
-        [Given("Drum Bath Hygiene: {string} is easily embarrassed")]
-        public void EasilyEmbarrassed(PickleContext ctx, string name)
-        {
-            Pawn pawn = PawnNamed(ctx, name);
-            ctx.Require(pawn.story?.traits != null, $"{name} has no traits to change");
-            Trait nudist = pawn.story.traits.allTraits.FirstOrDefault(t => t.def == TraitDefOf.Nudist);
-            if (nudist != null) pawn.story.traits.RemoveTrait(nudist);
-            ctx.Assert(!pawn.story.traits.HasTrait(TraitDefOf.Nudist), $"{name} is still a nudist");
-        }
 
         /// <summary>
         /// Teleports a pawn to a cell some distance east of the drum, on the same row, and checks it
@@ -522,6 +531,27 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Assert(pawn.Position.DistanceTo(drum.Position) <= 6f,
                 $"{name} stands {pawn.Position.DistanceTo(drum.Position):0.#} cells from the drum, outside "
                 + "the six the bridge asks Dubs Bad Hygiene to look over");
+        }
+
+        /// <summary>
+        /// A precondition, and a loud one: no colonist other than the named one stands within the six
+        /// cells the bridge asks Dubs Bad Hygiene to look over. Dubs Bad Hygiene gives the BATHER the
+        /// privacy memory as soon as any opposite-gender human with a line of sight is in that radius,
+        /// so a baseline of "nobody is watching" is only a baseline if nobody is. Drafting a pawn does
+        /// not move it: this checks where everyone actually is, and reports who, so that a failure
+        /// reads as a setup problem and not as a defect of the mod.
+        /// </summary>
+        [Given("Drum Bath Hygiene: no one but {string} stands within 6 cells of the drum at x={int} z={int}")]
+        public void NoOneButNear(PickleContext ctx, string name, int x, int z)
+        {
+            Thing drum = DrumAt(ctx, x, z);
+            Pawn allowed = PawnNamed(ctx, name);
+            List<Pawn> near = CurrentMap(ctx).mapPawns.AllPawnsSpawned
+                .Where(p => p != allowed && p.RaceProps.Humanlike && p.Position.DistanceTo(drum.Position) <= 6f)
+                .ToList();
+            ctx.Require(near.Count == 0,
+                "the baseline needs an empty neighbourhood, but within six cells of the drum stand: "
+                + string.Join(", ", near.Select(p => $"{p.LabelShort} at ({p.Position.x},{p.Position.z})")));
         }
 
         [Then("Drum Bath Hygiene: {string} has at least {int} memories of {string}")]
@@ -556,28 +586,23 @@ namespace DrumBathHygiene.PickleSteps
         /// Waits for a real bath to be over: no bath job and no bathing hediff. A second bath can only
         /// be ordered once the first is, and it is the end of the first that removes the hediff the
         /// component hangs on - so this is also what lets a scenario prove the component starts afresh.
-        /// Same shape as the step that waits for the bath to begin: `async Task`, and the timeout caught
-        /// so that the assertion can say where the pawn is instead of leaving a bare timeout.
+        /// A scenario that has finished with a bath sets the pawn's joy to full first, which ends the
+        /// job on its next tick; without that the wait is as long as the drum mod's driver keeps a
+        /// pawn, and a slow simulation would be blamed on the mod.
         /// </summary>
         [Then("Drum Bath Hygiene: {string} has climbed out of the drum")]
         public async Task ClimbedOut(PickleContext ctx, string name)
         {
             Pawn pawn = PawnNamed(ctx, name);
-            bool Out() => !pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff)
+            bool Out() => !HasBathHediff(pawn)
                 && (pawn.CurJob == null || pawn.CurJob.def.defName != BathJob);
 
-            try
-            {
-                await ctx.WaitUntil(Out, 120f);
-            }
-            catch (System.Exception)
-            {
-                // The assertion below reports the same failure with the state attached.
-            }
+            const float seconds = 120f;
+            if (await PollUntil(ctx, Out, seconds)) return;
 
-            ctx.Assert(Out(),
-                $"{name} is still in the bath after two minutes: job {pawn.CurJob?.def.defName ?? "none"}, "
-                + "hediffs [" + string.Join(", ", pawn.health.hediffSet.hediffs.Select(h => h.def.defName)) + "]");
+            ctx.Assert(false,
+                $"{name} is still in the bath {seconds:0} seconds after the wait began: job "
+                + $"{pawn.CurJob?.def.defName ?? "none"}, hediffs [{HediffNames(pawn)}]");
         }
     }
 }

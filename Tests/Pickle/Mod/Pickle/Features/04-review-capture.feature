@@ -60,4 +60,5 @@ Feature: a capture of a colonist in the bath
     When I take a screenshot "bather-in-the-drum"
     And I stop following
     And I zoom all the way out
+    And no warnings from mod "Drum Bath Hygiene"
     Then no errors were logged

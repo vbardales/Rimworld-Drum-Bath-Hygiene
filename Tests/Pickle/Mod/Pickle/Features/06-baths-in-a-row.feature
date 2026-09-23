@@ -30,6 +30,9 @@ Feature: baths in a row behave alike
   Scenario: the second bath washes as well as the first, for the same colonist and for another
     Given a colonist "Twice" exists
     And a colonist "Other" exists
+    # Other waits, drafted, through both of Twice's baths: a free colonist could take the drum by a joy
+    # job of its own, or reserve it, and the second order of Twice would be refused.
+    And I draft "Other"
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 has burnt out
     And game speed is ultrafast
@@ -45,7 +48,10 @@ Feature: baths in a row behave alike
     And "Twice" has no thought "SoakingWet"
     When I wait 300 ticks
     Then Drum Bath Hygiene: "Twice" hygiene rose
-    And Drum Bath Hygiene: "Twice" has climbed out of the drum
+    # The assertions of this bath are done: fill joy so that the driver ends the job on its next tick,
+    # rather than waiting out a bath whose length the drum mod owns and a loaded machine stretches.
+    When "Twice" needs "Joy" is set to 100 percent
+    Then Drum Bath Hygiene: "Twice" has climbed out of the drum
     # The same colonist again, from the same starting point.
     When Drum Bath Hygiene: "Twice" forgets "ColdWater"
     And "Twice" needs "Hygiene" is set to 10 percent
@@ -59,9 +65,11 @@ Feature: baths in a row behave alike
     And "Twice" has no thought "SoakingWet"
     When I wait 300 ticks
     Then Drum Bath Hygiene: "Twice" hygiene rose
-    And Drum Bath Hygiene: "Twice" has climbed out of the drum
+    When "Twice" needs "Joy" is set to 100 percent
+    Then Drum Bath Hygiene: "Twice" has climbed out of the drum
     # A colonist who has not bathed at all, after two baths have gone through the same bridge.
-    When "Other" needs "Hygiene" is set to 10 percent
+    When I undraft "Other"
+    And "Other" needs "Hygiene" is set to 10 percent
     And "Other" needs "Joy" is set to 10 percent
     And "Other" is given thought "SoakingWet"
     And Drum Bath Hygiene: I remember "Other" hygiene
