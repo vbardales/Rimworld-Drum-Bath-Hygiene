@@ -111,6 +111,15 @@ fails on undefined steps. (`Mod/Assemblies/DrumBathHygiene.dll`, the deliverable
 - **Removing the mod from a save in progress**, prose scenario 12. **Not applicable.** How RimWorld
   loads a save under a different mod list is the game's; the mod's share is the two values it scribes,
   which the save-and-reload scenario covers.
+- **An animal in the bath.** The drum mod does bathe animals, through its own `CompDrumBathAnimalJobManager`, and an
+  animal has no `story` and no mood. The suite once tried it (the fifth run: the ordered job never took, and a hediff
+  given by hand made the drum mod's own render patch throw), and the branch this mod owns, a pawn with no hygiene need,
+  is now played through a colonist who lost the need. What is left is the rest of the entry path for a pawn without
+  mood, and it is settled by reading, not by a run: every reflected call goes through `DbhBridge.TryInvoke`, which
+  catches everything and reports a single `Log.WarningOnce`; `ClearSoakingWet`, `FindBath` and the filth clearing use
+  `?.` throughout; and `ResolveCleanAction` returns null for a pawn without a hygiene need. Nothing can escape the
+  component, and the worst case is one warning. Reaching it in game means driving the drum mod's own dev gizmo, which
+  is testing that mod's code for the sake of a warning. Recorded as a limit, not as a covered case.
 - **The joy giver, and what makes a colonist go to the drum on their own.** `Joy_BathingAtDrumBath`
   and its ten-per-cent fuel threshold belong to MMDrumcanMOD: testing which drum it picks, when, or
   against which other pastimes would be testing that mod's code. This mod begins after the decision.
