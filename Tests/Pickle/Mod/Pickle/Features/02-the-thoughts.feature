@@ -121,7 +121,10 @@ Feature: the memories a bath leaves
     And game speed is ultrafast
     When Drum Bath Hygiene: "Shivering" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Shivering" is bathing in the drum at x=142 z=155
-    And "Shivering" has thought "HotBath"
+    # The memory is granted by the component's first tick, one tick after the hediff appears: without
+    # this wait the assertion below can run in the same instant as the step above and see nothing.
+    When I wait 10 ticks
+    Then "Shivering" has thought "HotBath"
     And "Shivering" has no thought "ColdWater"
     And no errors were logged
 
@@ -138,6 +141,9 @@ Feature: the memories a bath leaves
     And game speed is ultrafast
     When Drum Bath Hygiene: "Shaking" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Shaking" is bathing in the drum at x=142 z=155
-    And "Shaking" has thought "ColdWater"
+    # The memory is granted by the component's first tick, one tick after the hediff appears: without
+    # this wait the assertion below can run in the same instant as the step above and see nothing.
+    When I wait 10 ticks
+    Then "Shaking" has thought "ColdWater"
     And "Shaking" has no thought "HotBath"
     And no errors were logged

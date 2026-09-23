@@ -483,5 +483,101 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Assert(pawn.filth.CarriedFilthListForReading.Count > 0,
                 $"{name} carries no filth, so there is nothing for the bath to take off");
         }
+
+        // ------------------------------------------------------------------ onlookers
+
+        /// <summary>
+        /// Takes the Nudist trait off a pawn, if it has one. Dubs Bad Hygiene's privacy check returns at
+        /// once for a nudist, so a bather generated with the trait would never be embarrassed and the
+        /// scenario would fail for a reason that is not this mod's. The ideology clause of the same check
+        /// (an ideo that prefers nudity) is not handled here; the failure message lists the memories so
+        /// that it shows if it ever bites.
+        /// </summary>
+        [Given("Drum Bath Hygiene: {string} is easily embarrassed")]
+        public void EasilyEmbarrassed(PickleContext ctx, string name)
+        {
+            Pawn pawn = PawnNamed(ctx, name);
+            ctx.Require(pawn.story?.traits != null, $"{name} has no traits to change");
+            Trait nudist = pawn.story.traits.allTraits.FirstOrDefault(t => t.def == TraitDefOf.Nudist);
+            if (nudist != null) pawn.story.traits.RemoveTrait(nudist);
+            ctx.Assert(!pawn.story.traits.HasTrait(TraitDefOf.Nudist), $"{name} is still a nudist");
+        }
+
+        /// <summary>
+        /// Teleports a pawn to a cell some distance east of the drum, on the same row, and checks it
+        /// lands inside the six cells the bridge asks Dubs Bad Hygiene to look over. East, because the
+        /// drum is two cells long and the fixture around it is open ground on that side.
+        /// </summary>
+        [When("Drum Bath Hygiene: {string} stands {int} cells east of the drum at x={int} z={int}")]
+        public void StandsEastOf(PickleContext ctx, string name, int cells, int x, int z)
+        {
+            Thing drum = DrumAt(ctx, x, z);
+            Pawn pawn = PawnNamed(ctx, name);
+            var cell = new IntVec3(x + cells, 0, z);
+            ctx.Require(cell.InBounds(pawn.Map) && cell.Standable(pawn.Map),
+                $"x={cell.x} z={cell.z} is not open ground: the cell holds "
+                + string.Join(", ", cell.GetThingList(pawn.Map).Select(t => t.def.defName)));
+            pawn.Position = cell;
+            pawn.Notify_Teleported();
+            ctx.Assert(pawn.Position.DistanceTo(drum.Position) <= 6f,
+                $"{name} stands {pawn.Position.DistanceTo(drum.Position):0.#} cells from the drum, outside "
+                + "the six the bridge asks Dubs Bad Hygiene to look over");
+        }
+
+        [Then("Drum Bath Hygiene: {string} has at least {int} memories of {string}")]
+        public void HasMemories(PickleContext ctx, string name, int atLeast, string defName)
+        {
+            ThoughtDef def = DefDatabase<ThoughtDef>.GetNamedSilentFail(defName);
+            ctx.Require(def != null, $"no ThoughtDef \"{defName}\" in this game");
+            Pawn pawn = PawnNamed(ctx, name);
+            MemoryThoughtHandler memories = pawn.needs?.mood?.thoughts?.memories;
+            ctx.Require(memories != null, $"{name} has no memory handler");
+            int count = memories.NumMemoriesOfDef(def);
+            ctx.Assert(count >= atLeast,
+                $"{name} has {count} memories of {defName}, not at least {atLeast}; memories: "
+                + string.Join(", ", memories.Memories.Select(m => m.def.defName)));
+        }
+
+        [When("Drum Bath Hygiene: {string} forgets {string}")]
+        public void Forgets(PickleContext ctx, string name, string defName)
+        {
+            ThoughtDef def = DefDatabase<ThoughtDef>.GetNamedSilentFail(defName);
+            ctx.Require(def != null, $"no ThoughtDef \"{defName}\" in this game");
+            Pawn pawn = PawnNamed(ctx, name);
+            ctx.Require(pawn.needs?.mood?.thoughts?.memories != null, $"{name} has no memory handler");
+            pawn.needs.mood.thoughts.memories.RemoveMemoriesOfDef(def);
+            ctx.Assert(pawn.needs.mood.thoughts.memories.NumMemoriesOfDef(def) == 0,
+                $"{name} still remembers {defName}");
+        }
+
+        // ------------------------------------------------------------------ the end of a bath
+
+        /// <summary>
+        /// Waits for a real bath to be over: no bath job and no bathing hediff. A second bath can only
+        /// be ordered once the first is, and it is the end of the first that removes the hediff the
+        /// component hangs on - so this is also what lets a scenario prove the component starts afresh.
+        /// Same shape as the step that waits for the bath to begin: `async Task`, and the timeout caught
+        /// so that the assertion can say where the pawn is instead of leaving a bare timeout.
+        /// </summary>
+        [Then("Drum Bath Hygiene: {string} has climbed out of the drum")]
+        public async Task ClimbedOut(PickleContext ctx, string name)
+        {
+            Pawn pawn = PawnNamed(ctx, name);
+            bool Out() => !pawn.health.hediffSet.hediffs.Any(h => h.def.defName == BathHediff)
+                && (pawn.CurJob == null || pawn.CurJob.def.defName != BathJob);
+
+            try
+            {
+                await ctx.WaitUntil(Out, 120f);
+            }
+            catch (System.Exception)
+            {
+                // The assertion below reports the same failure with the state attached.
+            }
+
+            ctx.Assert(Out(),
+                $"{name} is still in the bath after two minutes: job {pawn.CurJob?.def.defName ?? "none"}, "
+                + "hediffs [" + string.Join(", ", pawn.health.hediffSet.hediffs.Select(h => h.def.defName)) + "]");
+        }
     }
 }
