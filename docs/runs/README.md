@@ -27,3 +27,25 @@ Written from the report, in this order, and only what was read:
 
 A summary does not restate what `TESTING.md` says about coverage, and it does not claim a scenario is covered: it says
 what a run did.
+
+## What Evidence to keep, and in what form
+
+Decided 2026-09-23 with the owner, under the disk rule of the root `AGENTS.md` ("Test evidence"): keep what still
+proves something, small, and delete the rest. Applied to `.build/evidence/<pass>/` after each run, once the summary is
+written. **The file names below are the plan; they are confirmed against the first report of the current suite and
+this section is corrected then.**
+
+| Keep | Form | Why |
+| --- | --- | --- |
+| `summary.json` | as is | `exitReason`, scenarios played against written, the outcomes: the report's verdict |
+| `Player.log` | as is, or gzip | what `no errors` and `no warnings from mod` were asserted against |
+| `messages.ndjson`, `report.html` | gzip | 13 to 20 MB each and only read when a failure has to be re-examined |
+| The `@review` capture, and the frames of any failed scenario | reduced (JPEG, half size) | the image a person opens: a green `@review` proves the path ran, not what the image shows |
+| The film (`@film`) | re-encoded smaller with the WSL `ffmpeg` | the only proof that the real bath works, seen and not inferred |
+| Nothing else | deleted | the hundreds of other PNGs are the shared folder's, not this mod's |
+
+Only the **latest report per pass, for the revision now in the repository**, stays. A report replaced by a newer run
+is deleted at once, unless it is the sole proof of a check the newer one did not repeat. Never delete what a
+`STATUS.md` field points to: repoint it first. Before deleting, list what goes and what stays.
+
+The summary in `docs/runs/` names what was kept, and what was not.

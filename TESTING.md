@@ -93,7 +93,7 @@ So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are 
 - A run overwrites the previous report, captures included. Copy what is needed before launching
   again; `PickleReports-archive` keeps five runs and nothing survives past that. Launch with
   `-EvidenceDir DrumBathHygiene/.build/evidence/<pass>`: the full report stays on disk and out of git
-  (`.build/` is ignored), and a **text summary** goes to `docs/runs/`, see `docs/runs/README.md`.
+  (`.build/` is ignored), and a **text summary** goes to `docs/runs/`, see `docs/runs/README.md`, which also says which Evidence to keep after a run (summary, log, the `@review` capture and the film, small) and what to delete.
 
 ## Status
 
