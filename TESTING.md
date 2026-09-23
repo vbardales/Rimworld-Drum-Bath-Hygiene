@@ -91,7 +91,9 @@ So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are 
 - `@review` green last, and never as a verification. `04-review-capture.feature` attaches an image
   for a person to open. Its green says the trajectory ran, not that the image shows anything.
 - A run overwrites the previous report, captures included. Copy what is needed before launching
-  again; `PickleReports-archive` keeps five runs and nothing survives past that.
+  again; `PickleReports-archive` keeps five runs and nothing survives past that. Launch with
+  `-EvidenceDir DrumBathHygiene/.build/evidence/<pass>`: the full report stays on disk and out of git
+  (`.build/` is ignored), and a **text summary** goes to `docs/runs/`, see `docs/runs/README.md`.
 
 ## Status
 
