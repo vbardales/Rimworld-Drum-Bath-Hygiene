@@ -114,7 +114,7 @@ fails on undefined steps. (`Mod/Assemblies/DrumBathHygiene.dll`, the deliverable
 - **An animal in the bath.** The drum mod does bathe animals, through its own `CompDrumBathAnimalJobManager`, and an
   animal has no `story` and no mood. The suite once tried it (the fifth run: the ordered job never took, and a hediff
   given by hand made the drum mod's own render patch throw), and the branch this mod owns, a pawn with no hygiene need,
-  is now played through a colonist who lost the need. What is left is the rest of the entry path for a pawn without
+  is now played through a colonist given the bathing hediff and then robbed of the need. What is left is the rest of the entry path for a pawn without
   mood, and it is settled by reading, not by a run: every reflected call goes through `DbhBridge.TryInvoke`, which
   catches everything and reports a single `Log.WarningOnce`; `ClearSoakingWet`, `FindBath` and the filth clearing use
   `?.` throughout; and `ResolveCleanAction` returns null for a pawn without a hygiene need. Nothing can escape the
@@ -239,6 +239,25 @@ now a colonist who has lost the hygiene need, ordered through the real job - the
 
 Both changes are untested. Whether the chilled colonist keeps Hypothermia long enough for the component's
 first tick, so that `HotBath` is granted, is what the next run will say.
+
+**Sixth run (English) and seventh (French), 2026-09-23, the suite after its code review: 19 scenarios played of 19,
+15 passed and 4 failed in each, `exitReason: failed`, and not the same four.** Text summaries in `docs/runs/`.
+The thirteen scenarios that do not order a bath passed in both languages; of the six that do, two passed in each
+(the end-to-end wash in both, plus the chilled colonist in the burning drum in English and the capture in French). Two findings, both about
+the suite:
+
+- **The order never worked, and the bath happened when the drum mod's own joy giver sent the colonist.**
+  The drum mod builds its job with target A the drum's cell and target B the drum (`tryGiveJob`), and the
+  driver's first toil fails on a null B. The suite ordered `MakeJob(def, drum)`, the drum in A and B empty:
+  the job ended inside `StartJob` while `TryTakeOrderedJob` still returned true, so the order step passed
+  and only the wait could tell. A colonist with joy at ten per cent then found the drum by the joy giver
+  after 60 or 90 seconds in some scenarios and never in others, hence a different four in each language,
+  and the French capture passing at 94 of its 90 seconds of budget. The fifth run's reading, "the driver
+  rewrites `targetA`", was a wrong inference from that. The step now builds the job as the mod does, and
+  records the drum's reservations at the moment of the order.
+- **The game gives a pawn its needs back when their hediffs change**, so the colonist who had lost the hygiene
+  need was carrying it again after the bath (French run, 12th step). The null branch is now reached by
+  giving the hediff and removing the need in one step, before any tick.
 
 **The suite as it stands now has not been run.** `STATUS.md` carries the execution as `unverified`,
 and it belongs to `done -> tested`.

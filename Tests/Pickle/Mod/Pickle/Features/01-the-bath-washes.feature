@@ -100,34 +100,34 @@ Feature: the drum bath washes the colonist soaking in it
     And no errors were logged
 
   # The quiet branch: ResolveCleanAction returns null for a pawn with no hygiene need, and has to
-  # keep returning nothing for the rest of the bath rather than looking again every tick. It is
-  # reached through a colonist who has lost the need, and through the REAL job.
+  # keep returning nothing for the rest of the bath rather than looking again every tick.
   #
-  # IT WAS AN ANIMAL, AND IT COULD NOT STAY ONE. The drum mod does bathe animals, but through its own
-  # component and not through an ordered job. Given the hediff by hand, a muffalo made the drum mod's
-  # own render patch (DrumBath_Harmony.PawnRenderer_RenderPawnAt) throw on a pawn with the hediff and
-  # no job - a state no player produces. Ordered into the drum, it never took the order: its job trace
-  # in the fifth run is wandering and nothing else. The branch this mod owns is the missing need, and
-  # a colonist without one reaches it just as well.
-  @timeout:240
+  # NOT THROUGH THE REAL JOB, and it was tried. The game gives a pawn its needs back whenever their
+  # hediffs change, and the bath's own hediff is added by the job's toil: in the French pass of
+  # 2026-09-23 the colonist who had lost the need was carrying it again after the bath, so the component
+  # had bound a real clean action and the scenario proved nothing about the null branch. The hediff is
+  # therefore given and the need taken off in one step, in that order, before any tick: the component
+  # binds on its first tick and meets a pawn with nothing to fill. The bath as a colonist walks into it
+  # is the job of the scenarios around this one.
+  #
+  # IT WAS AN ANIMAL, BEFORE THAT, AND COULD NOT STAY ONE. The drum mod bathes animals through its own
+  # component and not through an ordered job, and given the hediff by hand a muffalo made the drum mod's
+  # render patch (DrumBath_Harmony.PawnRenderer_RenderPawnAt) throw on a pawn with the hediff and no
+  # job. The branch this mod owns is the missing need, and a colonist reaches it as well.
+  @timeout:180
   Scenario: a colonist with no hygiene need is left alone in the bath, and nothing is logged
     Given a colonist "Shaggy" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
-    And Drum Bath Hygiene: "Shaggy" loses the hygiene need
-    Then Drum Bath Hygiene: "Shaggy" has no hygiene need
-    Given "Shaggy" needs "Joy" is set to 10 percent
     And game speed is ultrafast
-    When Drum Bath Hygiene: "Shaggy" is ordered to bathe in the drum at x=142 z=155
-    Then Drum Bath Hygiene: "Shaggy" is bathing in the drum at x=142 z=155
-    When I wait 300 ticks
-    # THE NULL BRANCH, PROVED TO HAVE RUN. The need is taken off the pawn's list by hand, so the
-    # precondition is asserted again here, after the walk and some ticks of bath: if the game had given
-    # the need back, the component would have bound `clean` and washed, and this scenario would have
-    # stayed green without ever reaching the branch it is named for. The component being on the hediff
-    # says it was there to take that branch.
+    When Drum Bath Hygiene: "Shaggy" climbs into the drum at x=142 z=155
+    And I draft "Shaggy"
+    And Drum Bath Hygiene: "Shaggy" is given the bathing hediff, then loses the hygiene need
+    # The precondition, asserted before a single tick has run: with the need there, this is not the
+    # branch the scenario is named for.
     Then Drum Bath Hygiene: "Shaggy" has no hygiene need
-    And Drum Bath Hygiene: the bathing hediff of "Shaggy" carries the component
+    When I wait 300 ticks
+    Then Drum Bath Hygiene: the bathing hediff of "Shaggy" carries the component
     And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 

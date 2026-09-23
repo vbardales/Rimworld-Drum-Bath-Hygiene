@@ -262,7 +262,14 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Assert(def != null,
                 $"no JobDef \"{BathJob}\": MMDrumcanMOD is out of the modlist, or renamed its job");
 
-            Job job = JobMaker.MakeJob(def, drum);
+            // THE JOB AS THE DRUM MOD BUILDS IT (`tryGiveJob`, and its joy giver): target A is the drum's
+            // CELL, target B is the drum. The driver's first toil fails on a null or destroyed target B,
+            // and reserves A as the place to stand, so `MakeJob(def, drum)` - the drum in A and nothing
+            // in B - was ended inside `StartJob` on every order. `TryTakeOrderedJob` still returned true,
+            // and the colonist bathed only when the drum mod's own joy giver, joy being low, happened to
+            // send them: after 60 or 90 seconds in some runs, never in others, which is what the first
+            // English and French passes of 2026-09-23 showed (a different four scenarios failed in each).
+            Job job = JobMaker.MakeJob(def, drum.Position, drum);
             bool taken = pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
             var holders = pawn.Map.reservationManager.ReservationsReadOnly
                 .Where(r => r.Target.Thing == drum)
@@ -391,6 +398,24 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Require(need != null, $"{name} has no hygiene need to lose: Dubs Bad Hygiene is out of the modlist");
             pawn.needs.AllNeeds.Remove(need);
             ctx.Assert(HygieneOf(pawn) == null, $"{name} still has a hygiene need after losing it");
+        }
+
+        /// <summary>
+        /// The bathing hediff and the missing need in ONE step, in that order. The game gives a pawn its
+        /// needs back whenever their hediffs change: the French pass of 2026-09-23 found Shaggy, who had
+        /// lost the hygiene need before an ordered bath, carrying it again afterwards, so the component
+        /// had bound a real clean action and the scenario had proved nothing about the branch it named.
+        /// Adding the hediff first and removing the need second leaves the need absent when the
+        /// component makes its first tick, which is when it binds.
+        /// </summary>
+        [Given("Drum Bath Hygiene: {string} is given the bathing hediff, then loses the hygiene need")]
+        public void GivenBathHediffWithoutNeed(PickleContext ctx, string name)
+        {
+            Pawn pawn = PawnNamed(ctx, name);
+            HediffDef def = DefDatabase<HediffDef>.GetNamedSilentFail(BathHediff);
+            ctx.Require(def != null, $"no HediffDef \"{BathHediff}\": MMDrumcanMOD is out of the modlist");
+            pawn.health.AddHediff(def);
+            LoseHygiene(ctx, name);
         }
 
         private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)
