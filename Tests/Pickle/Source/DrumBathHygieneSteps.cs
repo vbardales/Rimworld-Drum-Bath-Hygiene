@@ -49,10 +49,19 @@ namespace DrumBathHygiene.PickleSteps
         /// </summary>
         private static readonly Dictionary<string, float> Remembered = new Dictionary<string, float>();
 
+        /// <summary>
+        /// What the world looked like the instant an order to bathe was given, keyed like
+        /// <see cref="Remembered"/> and cleared with it: a bath job that ends inside `StartJob` (a failed
+        /// pre-toil reservation does that) still lets `TryTakeOrderedJob` return true, so the order step
+        /// passes and only the wait after it can tell, ninety seconds later, without knowing why.
+        /// </summary>
+        private static readonly Dictionary<string, string> OrderNotes = new Dictionary<string, string>();
+
         [BeforeScenario]
         public void ResetRemembered()
         {
             Remembered.Clear();
+            OrderNotes.Clear();
         }
 
         /// <summary>
@@ -255,6 +264,12 @@ namespace DrumBathHygiene.PickleSteps
 
             Job job = JobMaker.MakeJob(def, drum);
             bool taken = pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+            var holders = pawn.Map.reservationManager.ReservationsReadOnly
+                .Where(r => r.Target.Thing == drum)
+                .Select(r => $"{r.Claimant?.LabelShort ?? "?"} ({r.Job?.def.defName ?? "no job"})");
+            OrderNotes[name] = $"Right after the order: job {pawn.CurJob?.def.defName ?? "none"}, "
+                + $"the drum can be reserved by {name}: {pawn.CanReserve(drum)}, "
+                + $"reserved by [{string.Join(", ", holders)}]";
             ctx.Assert(taken,
                 $"{name} refused the order to bathe in the drum at x={x} z={z}. Current job: "
                 + (pawn.CurJob?.def.defName ?? "none"));
@@ -334,6 +349,7 @@ namespace DrumBathHygiene.PickleSteps
                 + $"reachable {reachable}, drafted {pawn.Drafted}, downed {pawn.Downed}, "
                 + $"mental state {(pawn.InMentalState ? "yes" : "no")}, "
                 + $"hediffs [{HediffNames(pawn)}], joy {(joy != null ? joy.CurLevelPercentage.ToString("0.00") : "n/a")}. "
+                + (OrderNotes.TryGetValue(name, out string note) ? note + ". " : "")
                 + "Job trace: " + (trace.Count == 0 ? "(nothing sampled)" : string.Join(" | ", trace)));
         }
 
