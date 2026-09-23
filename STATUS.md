@@ -25,9 +25,9 @@ owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
 tested_on:    Release rebuild and first half of the Windows PowerShell XML/packaging suite on Windows, 2026-09-22; no in-game validation recorded
-workshop:      3806137182; 0.1.0 prepublished by the owner on 2026-09-22 (an upload that creates the item, private by Steam default); visibility and the live page were not queried
+workshop:      3806137182; 0.1.0 prepublication by the owner on 2026-09-22: an upload that only creates the item (private, as Steam creates them) and its PublishedFileId.txt. An act, not the `prepublished` stage; visibility and the live page were not queried
 remaining:
-  - publication: CHANGELOG.md now records 0.1.0 (the prepublication upload that created the item) and keeps 1.0.0 as unreleased. No v0.1.0 or v1.0.0 tag and no GitHub release exist, and no PUBLICATION.md; all remain to do before a prepublished claim.
+  - publication: CHANGELOG.md records 0.1.0 (the prepublication) and keeps 1.0.0 as unreleased above it; 1.0.0 is the version that arrives with `published`. No tag and no GitHub release exist yet, and no PUBLICATION.md.
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
   - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
