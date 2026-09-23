@@ -97,8 +97,9 @@ So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are 
 
 ## Status
 
-The offline suite passes. The Pickle suite has **run five times**, all English on 2026-09-21 (`docs/runs/2026-09-21-runs-1-to-5.md`), no
-failure a defect of the mod, and was **changed after each run**, so the suite as it stands (18 scenarios in 6
-features, plus a code review on 2026-09-23) has not been run. `STATUS.md` carries the two passes owed as `unverified` under the
+The offline suite passes. The Pickle suite has **run seven times**: five English on 2026-09-21 (`docs/runs/2026-09-21-runs-1-to-5.md`), then
+English and French on 2026-09-23 (`docs/runs/2026-09-23-runs-6-and-7.md`, 15 of 19 each). No failure was a defect of
+the mod, and the suite was **changed after each run**, so the suite as it stands (19 scenarios in 6
+features) has not been run. `STATUS.md` carries the two passes owed as `unverified` under the
 `done -> tested` transition, where they belong: writing the scenarios is what `preTest -> done`
 asks for; running them is not. The first run's findings are in `Tests/Pickle/README.md`.
