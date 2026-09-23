@@ -30,7 +30,8 @@
 # fixture stands in, and its stage is Dubs Bad Hygiene's own judgement of impressiveness. A
 # scenario naming a stage would be asserting DBH's room rules rather than this bridge's one call,
 # and it would need a built, roofed, scored room that Pickle's fixture does not provide. It stays
-# in _tools/FUNCTIONAL-SCENARIOS.md, scenario 4, where a person looks at it. Every scenario here
+# in _tools/FUNCTIONAL-SCENARIOS.md as scenario 4, marked not applicable in TESTING.md, with the reason
+# above. What the bridge owns is the call going through. Every scenario here
 # ends on "no errors were logged", which is what covers the call itself going through.
 Feature: the memories a bath leaves
 

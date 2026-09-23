@@ -30,8 +30,10 @@ remaining:
   - publication: CHANGELOG.md records 0.1.0 (the prepublication) and keeps 1.0.0 as unreleased above it; 1.0.0 is the version that arrives with `published`. No tag and no GitHub release exist yet, and no PUBLICATION.md.
   - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
   - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
-  - unverified: manual scenarios 0 through 12, including startup, hygiene, thoughts, privacy, filth, missing dependencies and saves.
-  - unverified: the Pickle suite under Tests/Pickle/ has run twice (English, 2026-09-21: 8 of 11, then 12 of 16 passed; no failure a defect of the mod) and was changed after each run; the suite as it now stands has not been run. Two passes are owed, English and French, on the changed suite; see TESTING.md.
+  - unverified: the thirteen prose scenarios no longer wait for a person (TESTING.md, "What covers what"): Pickle plays 0-3 and 5-9, `Test-Mod.ps1` covers 11, and 4, 10 and 12 are not applicable with their reasons. Nothing is verified until the two passes are green: scenarios 5 and 9 were written on 2026-09-23 and have never run.
+  - unverified: no scenario is `@wip` and none is `@requires:` (the mod declares no optional mod), checked by a search of the features on 2026-09-23; to be checked again before `tested` is claimed.
+  - open: the Workshop description, already sent with the 0.1.0 prepublication, says nothing breaks without the two dependencies. No run shows it and none can (a pass excludes only DLCs); it can only be corrected by hand on the Steam page.
+  - unverified: the Pickle suite under Tests/Pickle/ (18 scenarios in 6 features) has run five times on 2026-09-21, never in its current form, and no pass has been green in full. English and French passes are owed on the suite as it now stands; see TESTING.md.
   - unverified: runtime behavior of the reflection calls in game. Their five targets were re-read statically on 2026-09-21 in the installed BadHygiene.dll (DBH 3.1.2800) and all resolve with the exact public signatures the bridge asks for; that shows the members exist, not that the calls behave.
   - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.

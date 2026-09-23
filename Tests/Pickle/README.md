@@ -23,7 +23,9 @@ matters here more than usual: `SteamUGC.SetItemContent` sends `Mod/` whole, with
 | the gauge climbs | the fill goes through `Need_Hygiene.clean`, bound by reflection into another mod's assembly. Only a running need moves |
 | a colonist who is not bathing is not washed | Dubs Bad Hygiene moves that need by itself. Without this control, a rise proves nothing |
 | half a bath fills an empty gauge | `0.0005` per tick is a number in a file until 2000 ticks have passed. It also crosses six privacy re-checks |
-| an animal is left alone | `ResolveCleanAction` returning null for a pawn with no hygiene need, and staying null. The branch that throws if it is wrong |
+| a colonist with no hygiene need is left alone | `ResolveCleanAction` returning null for a pawn with no hygiene need, and staying null. The branch that throws if it is wrong. It was an animal until the fifth run, which showed the drum mod bathes animals through its own component |
+| an onlooker who arrives halfway is noticed, and the memory stacks (`05`) | the periodic check every 300 ticks is this mod's own design, and only a bath that lasts past one, with someone arriving after the entry check, can show it. Prose scenario 5 |
+| the second bath washes as well as the first, for the same colonist and for another (`06`) | the bridge is resolved once per session and the component once per bath: a first bath that works and a second that does nothing would mean the two lifetimes were confused. Prose scenario 9 |
 | a save and a reload mid-bath | the two scribed values, and the delegate deliberately not scribed, which has to bind again after the load |
 | hot water and cold water | `cold` is read off `CompRefuelable.HasFuel` on the drum under the pawn's feet. What follows is DBH's rule, so it is played as two pairs, each asserting on both sides: a healthy colonist (burning: no `ColdWater`; burnt out: `ColdWater`) and a chilled one (burning: `HotBath`; burnt out: `ColdWater`) |
 | soaking wet forgotten on the way in | a reflected `ThoughtDef` lookup and a memory removal on a live pawn |
@@ -93,17 +95,18 @@ test what was just changed.
 
 ## What is deliberately not here
 
-- **The bathroom thought.** `ApplyBathroomThought` grades the room the fixture stands in, and the
-  stage it picks is Dubs Bad Hygiene's judgement of impressiveness. A scenario naming a stage would
-  assert DBH's room rules rather than this bridge's one call, and would need a built, roofed,
-  scored room the fixture does not provide. It stays in `_tools/FUNCTIONAL-SCENARIOS.md`,
-  scenario 4.
+- **The bathroom thought** (prose scenario 4). `ApplyBathroomThought` grades the room the fixture stands in,
+  and the stage it picks is Dubs Bad Hygiene's judgement of impressiveness. A scenario naming a stage would
+  assert DBH's room rules rather than this bridge's one call. **Not applicable**, with the reason in
+  `TESTING.md`; the call itself going through is what `no errors` and `no warnings from mod` cover.
 - **Running without Dubs Bad Hygiene, and without the drum bath mod** — scenarios 10 and 11 of the
-  prose file. Both are declared hard dependencies, and `stage-pickle-wsl.sh` stages every hard
-  dependency on every pass. The harness cannot build the modlist these two need, so they stay
-  where a person can set them up by hand.
-- **Removing the mod from a save in progress**, prose scenario 12. A run cannot change its own
-  modlist.
+  prose file. **Not applicable.** Both are declared hard dependencies: what RimWorld does when one is
+  missing is the game's, and the mod answers for what it *declares*, which is checked in the sources.
+  The harness could not play it anyway: a pass map excludes only DLCs, and staging places every hard
+  dependency. The patch against an upstream without the hediff is covered offline, by `Test-Mod.ps1`.
+- **Removing the mod from a save in progress**, prose scenario 12. **Not applicable.** How RimWorld
+  loads a save under a different mod list is the game's; the mod's share is the two values it scribes,
+  which the save-and-reload scenario covers.
 - **The joy giver, and what makes a colonist go to the drum on their own.** `Joy_BathingAtDrumBath`
   and its ten-per-cent fuel threshold belong to MMDrumcanMOD: testing which drum it picks, when, or
   against which other pastimes would be testing that mod's code. This mod begins after the decision.
