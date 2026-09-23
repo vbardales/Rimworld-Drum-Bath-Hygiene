@@ -259,5 +259,6 @@ the suite:
   need was carrying it again after the bath (French run, 12th step). The null branch is now reached by
   giving the hediff and removing the need in one step, before any tick.
 
-**The suite as it stands now has not been run.** `STATUS.md` carries the execution as `unverified`,
-and it belongs to `done -> tested`.
+**Eighth and ninth runs, same day, after those two fixes: English and French, 19 of 19 played and green in each, `exitReason: passed`.**
+The five scenarios that order a bath took 17 to 30 s where they had waited 90 s. Both captures were opened and show the
+colonist in the drum with the panel on the bath's own line, in each language. Summaries in `docs/runs/`.

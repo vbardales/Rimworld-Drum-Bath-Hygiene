@@ -10,40 +10,64 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-stage:        done
+stage:        tested
 settings_audit: not_applicable
 build_audit: complete
 automated_tests: complete
 xml_tests: complete
 functional_scenarios: complete
-in_game_tests: unchecked
-audit_revision: d7e1737b56b44b560ae3eeb71401f03f5dfd353f
+in_game_tests: complete
+audit_revision: 759aa3716b4cbff3d071c691f6903bac5ebc3307
 licence:      open
 license_spdx: MIT
 licence_at:   LICENSE and Mod/LICENSE; original integration code, third-party dependencies credited in ATTRIBUTION.md
 owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
-tested_on:    Release rebuild and first half of the Windows PowerShell XML/packaging suite on Windows, 2026-09-22; no in-game validation recorded
+tested_on:    Pickle suite in game (RimWorld 1.6, Linux under WSL, Xvfb), English (run 8) and French (run 9), 2026-09-23: 19 scenarios of 19 played and green in each, exitReason passed, from revision 9df3305; earlier: Release rebuild and the Windows PowerShell XML/packaging suite, 2026-09-22
 workshop:      3806137182; 0.1.0 prepublication by the owner on 2026-09-22: an upload that only creates the item (private, as Steam creates them) and its PublishedFileId.txt. An act, not the `prepublished` stage; visibility and the live page were not queried
 remaining:
   - publication: CHANGELOG.md records 0.1.0 (the prepublication) and keeps 1.0.0 as unreleased above it; 1.0.0 is the version that arrives with `published`. No tag and no GitHub release exist yet, and no PUBLICATION.md.
-  - unverified: execute final validation on a new colony and an existing save, recording dependency versions, per-scenario results and Player.log; no game session was run in this audit.
-  - unverified: English and French in-game integration display checks described in _tools/FUNCTIONAL-SCENARIOS.md; dependency translations have not been certified by this audit.
-  - unverified: the thirteen prose scenarios no longer wait for a person (TESTING.md, "What covers what"): Pickle plays 0-3 and 5-9, `Test-Mod.ps1` covers 11, and 4, 10 and 12 are not applicable with their reasons. Nothing is verified until the two passes are green: scenarios 5 and 9 were written on 2026-09-23 and have never run.
-  - unverified: no scenario is `@wip` and none is `@requires:` (the mod declares no optional mod), checked by a search of the features on 2026-09-23; to be checked again before `tested` is claimed.
   - open: the Workshop description, already sent with the 0.1.0 prepublication, says nothing breaks without the two dependencies. No run shows it and none can (a pass excludes only DLCs); it can only be corrected by hand on the Steam page.
-  - unverified: the Pickle suite under Tests/Pickle/ (19 scenarios in 6 features) has run seven times on 2026-09-21 and 2026-09-23 (docs/runs/), never in its current form, and no pass has been green in full: the sixth and seventh (English, French) each passed 15 of 19, four different ones, all failures of the suite (the ordered bath job was malformed; a removed need came back). Both fixed, not yet re-run. English and French passes are owed on the suite as it now stands, and are queued; see TESTING.md.
-  - unverified: runtime behavior of the reflection calls in game. Their five targets were re-read statically on 2026-09-21 in the installed BadHygiene.dll (DBH 3.1.2800) and all resolve with the exact public signatures the bridge asks for; that shows the members exist, not that the calls behave.
-  - unverified: cold water on arrival and removal of the mod from a mid-bath save.
   - feature: fire intensity, deferred in BACKLOG.md.
 updated:      2026-09-23
 ---
 
 # Drum Bath Hygiene — status
 
-`stage` uses the workflow's own state names: `done` = `preTest -> done` established, the next
-state is `tested`. Codes used by this file: `done` (this one), `tested`, `prepublished`, `published`.
+`stage` uses the workflow's own state names: `tested` = `done -> tested` established, the next
+state is `prepublished`. Codes used by this file: `done`, `tested` (this one), `prepublished`, `published`.
+
+## Workflow audit — 2026-09-23: `done` -> `tested`
+
+Audited revision: `759aa37` (`main`); the two passes were staged from `9df3305`. `Mod/` and `Source/` have not changed since `d7e1737` other than the Workshop id file (the distributed DLL is still SHA256 `865ACC8A…`), so the runs are of the mod as it stands. Only the suite changed between the first Pickle runs and these two.
+
+Result: **`done` -> `tested`.**
+
+| `done -> tested` criterion (AUDIT.md, section 9) | Result | Evidence |
+| --- | --- | --- |
+| Functional scenarios played in game and passed | Met | Pickle plays prose scenarios 0-3 and 5-9; 11 is offline (`Test-Mod.ps1`); 4, 10, 12 are not applicable with their reasons (TESTING.md, "What covers what") |
+| Pickle suites run and green, `@review` captures actually opened | Met | Run 8 (English) and run 9 (French): `exitReason: passed`, 19 of 19 played, 0 failed, 0 skipped. Both stills and both films opened: the colonist sits in the drum, the panel reads the bath line in each language |
+| Scenarios played against features discovered; `exitReason` read first | Met | 19 written in 6 features, 19 played, in both passes; `exitReason` read before the counts |
+| Logs checked, interface in FR and EN | Met | Every bath scenario ends on `no warnings from mod` and `no errors were logged`; the one `[ERROR]` in each log is start-up, the companion test mod having no def |
+| Options, persistence, MainButtons | Met, not applicable | No settings and no shortcut (`settings_audit: not_applicable`); persistence is the two scribed values, covered by the save-and-reload scenario |
+| New game and existing save | Partly, by judgement | Existing save loaded in every scenario and reloaded mid-bath. A new colony was not played and adds no case (no scenario part, no world generation, no game component); this is an argument, not a run |
+| Fixes followed by regression tests | Met | The fixes since the first runs were to the suite only; the mod is unchanged; the offline suite passes |
+| No `@wip` | Met | Searched: none |
+| Every conditional scenario ran | Met, vacuous | None is `@requires:`: the mod declares no optional mod |
+| No manual test left to validate | Met | Every prose scenario is automated and green or not applicable with its reason |
+
+Details of the judgements above, as they stood in `remaining` before this audit:
+
+- existing save covered, new colony not played (a judgement, not a run). Every Pickle scenario loads the `test-colony` save and one reloads it mid-bath (runs 8 and 9). A new colony adds no case: the mod has no scenario part, no world generation and no game component, so nothing in it depends on how a colony began. Dependency versions and Player.log are in docs/runs/2026-09-23-run-8-english.md and run-9-french.md.
+- English and French display, by the `@review` capture of each pass, opened (runs 8 and 9): the colonist sits in the drum and the panel reads the drum mod's bath line in each language. The text is Dubs Bad Hygiene's and the drum mod's, not this mod's (translation fields above); what was established is that both languages render it, not that this repository translates anything.
+- the thirteen prose scenarios no longer wait for a person (TESTING.md, "What covers what"): Pickle played 0-3 and 5-9 and both passes are green (scenarios 5 and 9 included), `Test-Mod.ps1` covers 11, and 4, 10 and 12 are not applicable with their reasons. One consequence of 10 stays open below (the Workshop description).
+- no scenario is `@wip` and none is `@requires:` (the mod declares no optional mod), by a search of the features on 2026-09-23 before this stage was claimed; 19 scenarios in 6 features, 19 played in each pass.
+- the Pickle suite under Tests/Pickle/ (19 scenarios in 6 features) is green in full in English and French on 2026-09-23 (runs 8 and 9, docs/runs/), after seven earlier runs that were not: the sixth and seventh passed 15 of 19 each, four different ones, all failures of the suite (the ordered bath job was malformed; a removed need came back), both fixed in 9df3305. Both `@review` captures were opened and show the bath. Evidence on disk in `.build/evidence/tested-english-1/` and `tested-french/` (ignored by git).
+- runtime behaviour of the reflection calls, in the scenarios that assert their effect: the water memory (`ColdWater`, `HotBath`), `SoakingWet` cleared, `WashPrivacy` stacking with an onlooker, the hygiene gauge rising, and no warning from the mod in any bath scenario. The call to `ApplyBathroomThought` is not asserted (Dubs Bad Hygiene's own grading of a room, not applicable, TESTING.md scenario 4); it goes through without a warning. The five targets were also re-read statically on 2026-09-21 in BadHygiene.dll 3.1.2800.
+- cold water on arrival (the burnt-out drum scenarios, ordered and teleported). Removal of the mod from a mid-bath save is the game's handling of its mod list, not applicable (TESTING.md scenario 12).
+
+What this stage does **not** say: nothing about `prepublished` (PUBLICATION.md, the ordered captures, thanks, release notes, the adult-content answers and the tag are not started), and the Workshop description, already sent with the 0.1.0 prepublication, still claims nothing breaks without the two dependencies, which no run shows and only a hand edit on the Steam page can correct.
 
 ## Workflow audit — 2026-09-22
 

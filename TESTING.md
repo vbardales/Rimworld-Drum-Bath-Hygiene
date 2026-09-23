@@ -56,8 +56,8 @@ mid-run would hang on a game being torn down under the runner.
 
 `_tools/FUNCTIONAL-SCENARIOS.md` holds thirteen scenarios (0-12) and a language check, written for a person.
 `done -> tested` asks that no manual test be left to validate: what used to be ticked by hand is **automated and
-green, or listed as not applicable with its reason**. This is that list. **It is a plan: a row is covered only when
-the Pickle scenario it names has passed, and the suite as it now stands has not yet run.**
+green, or listed as not applicable with its reason**. This is that list. A row is covered only when
+the Pickle scenario it names has passed: **both passes of 2026-09-23 are green, so the rows are covered.**
 
 | Prose scenario | Covered by | Not applicable, and why |
 | --- | --- | --- |
@@ -97,9 +97,9 @@ So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are 
 
 ## Status
 
-The offline suite passes. The Pickle suite has **run seven times**: five English on 2026-09-21 (`docs/runs/2026-09-21-runs-1-to-5.md`), then
-English and French on 2026-09-23 (`docs/runs/2026-09-23-runs-6-and-7.md`, 15 of 19 each). No failure was a defect of
-the mod, and the suite was **changed after each run**, so the suite as it stands (19 scenarios in 6
-features) has not been run. `STATUS.md` carries the two passes owed as `unverified` under the
-`done -> tested` transition, where they belong: writing the scenarios is what `preTest -> done`
-asks for; running them is not. The first run's findings are in `Tests/Pickle/README.md`.
+The offline suite passes. The Pickle suite is **green in full in both passes**: English (run 8) and French (run 9), on
+2026-09-23, each 19 scenarios of 19 played, `exitReason: passed`, from revision `9df3305`, with both `@review` captures opened
+(`docs/runs/2026-09-23-run-8-english.md`, `docs/runs/2026-09-23-run-9-french.md`). Seven earlier runs were not green and
+the suite was changed after each of them (`docs/runs/`); no failure was a defect of the mod. The table above stops being a
+plan: every row that names a Pickle scenario has now been played and has passed, in both languages. `STATUS.md` carries
+the stage as `tested`. The first run's findings are in `Tests/Pickle/README.md`.
