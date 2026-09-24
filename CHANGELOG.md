@@ -22,7 +22,7 @@ First version. RimWorld 1.6.
 - The mod adds no building, texture or def of its own: it is a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, and does nothing without both.
 - No Harmony patch. The component is grafted by XML onto the hediff the drum bath mod already applies while a pawn is soaking, and the patch is conditional on that hediff existing rather than on a mod identifier.
 - The Dubs Bad Hygiene side is reached entirely by reflection, so a rework on their end degrades the mod instead of breaking it.
-- The component saves two temporary values (`started` and `ticks`) on the bathing hediff. Adding the mod to an existing game and removing it outside or during a bath still require in-game validation.
+- The component saves two temporary values (`started` and `ticks`) on the bathing hediff. They survive a save and a reload in the middle of a bath (played in the Pickle suite, English and French). Adding the mod to an existing save, or removing it from one, has not been tested.
 
 ## [0.1.0] — 2026-09-22
 
