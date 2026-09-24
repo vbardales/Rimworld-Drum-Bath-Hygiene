@@ -7,5 +7,6 @@
     "Assemblies/DrumBathHygiene.dll"
   ],
   "forbidPaths": [],
-  "previewFile": "About/Preview.png"
+  "previewFile": "About/Preview.png",
+  "galleryDir": "Art/WorkshopScreenshots"
 }
