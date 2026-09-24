@@ -53,17 +53,19 @@ One more claim to keep in mind rather than change: *"the room gives its usual ba
 without a warning, but the thought itself is Dubs Bad Hygiene's grading of a room and no scenario asserts a stage
 (TESTING.md, scenario 4, not applicable).
 
-## Release notes (paste into the change note field at upload)
+## Release notes (the change note of each upload)
+
+The change note sent to Steam with an upload, under the heading of its version: the manual workflow reads the block
+under `### <version>` (`../PUBLISHING.md`, "Publier par la CI"), and the `## [<version>]` section of `CHANGELOG.md` goes
+into the GitHub release.
+
+### 1.0.0
 
 > First release. Makes the drum can bath wash: while a colonist soaks, their Dubs Bad Hygiene hygiene need fills (an
 > empty gauge over half a bath), onlookers react as with any Dubs Bad Hygiene bathing, the water counts as hot or cold by
 > whether the drum still burns, the "soaking wet" memory is cleared on the way in and the filth carried on the body on the
 > way out. No content of its own: a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, both required.
 > RimWorld 1.6.
-
-### 1.0.0
-
-The block above is the change note the CI reads under this heading when the workflow is written to take it from here.
 
 ## Dependencies and DLC
 
