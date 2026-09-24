@@ -30,6 +30,17 @@ This is an **update of an existing item**, not a first creation (`../PUBLISHING.
   `CHANGELOG.md` to be dated, the change note below to be a fenced block under `### 1.0.0`, and no tag `v1.0.0`.
   **Any commit after the dry-run changes the SHA and needs a new one.** That includes the commit that dates the CHANGELOG,
   so date it first, and it is the commit that carries the Pickle-validated suite.
+- **Regenerating the workflow: keep every option.** The full command, `--gallery-dir` included (a later `--replace` typed from
+  memory without it would silently drop `galleryDir` from `.github/publish.config.json`), from a shell; add `--check` first to see
+  whether the template moved (stamp `eba6b3fdf670`, Rimworld-Release-Admin `31fe605`):
+
+  ```
+  bash /c/Users/nelim/Documents/rimworld/Rimworld-Release-Admin/scripts/generate-publish-workflow.sh /c/Users/nelim/Documents/rimworld/DrumBathHygiene --replace --workshop-id 3806137182 --package-id nelim.drumbathhygiene --release-title "Drum Bath Hygiene {version}" --require Assemblies/DrumBathHygiene.dll --gallery-dir Art/WorkshopScreenshots
+  ```
+
+  The dry-run lists the images of `Art/WorkshopScreenshots` (alphabetical, only png, jpg, jpeg and gif, not recursive) as a
+  reminder of the manual gallery upload; it reads the folder from the pinned commit, so the images are committed in the final
+  commit, not left in `.build/evidence`, and nothing else stays in that folder.
 - **The CI sends `Mod/`** (everything in it: `About`, `Assemblies`, `Patches`, `ATTRIBUTION.md`, `LICENSE`; there is no
   `.steamignore` and nothing else to exclude). The workflow has four opt-in inputs, **off by default and left off unless
   Virginie asks**: `update_preview`, `update_description`, `update_title`, `update_tags`; visibility is never sent. So the
@@ -107,7 +118,7 @@ the studio's presentation mode, and **2. the Needs tab with the hygiene gauge pa
 asserted risen after 600 ticks of the real bath), interface kept since the tab is the subject.
 Each image is opened before it is uploaded, against what the owner asked for: the studio colony, on grass with flowers
 around (or a plain orange zone), no skeleton, the bath visible. The page is English, so the English shots are the ones to
-use; they are copied, converted to JPEG, into `Art/WorkshopScreenshots/` (`1-the-bath.jpg`, `2-the-needs-tab.jpg`: the
+use; they are copied, converted to JPEG, into `Art/WorkshopScreenshots/` (`01-the-bath.jpg`, `02-the-needs-tab.jpg`: the
 dry-run lists that folder as a reminder of the manual gallery upload, in that alphabetical order, which is also the order
 of the page).
 
