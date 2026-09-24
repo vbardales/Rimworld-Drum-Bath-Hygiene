@@ -1,0 +1,11 @@
+{
+  "templateStamp": "eba6b3fdf670",
+  "workshopId": "3806137182",
+  "packageId": "nelim.drumbathhygiene",
+  "releaseTitle": "Drum Bath Hygiene {version}",
+  "requirePaths": [
+    "Assemblies/DrumBathHygiene.dll"
+  ],
+  "forbidPaths": [],
+  "previewFile": "About/Preview.png"
+}

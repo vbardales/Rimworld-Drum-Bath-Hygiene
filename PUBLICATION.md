@@ -18,15 +18,24 @@ This is an **update of an existing item**, not a first creation (`../PUBLISHING.
 - **CHANGELOG.** `## [1.0.0] — unreleased` must be given its date before the upload: the release notes of the GitHub
   release are that section. The tag `v1.0.0` and the release are created **by the CI after a successful upload**, on the
   exact SHA it uploaded, never by hand.
-- **The workflow.** TO DO, and not started: this repository has no `.github/`. The path for an existing item is a manual
-  workflow like the one Skill Icons uses (`publish-tag.yml`, pinned actions, a `dry-run` and a `publish` mode, the SHA
-  in full for `publish`), pointed at item `3806137182` (never `0`). It is a change to a workflow, so the owner decides
-  first; the `release-dry-run` and `steam-production` environments and the two Steam secrets are hers to set up, and
-  **only she launches and approves `publish`**. Then: a dry-run on the exact commit, run id and SHA recorded in
-  `STATUS.md`, its log read and not just its tick. **Any commit after the dry-run changes the SHA and needs a new one.**
-  That includes the commit that dates the CHANGELOG, so date it first.
-- **The CI sends `Mod/` only**, no description, no title, no preview and no visibility: the description and images below
-  are hand work on the Steam page.
+- **The workflow.** Written on 2026-09-24 by `Rimworld-Release-Admin/scripts/generate-publish-workflow.sh` (the single
+  source, from a mod repository: `--workshop-id 3806137182 --package-id nelim.drumbathhygiene --release-title "Drum Bath
+  Hygiene {version}" --require Assemblies/DrumBathHygiene.dll`), which writes `.github/workflows/publish-tag.yml`,
+  `script-tests.yml`, `.github/scripts`, `.github/tests` and `publish.config.json`; 48 tests pass. It must be on `main` to be
+  dispatched. `dry-run` first, on the exact commit, its log read for the `publish template:` and `options:` lines; the run
+  id and the SHA go into `STATUS.md`. `publish` takes the full 40-character SHA
+  (`Rimworld-Release-Admin/scripts/dispatch-publish.sh vbardales/Rimworld-Drum-Bath-Hygiene publish-tag.yml <SHA> 1.0.0`,
+  which refuses without a green dry-run of that SHA); **only Virginie approves `steam-production`**, which already exists
+  with its reviewer and the two secrets (checked read-only by the CI session). The dry-run also needs `## [1.0.0]` in
+  `CHANGELOG.md` to be dated, the change note below to be a fenced block under `### 1.0.0`, and no tag `v1.0.0`.
+  **Any commit after the dry-run changes the SHA and needs a new one.** That includes the commit that dates the CHANGELOG,
+  so date it first, and it is the commit that carries the Pickle-validated suite.
+- **The CI sends `Mod/`** (everything in it: `About`, `Assemblies`, `Patches`, `ATTRIBUTION.md`, `LICENSE`; there is no
+  `.steamignore` and nothing else to exclude). The workflow has four opt-in inputs, **off by default and left off unless
+  Virginie asks**: `update_preview`, `update_description`, `update_title`, `update_tags`; visibility is never sent. So the
+  description corrections and the images below stay hand work on the Steam page, unless she turns `update_preview` (the
+  new `Preview.png`) or `update_description` (which needs the whole description as a fenced block under a heading of this
+  file) on for that dispatch.
 
 ## The description: already sent, and two sentences in it are now wrong
 
@@ -61,11 +70,13 @@ into the GitHub release.
 
 ### 1.0.0
 
-> First release. Makes the drum can bath wash: while a colonist soaks, their Dubs Bad Hygiene hygiene need fills (an
-> empty gauge over half a bath), onlookers react as with any Dubs Bad Hygiene bathing, the water counts as hot or cold by
-> whether the drum still burns, the "soaking wet" memory is cleared on the way in and the filth carried on the body on the
-> way out. No content of its own: a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, both required.
-> RimWorld 1.6.
+```
+First release. Makes the drum can bath wash: while a colonist soaks, their Dubs Bad Hygiene hygiene need fills (an
+empty gauge over half a bath), onlookers react as with any Dubs Bad Hygiene bathing, the water counts as hot or cold by
+whether the drum still burns, the "soaking wet" memory is cleared on the way in and the filth carried on the body on the
+way out. No content of its own: a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, both required.
+RimWorld 1.6.
+```
 
 ## Dependencies and DLC
 
@@ -112,8 +123,8 @@ opened so far show a person sitting in a barrel, clothed as far as the sprite sh
 Node runtime that carries playwright and sharp): the summary was narrowed from 430 to 290 px, so it wraps on two shorter
 lines and no longer sits on the rim of the bath, which began about 400 px from the left; the title, the rule and the badge
 did not move. Measured contrast of the summary over its whole rectangle rose from 5.96 to 10.55, size 518,698 bytes. This
-is a change to `Mod/`, and the CI does not send the preview: **replace the image by hand on the Steam page** if the
-new one is wanted there.
+is a change to `Mod/`. The workflow does not send the preview unless `update_preview` is turned on (off by default): **either
+Virginie turns it on for the dispatch, or the image is replaced by hand on the Steam page**, if the new one is wanted there.
 
 ## Content boxes (adult content, violence)
 
