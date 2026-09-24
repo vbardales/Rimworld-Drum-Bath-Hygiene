@@ -33,9 +33,10 @@ the reasons are the sort that expire:
 | `tools`, English | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map` | the whole suite against Core, the DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod, plus one step package (below). This is the only set the mod can be loaded in today |
 | `tools`, French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Language French` | the same suite under a French game. No step spells an English label, so the features are unchanged; what differs is the capture a person then opens |
 
-**The pass carries a step package, and it is not an optional mod.** `Tests/Pickle/wsl-deps.tools.map` stages
+**The pass carries two step packages, and neither is an optional mod.** `Tests/Pickle/wsl-deps.tools.map` stages
 `nelim.pickletools.inspecttabs` (`PickleTools/InspectTabs`), the steps that open a pawn's inspect tabs, which the stock
-Pickle has not got; `07-workshop-captures.feature` opens the Needs tab with them. The mod under test is loaded exactly as
+Pickle has not got, and `nelim.pickletools.screenshotstudio`, the owner's photographic colony (`nelim-zen-meadow-studio`, a
+meadow with a flower glade); `07-workshop-captures.feature` takes the Workshop images in that glade and opens the Needs tab. The mod under test is loaded exactly as
 it is with nothing else, so this is still the pass without optional mods, named after its map. **A run without the map
 would fail `07` on undefined steps: it is not a pass of this suite.** Runs 8 and 9 (2026-09-23) were made without it,
 before `07` existed, and played the first 19 scenarios; the `tools` passes replace them, and play all 21: the steps assembly changed after runs 8 and

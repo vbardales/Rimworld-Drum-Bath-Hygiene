@@ -419,23 +419,6 @@ namespace DrumBathHygiene.PickleSteps
             LoseHygiene(ctx, name);
         }
 
-        /// <summary>
-        /// Clears the corpses off the map, for the images meant for the Workshop page. The test colony
-        /// keeps a skeleton a few cells from the drum: the first tools pass of 2026-09-24 showed it in
-        /// the frame beside the bath, and a colonist who can see it carries the "Observed rotting
-        /// corpse" thought, drawn as a skull over their head and listed in the Needs tab next to the
-        /// bath's own. Neither belongs on the page of a mod about washing.
-        /// </summary>
-        [Given("Drum Bath Hygiene: the corpses of the map are removed")]
-        public void RemoveCorpses(PickleContext ctx)
-        {
-            Map map = CurrentMap(ctx);
-            List<Thing> corpses = map.listerThings.ThingsInGroup(ThingRequestGroup.Corpse).ToList();
-            foreach (Thing corpse in corpses) corpse.Destroy();
-            ctx.Assert(!map.listerThings.ThingsInGroup(ThingRequestGroup.Corpse).Any(),
-                "a corpse is still on the map after removing them all");
-        }
-
         private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)
         {
             Pawn pawn = PawnNamed(ctx, name);

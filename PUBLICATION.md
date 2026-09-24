@@ -97,25 +97,21 @@ Checked in the sources on 2026-09-24, not from intention.
 
 ## Captures for the Workshop page
 
-Steam shows the first one large: put the most demonstrative there, not the prettiest. **TO DO: waiting on the `tools`
-passes, English and French, queued on 2026-09-24.** `07-workshop-captures.feature` takes the two images, not filmed, each
-with the bath as the last thing asserted and the game paused before the shot: **1. the colonist in the drum** and **2. the
-Needs tab with the hygiene gauge partway up** (started at ten per cent, asserted risen after 600 ticks of the real bath).
-Each image is opened before it is uploaded: a green capture scenario shows that the trajectory ran, not that the picture
-shows anything. The page is English, so the English shots are the ones to use; the French ones are for the French check.
+Steam shows the first one large: put the most demonstrative there, not the prettiest. **TO DO: waiting on the final `tools`
+passes.** The images are not to be taken on the test colony: it is a working save with a skeleton beside the drum, and a
+first pair taken there on 2026-09-24 was **refused by the owner**. They are taken on her photographic colony,
+`nelim-zen-meadow-studio` (package `nelim.pickletools.screenshotstudio`), in its flower glade: a bath on grass with red and
+orange flowers around it that identify the place. `07-workshop-captures.feature` takes them, not filmed, each with the bath
+as the last thing asserted and the game paused before the shot: **1. the colonist (Miel) in the drum**, interface hidden by
+the studio's presentation mode, and **2. the Needs tab with the hygiene gauge partway up** (ten per cent at the start,
+asserted risen after 600 ticks of the real bath), interface kept since the tab is the subject.
+Each image is opened before it is uploaded, against what the owner asked for: the studio colony, on grass with flowers
+around (or a plain orange zone), no skeleton, the bath visible. The page is English, so the English shots are the ones to
+use; they are copied, converted to JPEG, into `Art/WorkshopScreenshots/` (`1-the-bath.jpg`, `2-the-needs-tab.jpg`: the
+dry-run lists that folder as a reminder of the manual gallery upload, in that alphabetical order, which is also the order
+of the page).
 
-What was opened on 2026-09-23, from the earlier `04` capture, and why a re-shot is wanted:
-
-- French pass, `.build/evidence/tested-french/screenshots/manual--bather-in-the-drum--step0.png`: 1920x1080, whole
-  frame, the colonist sitting in the red drum with the fire under it, the panel reading "Se détendre dans le bain en
-  regardant passer les nuages." Good, and in French.
-- English pass, `.build/evidence/tested-english-1/screenshots/manual--bather-in-the-drum--step0.png`: the same picture with
-  the panel in English, but the game fills only the lower-left quarter of the 1920x1080 file, the rest black (the film of
-  the same run is 960x540). Not fit for the page. Not diagnosed; `07` is not filmed, so if it comes back there, the
-  film is not the cause.
-
-Proposed order once `07` has run: 1. the colonist in the drum; 2. the Needs tab with the gauge partway up. Both stills
-opened so far show a person sitting in a barrel, clothed as far as the sprite shows, nothing else.
+Proposed order: 1. the colonist in the drum; 2. the Needs tab with the gauge partway up.
 
 ## The preview image
 

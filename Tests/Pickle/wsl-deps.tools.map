@@ -13,4 +13,8 @@
 #
 # The pass a suite runs is therefore this one, English and French: `07` uses the package's steps and would fail on an
 # undefined step in a pass that does not stage it.
-nelim.pickletools.inspecttabs   path:PickleTools/InspectTabs/Mod
+# Two step packages, neither an optional mod. The second is the owner's photographic colony: 07 takes the Workshop
+# images in its flower glade (the save `nelim-zen-meadow-studio` ships with the package) and hides the interface with its
+# presentation mode. It needs Core and the five DLC, which every pass here has.
+nelim.pickletools.inspecttabs      path:PickleTools/InspectTabs/Mod
+nelim.pickletools.screenshotstudio path:PickleTools/ScreenshotStudio/Mod
