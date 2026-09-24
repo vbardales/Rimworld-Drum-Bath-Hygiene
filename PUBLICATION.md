@@ -8,12 +8,13 @@ the next update and by whoever picks the mod up.
 
 This is an **update of an existing item**, not a first creation (`../PUBLISHING.md`, "Publier par la CI", and
 `Rimworld-Release-Admin/docs/OPERATIONS.md`, the Skill Icons section). Steam already holds the 0.1.0 content
-(`Mod/` as of `7b65a4f`); nothing in `Mod/` has changed since apart from the id file, so 1.0.0 uploads the same payload.
+(`Mod/` as of `7b65a4f`); nothing in `Mod/` has changed since apart from the id file and `About/Preview.png` (below), so
+1.0.0 uploads the same payload plus that image.
 
 ## Before the upload
 
 - **Repository.** Working tree clean and pushed, and the distributed DLL matches the sources (SHA256 `865ACC8A…`, built
-  from `Source/`, checked 2026-09-22 and again by `git diff d7e1737 HEAD -- Mod Source` on 2026-09-24: only the id file).
+  from `Source/`, checked 2026-09-22; `git diff 7b65a4f HEAD -- Mod Source` on 2026-09-24 shows only the id file, and `git diff d7e1737 HEAD -- Mod Source` nothing at all).
 - **CHANGELOG.** `## [1.0.0] — unreleased` must be given its date before the upload: the release notes of the GitHub
   release are that section. The tag `v1.0.0` and the release are created **by the CI after a successful upload**, on the
   exact SHA it uploaded, never by hand.
@@ -41,11 +42,12 @@ though it is what the mod list shows in game, so it should say the same):
    mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. This mod has no content of its
    own and does nothing without both."*
 2. *"The mod stores two temporary values on the bathing hediff while a pawn is in the bath. Adding it to an existing game
-   and removing it outside or during a bath still require in-game validation."* The two values survive a save and reload
-   in the middle of a bath (played and green, runs 8 and 9). Adding the mod to a running save or removing it is the
-   game's handling of its mod list, and has not been played. Suggested text: *"The mod stores two temporary values on the
-   bathing hediff while a pawn is in the bath; they survive a save and a reload. Adding it to, or removing it from, an
-   existing save has not been tested."*
+   and removing it outside or during a bath still require in-game validation."* A bath in progress goes on washing
+   after a save and reload (played and green, runs 8 and 9), though the scenario cannot tell restored values from reset
+   ones. Adding the mod to a running save or removing it is the game's handling of its mod list, and has not been
+   played. Suggested text: *"The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath
+   in progress goes on washing after a save and a reload. Adding it to, or removing it from, an existing save has not been
+   tested."*
 
 One more claim to keep in mind rather than change: *"the room gives its usual bathroom thought"*. The call goes through
 without a warning, but the thought itself is Dubs Bad Hygiene's grading of a room and no scenario asserts a stage
@@ -82,24 +84,34 @@ Checked in the sources on 2026-09-24, not from intention.
 
 ## Captures for the Workshop page
 
-Steam shows the first one large: put the most demonstrative there, not the prettiest. **TO DO, and there is a gap.**
-The suite's own capture is one scenario, taken once per language. What was opened on 2026-09-23:
+Steam shows the first one large: put the most demonstrative there, not the prettiest. **TO DO: waiting on the `tools`
+passes, English and French, queued on 2026-09-24.** `07-workshop-captures.feature` takes the two images, not filmed, each
+with the bath as the last thing asserted and the game paused before the shot: **1. the colonist in the drum** and **2. the
+Needs tab with the hygiene gauge partway up** (started at ten per cent, asserted risen after 600 ticks of the real bath).
+Each image is opened before it is uploaded: a green capture scenario shows that the trajectory ran, not that the picture
+shows anything. The page is English, so the English shots are the ones to use; the French ones are for the French check.
+
+What was opened on 2026-09-23, from the earlier `04` capture, and why a re-shot is wanted:
 
 - French pass, `.build/evidence/tested-french/screenshots/manual--bather-in-the-drum--step0.png`: 1920x1080, whole
   frame, the colonist sitting in the red drum with the fire under it, the panel reading "Se détendre dans le bain en
-  regardant passer les nuages." The best of the two, and in French.
+  regardant passer les nuages." Good, and in French.
 - English pass, `.build/evidence/tested-english-1/screenshots/manual--bather-in-the-drum--step0.png`: the same picture with
-  the panel in English, but the game fills only the lower-left quarter of the 1920x1080 file, the rest black; the film of
-  the same run is 960x540. Not fit for the page.
+  the panel in English, but the game fills only the lower-left quarter of the 1920x1080 file, the rest black (the film of
+  the same run is 960x540). Not fit for the page. Not diagnosed; `07` is not filmed, so if it comes back there, the
+  film is not the cause.
 
-The page is English, so the first image should be English and full-frame: **a re-shot English capture is needed** (a run
-costs a queue position and a few minutes once it has the lock; the quarter-frame did not happen in the French pass, so it
-may not happen again, and it was not diagnosed). A second image that shows the mod's actual effect, the hygiene gauge
-climbing in the colonist's Needs tab during the bath, would say more than the drum alone; no scenario takes it yet.
-Proposed order once they exist: 1. the colonist in the drum, English; 2. the Needs tab with the gauge partway up;
-3. optionally the same colonist afterwards, gauge full. Each image is opened before it is uploaded: a green capture
-scenario shows that the trajectory ran, not that the picture shows anything. Both stills opened so far show a person
-sitting in a barrel, clothed as far as the sprite shows, nothing else.
+Proposed order once `07` has run: 1. the colonist in the drum; 2. the Needs tab with the gauge partway up. Both stills
+opened so far show a person sitting in a barrel, clothed as far as the sprite shows, nothing else.
+
+## The preview image
+
+`Mod/About/Preview.png` was re-rendered on 2026-09-24 (`Art/preview.html`, `Art/render-preview.cjs`, run with the bundled
+Node runtime that carries playwright and sharp): the summary was narrowed from 430 to 290 px, so it wraps on two shorter
+lines and no longer sits on the rim of the bath, which began about 400 px from the left; the title, the rule and the badge
+did not move. Measured contrast of the summary over its whole rectangle rose from 5.96 to 10.55, size 518,698 bytes. This
+is a change to `Mod/`, and the CI does not send the preview: **replace the image by hand on the Steam page** if the
+new one is wanted there.
 
 ## Content boxes (adult content, violence)
 

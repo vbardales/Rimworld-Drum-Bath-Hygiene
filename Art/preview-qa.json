@@ -3,7 +3,7 @@
     896,
     504
   ],
-  "bytes": 518417,
+  "bytes": 518698,
   "fonts": {
     "h1": [
       {
@@ -40,7 +40,7 @@
     "p": {
       "x": 50,
       "y": 143.59375,
-      "width": 430,
+      "width": 290,
       "height": 60.875
     },
     ".version": {
@@ -52,7 +52,7 @@
   },
   "minimumContrastOverFullTextRectangles": {
     "h1": 11.0432503147496,
-    "p": 5.963866854134322,
+    "p": 10.551206811611442,
     "badge": 10.508539258564864
   },
   "tag": "Not applicable: public original mod; no prefix/suffix/linking words",

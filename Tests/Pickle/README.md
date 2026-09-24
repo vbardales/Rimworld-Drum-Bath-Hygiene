@@ -26,6 +26,7 @@ matters here more than usual: `SteamUGC.SetItemContent` sends `Mod/` whole, with
 | a colonist with no hygiene need is left alone | `ResolveCleanAction` returning null for a pawn with no hygiene need, and staying null. The branch that throws if it is wrong. It was an animal until the fifth run, which showed the drum mod bathes animals through its own component |
 | an onlooker who arrives halfway is noticed, and the memory stacks (`05`) | the periodic check every 300 ticks is this mod's own design, and only a bath that lasts past one, with someone arriving after the entry check, can show it. Prose scenario 5 |
 | the second bath washes as well as the first, for the same colonist and for another (`06`) | the bridge is resolved once per session and the component once per bath: a first bath that works and a second that does nothing would mean the two lifetimes were confused. Prose scenario 9 |
+| the two Workshop images (`07`) | not a check of the mod: the bath, and the Needs tab with the gauge partway up, each taken with the bath asserted last and the game paused, so an image cannot show a bath that ended. Needs the `tools` pass |
 | a save and a reload mid-bath | the two scribed values, and the delegate deliberately not scribed, which has to bind again after the load |
 | hot water and cold water | `cold` is read off `CompRefuelable.HasFuel` on the drum under the pawn's feet. What follows is DBH's rule, so it is played as two pairs, each asserting on both sides: a healthy colonist (burning: no `ColdWater`; burnt out: `ColdWater`) and a chilled one (burning: `HotBath`; burnt out: `ColdWater`) |
 | soaking wet forgotten on the way in | a reflected `ThoughtDef` lookup and a memory removal on a live pawn |
@@ -46,9 +47,13 @@ on a real filth tracker with real filth in it.
 `../../TESTING.md` holds the table. In short, and the count is small on purpose:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene
-powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -Language French
+powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map
+powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Language French
 ```
+
+`wsl-deps.tools.map` stages one step package, `nelim.pickletools.inspecttabs`, which `07-workshop-captures.feature` needs
+to open the Needs tab. It is not an optional mod (the mod is loaded as it is with nothing else), it names the pass `tools`,
+and a run without it fails `07` on undefined steps. Runs 8 and 9, made before `07` existed, ran without the map.
 
 `wsl-ids.map` holds the Workshop ids of the two hard dependencies, which the shared table in `stage-pickle-wsl.sh` does not know; without it the staging stops with `no Workshop id known for Mlie.MMDrumcanMOD`. It is read in every pass and only resolves: nothing on it is activated, and it is **not** a set of optional mods, so no option is needed.
 
@@ -74,7 +79,8 @@ lit or out, a hygiene need taken away from a colonist — and readings they cann
 
 What each step does, whether it has been played, and which are general enough to lift into another mod's
 suite is indexed in `PickleTools/Elsewhere/DrumBathHygiene.md`, so a second mod finds them before writing
-its own. Nothing here is staged from PickleTools: copy the method and change the prefix.
+its own. The one thing staged from PickleTools is the inspect-tab step package, by the `tools` pass map; for the rest,
+copy the method and change the prefix.
 
 Every step text starts with `Drum Bath Hygiene:`. Pickle loads the steps of every active suite into
 one namespace, and two suites declaring the same text make healthy scenarios fail with "Ambiguous

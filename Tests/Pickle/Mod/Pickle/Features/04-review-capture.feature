@@ -55,10 +55,12 @@ Feature: a capture of a colonist in the bath
     # never awaited anything. Asserting the bath at the start says it began; only asserting it at the
     # shot says it is still what the image shows.
     #
-    # AND NOTHING IS WAITED BETWEEN IT AND THE SHOT. The French pass of 2026-09-23 went green over a
+    # AND THE GAME IS PAUSED BETWEEN IT AND THE SHOT. The French pass of 2026-09-23 went green over a
     # screenshot whose panel read "Nettoie sable" (cleaning sand): the bath asserted 30 ticks before had
-    # ended by then. What the image shows has to be what was last asserted, so the pane is checked first
-    # and the bath is the last thing asserted before the shot.
+    # ended by then. Removing the wait only narrowed the window, at ultrafast speed, so the game is
+    # paused first: what the image shows is then what was last asserted, the pane is checked, and the
+    # bath is the last thing asserted before the shot.
+    When game speed is paused
     Then the inspect pane shows "Bather"
     And Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
     When I take a screenshot "bather-in-the-drum"

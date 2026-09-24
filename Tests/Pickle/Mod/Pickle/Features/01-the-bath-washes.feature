@@ -128,6 +128,9 @@ Feature: the drum bath washes the colonist soaking in it
     Then Drum Bath Hygiene: "Shaggy" has no hygiene need
     When I wait 300 ticks
     Then Drum Bath Hygiene: the bathing hediff of "Shaggy" carries the component
+    # THE BRANCH, PROVED TO HAVE BEEN TAKEN, after the ticks: the need may be back by now (the game hands
+    # it back when a hediff changes), so what is asked is what the component bound on its first tick.
+    And Drum Bath Hygiene: the bathing hediff of "Shaggy" bound no clean action
     And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 

@@ -49,19 +49,10 @@ namespace DrumBathHygiene.PickleSteps
         /// </summary>
         private static readonly Dictionary<string, float> Remembered = new Dictionary<string, float>();
 
-        /// <summary>
-        /// What the world looked like the instant an order to bathe was given, keyed like
-        /// <see cref="Remembered"/> and cleared with it: a bath job that ends inside `StartJob` (a failed
-        /// pre-toil reservation does that) still lets `TryTakeOrderedJob` return true, so the order step
-        /// passes and only the wait after it can tell, ninety seconds later, without knowing why.
-        /// </summary>
-        private static readonly Dictionary<string, string> OrderNotes = new Dictionary<string, string>();
-
         [BeforeScenario]
         public void ResetRemembered()
         {
             Remembered.Clear();
-            OrderNotes.Clear();
         }
 
         /// <summary>
@@ -238,8 +229,8 @@ namespace DrumBathHygiene.PickleSteps
         }
 
         /// <summary>
-        /// The REAL bath: the drum bath mod's own job, ordered the way a player's right-click
-        /// would, so the drum mod's driver walks the pawn over, places them, and applies the
+        /// The REAL bath: the drum bath mod's own job, built the way its joy giver builds it (see
+        /// below), so the drum mod's driver walks the pawn over, places them, and applies the
         /// hediff itself. Nothing else in this suite goes through it, and that is the point of
         /// this step.
         ///
@@ -271,15 +262,23 @@ namespace DrumBathHygiene.PickleSteps
             // English and French passes of 2026-09-23 showed (a different four scenarios failed in each).
             Job job = JobMaker.MakeJob(def, drum.Position, drum);
             bool taken = pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
-            var holders = pawn.Map.reservationManager.ReservationsReadOnly
-                .Where(r => r.Target.Thing == drum)
-                .Select(r => $"{r.Claimant?.LabelShort ?? "?"} ({r.Job?.def.defName ?? "no job"})");
-            OrderNotes[name] = $"Right after the order: job {pawn.CurJob?.def.defName ?? "none"}, "
-                + $"the drum can be reserved by {name}: {pawn.CanReserve(drum)}, "
-                + $"reserved by [{string.Join(", ", holders)}]";
-            ctx.Assert(taken,
-                $"{name} refused the order to bathe in the drum at x={x} z={z}. Current job: "
-                + (pawn.CurJob?.def.defName ?? "none"));
+
+            // FAIL AT ONCE, not ninety seconds later. `TryTakeOrderedJob` returns true for a job that then
+            // ends inside `StartJob` (a null target B, a refused reservation), so `taken` alone proved
+            // nothing in the first pass of 2026-09-23. A job that is running is the current job. The
+            // holders of the reservations on the drum, its cell included (target A, the standing place,
+            // is a cell reservation and has no Thing), are listed only when this fails.
+            if (!taken || pawn.CurJob?.def != def)
+            {
+                var holders = pawn.Map.reservationManager.ReservationsReadOnly
+                    .Where(r => r.Claimant != pawn
+                        && (r.Target.Thing == drum || (!r.Target.HasThing && r.Target.Cell == drum.Position)))
+                    .Select(r => $"{r.Claimant?.LabelShort ?? "?"} ({r.Job?.def.defName ?? "no job"})");
+                ctx.Assert(false,
+                    $"{name} is not running the bath job right after the order to bathe in the drum at "
+                    + $"x={x} z={z} (taken: {taken}). Current job: {pawn.CurJob?.def.defName ?? "none"}. "
+                    + $"Others hold reservations on the drum or its cell: [{string.Join(", ", holders)}]");
+            }
         }
 
         /// <summary>
@@ -356,7 +355,6 @@ namespace DrumBathHygiene.PickleSteps
                 + $"reachable {reachable}, drafted {pawn.Drafted}, downed {pawn.Downed}, "
                 + $"mental state {(pawn.InMentalState ? "yes" : "no")}, "
                 + $"hediffs [{HediffNames(pawn)}], joy {(joy != null ? joy.CurLevelPercentage.ToString("0.00") : "n/a")}. "
-                + (OrderNotes.TryGetValue(name, out string note) ? note + ". " : "")
                 + "Job trace: " + (trace.Count == 0 ? "(nothing sampled)" : string.Join(" | ", trace)));
         }
 
@@ -387,8 +385,11 @@ namespace DrumBathHygiene.PickleSteps
         /// (CompDrumBathAnimalJobManager) and not through an ordered job: the fifth run ordered a
         /// muffalo into the drum and its job trace shows nothing but wandering, the order never taking.
         /// Reaching that path would mean driving the drum mod's gizmo, which is testing its code. The
-        /// branch this mod owns is the missing need, and a colonist without one reaches it through the
-        /// real job.
+        /// branch this mod owns is the missing need, and a colonist without one reaches it.
+        ///
+        /// NOT BEFORE AN ORDERED BATH: the game gives the need back when the hediff changes, so this
+        /// alone is undone by the toil that adds the hediff. <see cref="GivenBathHediffWithoutNeed"/>
+        /// is the step to use.
         /// </summary>
         [Given("Drum Bath Hygiene: {string} loses the hygiene need")]
         public void LoseHygiene(PickleContext ctx, string name)
@@ -466,6 +467,38 @@ namespace DrumBathHygiene.PickleSteps
                     .Select(c => c.GetType().Name)));
         }
 
+        /// <summary>
+        /// THE NULL BRANCH, OBSERVED. The component binds its clean action once, on its first tick, and
+        /// keeps what it bound: null for a pawn with no hygiene need. Asked after the bath has ticked,
+        /// this reads the two private fields (`cleanBound`, `clean`) and says whether the branch was
+        /// really taken, which no assertion on the need can say, since the game may hand the need back
+        /// once the hediff has changed. Reflection on our own private fields: the names are ours, and a
+        /// rename fails here with a message naming them.
+        /// </summary>
+        [Then("Drum Bath Hygiene: the bathing hediff of {string} bound no clean action")]
+        public void BoundNoCleanAction(PickleContext ctx, string name)
+        {
+            Pawn pawn = PawnNamed(ctx, name);
+            HediffComp_DrumBathHygiene comp = pawn.health?.hediffSet?.hediffs
+                .OfType<HediffWithComps>()
+                .Where(h => h.def.defName == BathHediff)
+                .SelectMany(h => h.comps ?? new List<HediffComp>())
+                .OfType<HediffComp_DrumBathHygiene>()
+                .FirstOrDefault();
+            ctx.Assert(comp != null, $"{name} carries no bathing hediff with the component on it");
+
+            const System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.NonPublic
+                | System.Reflection.BindingFlags.Instance;
+            System.Reflection.FieldInfo boundField = typeof(HediffComp_DrumBathHygiene).GetField("cleanBound", flags);
+            System.Reflection.FieldInfo cleanField = typeof(HediffComp_DrumBathHygiene).GetField("clean", flags);
+            ctx.Require(boundField != null && cleanField != null,
+                "HediffComp_DrumBathHygiene no longer has the private fields `cleanBound` and `clean` this step reads");
+            ctx.Assert((bool)boundField.GetValue(comp),
+                "the component has not made its first tick, so it has bound nothing yet: wait longer");
+            ctx.Assert(cleanField.GetValue(comp) == null,
+                $"the component bound a clean action for {name}: the null branch was not the one taken");
+        }
+
         // ------------------------------------------------------------------ the gauge
 
         [When("Drum Bath Hygiene: I remember {string} hygiene")]
@@ -518,11 +551,10 @@ namespace DrumBathHygiene.PickleSteps
         }
 
         /// <summary>
-        /// The precondition of the no-need scenario, asserted rather than assumed, and asserted AGAIN
-        /// after the bath has run for a while: the need is taken off the pawn's list by hand, and
-        /// the game could give it back (a need refresh) between the walk and the component's first
-        /// tick, in which case the bath would wash and the null branch would never run while the
-        /// scenario stayed green.
+        /// The precondition of the no-need scenario, asserted rather than assumed: the need is taken
+        /// off the pawn's list by hand, and the game could give it back. Only meaningful BEFORE the
+        /// bath has ticked, because the game does give needs back afterwards; what proves the branch
+        /// was taken is <see cref="BoundNoCleanAction"/>, asked after the ticks.
         /// </summary>
         [Then("Drum Bath Hygiene: {string} has no hygiene need")]
         public void HasNoHygiene(PickleContext ctx, string name)
