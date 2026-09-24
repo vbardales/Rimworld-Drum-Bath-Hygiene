@@ -13,6 +13,9 @@ Feature: the images of the Workshop page
 
   Background:
     Given the save "test-colony" is loaded
+    # The skeleton the test colony keeps a few cells from the drum was in the frame of the first images, with the
+    # skull the colonist carries for having seen it: not for a page about washing.
+    And Drum Bath Hygiene: the corpses of the map are removed
     And a colonist "Bather" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
