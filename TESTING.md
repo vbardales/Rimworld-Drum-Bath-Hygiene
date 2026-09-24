@@ -38,9 +38,11 @@ the reasons are the sort that expire:
 Pickle has not got; `07-workshop-captures.feature` opens the Needs tab with them. The mod under test is loaded exactly as
 it is with nothing else, so this is still the pass without optional mods, named after its map. **A run without the map
 would fail `07` on undefined steps: it is not a pass of this suite.** Runs 8 and 9 (2026-09-23) were made without it,
-before `07` existed, and played the first 19 scenarios; the `tools` passes replace them, and replay all 21 because Pickle
-here has no per-feature filter (TailorMadeWaistlines, which has the same package, runs its whole suite in its `tools`
-pass for the same reason).
+before `07` existed, and played the first 19 scenarios; the `tools` passes replace them, and play all 21: the steps assembly changed after runs 8 and
+9 (the order step fails at once, the no-need scenario reads what the component bound), so the first 19 have to be played again
+with it, and a certifying pass is the whole suite. A filter exists for the other cases (`PickleTools/Headless/README.md`,
+"Choosing what to run"): `-Filter '07-workshop-captures'` plays the two Workshop images alone, to retake them, and is not a
+certification.
 
 **No pass with optional mods.** `Mod/About/About.xml` declares `loadAfter` on `Ludeon.RimWorld`,
 `Dubwise.DubsBadHygiene` and `Mlie.MMDrumcanMOD` — Core and the two hard dependencies. There is no
