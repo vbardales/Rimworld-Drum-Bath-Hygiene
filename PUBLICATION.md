@@ -69,19 +69,28 @@ though it is what the mod list shows in game, so it should say the same):
    in progress goes on washing after a save and a reload. Adding it to, or removing it from, an existing save has not been
    tested."*
 
+3. *The `THANKS` block* names the two mods and the AI tools, but not the test tools, which `../PUBLISHING.md` asks for with the
+   words "development only, never a dependency": **Pickle** (Workshop `3791648678`), **RimLogging** (`3733484696`) and, since the
+   `tools` pass stages three of its packages, **PickleTools** (`3806142401`), each as a `[url=...]` link. Suggested addition, before
+   the attribution line: *"Tested with Pickle, RimLogging and Nelim's PickleTools, thanks to their authors: development only, never
+   a dependency of this mod."* Also to settle with the owner: `../PUBLISHING.md` asks to name Codex (OpenAI) in `AI-GENERATED` when it
+   contributed to the repository; `STATUS.md` names Codex as owner of the audit task, and the description names Claude Code and
+   DALL-E only.
+
 One more claim to keep in mind rather than change: *"the room gives its usual bathroom thought"*. The call goes through
 without a warning, but the thought itself is Dubs Bad Hygiene's grading of a room and no scenario asserts a stage
 (TESTING.md, scenario 4, not applicable).
 
 ## Release notes (the change note of each upload)
 
-The change note sent to Steam with an upload, under the heading of its version: the manual workflow reads the block
+The change note sent to Steam with an upload, which **starts with the version alone on its first line** (`[b]1.0.0[/b]`: the Workshop page does not show the version of a note that does not say it, `../PUBLISHING.md`), under the heading of its version: the manual workflow reads the block
 under `### <version>` (`../PUBLISHING.md`, "Publier par la CI"), and the `## [<version>]` section of `CHANGELOG.md` goes
 into the GitHub release.
 
 ### 1.0.0
 
 ```
+[b]1.0.0[/b]
 First release. Makes the drum can bath wash: while a colonist soaks, their Dubs Bad Hygiene hygiene need fills (an
 empty gauge over half a bath), onlookers react as with any Dubs Bad Hygiene bathing, the water counts as hot or cold by
 whether the drum still burns, the "soaking wet" memory is cleared on the way in and the filth carried on the body on the
@@ -129,7 +138,10 @@ Proposed order: 1. the colonist in the drum; 2. the Needs tab with the gauge par
 `Mod/About/Preview.png` was re-rendered on 2026-09-24 (`Art/preview.html`, `Art/render-preview.cjs`, run with the bundled
 Node runtime that carries playwright and sharp): the summary was narrowed from 430 to 290 px, so it wraps on two shorter
 lines and no longer sits on the rim of the bath, which began about 400 px from the left; the title, the rule and the badge
-did not move. Measured contrast of the summary over its whole rectangle rose from 5.96 to 10.55, size 518,698 bytes. This
+did not move. Measured contrast of the summary over its whole rectangle rose from 5.96 to 10.55, size 518,698 bytes. **This
+is a deviation** from `../STYLE_RIMWORLD.md`, which fixes the summary width at 430 px (metrics validated by the owner on
+2026-09-25, top-left or bottom-right anchor only); it was made before that guide was read again. Reverting is `width:430px` in
+`Art/preview.html` and one run of `Art/render-preview.cjs`; the owner decides. This
 is a change to `Mod/`. The workflow does not send the preview unless `update_preview` is turned on (off by default): **either
 Virginie turns it on for the dispatch, or the image is replaced by hand on the Steam page**, if the new one is wanted there.
 
@@ -141,30 +153,47 @@ opening any image added later, because the boxes commit the page.
 
 ## Thanks to post, after the item is public
 
-A link to a private item opens for nobody, so post only once it is public. One recipient each, under 1000 characters,
-BBCode allowed. The item link is `https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182`.
+One main comment per recipient page for the whole collection: `../WORKSHOP_COMMENTS.md` is read first, keyed by Workshop id.
+A link to a private item opens for nobody, so nothing is posted before the item is public. BBCode, under 1000 characters,
+real emojis, a bare item URL at the end for the thumbnail. The item link is `https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182`.
 
-**Mlie, on MMDrumcanMOD (Continued)** (`https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756`), comment page
-(662 characters):
+| Recipient | Workshop id | Register today | What to do |
+| --- | --- | --- | --- |
+| MMDrumcanMOD (Continued), Mlie | `3417093756` | no row | add a `drafted` row, post the first draft below, then `posted` with the date |
+| Dubs Bad Hygiene, Dubwise | `836308268` | no row | same, second draft |
+| Pickle | `3791648678` | `posted` | add `Drum Bath Hygiene` to `Covers`, post nothing (development and test tool) |
+| RimLogging | `3733484696` | `posted` | same |
+| PickleTools | `3806142401` | `not_applicable` | the author's own project; add to `Covers` |
+| Harmony | `2009463077` | `posted` | not used by this mod (no patch): nothing to add |
 
-> Thank you for keeping MMDrumcanMOD alive. I made a small bridge, Drum Bath Hygiene, so that soaking in your drum bath
-> actually washes a colonist when Dubs Bad Hygiene is loaded: the hygiene gauge fills, onlookers notice, and the water
-> counts as hot or cold by whether the drum still burns. It adds no building, texture or def, and none of your files are
-> copied or shipped: a component is grafted by XML onto your bathing hediff, and I read your bath driver only to learn
-> that this was the safe way in. Credited in its attribution file. If anything in it bothers you, tell me and I will
-> change it. https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182
+**Mlie, on MMDrumcanMOD (Continued)** (774 characters):
 
-**Dubwise, on Dubs Bad Hygiene** (`https://steamcommunity.com/sharedfiles/filedetails/?id=836308268`), comment page
-(607 characters):
+```
+[b]Thank you for keeping the drum bath alive! 🛁🔥[/b]
+Soaking in a barrel over a wood fire, watching the clouds go by, is the coziest thing a colonist can do, and your Continued version is why 😊
+I made a tiny bridge, Drum Bath Hygiene, so that the bath also [i]washes[/i] people when Dubs Bad Hygiene is loaded: the hygiene gauge fills, onlookers notice, and the water counts as hot or cold by whether your fire still burns. It adds no building, texture or def, and none of your files are copied or shipped: a component is grafted by XML onto your bathing hediff, and I read your driver only to learn that this was the safe way in ✨
+If anything in it bothers you, tell me and I will change it right away 💛
+https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182
+```
 
-> Thank you for Dubs Bad Hygiene. I made a small bridge, Drum Bath Hygiene, that hands the drum can bath of MMDrumcanMOD
-> over to your hygiene system: it fills your hygiene need, asks your privacy check whether anyone is watching, lets your
-> water rule pick the memory, and clears soaking wet, all through reflection. Nothing of yours is copied or shipped, and if
-> a member ever changes the bridge reports it once and does nothing rather than break your game. Credited in its
-> attribution file. If you would rather I did this differently, tell me.
-> https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182
+**Dubwise, on Dubs Bad Hygiene** (679 characters):
 
-Neither message is posted; posting to another author's page is the owner's act.
+```
+[b]Thank you for Dubs Bad Hygiene! 🚿💛[/b]
+Hygiene, privacy, water temperature, bathroom thoughts: a bath feels alive in RimWorld because of you 😊
+My little bridge, Drum Bath Hygiene, hands the drum can bath of MMDrumcanMOD over to your system: it fills your hygiene need, asks your privacy check whether anyone is watching, lets your water rule pick the memory, and clears soaking wet. All through reflection, so nothing of yours is copied or shipped, and if a member ever changes, the bridge says so once and does nothing rather than break your game ✨
+If you would rather I did this differently, just tell me!
+https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182
+```
+
+Neither is posted, and the register has no row for them yet: both are the owner's acts.
+
+## When 1.0.0 goes to production: by hand, by the owner
+
+The CI never sends the visibility, and `../PUBLISHING.md` ("Mise en production d'une 1.0.0") lists three things only she does on
+Steam: change the visibility of the item after testing it subscribed, subscribe to its comments, and "Watch all activity" of
+the mod and of its parent mods (MMDrumcanMOD and Dubs Bad Hygiene). They are written in `STATUS.md` (date, the three points)
+before the stage is `published`.
 
 ## After the upload, and it cannot be undone
 
