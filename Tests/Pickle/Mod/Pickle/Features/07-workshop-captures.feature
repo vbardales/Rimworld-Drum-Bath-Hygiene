@@ -62,6 +62,9 @@ Feature: the images of the Workshop page
     # has a step for the developer controls alone; the letters and the alerts are cleared by a step of this suite.
     When Nelim's Pickle Tools: developer mode is turned off for the capture
     And Drum Bath Hygiene: the letters and the alerts are cleared from the screen
+    # The tab fills the left third of the frame: the drum goes to the right of the screen and closer, nine cells of
+    # shift at root size nine putting it about 500 px east of the middle, the glade's flowers still around it.
+    And Drum Bath Hygiene: the camera looks at the drum at x=151 z=98, shifted 9 cells west, at zoom 9
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
     And Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
     When I take a screenshot "workshop-2-the-needs-tab"

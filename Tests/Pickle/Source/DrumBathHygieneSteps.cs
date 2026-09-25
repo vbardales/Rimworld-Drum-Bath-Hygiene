@@ -446,6 +446,25 @@ namespace DrumBathHygiene.PickleSteps
             await ctx.WaitFrames(3);
         }
 
+        /// <summary>
+        /// Puts the drum on the right of the screen, close, for the Needs-tab image: the tab fills the left third of the
+        /// frame, so a subject left in the middle sits beside it small. The camera is centred so many cells west of the
+        /// drum (the drum then falls east of the middle of the screen) and zoomed to the given root size, the smaller the
+        /// closer, as PickleTools' studio presets do (<c>JumpToCurrentMapLoc</c> then <c>SetRootSize</c>).
+        /// </summary>
+        [When("Drum Bath Hygiene: the camera looks at the drum at x={int} z={int}, shifted {int} cells west, at zoom {int}")]
+        public async Task LookAtTheDrum(PickleContext ctx, int x, int z, int cellsWest, int zoom)
+        {
+            Map map = CurrentMap(ctx);
+            var cell = new IntVec3(x - cellsWest, 0, z);
+            ctx.Require(cell.InBounds(map), $"x={x - cellsWest} z={z} is off the map");
+            ctx.Require(zoom >= 4 && zoom <= 60, $"zoom {zoom} is outside the camera's root size range");
+
+            Find.CameraDriver.JumpToCurrentMapLoc(cell);
+            Find.CameraDriver.SetRootSize(zoom);
+            await ctx.WaitFrames(3);
+        }
+
         private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)
         {
             Pawn pawn = PawnNamed(ctx, name);
