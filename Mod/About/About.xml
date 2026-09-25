@@ -18,9 +18,9 @@ While a colonist is in the bath:
 - the room gives its usual bathroom thought,
 - the "soaking wet" memory is cleared, and so is the filth carried on their body when they climb out.
 
-Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. Nothing breaks if you load this without them: with no drum bath mod nothing is patched, and with no Dubs Bad Hygiene the component sits inert. No error is thrown either way.
+Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. This mod has no content of its own and does nothing without both.
 
-The mod stores two temporary values on the bathing hediff while a pawn is in the bath. Adding it to an existing game and removing it outside or during a bath still require in-game validation.
+The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress goes on washing after a save and a reload. Adding it to, or removing it from, an existing save has not been tested.
 
 IF I GO QUIET
 
@@ -28,7 +28,7 @@ If I do not answer within a reasonable time after being contacted, anyone may fr
 
 AI-GENERATED
 
-This mod's code was written with Claude Code (Anthropic) and its images generated with DALL-E (OpenAI), under human direction, review and testing. Stated openly: designing with these tools is my job.
+This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and its images generated with DALL-E (OpenAI), under human direction, review and testing. Stated openly: designing with these tools is my job.
 
 THANKS
 
@@ -38,9 +38,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756
 Dubwise, for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
 https://steamcommunity.com/sharedfiles/filedetails/?id=836308268
 
-No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
+Tested with Pickle, RimLogging and Nelim's PickleTools, thanks to their authors: development only, never a dependency of this mod.
 
-Claude Code (Anthropic) and DALL-E (OpenAI).
+No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
 
 [url=https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene]Source code on GitHub[/url]</description>
   <modDependencies>

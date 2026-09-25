@@ -53,8 +53,9 @@ history is `vbardales/Rimworld-protocols` (git dir `../rimworld-protocols.git`, 
    enough (`WELCOME.md`, point 4); deleting long capture names needs `robocopy /MIR` first.
 7. **`update_description` exists** in the publish workflow (`--description-file PUBLICATION.md --description-heading ...`
    sends a fenced BBCode block as the description, only when the input is on, behind the `steam-production` approval). It
-   would replace the hand edit of the two wrong sentences, but the workflow would have to be regenerated and the owner
-   decides.
+   replaces the hand edit of the two wrong sentences. **Chosen by the owner on 2026-09-25**: the workflow was regenerated
+   with `--description-file PUBLICATION.md --description-heading '^## The description text'`, and the corrected description
+   is in `PUBLICATION.md`.
 8. **`developer mode is turned off for the capture` already exists** in PickleTools ScreenshotMode and is used by
    `07-workshop-captures.feature`; only the letters and alerts step is this suite's own.
 9. **`README.md` of this mod repeats two statements** that `PUBLICATION.md` corrects for the Steam page ("Nothing throws either

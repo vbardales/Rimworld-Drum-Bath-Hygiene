@@ -255,8 +255,8 @@ cases; rerun the regressions of any fix.
 
 Optional, not blocking any transition up to `tested`: no `.gitattributes` and no IDE ignore
 patterns; `CHANGELOG.md` still says `1.0.0 — unreleased` with no tag or release; `About.xml`
-credits Claude Code for the code while the `owner` field above names Codex, worth aligning
-the next time the file is edited. Items belonging to `tested → prepublished` (a
+credited Claude Code alone for the code while the `owner` field above names Codex: aligned on 2026-09-25, the
+owner having confirmed that Codex contributed (`AI-GENERATED` names both). Items belonging to `tested → prepublished` (a
 `PUBLICATION.md`, thank-you messages, Steam release notes, adult-content answers, capture
 order) were not evaluated and are not defects.
 

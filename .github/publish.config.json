@@ -1,5 +1,5 @@
 {
-  "templateStamp": "eba6b3fdf670",
+  "templateStamp": "683151266dd1",
   "workshopId": "3806137182",
   "packageId": "nelim.drumbathhygiene",
   "releaseTitle": "Drum Bath Hygiene {version}",
@@ -8,5 +8,9 @@
   ],
   "forbidPaths": [],
   "previewFile": "About/Preview.png",
-  "galleryDir": "Art/WorkshopScreenshots"
+  "galleryDir": "Art/WorkshopScreenshots",
+  "description": {
+    "file": "PUBLICATION.md",
+    "heading": "^## The description text"
+  }
 }
