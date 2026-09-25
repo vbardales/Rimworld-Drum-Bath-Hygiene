@@ -419,17 +419,17 @@ namespace DrumBathHygiene.PickleSteps
             LoseHygiene(ctx, name);
         }
 
-        private static bool? devModeBeforeTheShot;
-
         /// <summary>
         /// Clears what clutters a screenshot that has to KEEP the interface, here the Needs tab: the stack of
-        /// letters, the alerts on the right, and the developer controls along the top edge (the pass runs in
-        /// developer mode). The studio's presentation mode hides all of it, and the tab with it: the second
-        /// Workshop image came out without the gauge, which is its whole subject. Alerts are emptied by
-        /// reflection, on every list of alerts the readout holds, since their field names are the game's.
-        /// Developer mode is put back after the scenario.
+        /// letters and the alerts on the right. The studio's presentation mode and PickleTools' screenshot
+        /// mode hide all of it, and the tab with it: the second Workshop image came out without the gauge,
+        /// which is its whole subject. The developer controls along the top edge are turned off by
+        /// PickleTools' own `developer mode is turned off for the capture`, used beside this step. Alerts
+        /// are emptied by reflection, on every list of alerts the readout holds, since their field names
+        /// are the game's. A shared step of that kind belongs in PickleTools' ScreenshotMode; this one
+        /// stays here until it is there.
         /// </summary>
-        [When("Drum Bath Hygiene: the letters, the alerts and the developer controls are cleared from the screen")]
+        [When("Drum Bath Hygiene: the letters and the alerts are cleared from the screen")]
         public async Task ClearForTheShot(PickleContext ctx)
         {
             foreach (Letter letter in Find.LetterStack.LettersListForReading.ToList())
@@ -443,16 +443,7 @@ namespace DrumBathHygiene.PickleSteps
                 if (typeof(List<Alert>).IsAssignableFrom(field.FieldType))
                     ((List<Alert>)field.GetValue(readout))?.Clear();
 
-            if (!devModeBeforeTheShot.HasValue) devModeBeforeTheShot = Prefs.DevMode;
-            Prefs.DevMode = false;
             await ctx.WaitFrames(3);
-        }
-
-        [AfterScenario]
-        public void RestoreDeveloperMode()
-        {
-            if (devModeBeforeTheShot.HasValue) Prefs.DevMode = devModeBeforeTheShot.Value;
-            devModeBeforeTheShot = null;
         }
 
         private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)

@@ -18,3 +18,5 @@
 # presentation mode. It needs Core and the five DLC, which every pass here has.
 nelim.pickletools.inspecttabs      path:PickleTools/InspectTabs/Mod
 nelim.pickletools.screenshotstudio path:PickleTools/ScreenshotStudio/Mod
+# The third has one step this suite uses: developer mode turned off for a capture that keeps the interface.
+nelim.pickletools.screenshotmode   path:PickleTools/ScreenshotMode/Mod
