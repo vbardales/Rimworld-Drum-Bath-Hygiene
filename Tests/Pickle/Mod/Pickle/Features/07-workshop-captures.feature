@@ -57,10 +57,11 @@ Feature: the images of the Workshop page
     Then Drum Bath Hygiene: "Miel" hygiene rose
     When game speed is paused
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
-    # The interface is hidden around the open tab, so that nothing but the subject is in the frame: the first attempt kept
-    # the alerts, the stack of letters and the game's own panels, which do not belong on a Workshop page.
-    When Nelim's Pickle Tools: screenshot mode is enabled around the open windows
-    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
+    # The tab has to stay, so what clutters the frame is cleared one by one: the first attempt kept the alerts, the stack of
+    # letters and the developer controls, and PickleTools' screenshot mode, tried next, hid the tab with them.
+    When Drum Bath Hygiene: the letters, the alerts and the developer controls are cleared from the screen
+    Then Nelim's Pickle Tools: the "Needs" inspect tab is open
+    And Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
     When I take a screenshot "workshop-2-the-needs-tab"
     And no warnings from mod "Drum Bath Hygiene"
     Then no errors were logged

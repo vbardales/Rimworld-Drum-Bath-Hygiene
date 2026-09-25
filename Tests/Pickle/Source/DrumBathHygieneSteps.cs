@@ -419,6 +419,42 @@ namespace DrumBathHygiene.PickleSteps
             LoseHygiene(ctx, name);
         }
 
+        private static bool? devModeBeforeTheShot;
+
+        /// <summary>
+        /// Clears what clutters a screenshot that has to KEEP the interface, here the Needs tab: the stack of
+        /// letters, the alerts on the right, and the developer controls along the top edge (the pass runs in
+        /// developer mode). The studio's presentation mode hides all of it, and the tab with it: the second
+        /// Workshop image came out without the gauge, which is its whole subject. Alerts are emptied by
+        /// reflection, on every list of alerts the readout holds, since their field names are the game's.
+        /// Developer mode is put back after the scenario.
+        /// </summary>
+        [When("Drum Bath Hygiene: the letters, the alerts and the developer controls are cleared from the screen")]
+        public async Task ClearForTheShot(PickleContext ctx)
+        {
+            foreach (Letter letter in Find.LetterStack.LettersListForReading.ToList())
+                Find.LetterStack.RemoveLetter(letter);
+
+            var readout = (Find.UIRoot as UIRoot_Play)?.alerts;
+            ctx.Require(readout != null, "the play interface has no alerts readout to clear");
+            foreach (System.Reflection.FieldInfo field in readout.GetType().GetFields(
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public
+                | System.Reflection.BindingFlags.Instance))
+                if (typeof(List<Alert>).IsAssignableFrom(field.FieldType))
+                    ((List<Alert>)field.GetValue(readout))?.Clear();
+
+            if (!devModeBeforeTheShot.HasValue) devModeBeforeTheShot = Prefs.DevMode;
+            Prefs.DevMode = false;
+            await ctx.WaitFrames(3);
+        }
+
+        [AfterScenario]
+        public void RestoreDeveloperMode()
+        {
+            if (devModeBeforeTheShot.HasValue) Prefs.DevMode = devModeBeforeTheShot.Value;
+            devModeBeforeTheShot = null;
+        }
+
         private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)
         {
             Pawn pawn = PawnNamed(ctx, name);
