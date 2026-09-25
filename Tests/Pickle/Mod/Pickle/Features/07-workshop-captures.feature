@@ -70,5 +70,6 @@ Feature: the images of the Workshop page
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
     And Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
     When I take a screenshot "workshop-2-the-needs-tab"
+    And Drum Bath Hygiene: the camera's zoom limits are restored
     And no warnings from mod "Drum Bath Hygiene"
     Then no errors were logged

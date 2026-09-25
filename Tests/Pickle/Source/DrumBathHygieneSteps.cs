@@ -460,6 +460,12 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Require(cell.InBounds(map), $"x={x - cellsWest} z={z} is off the map");
             ctx.Require(zoom >= 4 && zoom <= 60, $"zoom {zoom} is outside the camera's root size range");
 
+            // The game's normal camera does not come closer than root size 11 (`CameraMapConfig.sizeRange`): the run of
+            // 2026-09-25 asked for 6 and read 11 back. The floor is lowered for the capture, and put back by the step below.
+            CameraMapConfig config = Find.CameraDriver.config;
+            if (cameraRangeBefore == null) cameraRangeBefore = config.sizeRange;
+            config.sizeRange = new FloatRange(System.Math.Min(zoom, config.sizeRange.min), config.sizeRange.max);
+
             Find.CameraDriver.JumpToCurrentMapLoc(cell);
             Find.CameraDriver.SetRootSize(zoom);
             await ctx.WaitFrames(10);
@@ -473,6 +479,17 @@ namespace DrumBathHygiene.PickleSteps
             float actual = (float)root.GetValue(Find.CameraDriver);
             ctx.Assert(System.Math.Abs(actual - zoom) < 0.5f,
                 $"asked for camera zoom {zoom}, the camera sits at root size {actual}");
+        }
+
+        private static FloatRange? cameraRangeBefore;
+
+        /// <summary>Puts back the closest zoom the game allows, lowered by the step above.</summary>
+        [When("Drum Bath Hygiene: the camera's zoom limits are restored")]
+        public void RestoreCameraLimits(PickleContext ctx)
+        {
+            if (cameraRangeBefore == null) return;
+            Find.CameraDriver.config.sizeRange = cameraRangeBefore.Value;
+            cameraRangeBefore = null;
         }
 
         private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)
