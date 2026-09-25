@@ -462,7 +462,17 @@ namespace DrumBathHygiene.PickleSteps
 
             Find.CameraDriver.JumpToCurrentMapLoc(cell);
             Find.CameraDriver.SetRootSize(zoom);
-            await ctx.WaitFrames(3);
+            await ctx.WaitFrames(10);
+
+            // The run of 2026-09-25 asked for zoom 9 and measured about eleven (49 px to the cell where nine gives
+            // 60): read the root size back, so that a clamp or a smoothing that stops short fails here, with the
+            // number, instead of showing up in the image.
+            System.Reflection.FieldInfo root = typeof(CameraDriver).GetField("rootSize",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            ctx.Require(root != null, "CameraDriver has no rootSize field to read the zoom back from");
+            float actual = (float)root.GetValue(Find.CameraDriver);
+            ctx.Assert(System.Math.Abs(actual - zoom) < 0.5f,
+                $"asked for camera zoom {zoom}, the camera sits at root size {actual}");
         }
 
         private static Pawn_FilthTracker FilthOf(PickleContext ctx, string name)
