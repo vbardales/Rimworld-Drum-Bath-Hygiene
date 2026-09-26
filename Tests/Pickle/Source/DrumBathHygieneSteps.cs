@@ -447,6 +447,23 @@ namespace DrumBathHygiene.PickleSteps
         }
 
         /// <summary>
+        /// Switches off the drum's own light for the capture. The drum carries a <c>CompGlower</c> (radius 5) and the game
+        /// draws a light's reach as a semi-transparent square on the ground around it, which shows in a close shot as a
+        /// darker rotated square behind the drum. Only the light is removed: the flames, the water and the bath stay.
+        /// </summary>
+        [When("Drum Bath Hygiene: the drum's light is switched off at x={int} z={int}")]
+        public async Task SwitchOffTheDrumLight(PickleContext ctx, int x, int z)
+        {
+            Map map = CurrentMap(ctx);
+            Thing drum = map.thingGrid.ThingsListAt(new IntVec3(x, 0, z)).FirstOrDefault(t => t.def.defName == DrumDef);
+            ctx.Require(drum != null, $"no drum at x={x} z={z}");
+            CompGlower glower = drum.TryGetComp<CompGlower>();
+            ctx.Require(glower != null, "the drum has no CompGlower: the light is not what draws the square");
+            map.glowGrid.DeRegisterGlower(glower);
+            await ctx.WaitFrames(3);
+        }
+
+        /// <summary>
         /// Puts the drum on the right of the screen, close, for the Needs-tab image: the tab fills the left third of the
         /// frame, so a subject left in the middle sits beside it small. The camera is centred so many cells west of the
         /// drum (the drum then falls east of the middle of the screen) and zoomed to the given root size, the smaller the

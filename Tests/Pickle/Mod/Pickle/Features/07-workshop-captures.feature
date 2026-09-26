@@ -66,6 +66,8 @@ Feature: the images of the Workshop page
     # (nine cells of shift, zoom nine) left the drum small on bare grass, with a wall, a room and a wall torch (whose
     # light is drawn in a semi-transparent square) in the corner; zoom six is twice as close, and four cells of shift
     # put the drum about 360 px east of the middle, with the glade's flowers around it and the wall out of the frame.
+    # The drum's own light (radius 5) is drawn as a darker rotated square around it in a close shot: switched off.
+    And Drum Bath Hygiene: the drum's light is switched off at x=151 z=98
     And Drum Bath Hygiene: the camera looks at the drum at x=151 z=98, shifted 4 cells west, at zoom 6
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
     And Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
