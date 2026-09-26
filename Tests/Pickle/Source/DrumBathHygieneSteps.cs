@@ -463,6 +463,22 @@ namespace DrumBathHygiene.PickleSteps
             await ctx.WaitFrames(3);
         }
 
+        // TEMPORARY diagnostic (2026-09-26): what shines or floats near the drum. To be removed with 99-diagnostic.feature.
+        [When("Drum Bath Hygiene: I list what is around the drum at x={int} z={int}")]
+        public async Task ListAroundTheDrum(PickleContext ctx, int x, int z)
+        {
+            Map map = CurrentMap(ctx);
+            var centre = new IntVec3(x, 0, z);
+            Log.Message("[DBH-DIAG] mods: " + string.Join(", ", LoadedModManager.RunningModsListForReading.Select(m => m.Name)));
+            foreach (Thing t in GenRadial.RadialDistinctThingsAround(centre, map, 9f, true).Where(t => !(t is Plant)))
+                Log.Message($"[DBH-DIAG] thing {t.def.defName} ({t.GetType().Name}) at {t.Position} comps: {string.Join(",", (t as ThingWithComps)?.AllComps.Select(c => c.GetType().Name) ?? Enumerable.Empty<string>())}");
+            foreach (Thing t in map.listerThings.AllThings.Where(t => t.Position.InHorDistOf(centre, 12f) && !(t is Plant) && !t.def.IsBuildingArtificial && t.def.category != ThingCategory.Pawn))
+                Log.Message($"[DBH-DIAG] other {t.def.defName} ({t.GetType().Name}) cat {t.def.category} at {t.Position}");
+            foreach (Pawn pawn in map.mapPawns.AllPawnsSpawned.Where(q => q.Position.InHorDistOf(centre, 15f)))
+                Log.Message($"[DBH-DIAG] pawn {pawn.LabelShort} {pawn.def.defName} kind {pawn.kindDef?.defName} at {pawn.Position}");
+            await ctx.WaitFrames(2);
+        }
+
         /// <summary>
         /// Puts the drum on the right of the screen, close, for the Needs-tab image: the tab fills the left third of the
         /// frame, so a subject left in the middle sits beside it small. The camera is centred so many cells west of the
