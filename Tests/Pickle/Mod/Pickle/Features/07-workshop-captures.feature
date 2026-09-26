@@ -35,9 +35,14 @@ Feature: the images of the Workshop page
     Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
     When I wait 200 ticks
     And game speed is paused
+    # The first take showed the drum small, with a wall on the left and the drum light drawn as a square around it:
+    # the light is switched off and the camera comes to zoom six, centred on the drum, as in the second image.
+    And Drum Bath Hygiene: the drum's light is switched off at x=151 z=98
+    And Drum Bath Hygiene: the camera looks at the drum at x=151 z=98, shifted 0 cells west, at zoom 6
     And Nelim's Pickle Tools: studio presentation mode is enabled
     Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
     When I take a screenshot "workshop-1-the-bath"
+    And Drum Bath Hygiene: the camera's zoom limits are restored
     And no warnings from mod "Drum Bath Hygiene"
     Then no errors were logged
 
