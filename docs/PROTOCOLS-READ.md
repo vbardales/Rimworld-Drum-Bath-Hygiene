@@ -51,11 +51,14 @@ history is `vbardales/Rimworld-protocols` (git dir `../rimworld-protocols.git`, 
    third exploration ran on the tree as it stood when it was played, which was `c6ed14d`.
 6. **Evidence**: `report.html` and `messages.ndjson` of a superseded build are not kept, `summary.json` and `junit.xml` are
    enough (`WELCOME.md`, point 4); deleting long capture names needs `robocopy /MIR` first.
-7. **`update_description` exists** in the publish workflow (`--description-file PUBLICATION.md --description-heading ...`
-   sends a fenced BBCode block as the description, only when the input is on, behind the `steam-production` approval). It
-   replaces the hand edit of the two wrong sentences. **Chosen by the owner on 2026-09-25**: the workflow was regenerated
-   with `--description-file PUBLICATION.md --description-heading '^## The description text'`, and the corrected description
-   is in `PUBLICATION.md`.
+7. **`update_description` exists** in the publish workflow (`--description-markdown PUBLICATION.md --description-heading ...
+   --about-from-description` converts a fenced Markdown block to Steam BBCode and generates `About.xml`'s `<description>`
+   from the same source, only sending it when the input is on, behind the `steam-production` approval). It replaces the
+   hand edit of the two wrong sentences. **Chosen by the owner on 2026-09-25**, the workflow first regenerated with
+   `--description-file` and the corrected BBCode description; **migrated to the Markdown standard on 2026-09-26**, with
+   `--description-markdown PUBLICATION.md --description-heading '^## Steam description$' --about-from-description`, the
+   description now in `PUBLICATION.md` under "Steam description" and `About.xml` generated from it
+   (`sync-about-description.mjs --write`).
 8. **`developer mode is turned off for the capture` already exists** in PickleTools ScreenshotMode and is used by
    `07-workshop-captures.feature`; only the letters and alerts step is this suite's own.
 9. **`README.md` of this mod repeats two statements** that `PUBLICATION.md` corrects for the Steam page ("Nothing throws either

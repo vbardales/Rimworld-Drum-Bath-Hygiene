@@ -12,6 +12,7 @@
 On its own, soaking in a drum bath is pure recreation: it gives joy, a warm mood buff and a rest bonus, but a colonist climbs out exactly as filthy as they got in. This bridges the two.
 
 While a colonist is in the bath:
+
 - their hygiene need fills,
 - onlookers react to the sight, as with any DBH bathing,
 - the water is judged hot or cold depending on whether the drum still has fuel burning,
@@ -32,17 +33,13 @@ This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and
 
 THANKS
 
-Mlie, for keeping MMDrumcanMOD (Continued) alive. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
-https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756
-
-Dubwise, for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
-https://steamcommunity.com/sharedfiles/filedetails/?id=836308268
-
-Tested with Pickle, RimLogging and Nelim's PickleTools, thanks to their authors: development only, never a dependency of this mod.
+- Mlie (https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
+- Dubwise (https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
+- Pickle (https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678), RimLogging (https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696) and Nelim's PickleTools (https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401), used for the in-game tests: development tools, never a dependency of this mod.
 
 No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
 
-[url=https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene]Source code on GitHub[/url]</description>
+Source code on GitHub (https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene)</description>
   <modDependencies>
     <li>
       <packageId>Mlie.MMDrumcanMOD</packageId>

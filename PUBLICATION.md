@@ -32,10 +32,12 @@ This is an **update of an existing item**, not a first creation (`../PUBLISHING.
   so date it first, and it is the commit that carries the Pickle-validated suite.
 - **Regenerating the workflow: keep every option.** The full command, `--gallery-dir` included (a later `--replace` typed from
   memory without it would silently drop `galleryDir` from `.github/publish.config.json`), from a shell; add `--check` first to see
-  whether the template moved (stamp `683151266dd1`, Rimworld-Release-Admin `da4e786`; regenerated on 2026-09-25 with `--description-file`, which moved the stamp from `eba6b3fdf670`; 49 tests pass):
+  whether the template moved (stamp `683151266dd1`, Rimworld-Release-Admin `da4e786`; regenerated on 2026-09-26 with
+  `--description-markdown` and `--about-from-description`, adopting the Markdown description standard other mods already use,
+  which moved the stamp from `683151266dd1`; the earlier move, on 2026-09-25 with `--description-file`, had come from `eba6b3fdf670`):
 
   ```
-  bash /c/Users/nelim/Documents/rimworld/Rimworld-Release-Admin/scripts/generate-publish-workflow.sh /c/Users/nelim/Documents/rimworld/DrumBathHygiene --replace --workshop-id 3806137182 --package-id nelim.drumbathhygiene --release-title "Drum Bath Hygiene {version}" --require Assemblies/DrumBathHygiene.dll --gallery-dir Art/WorkshopScreenshots --description-file PUBLICATION.md --description-heading '^## The description text'
+  bash /c/Users/nelim/Documents/rimworld/Rimworld-Release-Admin/scripts/generate-publish-workflow.sh /c/Users/nelim/Documents/rimworld/DrumBathHygiene --replace --workshop-id 3806137182 --package-id nelim.drumbathhygiene --release-title "Drum Bath Hygiene {version}" --require Assemblies/DrumBathHygiene.dll --gallery-dir Art/WorkshopScreenshots --description-markdown PUBLICATION.md --description-heading '^## Steam description$' --about-from-description
   ```
 
   The dry-run lists the images of `Art/WorkshopScreenshots` (alphabetical, only png, jpg, jpeg and gif, not recursive) as a
@@ -48,80 +50,74 @@ This is an **update of an existing item**, not a first creation (`../PUBLISHING.
   description text" below). `update_preview` (the new `Preview.png`) is her call too; the images of the gallery stay hand work on the
   Steam page.
 
-## The description: corrected, and sent by the CI with `update_description`
+## Steam description
 
-Decided by the owner on 2026-09-25: **`update_description`, not a hand edit**. `SetItemDescription` ran once, with the 0.1.0
-prepublication, and two paragraphs of that text were wrong; the block below is the corrected description, and the
-workflow sends it, only when `update_description` is turned on for the dispatch and behind the `steam-production`
-approval. The workflow is generated with `--description-file PUBLICATION.md --description-heading '^## The description text'`
-(the command above). The dry-run prints the text, its size and SHA-256; the item being private, it cannot diff against the
-page (`public page not readable`), so the block is read by hand once. Every publish with the input on overwrites the
-description: a later hand edit on the Steam page would be lost, so this block stays the single source.
+**One source, decided by the owner on 2026-09-25** (`../PUBLISHING.md`; `Rimworld-Release-Admin/docs/OPERATIONS.md`,
+"Changing where the Steam description comes from"): the description is written once, in Markdown, in the fenced block
+below. The CI converts it to Steam BBCode and generates the plain-text `<description>` of `Mod/About/About.xml` from it
+(`node .github/scripts/sync-about-description.mjs --write`), and every dry-run and publish stops if `About.xml` differs
+from it. The block cannot contain a code fence, and its last line is the source link. Adopted on 2026-09-26, migrating
+from the BBCode block sent since 2026-09-25 under the old heading "The description text": until the workflow is
+regenerated with the options above, `About.xml` stays as it is, and the first `sync-about-description.mjs --write` after
+regenerating rewrites its text (read the diff). The item being private, the dry-run cannot diff the converted text
+against the page, so it is read by hand once. Every publish with `update_description` on overwrites the Steam page: a
+later hand edit there would be lost, so this block stays the single source.
 
-What changed against the text of 0.1.0 (`Mod/About/About.xml` carries the same text, plain, for the mod list in game):
+What changed against the text of 0.1.0 (before the 2026-09-25 corrections, still readable in `git log -p -- Mod/About/About.xml`):
 
-1. *"Nothing breaks if you load this without them … No error is thrown either way."* No run showed it and none can (a Pickle
-   pass excludes only DLCs; RimWorld's handling of a missing dependency is not this mod's). Now: both mods are declared as
-   dependencies, RimWorld flags a missing one, and the mod has no content of its own.
-2. *"Adding it to an existing game and removing it … still require in-game validation."* A bath in progress goes on washing
-   after a save and a reload (played and green, runs 10 and 11). Adding the mod to a save or removing it is the game's handling
-   of its mod list and has not been played. Now said so.
+1. *"Nothing breaks if you load this without them … No error is thrown either way."* No run showed it and none can (a
+   Pickle pass excludes only DLCs; RimWorld's handling of a missing dependency is not this mod's). Now: both mods are
+   declared as dependencies, RimWorld flags a missing one, and the mod has no content of its own.
+2. *"Adding it to an existing game and removing it … still require in-game validation."* A bath in progress goes on
+   washing after a save and a reload (played and green, runs 10 and 11). Adding the mod to a save or removing it is the
+   game's handling of its mod list and has not been played. Now said so.
 3. **The test tools are thanked** (`../PUBLISHING.md`, "development only, never a dependency"): Pickle (`3791648678`),
-   RimLogging (`3733484696`) and PickleTools (`3806142401`, three of its packages are staged by the `tools` pass).
-4. **Codex (OpenAI) is named in `AI-GENERATED`**, confirmed by the owner on 2026-09-25 as having contributed to the
-   repository. The last line of the old `THANKS` ("Claude Code (Anthropic) and DALL-E (OpenAI).") is gone: `../PUBLISHING.md`
-   asks not to repeat in the thanks the tools already named in the AI mention.
+   RimLogging (`3733484696`) and Nelim's PickleTools (`3806142401`, three of its packages are staged by the `tools` pass).
+4. **Codex (OpenAI) is named in AI-GENERATED**, confirmed by the owner on 2026-09-25 as having contributed to the
+   repository. The line "Claude Code (Anthropic) and DALL-E (OpenAI)." that used to close the old THANKS is gone:
+   `../PUBLISHING.md` asks not to repeat in the thanks the tools already named in the AI mention.
 
 One claim kept as it was: *"the room gives its usual bathroom thought"*. The call goes through without a warning, but the
 thought itself is Dubs Bad Hygiene's grading of a room and no scenario asserts a stage (TESTING.md, scenario 4, not
 applicable).
 
-**This is a change to `Mod/`** (`About/About.xml`, the description only; no code, no asset): the payload of 1.0.0 is the 0.1.0
-one plus `About/Preview.png`, the id file and this text.
+**This is a change to `Mod/`** (`About/About.xml`, the description only; no code, no asset): the payload of 1.0.0 is the
+0.1.0 one plus `About/Preview.png`, the id file and this text.
 
-## The description text
-
-The description sent when `update_description` is on, in Steam BBCode (under 8000 characters: 2504):
-
-```
+```markdown
 Makes the drum can bath actually wash people, by connecting MMDrumcanMOD to Dubs Bad Hygiene.
 
 On its own, soaking in a drum bath is pure recreation: it gives joy, a warm mood buff and a rest bonus, but a colonist climbs out exactly as filthy as they got in. This bridges the two.
 
 While a colonist is in the bath:
-[list]
-[*] their hygiene need fills,
-[*] onlookers react to the sight, as with any DBH bathing,
-[*] the water is judged hot or cold depending on whether the drum still has fuel burning,
-[*] the room gives its usual bathroom thought,
-[*] the "soaking wet" memory is cleared, and so is the filth carried on their body when they climb out.
-[/list]
+
+- their hygiene need fills,
+- onlookers react to the sight, as with any DBH bathing,
+- the water is judged hot or cold depending on whether the drum still has fuel burning,
+- the room gives its usual bathroom thought,
+- the "soaking wet" memory is cleared, and so is the filth carried on their body when they climb out.
 
 Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. This mod has no content of its own and does nothing without both.
 
 The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress goes on washing after a save and a reload. Adding it to, or removing it from, an existing save has not been tested.
 
-[b]IF I GO QUIET[/b]
+## IF I GO QUIET
 
 If I do not answer within a reasonable time after being contacted, anyone may freely update this or any other of my mods, including publishing a continuation of it. All credit must be preserved.
 
-[b]AI-GENERATED[/b]
+## AI-GENERATED
 
 This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and its images generated with DALL-E (OpenAI), under human direction, review and testing. Stated openly: designing with these tools is my job.
 
-[b]THANKS[/b]
+## THANKS
 
-Mlie, for keeping MMDrumcanMOD (Continued) alive. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
-https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756
-
-Dubwise, for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
-https://steamcommunity.com/sharedfiles/filedetails/?id=836308268
-
-Tested with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678]Pickle[/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696]RimLogging[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401]Nelim's PickleTools[/url], thanks to their authors: development only, never a dependency of this mod.
+- [Mlie](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
+- [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
+- [Pickle](https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678), [RimLogging](https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696) and [Nelim's PickleTools](https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401), used for the in-game tests: development tools, never a dependency of this mod.
 
 No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
 
-[url=https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene]Source code on GitHub[/url]
+[Source code on GitHub](https://github.com/vbardales/Rimworld-Drum-Bath-Hygiene)
 ```
 
 ## Release notes (the change note of each upload)
