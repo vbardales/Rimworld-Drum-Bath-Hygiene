@@ -43,6 +43,8 @@ Feature: the images of the Workshop page
     And Drum Bath Hygiene: the camera looks at the drum at x=151 z=98, shifted 0 cells west, at zoom 6
     And Nelim's Pickle Tools: studio presentation mode is enabled
     Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
+    # The motes keep respawning: cleared again right before the shot, after presentation mode waited its frames.
+    And Drum Bath Hygiene: the drum's motes are cleared at x=151 z=98
     When I take a screenshot "workshop-1-the-bath"
     And Drum Bath Hygiene: the camera's zoom limits are restored
     And no warnings from mod "Drum Bath Hygiene"
@@ -80,6 +82,8 @@ Feature: the images of the Workshop page
     And Drum Bath Hygiene: the camera looks at the drum at x=151 z=98, shifted 4 cells west, at zoom 6
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
     And Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
+    # The motes keep respawning: cleared again right before the shot.
+    And Drum Bath Hygiene: the drum's motes are cleared at x=151 z=98
     When I take a screenshot "workshop-2-the-needs-tab"
     And Drum Bath Hygiene: the camera's zoom limits are restored
     And no warnings from mod "Drum Bath Hygiene"
