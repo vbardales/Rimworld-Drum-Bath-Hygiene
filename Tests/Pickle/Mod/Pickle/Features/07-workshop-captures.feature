@@ -38,6 +38,8 @@ Feature: the images of the Workshop page
     # The first take showed the drum small, with a wall on the left and the drum light drawn as a square around it:
     # the light is switched off and the camera comes to zoom six, centred on the drum, as in the second image.
     And Drum Bath Hygiene: the drum's light is switched off at x=151 z=98
+    # MMDrumcanMOD's own steam motes (Mote_Bombardment, found by the 2026-09-26 diagnostic) draw the same square: cleared too.
+    And Drum Bath Hygiene: the drum's motes are cleared at x=151 z=98
     And Drum Bath Hygiene: the camera looks at the drum at x=151 z=98, shifted 0 cells west, at zoom 6
     And Nelim's Pickle Tools: studio presentation mode is enabled
     Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98
@@ -73,6 +75,8 @@ Feature: the images of the Workshop page
     # put the drum about 360 px east of the middle, with the glade's flowers around it and the wall out of the frame.
     # The drum's own light (radius 5) is drawn as a darker rotated square around it in a close shot: switched off.
     And Drum Bath Hygiene: the drum's light is switched off at x=151 z=98
+    # Same square from MMDrumcanMOD's own steam motes (Mote_Bombardment): cleared too.
+    And Drum Bath Hygiene: the drum's motes are cleared at x=151 z=98
     And Drum Bath Hygiene: the camera looks at the drum at x=151 z=98, shifted 4 cells west, at zoom 6
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
     And Drum Bath Hygiene: "Miel" is bathing in the drum at x=151 z=98

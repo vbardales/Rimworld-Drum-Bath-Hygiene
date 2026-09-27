@@ -480,6 +480,22 @@ namespace DrumBathHygiene.PickleSteps
         }
 
         /// <summary>
+        /// Removes the drum's own <c>Mote_Bombardment</c> motes for the capture: found by the 2026-09-26 diagnostic
+        /// (<c>99-diagnostic.feature</c>) drawing the same semi-transparent square as a light, but spawned by
+        /// MMDrumcanMOD itself around the drum, not by anything of this mod's. Only motes, never the drum or the pawn.
+        /// </summary>
+        [When("Drum Bath Hygiene: the drum's motes are cleared at x={int} z={int}")]
+        public async Task ClearDrumMotes(PickleContext ctx, int x, int z)
+        {
+            Map map = CurrentMap(ctx);
+            var centre = new IntVec3(x, 0, z);
+            foreach (Thing mote in map.listerThings.AllThings
+                .Where(t => t.def.defName == "Mote_Bombardment" && t.Position.InHorDistOf(centre, 4f)).ToList())
+                mote.Destroy();
+            await ctx.WaitFrames(2);
+        }
+
+        /// <summary>
         /// Puts the drum on the right of the screen, close, for the Needs-tab image: the tab fills the left third of the
         /// frame, so a subject left in the middle sits beside it small. The camera is centred so many cells west of the
         /// drum (the drum then falls east of the middle of the screen) and zoomed to the given root size, the smaller the
