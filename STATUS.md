@@ -21,6 +21,9 @@ audit_revision: 271365b630a9d2b1f4101edacaa1ec1e4bc72f08
 licence:      open
 license_spdx: MIT
 licence_at:   LICENSE and Mod/LICENSE; original integration code, third-party dependencies credited in ATTRIBUTION.md
+upstream_mod_remotes:
+  - MMDrumcanMOD (Continued), Mlie: https://github.com/emipa606/MMDrumcanMOD
+  - Dubs Bad Hygiene, Dubwise: N/A (not found)
 owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
