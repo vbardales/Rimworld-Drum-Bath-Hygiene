@@ -46,9 +46,9 @@ This is an **update of an existing item**, not a first creation (`../PUBLISHING.
 - **The CI sends `Mod/`** (everything in it: `About`, `Assemblies`, `Patches`, `ATTRIBUTION.md`, `LICENSE`; there is no
   `.steamignore` and nothing else to exclude). The workflow has four opt-in inputs, **off by default and left off unless
   Virginie asks**: `update_preview`, `update_description`, `update_title`, `update_tags`; visibility is never sent. The
-  owner chose `update_description` on 2026-09-25: it is turned on for the `publish` dispatch (the block is under "The
-  description text" below). `update_preview` (the new `Preview.png`) is her call too; the images of the gallery stay hand work on the
-  Steam page.
+  owner chose `update_description` on 2026-09-25 and **`update_preview` on 2026-09-28**: both are turned on for the `publish`
+  dispatch (the description is the block under "Steam description" below; `update_title` and `update_tags` stay off). The images
+  of the gallery stay hand work on the Steam page.
 
 ## Steam description
 
@@ -186,8 +186,8 @@ did not move. Measured contrast of the summary over its whole rectangle rose fro
 is a deviation** from `../STYLE_RIMWORLD.md`, which fixes the summary width at 430 px (metrics validated by the owner on
 2026-09-25, top-left or bottom-right anchor only); it was made before that guide was read again. Reverting is `width:430px` in
 `Art/preview.html` and one run of `Art/render-preview.cjs`; the owner decides. This
-is a change to `Mod/`. The workflow does not send the preview unless `update_preview` is turned on (off by default): **either
-Virginie turns it on for the dispatch, or the image is replaced by hand on the Steam page**, if the new one is wanted there.
+is a change to `Mod/`. The workflow does not send the preview unless `update_preview` is turned on (off by default): **the owner
+chose it on 2026-09-28**: `update_preview` is turned on for the `publish` dispatch, so the new image replaces the one of 0.1.0.
 
 ## Content boxes (adult content, violence)
 
