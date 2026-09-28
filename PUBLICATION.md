@@ -156,8 +156,8 @@ Checked in the sources on 2026-09-24, not from intention.
 
 ## Captures for the Workshop page
 
-Steam shows the first one large: put the most demonstrative there, not the prettiest. **TO DO: waiting on the final `tools`
-passes.** The images are not to be taken on the test colony: it is a working save with a skeleton beside the drum, and a
+Steam shows the first one large: put the most demonstrative there, not the prettiest. **Done 2026-09-28: both images taken and validated by the owner** (run 21, commit `cdb7968`, English,
+`Art/WorkshopScreenshots/`; the two passes on the final revision are the last check). The images are not to be taken on the test colony: it is a working save with a skeleton beside the drum, and a
 first pair taken there on 2026-09-24 was **refused by the owner**. They are taken on her photographic colony,
 `nelim-zen-meadow-studio` (package `nelim.pickletools.screenshotstudio`), in its flower glade: a bath on grass with red and
 orange flowers around it that identify the place. `07-workshop-captures.feature` takes them, not filmed, each with the bath
@@ -171,6 +171,11 @@ dry-run lists that folder as a reminder of the manual gallery upload, in that al
 of the page).
 
 Proposed order: 1. the colonist in the drum; 2. the Needs tab with the gauge partway up.
+
+What the first takes taught, so as not to relearn it: the studio camera cannot come closer than root size 11 (the suite lowers the floor for
+the shot and puts it back), and a close shot draws a semi-transparent square around every light and every mote: the drum's own light
+(`CompGlower`) and the `Mote_Bombardment` motes that MMDrumcanMOD spawns around it respawn every few frames, so both are removed
+immediately before each screenshot (`07-workshop-captures.feature`).
 
 ## The preview image
 
