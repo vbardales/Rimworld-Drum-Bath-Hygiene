@@ -11,6 +11,7 @@ visibility:   public
 repo_visibility: public
 detached:     yes
 stage:        tested
+workflow_stage: tested
 settings_audit: not_applicable
 build_audit: complete
 automated_tests: complete
@@ -33,6 +34,7 @@ remaining:
   - publication: 1.0.0 is dated 2026-09-28 in CHANGELOG.md. The two Workshop images (`Art/Gallery/1-the-bath.jpg`, `2-the-needs-tab.jpg`, taken on the photographic colony, run 21, revision cdb7968) were validated by the owner on 2026-09-28. The workflow (`.github/`, 68 script tests pass) sends the description from PUBLICATION.md under "Steam description" (Markdown, About.xml generated from it) with `update_description`, and the new preview with `update_preview`, both chosen by the owner; the gallery is hand work. The final English and French passes on the frozen revision `271365b` are green (runs 22 and 23). Still ahead: the dry-run of the exact SHA that is pushed (CI/CD session, needs the push), the `publish` (approved by the owner only), then the switch to public and the thanks.
   - open: no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); adding or removing the mod on an existing save has not been played.
   - feature: fire intensity, deferred in BACKLOG.md.
+  - open: pull request to the upstream drum bath mod (`emipa606/MMDrumcanMOD`), a TODO in BACKLOG.md; public, needs the owner's agreement.
 updated:      2026-10-02
 ---
 
@@ -40,6 +42,24 @@ updated:      2026-10-02
 
 `stage` uses the workflow's own state names: `tested` = `done -> tested` established, the next
 state is `prepublished`. Codes used by this file: `done`, `tested` (this one), `prepublished`, `published`.
+
+## Workflow audit — 2026-10-02: `tested`, unchanged
+
+Audited revision: `91717a0` (`main`, equal to `origin/main` when started; the working tree held only two untracked `desktop.ini`). Another session committed the preview/gallery migration (`91717a0`) while this audit ran; its files (`Art/`, `Mod/About/ModIcon.png`, `Preview.png`) were not touched here. **No RimWorld was launched**; no Windows `RimWorldWin64` process was found.
+
+Result: **`tested` -> `tested`.** `workflow_stage: tested` added (the title of the session reads `drumbathhygiene / tested`).
+
+| Control | Result |
+| --- | --- |
+| `done -> tested`, new criteria | **No `@wip`, no `@requires:`, no manual test left** (searched in `Tests/Pickle/` and `TESTING.md`): met, the conditional criterion vacuously, the mod declaring no optional mod. The 21 of 21 passes of `271365b` (runs 22, 23) stand: the DLL and `Source/` did not change since; `Mod/` moved only by `About/ModIcon.png` and `About/Preview.png` (owner's preview migration, `91717a0`), which no scenario reads |
+| Offline suite replayed | `pwsh _tools/Test-Mod.ps1`: metadata, licence, packaging, 10 XML patch cases and the compiled component types with the `Assembly-CSharp` access waiver all PASS (the Windows PowerShell 5.1 route still cannot load `PEReader`) |
+| `.dds` | None tracked, none on disk; `*.dds` now in `.gitignore` |
+| Evidence | Disk only (`.build/evidence/`, ignored); no report in git. Trimmed from 24 to 8 MB: per pass `summary.*`, `junit.xml`, `Player.log`, the `@review` still `bather-in-the-drum` and its film are kept; the two Workshop stills of each pass went, their JPEG copies being the validated gallery (`Art/Gallery/1-`, `2-`). `Tests/Pickle/Evidence/` and `evidence/` added to `.gitignore` |
+| Explorer artefacts | `desktop.ini` and `Mod/**/*.ico` ignored: Steam sends `Mod/` whole |
+| Upstream | `https://github.com/emipa606/MMDrumcanMOD` exists (MIT, `main`); none for Dubs Bad Hygiene. The systematic pull request is a TODO in `BACKLOG.md`, nothing sent (public, owner's agreement needed) |
+| Documents | Re-read at their present versions: `docs/PROTOCOLS-READ.md`, "Read on 2026-10-02" |
+
+Open, unchanged: the gallery upload and the other owner steps of `prepublished` (`PUBLICATION.md`), the `1.0.0` dry-run of the exact SHA. A dry-run of the commit to publish is still to be recorded after the preview migration (the SHA changed).
 
 ## Workflow audit — 2026-09-23: `done` -> `tested`
 

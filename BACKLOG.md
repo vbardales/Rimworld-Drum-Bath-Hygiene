@@ -9,6 +9,18 @@ the changelog instead, and anything that needs watching in play is in
 
 ---
 
+## Pull request to the upstream drum bath mod
+
+Opened 2026-10-02 (PUBLISHING.md: once an origin repository exists, the pull request is systematic and stays here
+until done; it is independent of the Workshop publication).
+
+The drum bath mod this bridge sits on has a git repository: `https://github.com/emipa606/MMDrumcanMOD` (MMDrumcanMOD
+(Continued), Mlie; MIT; `main`; `1.6/` folder; last push 2025-07-30). No repository was found for Dubs Bad Hygiene
+(`upstream_mod_remotes` in `STATUS.md`). Nothing has been sent: a fork and a pull request are public and leave only with
+the owner's agreement. To settle first: what to propose (the hygiene component itself, or an issue pointing to this
+bridge), read against that repository's own `1.6/` defs and `Source/`, and whether it should stay a bridge so the drum
+mod does not depend on Dubs Bad Hygiene.
+
 ## A drum bath fire that can be too strong
 
 Proposed 2026-09-11.
