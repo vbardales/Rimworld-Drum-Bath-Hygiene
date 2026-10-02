@@ -35,6 +35,7 @@
     "veil": "radial",
     "veilSize": 275,
     "veilLeft": -55,
-    "veilBottom": -61
+    "veilBottom": -61,
+    "translate": "-5%, 5%"
   }
 }
