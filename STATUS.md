@@ -10,8 +10,8 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-stage:        prepublished
-workflow_stage: prepublished
+stage:        published
+workflow_stage: published
 settings_audit: not_applicable
 build_audit: complete
 automated_tests: complete
@@ -31,7 +31,7 @@ showcase:     preview approved by user; visual QA passed at full size and thumbn
 tested_on:    Pickle suite in game (RimWorld 1.6, Linux under WSL, Xvfb), English (run 22) and French (run 23), 2026-09-28: 21 scenarios of 21 played and green in each, exitReason passed, from revision 271365b (runs 8 and 9, 2026-09-23, revision 9df3305, were the 19-scenario passes before the Workshop images); earlier: Release rebuild and the Windows PowerShell XML/packaging suite, 2026-09-22
 workshop:      3806137182; **1.0.0 sent to Steam by CI on 2026-09-28 (tag v1.0.0 on c6a0939, release 10:17 UTC), confirmed on the page by the owner 2026-10-02; found by the 2026-10-02 dry-run attempt, STATUS had not recorded it; stage left at tested until a rewind-free review of prepublished/published criteria (thanks posted, visibility). 1.0.1 (preview, icon) in preparation; 0.1.0 prepublication by the owner on 2026-09-22: an upload that only creates the item (private, as Steam creates them) and its PublishedFileId.txt. An act, not the `prepublished` stage; visibility and the live page were not queried
 remaining:
-  - published on Steam 2026-10-02 (1.0.1, tag v1.0.1 on 55d5928, run 37032402412), item public per the owner. Open before `published`: thanks to Mlie and Dubwise posted (PUBLICATION.md, WORKSHOP_COMMENTS.md rows still to add), the owner's three manual steps (subscribe to comments, watch the mod and its parents).
+  - published 2026-10-02 (1.0.0 and 1.0.1 on the page, item public per the owner); thanks to Mlie and Dubwise posted 2026-10-02 (WORKSHOP_COMMENTS.md). Left: the owner's manual steps of PUBLISHING.md "Mise en production d'une 1.0.0" (comment subscription, watching the mod and its parents), not confirmed.
   - publication: 1.0.0 is dated 2026-09-28 in CHANGELOG.md. The two Workshop images (`Art/Gallery/1-the-bath.jpg`, `2-the-needs-tab.jpg`, taken on the photographic colony, run 21, revision cdb7968) were validated by the owner on 2026-09-28. The workflow (`.github/`, 68 script tests pass) sends the description from PUBLICATION.md under "Steam description" (Markdown, About.xml generated from it) with `update_description`, and the new preview with `update_preview`, both chosen by the owner; the gallery is hand work. The final English and French passes on the frozen revision `271365b` are green (runs 22 and 23). Still ahead: the dry-run of the exact SHA that is pushed (CI/CD session, needs the push), the `publish` (approved by the owner only), then the switch to public and the thanks.
   - open: no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); adding or removing the mod on an existing save has not been played.
   - feature: fire intensity, deferred in BACKLOG.md.
