@@ -24,14 +24,12 @@ says about coverage: it says what a run did. The longer account of what each fai
 `Tests/Pickle/README.md`.
 
 ## The runs
+_Trimmed 2026-10-02 (published): runs 1-21 were development-era (suite in flux, failures of the suite fixed by `9df3305`; two 19-scenario green passes 8 and 9 on 2026-09-23, `tools` passes 10-11 on `c839751`, the Workshop-image scenarios 12-21). Superseded by the two final passes below, which prove the published state; `git log -p -- docs/runs/README.md` has the lines._
 
 | Run | Date | Pass | Staged from | `exitReason` | Played / passed / failed | What it was, and what was opened | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-_Trimmed 2026-10-02 (published): runs 1-21 were development-era (suite in flux, failures of the suite fixed by `9df3305`; two 19-scenario green passes 8 and 9 on 2026-09-23, `tools` passes 10-11 on `c839751`, the Workshop-image scenarios 12-21). Superseded by the two final passes below, which prove the published state; `git log -p -- docs/runs/README.md` has the lines._
 | 22 | 2026-09-28 | `tools`, EN, full suite | `271365b` | **passed** | 21 of 21 / 21 / 0 | Final pass of the frozen 1.0.0 revision (changelog dated, images committed). Both `07` stills of the run are the images that were validated | `final-english-2/` (summary, junit, log, the `@review` still, film; the two Workshop stills deleted 2026-10-02, kept as `Art/Gallery/1-`, `2-`) |
 | 23 | 2026-09-28 | `tools`, FR, full suite | `271365b` | **passed** | 21 of 21 / 21 / 0 | Same revision, French | `final-french-2/` (summary, junit, log, the `@review` still, film; the two Workshop stills deleted 2026-10-02, kept as `Art/Gallery/1-`, `2-`) |
-| lost | 2026-09-24 | `tools`, EN | `24080a1` | none | none | No report: the WSL dropped its connection while the game loaded (`Wsl/Service/0x80072746`), the launcher stopped it (exit 6) | none |
-| lost | 2026-09-24 | `tools`, FR | `24080a1` | `watchdog-timeout` | 0 of 21 | No scenario: Pickle's watchdog fired after 120 s on the step that loads the save; the machine was loaded, other mods' runs ended the same way that day | none |
 
 ## What Evidence to keep, and in what form
 
