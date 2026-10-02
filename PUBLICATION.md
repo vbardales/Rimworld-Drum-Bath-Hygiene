@@ -217,24 +217,16 @@ real emojis, a bare item URL at the end for the thumbnail. The item link is `htt
 | PickleTools | `3806142401` | `not_applicable` | the author's own project; add to `Covers` |
 | Harmony | `2009463077` | `posted` | not used by this mod (no patch): nothing to add |
 
-**Mlie, on MMDrumcanMOD (Continued)** (774 characters):
+**Mlie, on MMDrumcanMOD (Continued)**, crediting dragon (original author, Workshop `2100895553`) and Mlie (the 1.6 update). Rewritten 2026-10-02 to the register's rules (own voice, one true detail, hidden link, under 350 characters):
 
 ```
-[b]Thank you for keeping the drum bath alive! 🛁🔥[/b]
-Soaking in a barrel over a wood fire, watching the clouds go by, is the coziest thing a colonist can do, and your Continued version is why 😊
-I made a tiny bridge, Drum Bath Hygiene, so that the bath also [i]washes[/i] people when Dubs Bad Hygiene is loaded: the hygiene gauge fills, onlookers notice, and the water counts as hot or cold by whether your fire still burns. It adds no building, texture or def, and none of your files are copied or shipped: a component is grafted by XML onto your bathing hediff, and I read your driver only to learn that this was the safe way in ✨
-If anything in it bothers you, tell me and I will change it right away 💛
-https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182
+The drum bath is my favourite lazy-colonist spot, thank you Mlie for keeping dragon's mod alive on 1.6 :) I made a small bridge so soaking in it also fills the Dubs Bad Hygiene need, nothing of yours copied, and I sent a PR to your repo if you ever want it inside: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182]Drum Bath Hygiene[/url]
 ```
 
-**Dubwise, on Dubs Bad Hygiene** (679 characters):
+**Dubwise, on Dubs Bad Hygiene**:
 
 ```
-[b]Thank you for Dubs Bad Hygiene! 🚿💛[/b]
-Hygiene, privacy, water temperature, bathroom thoughts: a bath feels alive in RimWorld because of you 😊
-My little bridge, Drum Bath Hygiene, hands the drum can bath of MMDrumcanMOD over to your system: it fills your hygiene need, asks your privacy check whether anyone is watching, lets your water rule pick the memory, and clears soaking wet. All through reflection, so nothing of yours is copied or shipped, and if a member ever changes, the bridge says so once and does nothing rather than break your game ✨
-If you would rather I did this differently, just tell me!
-https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182
+Thank you for Dubs Bad Hygiene! I wanted a wooden drum bath to count as a real bath, so my little bridge hands it to your hygiene need, the privacy check and the hot/cold water memory, all through reflection so nothing is copied. xD [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182]Drum Bath Hygiene[/url]
 ```
 
 Neither is posted, and the register has no row for them yet: both are the owner's acts.
