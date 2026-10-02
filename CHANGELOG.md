@@ -3,6 +3,15 @@
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This file serves the repository and the writing of Steam patch notes; RimWorld does not display it in game.
 
+## [1.0.1] — 2026-10-02
+
+No change to the mod's behaviour: the DLL and the patch are those of 1.0.0.
+
+### Changed
+
+- New `Preview.png` and `ModIcon.png`: the icon is cut out and placed in a corner of the preview.
+- The Workshop gallery now opens on a copy of the preview (`Art/Gallery/0-preview.png`).
+
 ## [1.0.0] — 2026-09-28
 
 On release: create the `v1.0.0` tag and the matching GitHub release.
