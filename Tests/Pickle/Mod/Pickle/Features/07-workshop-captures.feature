@@ -28,11 +28,14 @@ Feature: the images of the Workshop page
     # THE SERIES' STORY (rule of 2026-10-02: every gallery shot is a staged photograph, except the menus). Miel takes her
     # evening bath in the drum at the edge of the glade, a lamp lit beside it. Auburn hair, a face without tattoos, a
     # normal build, and a little set around the drum: a lamp, a shelf and two potted plants, placed for the shot and
-    # removed by the suite's own AfterScenario. Her clothes follow (see the note below the decor).
+    # removed by the suite's own AfterScenario. Cream shirt, deep teal trousers.
     And Nelim's Pickle Tools: "Miel" body type is Female
     And Nelim's Pickle Tools: "Miel" hairstyle is "Long"
     And Nelim's Pickle Tools: "Miel" hair colour is rgb (140, 66, 38)
     And Nelim's Pickle Tools: "Miel" face tattoo is "none"
+    # Cream shirt and deep teal trousers: they set off the auburn hair against the green of the glade (steps of ColonistRace).
+    And Nelim's Pickle Tools: "Miel" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
+    And Nelim's Pickle Tools: "Miel" wears "Apparel_Pants" dyed rgb (30, 98, 104)
     And Nelim's Pickle Tools: I place the decor "StandingLamp" at (149, 99)
     And Nelim's Pickle Tools: I place the decor "Shelf" at (148, 96)
     And Nelim's Pickle Tools: I place the decor "PlantPot" at (153, 100)
