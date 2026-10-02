@@ -11,7 +11,7 @@ the changelog instead, and anything that needs watching in play is in
 
 ## Pull request to the upstream drum bath mod
 
-Opened 2026-10-02 (PUBLISHING.md: once an origin repository exists, the pull request is systematic and stays here
+**Done 2026-10-02: https://github.com/emipa606/MMDrumcanMOD/pull/2 (fork `vbardales/MMDrumcanMOD`, branch `dbh-hygiene-integration`, compiled only, not played in game); awaiting Mlie.** Opened 2026-10-02 (PUBLISHING.md: once an origin repository exists, the pull request is systematic and stays here
 until done; it is independent of the Workshop publication).
 
 The drum bath mod this bridge sits on has a git repository: `https://github.com/emipa606/MMDrumcanMOD` (MMDrumcanMOD

@@ -34,7 +34,7 @@ remaining:
   - publication: 1.0.0 is dated 2026-09-28 in CHANGELOG.md. The two Workshop images (`Art/Gallery/1-the-bath.jpg`, `2-the-needs-tab.jpg`, taken on the photographic colony, run 21, revision cdb7968) were validated by the owner on 2026-09-28. The workflow (`.github/`, 68 script tests pass) sends the description from PUBLICATION.md under "Steam description" (Markdown, About.xml generated from it) with `update_description`, and the new preview with `update_preview`, both chosen by the owner; the gallery is hand work. The final English and French passes on the frozen revision `271365b` are green (runs 22 and 23). Still ahead: the dry-run of the exact SHA that is pushed (CI/CD session, needs the push), the `publish` (approved by the owner only), then the switch to public and the thanks.
   - open: no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); adding or removing the mod on an existing save has not been played.
   - feature: fire intensity, deferred in BACKLOG.md.
-  - open: pull request to the upstream drum bath mod (`emipa606/MMDrumcanMOD`), a TODO in BACKLOG.md; public, needs the owner's agreement.
+  - open: upstream pull request sent 2026-10-02 (emipa606/MMDrumcanMOD/pull/2), awaiting Mlie; BACKLOG.md.
 updated:      2026-10-02
 ---
 
