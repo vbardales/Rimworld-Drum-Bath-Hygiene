@@ -1,8 +1,6 @@
 # Publication sheet
 
-**Written 2026-09-24. The mod is at `tested`. The Workshop item exists (`3806137182`, created by the 0.1.0
-prepublication of 2026-09-22, private as Steam creates them) and `Mod/About/PublishedFileId.txt` is committed. What is
-still ahead: the items below marked TO DO, the upload of 1.0.0 by the CI, the switch to public, and the two thanks.**
+**Updated 2026-10-02. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28) and 1.0.1 (2026-10-02) sent by the CI, thanks to Mlie and Dubwise posted. This sheet is now the template for the next update.**
 This sheet holds what the Workshop page asks for and the repository holds nowhere else, so that it can be used again at
 the next update and by whoever picks the mod up.
 
@@ -202,34 +200,9 @@ The `Preview.png`, the `ModIcon.png` and the two capture stills were opened. Non
 the subject is a colonist in a metal drum, drawn head and shoulders. Answer **no adult content**. Re-answer only after
 opening any image added later, because the boxes commit the page.
 
-## Thanks to post, after the item is public
+## Thanks (posted 2026-10-02)
 
-One main comment per recipient page for the whole collection: `../WORKSHOP_COMMENTS.md` is read first, keyed by Workshop id.
-A link to a private item opens for nobody, so nothing is posted before the item is public. BBCode, under 1000 characters,
-real emojis, a bare item URL at the end for the thumbnail. The item link is `https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182`.
-
-| Recipient | Workshop id | Register today | What to do |
-| --- | --- | --- | --- |
-| MMDrumcanMOD (Continued), Mlie | `3417093756` | no row | add a `drafted` row, post the first draft below, then `posted` with the date |
-| Dubs Bad Hygiene, Dubwise | `836308268` | no row | same, second draft |
-| Pickle | `3791648678` | `posted` | add `Drum Bath Hygiene` to `Covers`, post nothing (development and test tool) |
-| RimLogging | `3733484696` | `posted` | same |
-| PickleTools | `3806142401` | `not_applicable` | the author's own project; add to `Covers` |
-| Harmony | `2009463077` | `posted` | not used by this mod (no patch): nothing to add |
-
-**Mlie, on MMDrumcanMOD (Continued)**, crediting dragon (original author, Workshop `2100895553`) and Mlie (the 1.6 update). Rewritten 2026-10-02 to the register's rules (own voice, one true detail, hidden link, under 350 characters):
-
-```
-The drum bath is my favourite lazy-colonist spot, thank you Mlie for keeping dragon's mod alive on 1.6 :) I made a small bridge so soaking in it also fills the Dubs Bad Hygiene need, nothing of yours copied, and I sent a PR to your repo if you ever want it inside: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182]Drum Bath Hygiene[/url]
-```
-
-**Dubwise, on Dubs Bad Hygiene**:
-
-```
-Thank you for Dubs Bad Hygiene! I wanted a wooden drum bath to count as a real bath, so my little bridge hands it to your hygiene need, the privacy check and the hot/cold water memory, all through reflection so nothing is copied. xD [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3806137182]Drum Bath Hygiene[/url]
-```
-
-Neither is posted, and the register has no row for them yet: both are the owner's acts.
+Mlie (crediting dragon too) and Dubwise: posted, texts in the git history of this file; `../WORKSHOP_COMMENTS.md` (rows `posted`). Pickle, RimLogging and PickleTools: this mod added to their `Covers`, nothing posted. Harmony: not used.
 
 ## When 1.0.0 goes to production: by hand, by the owner
 

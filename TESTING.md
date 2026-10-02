@@ -109,9 +109,6 @@ So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are 
 
 ## Status
 
-The offline suite passes. The Pickle suite has **run nine times** (`docs/runs/README.md`, one line per run). Runs 8
-(English) and 9 (French), 2026-09-23, played the first 19 scenarios of 19 and were green, `exitReason: passed`, from
-revision `9df3305`, with both `@review` captures opened. **The suite is now 21 scenarios in 7 features**: `07`, the two
-Workshop images, was added afterwards and has never run; its `tools` passes, English and French, are queued. Until they
-are green the suite as it stands is not green in full. `STATUS.md` carries the stage as `tested`, on the 19 that ran.
+The offline suite passes. The Pickle suite is 21 scenarios in 7 features and is green in full, English (run 22) and French
+(run 23), `exitReason: passed`, from `271365b`; the mod is published (`STATUS.md`). One line per run: `docs/runs/README.md`.
 The first run's findings are in `Tests/Pickle/README.md`.
