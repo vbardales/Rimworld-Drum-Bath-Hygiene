@@ -34,7 +34,7 @@ remaining:
   - published 2026-10-02 (1.0.0 and 1.0.1 on the page, item public per the owner); thanks to Mlie and Dubwise posted 2026-10-02 (WORKSHOP_COMMENTS.md). Left: the owner's manual steps of PUBLISHING.md "Mise en production d'une 1.0.0" (comment subscription, watching the mod and its parents), not confirmed.
   - open: no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); adding or removing the mod on an existing save has not been played.
   - feature: fire intensity, deferred in BACKLOG.md.
-  - open: upstream pull request sent 2026-10-02 (emipa606/MMDrumcanMOD/pull/2), awaiting Mlie; BACKLOG.md.
+  - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-10-02
 ---
 
@@ -53,7 +53,7 @@ updated:      2026-10-02
 - **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared; no Harmony, no DLC.
 - **Settings and translation:** none (`not_applicable`); the mod owns no setting and no player-facing text.
 - **Thanks:** to Mlie and Dubwise posted 2026-10-02 (`../WORKSHOP_COMMENTS.md`).
-- **Upstream:** PR emipa606/MMDrumcanMOD#2 sent 2026-10-02, awaiting Mlie (`BACKLOG.md`).
+- **Upstream:** PR emipa606/MMDrumcanMOD#2 declined by Mlie (2026-10-03), who links this mod in his description; closed.
 - **Evidence:** on disk only, `.build/evidence/final-english-2/` and `final-french-2/` (summary, junit, log, the
   `@review` still and film), ignored by git.
 
