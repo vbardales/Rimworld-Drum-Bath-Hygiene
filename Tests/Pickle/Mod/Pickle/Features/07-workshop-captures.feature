@@ -34,6 +34,7 @@ Feature: the images of the Workshop page
     # evening bath in the drum on the podium, a lamp lit beside it. Auburn hair, a face without tattoos, a normal build, a cream
     # shirt and deep teal trousers, and a little set around the drum: a lamp, a shelf and two potted plants, placed for the
     # shot and removed by the suite's own AfterScenario.
+    And Nelim's Pickle Tools: "Miel" gender is female
     And Nelim's Pickle Tools: "Miel" body type is Female
     And Nelim's Pickle Tools: "Miel" hairstyle is "Long"
     And Nelim's Pickle Tools: "Miel" hair colour is rgb (140, 66, 38)
