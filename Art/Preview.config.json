@@ -12,6 +12,7 @@
   "copyLines": [
     "The drum bath finally washes the colonist soaking in it."
   ],
+  "modIconSource": "ModIcon-source.png",
   "layout": "panel",
   "panelAnchor": "top-left",
   "backgroundFile": "Preview-source.png",
