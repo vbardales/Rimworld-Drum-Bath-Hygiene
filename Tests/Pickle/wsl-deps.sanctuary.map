@@ -6,3 +6,5 @@ nelim.pickletools.screenshotmode path:PickleTools/ScreenshotMode/Mod
 nelim.pickletools.inspecttabs path:PickleTools/InspectTabs/Mod
 nelim.pickletools.stagedecor path:PickleTools/StageDecor/Mod
 nelim.pickletools   path:PickleTools/Tests/Pickle/StandaloneBase/Mod
+# The clothes and looks steps (wears ... dyed, gets back the clothes, hair, body type, tattoos) are a standalone package, not in the base.
+nelim.pickletools.colonistrace path:PickleTools/ColonistRace/Mod
