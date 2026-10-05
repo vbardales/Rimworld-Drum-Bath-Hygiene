@@ -1,0 +1,8 @@
+# Gallery shots on Nelim's Sanctuary (fixture Nelims-tribe, copied into Fixtures by PickleTools, not committed). Same tools as PickleTools' own sanctuary map,
+# plus InspectTabs (the Needs tab), StageDecor (lamp, shelf, plants) and ScreenshotMode. Colonist steps (ColonistRace) are in the Pickle bundle.
+nelim.pickletools.screenshotstudio path:PickleTools/ScreenshotStudio/Mod
+nelim.pickletools.camerazoom path:PickleTools/CameraZoom/Mod
+nelim.pickletools.screenshotmode path:PickleTools/ScreenshotMode/Mod
+nelim.pickletools.inspecttabs path:PickleTools/InspectTabs/Mod
+nelim.pickletools.stagedecor path:PickleTools/StageDecor/Mod
+nelim.pickletools   path:PickleTools/Tests/Pickle/StandaloneBase/Mod
