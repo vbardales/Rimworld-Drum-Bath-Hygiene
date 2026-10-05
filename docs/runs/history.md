@@ -10,3 +10,4 @@ is in git: `git log -p -- STATUS.md`. Pickle runs are in `README.md` of this fol
 - 2026-09-22 — audit: `done` unchanged; 0.1.0 prepublished by the owner (item `3806137182`, `PublishedFileId.txt`); PEReader needs PowerShell 7.
 - 2026-09-23 — audit: `done` -> `tested` on runs 8 and 9 (19 of 19, EN and FR), all `done -> tested` criteria met.
 - 2026-10-02 — audit: `tested` confirmed (no `@wip`/`@requires`, offline suite replayed, evidence trimmed 24 -> 8 MB, `.dds`/`desktop.ini`/evidence ignored); then 1.0.1 published and thanks posted: `published`.
+- 2026-10-05 — code review (low effort, one diff pass) from 0.1.0 (`d7e1737`) to `61207940149cf94cc61f9506982d11ae378ff405`: 0 findings; `Source/`, `Mod/Patches/` and `Mod/Assemblies/` unchanged since 0.1.0, CI scripts (template-generated) and tests not examined in detail.
