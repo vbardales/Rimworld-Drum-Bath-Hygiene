@@ -48,6 +48,8 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: I place the decor "Plant_Rose" at (150, 172)
     And Nelim's Pickle Tools: I lay the floor "Soil" from (149, 175) to (149, 175)
     And Nelim's Pickle Tools: I place the decor "Plant_Daylily" at (149, 175)
+    And Nelim's Pickle Tools: the plants from (149, 175) to (150, 172) are fully grown
+    And Nelim's Pickle Tools: the decor "StandingLamp" at (146, 174) is lit
     And game speed is ultrafast
 
   # The first image of the page: a colonist in the drum, on grass, and nothing to explain. The interface is hidden
