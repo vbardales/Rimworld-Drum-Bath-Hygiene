@@ -32,7 +32,7 @@ Feature: the images of the Workshop page
     And "Miel" needs "Joy" is set to 10 percent
     # THE SERIES' STORY (rule of 2026-10-02: every gallery shot is a staged photograph, except the menus). Miel takes her
     # evening bath in the drum on the podium, a lamp lit beside it. Auburn hair, a face without tattoos, a normal build, a cream
-    # shirt and deep teal trousers, and a little set around the drum: a lamp, a shelf and two potted plants, placed for the
+    # shirt and deep teal trousers, and a little set around the drum: a lamp, a shelf and two plants on patches of soil, placed for the
     # shot and removed by the suite's own AfterScenario.
     And Nelim's Pickle Tools: "Miel" gender is female
     And Nelim's Pickle Tools: "Miel" body type is Female
@@ -43,8 +43,10 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: "Miel" wears "Apparel_Pants" dyed rgb (30, 98, 104)
     And Nelim's Pickle Tools: I place the decor "StandingLamp" at (195, 153)
     And Nelim's Pickle Tools: I place the decor "Shelf" at (194, 150)
-    And Nelim's Pickle Tools: I place the decor "PlantPot" at (199, 155)
-    And Nelim's Pickle Tools: I place the decor "PlantPot" at (196, 149)
+    And Nelim's Pickle Tools: I lay the floor "Soil" from (199, 155) to (199, 155)
+    And Nelim's Pickle Tools: I place the decor "Plant_Rose" at (199, 155)
+    And Nelim's Pickle Tools: I lay the floor "Soil" from (196, 149) to (196, 149)
+    And Nelim's Pickle Tools: I place the decor "Plant_Daylily" at (196, 149)
     And game speed is ultrafast
 
   # The first image of the page: a colonist in the drum, on grass, and nothing to explain. The interface is hidden
@@ -67,7 +69,7 @@ Feature: the images of the Workshop page
     And Drum Bath Hygiene: the drum's motes are cleared at x=197 z=152
     When I take a screenshot "workshop-1-the-bath"
     And Drum Bath Hygiene: the camera's zoom limits are restored
-    And no warnings from mod "Drum Bath Hygiene"
+    # (No "no warnings from mod" here: the sanctuary rolls 157 vanilla warnings out of Pickle's buffer, so an absent warning cannot be told from a dropped one; 01-06 assert it on the test colony.)
     Then no errors were logged
 
   # The second image: what the mod actually does. The drum alone says nothing about hygiene; the Needs tab shows the
@@ -106,5 +108,5 @@ Feature: the images of the Workshop page
     And Drum Bath Hygiene: the drum's motes are cleared at x=197 z=152
     When I take a screenshot "workshop-2-the-needs-tab"
     And Drum Bath Hygiene: the camera's zoom limits are restored
-    And no warnings from mod "Drum Bath Hygiene"
+    # (No "no warnings from mod" here: the sanctuary rolls 157 vanilla warnings out of Pickle's buffer, so an absent warning cannot be told from a dropped one; 01-06 assert it on the test colony.)
     Then no errors were logged
