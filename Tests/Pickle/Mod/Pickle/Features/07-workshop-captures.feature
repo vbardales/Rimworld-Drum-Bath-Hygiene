@@ -7,8 +7,8 @@
 # `test-colony` and refused: it carries a skeleton beside the drum (and the skull the colonist wears for having seen it),
 # and it is a working save, not a set. `nelim-zen-meadow-studio`, from the PickleTools package
 # `nelim.pickletools.screenshotstudio`, is the default fixture for presentation shots: a meadow, and in it, at
-# (154,98), a glade of grass ringed with flowers, with its own colonist, Miel. The bath is built in that glade and
-# Miel takes it, so the drum stands on grass with red and orange flowers around it that identify the place.
+# (154,98), a glade of grass ringed with flowers, with its own colonist, Nelim. The bath is built in that glade and
+# Nelim takes it, so the drum stands on grass with red and orange flowers around it that identify the place.
 #
 # These are not filmed, unlike 04: the first passes gave a French still of the whole frame and an English one drawn
 # in the lower-left quarter of the file, the film of both being 960x540, and the unfilmed shots were whole. The
@@ -19,29 +19,23 @@ Feature: the images of the Workshop page
 
   Background:
     # The set is NELIM'S SANCTUARY (fixture Nelims-tribe, PickleTools docs/SANCTUAIRE-LIEUX.md), at "water-garden", its brown bank, measured on the capture of run 8 (the first try at 139,173 stood in shallow water): the brown earth starts about 5 cells east of 139,173: a bare square of
-    # earth (x 191-204, z 146-159) with nothing on it. The map has one colonist, Nelim; Miel does not exist there and is made
-    # by this Background. The save loads paused; the shots pause the game again just before the camera.
+    # The map has one colonist, Nelim (Virginie): she is the subject of the series. The estimated
+    # bank is bare earth. The save loads paused; the shots pause the game again just before the camera.
     Given the save "Nelims-tribe" is loaded
     And game speed is paused
     And Nelim's Pickle Tools: I am at the sanctuary "water-garden"
     And Nelim's Pickle Tools: the animals are removed from the sanctuary "water-garden"
-    And Nelim's Pickle Tools: a colonist "Miel" of kind "Colonist" exists
-    And Nelim's Pickle Tools: "Miel" stands at (146, 171) facing East
+    And Nelim's Pickle Tools: "Nelim" stands at (146, 171) facing East
     And Drum Bath Hygiene: a drum bath stands at x=147 z=172
     And Drum Bath Hygiene: the drum at x=147 z=172 is burning
-    And "Miel" needs "Hygiene" is set to 10 percent
-    And "Miel" needs "Joy" is set to 10 percent
-    # THE SERIES' STORY (rule of 2026-10-02: every gallery shot is a staged photograph, except the menus). Miel takes her
-    # evening bath in the drum on the west bank of the water garden, a lamp lit beside it. Auburn hair, a face without tattoos, a normal build, a cream
-    # shirt and deep teal trousers, and a little set around the drum: a torch lamp, a shelf and two plants on patches of soil, placed for the
-    # shot and removed by the suite's own AfterScenario.
-    And Nelim's Pickle Tools: "Miel" gender is female
-    And Nelim's Pickle Tools: "Miel" body type is Female
-    And Nelim's Pickle Tools: "Miel" hairstyle is "Long"
-    And Nelim's Pickle Tools: "Miel" hair colour is rgb (140, 66, 38)
-    And Nelim's Pickle Tools: "Miel" face tattoo is "none"
-    And Nelim's Pickle Tools: "Miel" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
-    And Nelim's Pickle Tools: "Miel" wears "Apparel_Pants" dyed rgb (30, 98, 104)
+    And "Nelim" needs "Hygiene" is set to 10 percent
+    And "Nelim" needs "Joy" is set to 10 percent
+    # THE SERIES' STORY (rule of 2026-10-02: every gallery shot is a staged photograph, except the menus). Nelim (Virginie, the only colonist of the sanctuary,
+    # kept as she is: her own look is not changed) takes her evening bath in the drum on the brown bank of the water garden.
+    # Cream shirt and deep teal trousers (they end beside the drum when she undresses for the bath), and a little set around it: a torch
+    # lamp, a shelf and two plants on patches of soil, placed for the shot and removed by the suite's own AfterScenario.
+    And Nelim's Pickle Tools: "Nelim" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
+    And Nelim's Pickle Tools: "Nelim" wears "Apparel_Pants" dyed rgb (30, 98, 104)
     And Nelim's Pickle Tools: I place the decor "TorchLamp" at (146, 174)
     And Nelim's Pickle Tools: I place the decor "Shelf" at (149, 170)
     And Nelim's Pickle Tools: I lay the floor "Soil" from (150, 172) to (150, 172)
@@ -57,8 +51,8 @@ Feature: the images of the Workshop page
   # with the studio's own presentation mode.
   @timeout:240
   Scenario: a colonist soaking in a burning drum on the west bank of the water garden, framed for the page
-    When Drum Bath Hygiene: "Miel" is ordered to bathe in the drum at x=147 z=172
-    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
+    When Drum Bath Hygiene: "Nelim" is ordered to bathe in the drum at x=147 z=172
+    Then Drum Bath Hygiene: "Nelim" is bathing in the drum at x=147 z=172
     When I wait 200 ticks
     And game speed is paused
     # The first take showed the drum small, with a wall on the left and the drum light drawn as a square around it:
@@ -68,7 +62,7 @@ Feature: the images of the Workshop page
     And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
     And Drum Bath Hygiene: the camera looks at the drum at x=147 z=172, shifted 0 cells west, at zoom 6
     And Nelim's Pickle Tools: studio presentation mode is enabled
-    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
+    Then Drum Bath Hygiene: "Nelim" is bathing in the drum at x=147 z=172
     # The motes keep respawning: cleared again right before the shot, after presentation mode waited its frames.
     And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
     When I take a screenshot "workshop-1-the-bath"
@@ -82,14 +76,14 @@ Feature: the images of the Workshop page
   # stays, since the tab is the subject.
   @timeout:300
   Scenario: the Needs tab of a colonist soaking in the drum, the hygiene gauge partway up
-    Given I select "Miel"
+    Given I select "Nelim"
     And Nelim's Pickle Tools: I open the "Needs" inspect tab
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
-    When Drum Bath Hygiene: I remember "Miel" hygiene
-    And Drum Bath Hygiene: "Miel" is ordered to bathe in the drum at x=147 z=172
-    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
+    When Drum Bath Hygiene: I remember "Nelim" hygiene
+    And Drum Bath Hygiene: "Nelim" is ordered to bathe in the drum at x=147 z=172
+    Then Drum Bath Hygiene: "Nelim" is bathing in the drum at x=147 z=172
     When I wait 600 ticks
-    Then Drum Bath Hygiene: "Miel" hygiene rose
+    Then Drum Bath Hygiene: "Nelim" hygiene rose
     When game speed is paused
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
     # The tab has to stay, so what clutters the frame is cleared one by one: the first attempt kept the alerts, the stack of
@@ -107,7 +101,7 @@ Feature: the images of the Workshop page
     And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
     And Drum Bath Hygiene: the camera looks at the drum at x=147 z=172, shifted 4 cells west, at zoom 6
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
-    And Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
+    And Drum Bath Hygiene: "Nelim" is bathing in the drum at x=147 z=172
     # The motes keep respawning: cleared again right before the shot.
     And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
     When I take a screenshot "workshop-2-the-needs-tab"
