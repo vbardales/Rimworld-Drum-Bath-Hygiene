@@ -26,7 +26,7 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: I am at the sanctuary "water-garden"
     And Nelim's Pickle Tools: the animals are removed from the sanctuary "water-garden"
     And Nelim's Pickle Tools: a colonist "Miel" of kind "Colonist" exists
-    And Nelim's Pickle Tools: "Miel" stands at (149, 173) facing West
+    And Nelim's Pickle Tools: "Miel" stands at (146, 171) facing East
     And Drum Bath Hygiene: a drum bath stands at x=147 z=172
     And Drum Bath Hygiene: the drum at x=147 z=172 is burning
     And "Miel" needs "Hygiene" is set to 10 percent
