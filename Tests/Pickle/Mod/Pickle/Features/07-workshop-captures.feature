@@ -18,7 +18,7 @@
 Feature: the images of the Workshop page
 
   Background:
-    # The set is NELIM'S SANCTUARY (fixture Nelims-tribe, PickleTools docs/SANCTUAIRE-LIEUX.md), at "water-garden", its west bank (a tongue of bare brown earth around 139,173, estimated by PickleTools on a thumbnail, not measured): a bare square of
+    # The set is NELIM'S SANCTUARY (fixture Nelims-tribe, PickleTools docs/SANCTUAIRE-LIEUX.md), at "water-garden", its brown bank, measured on the capture of run 8 (the first try at 139,173 stood in shallow water): the brown earth starts about 5 cells east of 139,173: a bare square of
     # earth (x 191-204, z 146-159) with nothing on it. The map has one colonist, Nelim; Miel does not exist there and is made
     # by this Background. The save loads paused; the shots pause the game again just before the camera.
     Given the save "Nelims-tribe" is loaded
@@ -26,9 +26,9 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: I am at the sanctuary "water-garden"
     And Nelim's Pickle Tools: the animals are removed from the sanctuary "water-garden"
     And Nelim's Pickle Tools: a colonist "Miel" of kind "Colonist" exists
-    And Nelim's Pickle Tools: "Miel" stands at (141, 173) facing West
-    And Drum Bath Hygiene: a drum bath stands at x=139 z=173
-    And Drum Bath Hygiene: the drum at x=139 z=173 is burning
+    And Nelim's Pickle Tools: "Miel" stands at (149, 173) facing West
+    And Drum Bath Hygiene: a drum bath stands at x=147 z=172
+    And Drum Bath Hygiene: the drum at x=147 z=172 is burning
     And "Miel" needs "Hygiene" is set to 10 percent
     And "Miel" needs "Joy" is set to 10 percent
     # THE SERIES' STORY (rule of 2026-10-02: every gallery shot is a staged photograph, except the menus). Miel takes her
@@ -42,32 +42,32 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: "Miel" face tattoo is "none"
     And Nelim's Pickle Tools: "Miel" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
     And Nelim's Pickle Tools: "Miel" wears "Apparel_Pants" dyed rgb (30, 98, 104)
-    And Nelim's Pickle Tools: I place the decor "StandingLamp" at (137, 174)
-    And Nelim's Pickle Tools: I place the decor "Shelf" at (135, 171)
-    And Nelim's Pickle Tools: I lay the floor "Soil" from (142, 175) to (142, 175)
-    And Nelim's Pickle Tools: I place the decor "Plant_Rose" at (142, 175)
-    And Nelim's Pickle Tools: I lay the floor "Soil" from (137, 170) to (137, 170)
-    And Nelim's Pickle Tools: I place the decor "Plant_Daylily" at (137, 170)
+    And Nelim's Pickle Tools: I place the decor "StandingLamp" at (146, 174)
+    And Nelim's Pickle Tools: I place the decor "Shelf" at (149, 170)
+    And Nelim's Pickle Tools: I lay the floor "Soil" from (150, 172) to (150, 172)
+    And Nelim's Pickle Tools: I place the decor "Plant_Rose" at (150, 172)
+    And Nelim's Pickle Tools: I lay the floor "Soil" from (149, 175) to (149, 175)
+    And Nelim's Pickle Tools: I place the decor "Plant_Daylily" at (149, 175)
     And game speed is ultrafast
 
   # The first image of the page: a colonist in the drum, on grass, and nothing to explain. The interface is hidden
   # with the studio's own presentation mode.
   @timeout:240
   Scenario: a colonist soaking in a burning drum on the west bank of the water garden, framed for the page
-    When Drum Bath Hygiene: "Miel" is ordered to bathe in the drum at x=139 z=173
-    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=139 z=173
+    When Drum Bath Hygiene: "Miel" is ordered to bathe in the drum at x=147 z=172
+    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
     When I wait 200 ticks
     And game speed is paused
     # The first take showed the drum small, with a wall on the left and the drum light drawn as a square around it:
     # the light is switched off and the camera comes to zoom six, centred on the drum, as in the second image.
-    And Drum Bath Hygiene: the drum's light is switched off at x=139 z=173
+    And Drum Bath Hygiene: the drum's light is switched off at x=147 z=172
     # MMDrumcanMOD's own steam motes (Mote_Bombardment, found by the 2026-09-26 diagnostic) draw the same square: cleared too.
-    And Drum Bath Hygiene: the drum's motes are cleared at x=139 z=173
-    And Drum Bath Hygiene: the camera looks at the drum at x=139 z=173, shifted 0 cells west, at zoom 6
+    And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
+    And Drum Bath Hygiene: the camera looks at the drum at x=147 z=172, shifted 0 cells west, at zoom 6
     And Nelim's Pickle Tools: studio presentation mode is enabled
-    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=139 z=173
+    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
     # The motes keep respawning: cleared again right before the shot, after presentation mode waited its frames.
-    And Drum Bath Hygiene: the drum's motes are cleared at x=139 z=173
+    And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
     When I take a screenshot "workshop-1-the-bath"
     And Drum Bath Hygiene: the camera's zoom limits are restored
     # (No "no warnings from mod" here: the sanctuary rolls 157 vanilla warnings out of Pickle's buffer, so an absent warning cannot be told from a dropped one; 01-06 assert it on the test colony.)
@@ -83,8 +83,8 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: I open the "Needs" inspect tab
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
     When Drum Bath Hygiene: I remember "Miel" hygiene
-    And Drum Bath Hygiene: "Miel" is ordered to bathe in the drum at x=139 z=173
-    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=139 z=173
+    And Drum Bath Hygiene: "Miel" is ordered to bathe in the drum at x=147 z=172
+    Then Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
     When I wait 600 ticks
     Then Drum Bath Hygiene: "Miel" hygiene rose
     When game speed is paused
@@ -99,14 +99,14 @@ Feature: the images of the Workshop page
     # light is drawn in a semi-transparent square) in the corner; zoom six is twice as close, and four cells of shift
     # put the drum about 360 px east of the middle, with the glade's flowers around it and the wall out of the frame.
     # The drum's own light (radius 5) is drawn as a darker rotated square around it in a close shot: switched off.
-    And Drum Bath Hygiene: the drum's light is switched off at x=139 z=173
+    And Drum Bath Hygiene: the drum's light is switched off at x=147 z=172
     # Same square from MMDrumcanMOD's own steam motes (Mote_Bombardment): cleared too.
-    And Drum Bath Hygiene: the drum's motes are cleared at x=139 z=173
-    And Drum Bath Hygiene: the camera looks at the drum at x=139 z=173, shifted 4 cells west, at zoom 6
+    And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
+    And Drum Bath Hygiene: the camera looks at the drum at x=147 z=172, shifted 4 cells west, at zoom 6
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
-    And Drum Bath Hygiene: "Miel" is bathing in the drum at x=139 z=173
+    And Drum Bath Hygiene: "Miel" is bathing in the drum at x=147 z=172
     # The motes keep respawning: cleared again right before the shot.
-    And Drum Bath Hygiene: the drum's motes are cleared at x=139 z=173
+    And Drum Bath Hygiene: the drum's motes are cleared at x=147 z=172
     When I take a screenshot "workshop-2-the-needs-tab"
     And Drum Bath Hygiene: the camera's zoom limits are restored
     # (No "no warnings from mod" here: the sanctuary rolls 157 vanilla warnings out of Pickle's buffer, so an absent warning cannot be told from a dropped one; 01-06 assert it on the test colony.)
