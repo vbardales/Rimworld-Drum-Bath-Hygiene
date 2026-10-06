@@ -33,7 +33,7 @@ Feature: the images of the Workshop page
     And "Miel" needs "Joy" is set to 10 percent
     # THE SERIES' STORY (rule of 2026-10-02: every gallery shot is a staged photograph, except the menus). Miel takes her
     # evening bath in the drum on the west bank of the water garden, a lamp lit beside it. Auburn hair, a face without tattoos, a normal build, a cream
-    # shirt and deep teal trousers, and a little set around the drum: a lamp, a shelf and two plants on patches of soil, placed for the
+    # shirt and deep teal trousers, and a little set around the drum: a torch lamp, a shelf and two plants on patches of soil, placed for the
     # shot and removed by the suite's own AfterScenario.
     And Nelim's Pickle Tools: "Miel" gender is female
     And Nelim's Pickle Tools: "Miel" body type is Female
@@ -42,14 +42,15 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: "Miel" face tattoo is "none"
     And Nelim's Pickle Tools: "Miel" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
     And Nelim's Pickle Tools: "Miel" wears "Apparel_Pants" dyed rgb (30, 98, 104)
-    And Nelim's Pickle Tools: I place the decor "StandingLamp" at (146, 174)
+    And Nelim's Pickle Tools: I place the decor "TorchLamp" at (146, 174)
     And Nelim's Pickle Tools: I place the decor "Shelf" at (149, 170)
     And Nelim's Pickle Tools: I lay the floor "Soil" from (150, 172) to (150, 172)
     And Nelim's Pickle Tools: I place the decor "Plant_Rose" at (150, 172)
     And Nelim's Pickle Tools: I lay the floor "Soil" from (149, 175) to (149, 175)
     And Nelim's Pickle Tools: I place the decor "Plant_Daylily" at (149, 175)
     And Nelim's Pickle Tools: the plants from (149, 175) to (150, 172) are fully grown
-    And Nelim's Pickle Tools: the decor "StandingLamp" at (146, 174) is lit
+    # A StandingLamp needs power and the sanctuary has none, so "is lit" waited its 10 s for a glow that never came (run 008b); the torch lamp burns on fuel.
+    And Nelim's Pickle Tools: the decor "TorchLamp" at (146, 174) is lit
     And game speed is ultrafast
 
   # The first image of the page: a colonist in the drum, on grass, and nothing to explain. The interface is hidden
