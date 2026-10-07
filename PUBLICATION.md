@@ -1,6 +1,6 @@
 # Publication sheet
 
-**Updated 2026-10-02. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28) and 1.0.1 (2026-10-02) sent by the CI, thanks to Mlie and Dubwise posted. This sheet is now the template for the next update.**
+**Updated 2026-10-07. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28) and 1.0.1 (2026-10-02) sent by the CI, thanks to Mlie and Dubwise posted. This sheet is now the template for the next update.** The Workshop gallery is being redone (section "Captures"); the description gained links and the original author, to be sent with `update_description` in the next version (1.0.2).
 This sheet holds what the Workshop page asks for and the repository holds nowhere else, so that it can be used again at
 the next update and by whoever picks the mod up.
 
@@ -83,7 +83,7 @@ applicable).
 0.1.0 one plus `About/Preview.png`, the id file and this text.
 
 ```markdown
-Makes the drum can bath actually wash people, by connecting MMDrumcanMOD to Dubs Bad Hygiene.
+Makes the drum can bath actually wash people, by connecting [MMDrumcanMOD (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756) to [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268).
 
 On its own, soaking in a drum bath is pure recreation: it gives joy, a warm mood buff and a rest bonus, but a colonist climbs out exactly as filthy as they got in. This bridges the two.
 
@@ -109,7 +109,7 @@ This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and
 
 ## THANKS
 
-- [Mlie](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
+- [Mlie](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive, and [dragon](https://steamcommunity.com/sharedfiles/filedetails/?id=2100895553), who made the drum bath in the first place. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
 - [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
 - [Pickle](https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678), [RimLogging](https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696) and [Nelim's PickleTools](https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401), used for the in-game tests: development tools, never a dependency of this mod.
 
@@ -161,26 +161,16 @@ Checked in the sources on 2026-09-24, not from intention.
 
 ## Captures for the Workshop page
 
-Steam shows the first one large: put the most demonstrative there, not the prettiest. **Done 2026-09-28: both images taken and validated by the owner** (run 21, commit `cdb7968`, English,
-`Art/Gallery/`; the two passes on the final revision are the last check). The images are not to be taken on the test colony: it is a working save with a skeleton beside the drum, and a
-first pair taken there on 2026-09-24 was **refused by the owner**. They are taken on her photographic colony,
-`nelim-zen-meadow-studio` (package `nelim.pickletools.screenshotstudio`), in its flower glade: a bath on grass with red and
-orange flowers around it that identify the place. `07-workshop-captures.feature` takes them, not filmed, each with the bath
-as the last thing asserted and the game paused before the shot: **1. the colonist (Miel) in the drum**, interface hidden by
-the studio's presentation mode, and **2. the Needs tab with the hygiene gauge partway up** (ten per cent at the start,
-asserted risen after 600 ticks of the real bath), interface kept since the tab is the subject.
-Each image is opened before it is uploaded, against what the owner asked for: the studio colony, on grass with flowers
-around (or a plain orange zone), no skeleton, the bath visible. The page is English, so the English shots are the ones to
-use; they are copied, converted to JPEG, into `Art/Gallery/` (`1-the-bath.jpg`, `2-the-needs-tab.jpg`: the
-dry-run lists that folder as a reminder of the manual gallery upload, in that alphabetical order, which is also the order
-of the page).
+Steam shows the first one large: put the most demonstrative there, not the prettiest. The gallery folder is `Art/Gallery/`, numbered on one digit (`0-preview.png` is a byte copy of the Preview; `1-the-bath.jpg`, `2-the-needs-tab.jpg`).
 
-Proposed order: 1. the colonist in the drum; 2. the Needs tab with the gauge partway up.
+**State on 2026-10-07: the series on the Steam page is the first one and is being redone.** The two images on the page (taken 2026-09-28, validated then, in the flower glade of the studio with the colonist Miel) predate the rules of 2026-10-02 and 2026-10-06 (`../PUBLISHING.md`, "Images"): every gallery shot is a staged photograph (except menus), the series tells one story in the shared place, the images are opened and their anomalies reported. They stay until the new ones are validated.
 
-What the first takes taught, so as not to relearn it: the studio camera cannot come closer than root size 11 (the suite lowers the floor for
-the shot and puts it back), and a close shot draws a semi-transparent square around every light and every mote: the drum's own light
-(`CompGlower`) and the `Mote_Bombardment` motes that MMDrumcanMOD spawns around it respawn every few frames, so both are removed
-immediately before each screenshot (`07-workshop-captures.feature`).
+The new series is played by `07-workshop-captures.feature` on **Nelim's Sanctuary** (fixture `Nelims-tribe`, `PickleTools/docs/SANCTUAIRE-LIEUX.md`, `GALERIE.md`), pass map `Tests/Pickle/wsl-deps.sanctuary.map`, English only: **the colonist is Nelim herself** (Virginie, the only colonist; her own look is kept, she is dressed in a cream shirt and deep teal trousers, her old clothes put in her inventory), in the drum on the brown bank of `water-garden` (x 143-158, z 168-176; the burrow at 149,173 is avoided), with a torch lamp lit, a shelf and two grown plants around. Image 1 is the colonist in the bath, interface hidden; image 2 is the Needs tab with the hygiene gauge risen after 600 ticks of the real bath (a menu, not staged).
+No run of this feature has yet been read and validated: runs 8 to 12 on the sanctuary taught what to fix (the first spot stood in shallow water; StandingLamp needs power and `is lit` waited for a glow that never came; the pale blue clothes on the ground were her old clothes, dropped where she stood by the first `wears`).
+
+Each image is opened before it is uploaded, against what the owner asked for. The page is English, so the English shots are used; they are converted to JPEG into `Art/Gallery/`. The dry-run lists that folder as a reminder of the manual gallery upload; Steam answers "file upload fail: 29" for an image already on the page, so only new or changed images are sent.
+
+Not asserted in this feature: `no warnings from mod` (the sanctuary rolls 157 vanilla warnings out of Pickle's buffer; scenarios `01` to `06` assert it on the test colony).
 
 ## The preview image
 
