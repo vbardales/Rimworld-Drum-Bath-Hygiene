@@ -47,8 +47,7 @@ Feature: the images of the Workshop page
     And Nelim's Pickle Tools: the plants from (149, 175) to (150, 172) are fully grown
     # A StandingLamp needs power and the sanctuary has none, so "is lit" waited its 10 s for a glow that never came (run 008b); the torch lamp burns on fuel.
     And Nelim's Pickle Tools: the decor "TorchLamp" at (146, 174) is lit
-    # The burrow at (149, 173) (PickleTools SANCTUAIRE-LIEUX.md) sits two cells from the drum and reads as a black hole in the shot: a grown bush is placed on it, nothing is cleared.
-    And Nelim's Pickle Tools: I place the decor "Plant_Bush" at (149, 173) fully grown
+    # The "hole" two cells east of the drum, at (149, 173), is a natural SteamGeyser (run 850a): it cannot be covered or cleared, and it is what puffs steam in the second image. It stays: a hot spring beside the bath.
     And game speed is ultrafast
 
   # The first image of the page: a colonist in the drum, on grass, and nothing to explain. The interface is hidden
