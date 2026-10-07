@@ -14,6 +14,11 @@
 # in the lower-left quarter of the file, the film of both being 960x540, and the unfilmed shots were whole. The
 # Needs tab is opened by `nelim.pickletools.inspecttabs`. Both packages are staged by `wsl-deps.tools.map`, which
 # makes this feature belong to the `tools` pass. Their steps carry the `Nelim's Pickle Tools: ` prefix.
+# WHO OWNS WHICH STEP (2026-10-08, the Sanctuary has its own repository, SanctuaryBacklot):
+#   "Nelim's Sanctuary: ..."     SB, place steps (frame a named place, animals removed); fixture Nelims-tribe, catalogue SanctuaryBacklot/docs/steps.md
+#   "Nelim's Pickle Tools: ..."  NPT, tool steps (colonist looks and clothes, decor, Needs tab, presentation mode); catalogue PickleTools/docs/steps.md
+#   "Drum Bath Hygiene: ..."     this suite's own steps (drum, bath, camera on the drum)
+# Nelim has brown eyes through EyeGenes3 ("lucius.eyegenes3", staged by the pass map); no step sets that gene yet, so it comes with the map.
 @review
 Feature: the images of the Workshop page
 
@@ -27,8 +32,8 @@ Feature: the images of the Workshop page
     # beside the drum in runs 8 and 9 was her own old clothes, not the dyed ones, which she wears under the water). Here, in her house, out of frame.
     And Nelim's Pickle Tools: "Nelim" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
     And Nelim's Pickle Tools: "Nelim" wears "Apparel_Pants" dyed rgb (30, 98, 104)
-    And Nelim's Pickle Tools: I am at the sanctuary "water-garden"
-    And Nelim's Pickle Tools: the animals are removed from the sanctuary "water-garden"
+    And Nelim's Sanctuary: I am at the sanctuary "water-garden"
+    And Nelim's Sanctuary: the animals are removed from the sanctuary "water-garden"
     And Nelim's Pickle Tools: "Nelim" stands at (146, 171) facing East
     And Drum Bath Hygiene: a drum bath stands at x=147 z=172
     And Drum Bath Hygiene: the drum at x=147 z=172 is burning
