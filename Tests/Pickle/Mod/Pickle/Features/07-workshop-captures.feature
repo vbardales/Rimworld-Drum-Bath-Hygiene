@@ -23,6 +23,10 @@ Feature: the images of the Workshop page
     # bank is bare earth. The save loads paused; the shots pause the game again just before the camera.
     Given the save "Nelims-tribe" is loaded
     And game speed is paused
+    # She is dressed BEFORE she is placed: the first "wears" undresses her, and her old clothes fall where she stands (the pale blue heap seen
+    # beside the drum in runs 8 and 9 was her own old clothes, not the dyed ones, which she wears under the water). Here, in her house, out of frame.
+    And Nelim's Pickle Tools: "Nelim" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
+    And Nelim's Pickle Tools: "Nelim" wears "Apparel_Pants" dyed rgb (30, 98, 104)
     And Nelim's Pickle Tools: I am at the sanctuary "water-garden"
     And Nelim's Pickle Tools: the animals are removed from the sanctuary "water-garden"
     And Nelim's Pickle Tools: "Nelim" stands at (146, 171) facing East
@@ -34,8 +38,6 @@ Feature: the images of the Workshop page
     # kept as she is: her own look is not changed) takes her evening bath in the drum on the brown bank of the water garden.
     # Cream shirt and deep teal trousers (they end beside the drum when she undresses for the bath), and a little set around it: a torch
     # lamp, a shelf and two plants on patches of soil, placed for the shot and removed by the suite's own AfterScenario.
-    And Nelim's Pickle Tools: "Nelim" wears "Apparel_BasicShirt" dyed rgb (238, 224, 190)
-    And Nelim's Pickle Tools: "Nelim" wears "Apparel_Pants" dyed rgb (30, 98, 104)
     And Nelim's Pickle Tools: I place the decor "TorchLamp" at (146, 174)
     And Nelim's Pickle Tools: I place the decor "Shelf" at (149, 170)
     And Nelim's Pickle Tools: I lay the floor "Soil" from (150, 172) to (150, 172)
