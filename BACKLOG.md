@@ -5,7 +5,7 @@ covers part of it, and what has to be settled before the first line of code.
 
 An idea earns a place here only if it changes **what pawns do**. Anything already shipped is in
 the changelog instead, and anything that needs watching in play is in
-`_tools/FUNCTIONAL-SCENARIOS.md`.
+`Tests/FUNCTIONAL-SCENARIOS.md`.
 
 ---
 

@@ -3,7 +3,7 @@
 A short suite, run inside a running RimWorld by
 [Pickle](https://github.com/RimWorks/Rimworld-Pickle) (`rimworks.pickle`, Workshop 3791648678).
 
-**Read `_tools/Test-Mod.ps1` first.** It applies this mod's real patch XPath and payload over
+**Read `scripts/Test-Mod.ps1` first.** It applies this mod's real patch XPath and payload over
 synthetic upstream defs, in all nine shapes the drum bath hediff could arrive in, plus the
 metadata, licence and packaging checks and the access waiver read off the compiled assembly — in
 about a second, with no game. A Pickle run takes over a machine for tens of minutes. Nothing lives
@@ -133,12 +133,12 @@ fails on undefined steps. (`Mod/Assemblies/DrumBathHygiene.dll`, the deliverable
   A colonist sent by the joy giver and one ordered by the suite run the same job through the same
   driver, and the component sees the same hediff either way - the fifth run's film is that path, from
   the walk to "Relaxing in the bath". The one place it touches this repository is documentation:
-  `_tools/FUNCTIONAL-SCENARIOS.md` scenario 3 says nobody sets off toward a cold bath, which is a
+  `Tests/FUNCTIONAL-SCENARIOS.md` scenario 3 says nobody sets off toward a cold bath, which is a
   statement about the joy giver and ages if the drum mod changes it. Behaviour does not.
 - **The `PushingDrumcan` building**, which ships in the same mod but is an unrelated joy building
   with no hediff and no link to hygiene. The component is grafted onto the bathing hediff alone, and
   nothing in `Source/` or `Mod/` mentions it.
-- **Anything `_tools/Test-Mod.ps1` already proves.** A scenario that restates an offline check
+- **Anything `scripts/Test-Mod.ps1` already proves.** A scenario that restates an offline check
   costs a machine and buys nothing.
 
 ## Setup, once

@@ -60,7 +60,7 @@ The component stores two values (`started`, `ticks`) on a hediff that only exist
 in the bath. Those values disappear with the hediff. A bath in progress goes on washing after a save
 and a reload (played in the Pickle suite, `TESTING.md`). Adding the mod to an existing game and
 removing it outside or during a bath is the game's handling of its mod list and has not been
-tested; see `_tools/FUNCTIONAL-SCENARIOS.md`.
+tested; see `Tests/FUNCTIONAL-SCENARIOS.md`.
 
 ## Repository layout
 

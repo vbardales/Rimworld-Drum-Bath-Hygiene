@@ -48,7 +48,7 @@ updated:      2026-10-02
 - **On Steam:** item `3806137182`, public per the owner. `1.0.0` sent by CI 2026-09-28 (tag `v1.0.0`, `c6a0939`); `1.0.1`
   (new preview and icon) sent 2026-10-02 (tag `v1.0.1`, `55d5928`, dry-run 37032154323, publish 37032402412).
 - **Tested:** 21 scenarios of 21 green in English and French on `271365b` (runs 22 and 23). The offline suite
-  (`pwsh -NoProfile -File _tools/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
+  (`pwsh -NoProfile -File scripts/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
   No `@wip`, no `@requires:`, no manual test left. The distributed DLL has not changed since `d7e1737`.
 - **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared; no Harmony, no DLC.
 - **Settings and translation:** none (`not_applicable`); the mod owns no setting and no player-facing text.

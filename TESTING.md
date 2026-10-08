@@ -5,17 +5,17 @@ because a Pickle run takes over a machine for tens of minutes and a headless che
 
 | Layer | What runs it | What it covers |
 | --- | --- | --- |
-| Offline suite | `_tools/Test-Mod.ps1` | the patch XPath and payload over synthetic defs in all nine shapes the upstream hediff could take; metadata, licence copies, packaging; the compiled assembly's component types and its `IgnoresAccessChecksTo` waiver |
+| Offline suite | `scripts/Test-Mod.ps1` | the patch XPath and payload over synthetic defs in all nine shapes the upstream hediff could take; metadata, licence copies, packaging; the compiled assembly's component types and its `IgnoresAccessChecksTo` waiver |
 | In-game suite | `Tests/Pickle/` | what needs a map, a pawn and a clock. See `Tests/Pickle/README.md` for the scenario-by-scenario reason |
-| Prose scenarios | nobody, now | `_tools/FUNCTIONAL-SCENARIOS.md` is the written source the Pickle scenarios are drawn from. What is not played is listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
+| Prose scenarios | nobody, now | `Tests/FUNCTIONAL-SCENARIOS.md` is the written source the Pickle scenarios are drawn from. What is not played is listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
 
 ```powershell
 dotnet build Source/DrumBathHygiene.csproj -c Release
 dotnet build Tests/Pickle/Source/DrumBathHygiene.PickleSteps.csproj -c Release
-powershell.exe -ExecutionPolicy Bypass -File _tools/Test-Mod.ps1
+powershell.exe -ExecutionPolicy Bypass -File scripts/Test-Mod.ps1
 ```
 
-`_tools/Test-Mod.ps1` reads compiled assembly metadata through
+`scripts/Test-Mod.ps1` reads compiled assembly metadata through
 `System.Reflection.PortableExecutable`, which Windows PowerShell 5.1 does not carry. Under 5.1 its
 first half passes and it stops at the metadata section. Run it under PowerShell 7 for the whole of
 it; PowerShell 7 is not installed on this machine, which is why that limit is written here rather
@@ -66,7 +66,7 @@ mid-run would hang on a game being torn down under the runner.
 
 ## What covers what
 
-`_tools/FUNCTIONAL-SCENARIOS.md` holds thirteen scenarios (0-12) and a language check, written for a person.
+`Tests/FUNCTIONAL-SCENARIOS.md` holds thirteen scenarios (0-12) and a language check, written for a person.
 `done -> tested` asks that no manual test be left to validate: what used to be ticked by hand is **automated and
 green, or listed as not applicable with its reason**. This is that list. A row is covered only when
 the Pickle scenario it names has passed: **both passes of 2026-09-23 are green, so the rows are covered.**
@@ -84,7 +84,7 @@ the Pickle scenario it names has passed: **both passes of 2026-09-23 are green, 
 | 8. It survives a save, and a reload | `01`: a bath survives a save and a reload and goes on washing | |
 | 9. Two baths in a row behave alike | `06`: two baths for one colonist and one for another, each asserted for its water memory, soaking wet and hygiene | |
 | 10. Without Dubs Bad Hygiene | nothing | **Not applicable.** DBH is a **hard dependency**: what RimWorld does when one is missing (the warning in the mod list, the load) is the game's, not the mod's: the game itself is not under test. What the mod answers for is what it **declares**: `modDependencies` carries the right package id and Workshop id, and `loadAfter` the right order. That was checked in the sources against the installed `About.xml` files on 2026-09-21. A pass could not play it anyway: the pass map excludes only DLCs. **One open consequence:** the Workshop description, already sent, says nothing breaks without them, which no run has shown |
-| 11. Without the drum bath mod | `_tools/Test-Mod.ps1`: the patch against an upstream that has no such hediff leaves every def unchanged | **Not applicable in game**, same reason as 10 |
+| 11. Without the drum bath mod | `scripts/Test-Mod.ps1`: the patch against an upstream that has no such hediff leaves every def unchanged | **Not applicable in game**, same reason as 10 |
 | 12. Into a running save, and out of one | `01`: the two scribed values survive a save and a reload | **Not applicable.** Adding or removing a mod from a save is RimWorld's handling of its own mod list. The mod's share is what it writes into the save, which is those two values |
 | Language check, English and French | the French pass, and the capture of each language | The text on screen is Dubs Bad Hygiene's and the drum mod's, not this bridge's (see `STATUS.md`, translation fields). What remains is **reading the two captures**, which is not a further manual test: it is reading an image that a scenario has already proved to show a colonist in the bath |
 

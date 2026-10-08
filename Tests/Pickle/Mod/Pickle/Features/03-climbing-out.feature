@@ -7,7 +7,7 @@
 # missing, nothing said so - the build stayed clean, the patch applied, every bath started
 # normally, and every bath ENDED on a FieldAccessException thrown out of the hediff's removal.
 #
-# _tools/Test-Mod.ps1 reads the waiver off the compiled assembly, which is the cheap half of the
+# scripts/Test-Mod.ps1 reads the waiver off the compiled assembly, which is the cheap half of the
 # guard. This feature is the other half: the instruction actually executing, on a real tracker,
 # with real filth in it. A waiver present but pointing at the wrong assembly would pass the offline
 # check and fail here.

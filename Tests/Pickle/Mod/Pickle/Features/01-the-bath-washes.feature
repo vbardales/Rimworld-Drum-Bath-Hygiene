@@ -1,6 +1,6 @@
 # What only a running game can say about Drum Bath Hygiene.
 #
-# Everything provable without the game is proved without it, by _tools/Test-Mod.ps1: the patch
+# Everything provable without the game is proved without it, by scripts/Test-Mod.ps1: the patch
 # XPath and payload run over synthetic defs in all nine shapes the upstream hediff could take, the
 # metadata, the licence copies, and the access waiver read off the compiled assembly. None of that
 # is repeated here. A run confiscates the machine for tens of minutes; a scenario restating a check

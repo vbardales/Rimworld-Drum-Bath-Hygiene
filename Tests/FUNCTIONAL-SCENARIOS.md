@@ -3,7 +3,7 @@
 **Status, 2026-09-23 - nothing here is left to play by hand.** `done -> tested` asks that no manual test remain
 to validate, so each scenario is either played by the Pickle suite in `Tests/Pickle/`, or listed **not
 applicable with its reason** in `TESTING.md` ("What covers what"). Pickle plays 0, 1, 2, 3, 5, 6, 7, 8 and 9 (11 is
-covered offline by `_tools/Test-Mod.ps1`); **4, 10 and 12 are not applicable**: 4 asserts Dubs Bad Hygiene's own
+covered offline by `scripts/Test-Mod.ps1`); **4, 10 and 12 are not applicable**: 4 asserts Dubs Bad Hygiene's own
 grading of a room, and 10 and 12 exercise what RimWorld does with a missing hard dependency or a changed mod list,
 which is the game's and not the mod's. The text below stays as the written source those scenarios were drawn
 from, and as the description of what each one is for; it is no longer a checklist. The suite as it now stands has
