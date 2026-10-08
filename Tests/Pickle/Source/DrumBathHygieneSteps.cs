@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using RimWorks.Pickle;
@@ -798,6 +800,30 @@ namespace DrumBathHygiene.PickleSteps
             ctx.Assert(false,
                 $"{name} is still in the bath {seconds:0} seconds after the wait began: job "
                 + $"{pawn.CurJob?.def.defName ?? "none"}, hediffs [{HediffNames(pawn)}]");
+        }
+
+        // Two-launch removal chain (TESTING.md, scenario about removing the mod from a save), the mechanism of
+        // AnimalApparelCollarsAndKitRenew: the game saved in launch 1 is copied into the Pickle/Fixtures folder
+        // of a companion that does not depend on this mod, where launch 2 finds it once this mod has been taken
+        // out of the mod list (-ThenWithout).
+        [When("Drum Bath Hygiene: the game is saved as {string}")]
+        public void GameIsSavedAs(PickleContext ctx, string file)
+        {
+            GameDataSaveLoader.SaveGame(file);
+            ctx.Assert(File.Exists(GenFilePaths.FilePathForSavedGame(file)), $"no save file was written for {file}");
+        }
+
+        [When("Drum Bath Hygiene: the saved game {string} is handed to the mod {string}")]
+        public void SavedGameIsHandedTo(PickleContext ctx, string file, string packageId)
+        {
+            ModContentPack target = LoadedModManager.RunningModsListForReading.FirstOrDefault(
+                m => string.Equals(m.PackageIdPlayerFacing, packageId, StringComparison.OrdinalIgnoreCase));
+            ctx.Assert(target != null, $"no active mod has the packageId {packageId}");
+            string folder = Path.Combine(target.RootDir, "Pickle", "Fixtures");
+            Directory.CreateDirectory(folder);
+            string destination = Path.Combine(folder, file + ".rws");
+            File.Copy(GenFilePaths.FilePathForSavedGame(file), destination, true);
+            ctx.Assert(File.Exists(destination), $"the saved game was not copied to {destination}");
         }
     }
 }

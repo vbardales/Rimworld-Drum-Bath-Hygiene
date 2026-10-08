@@ -1,0 +1,6 @@
+# Pass removal: launch 1 (08-removal-write) saves a game with a colonist in the bath and hands it to the removal
+# companion, which does not depend on the mod; launch 2, with the mod and its test companion taken out (-ThenWithout),
+# loads it. Submit with -DepMap wsl-deps.removal.map -Filter 08-removal-write -Then removal-check
+# -ThenWithout nelim.drumbathhygiene,nelim.drumbathhygiene.pickletests.
+# The companion lives in this repository and is loaded by path relative to the monorepo root, hence DrumBathHygiene/.
+nelim.drumbathhygiene.pickleremoval  path:DrumBathHygiene/Tests/Pickle/Removal/Mod
