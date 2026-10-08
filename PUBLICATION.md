@@ -170,7 +170,7 @@ No run of this feature has yet been read and validated: runs 8 to 12 on the sanc
 
 Each image is opened before it is uploaded, against what the owner asked for. The page is English, so the English shots are used; they are converted to JPEG into `Art/Gallery/`. The dry-run lists that folder as a reminder of the manual gallery upload; Steam answers "file upload fail: 29" for an image already on the page, so only new or changed images are sent.
 
-**Candidates (2026-10-08).** `Art/Gallery/3-candidate-the-bath.jpg` (run 606c, scenario 1) and `4-candidate-the-needs-tab.jpg` (run e17f, scenario 2), taken on the Backlot map, each under 2 MB (322 and 367 KB; the folder is 3.1 MB of 8). Accepted candidates lose the word `candidate` and take their final index; refused ones are deleted. `1-the-bath.jpg` and `2-the-needs-tab.jpg` are the first series, still on the page until the owner decides.
+**Accepted by the owner (2026-10-08).** `Art/Gallery/3-the-bath.jpg` (run 606c, scenario 1) and `4-the-needs-tab.jpg` (run e17f, scenario 2), taken on the Backlot map, each under 2 MB (322 and 367 KB; the folder is 3.1 MB of 8). Accepted candidates lose the word `candidate` and take their final index; refused ones are deleted. `1-the-bath.jpg` and `2-the-needs-tab.jpg` are the first series, still on the page until the owner decides.
 
 Not asserted in this feature: `no warnings from mod` (the sanctuary rolls 157 vanilla warnings out of Pickle's buffer; scenarios `01` to `06` assert it on the test colony).
 
