@@ -85,19 +85,19 @@ applicable).
 ```markdown
 Makes the drum can bath actually wash people, by connecting [MMDrumcanMOD (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756) to [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268).
 
-On its own, soaking in a drum bath is pure recreation: it gives joy, a warm mood buff and a rest bonus, but a colonist climbs out exactly as filthy as they got in. This bridges the two.
+On its own, soaking in a drum bath is pure recreation: it gives joy, a warm mood buff and a rest bonus, but a colonist climbs out exactly as filthy as when they got in. This bridges the two.
 
 While a colonist is in the bath:
 
 - their hygiene need fills,
 - onlookers react to the sight, as with any DBH bathing,
-- the water is judged hot or cold depending on whether the drum still has fuel burning,
+- the water is judged hot or cold depending on whether fuel is still burning in the drum,
 - the room gives its usual bathroom thought,
-- the "soaking wet" memory is cleared, and so is the filth carried on their body when they climb out.
+- the "soaking wet" memory is cleared, and so is the filth on their body when they climb out.
 
 Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. This mod has no content of its own and does nothing without both.
 
-The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress goes on washing after a save and a reload. Adding it to, or removing it from, an existing save has not been tested.
+The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress continues washing after a save and reload. Adding it to, or removing it from, an existing save has not been tested.
 
 ## IF I GO QUIET
 
@@ -128,7 +128,7 @@ into the GitHub release.
 
 ```
 [b]1.0.2[/b]
-Description now links the two mods this one needs and credits their authors. No change to how the mod plays.
+The description now links to the two mods this one requires and credits their authors. No change to how the mod plays.
 ```
 
 ### 1.0.1
@@ -144,7 +144,7 @@ New preview image and mod icon. No change to how the mod plays.
 [b]1.0.0[/b]
 First release. Makes the drum can bath wash: while a colonist soaks, their Dubs Bad Hygiene hygiene need fills (an
 empty gauge over half a bath), onlookers react as with any Dubs Bad Hygiene bathing, the water counts as hot or cold by
-whether the drum still burns, the "soaking wet" memory is cleared on the way in and the filth carried on the body on the
+whether the drum still burns, the "soaking wet" memory is cleared on the way in and the filth on the body on the
 way out. No content of its own: a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, both required.
 RimWorld 1.6.
 ```

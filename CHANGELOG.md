@@ -29,18 +29,18 @@ First version. RimWorld 1.6.
 
 ### Added
 
-- Soaking in a drum can bath now fills the Dubs Bad Hygiene hygiene need, at a rate that fills an empty gauge over half a bath rather than turning it into a quick shower.
-- Onlookers react to a colonist bathing, re-checked while the bath lasts, as with any DBH bathing.
-- The water counts as hot or cold depending on whether the drum still has fuel burning.
+- Soaking in a drum can bath now fills the Dubs Bad Hygiene hygiene need, at a rate that fills an empty gauge over the course of half a bath rather than turning it into a quick shower.
+- Onlookers react to a colonist bathing, reassessed throughout the bath, as with any DBH bathing.
+- The water counts as hot or cold depending on whether fuel is still burning in the drum.
 - The room gives its usual DBH bathroom thought on entering the bath.
-- The "soaking wet" memory is cleared, and so is the filth carried on the body when the colonist climbs out.
+- The "soaking wet" memory is cleared, and so is the filth on the body when the colonist climbs out.
 
 ### Notes
 
-- The mod adds no building, texture or def of its own: it is a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, and does nothing without both.
+- The mod adds no building, texture or Def of its own: it is a bridge between MMDrumcanMOD (Continued) and Dubs Bad Hygiene, and does nothing without both.
 - No Harmony patch. The component is grafted by XML onto the hediff the drum bath mod already applies while a pawn is soaking, and the patch is conditional on that hediff existing rather than on a mod identifier.
 - The Dubs Bad Hygiene side is reached entirely by reflection, so a rework on their end degrades the mod instead of breaking it.
-- The component saves two temporary values (`started` and `ticks`) on the bathing hediff. A bath in progress goes on washing after a save and a reload (played in the Pickle suite, English and French); the scenario cannot tell that these two values were restored from the ones that were saved, since a reset would still wash. Adding the mod to an existing save, or removing it from one, has not been tested.
+- The component saves two temporary values (`started` and `ticks`) on the bathing hediff. A bath in progress continues washing after a save and reload (played in the Pickle suite, English and French); the scenario cannot tell that these two values were restored from the ones that were saved, since a reset would still wash. Adding the mod to an existing save, or removing it from one, has not been tested.
 
 ## [0.1.0] — 2026-09-22
 
