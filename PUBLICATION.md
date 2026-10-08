@@ -124,6 +124,13 @@ The change note sent to Steam with an upload, which **starts with the version al
 under `### <version>` (`../PUBLISHING.md`, "Publier par la CI"), and the `## [<version>]` section of `CHANGELOG.md` goes
 into the GitHub release.
 
+### 1.0.2
+
+```
+[b]1.0.2[/b]
+Description now links the two mods this one needs and credits their authors. No change to how the mod plays.
+```
+
 ### 1.0.1
 
 ```

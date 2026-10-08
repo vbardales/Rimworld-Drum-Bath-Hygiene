@@ -3,6 +3,15 @@
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This file serves the repository and the writing of Steam patch notes; RimWorld does not display it in game.
 
+## [1.0.2] — 2026-10-08
+
+No change to the mod's behaviour: the DLL and the patch are those of 1.0.0.
+
+### Changed
+
+- Workshop description: links to MMDrumcanMOD (Continued) and Dubs Bad Hygiene in the first sentence; credit to Mlie and dragon in the thanks.
+- Workshop gallery: new staged captures (`3-the-bath.jpg`, `4-the-needs-tab.jpg`) replace the first two (manual upload).
+
 ## [1.0.1] — 2026-10-02
 
 No change to the mod's behaviour: the DLL and the patch are those of 1.0.0.
