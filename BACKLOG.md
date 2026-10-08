@@ -117,3 +117,10 @@ new component can read without guessing from `CurJob.targetA` (the driver rewrit
 `Building_DrumBath.Tick()` delegates to `ThingWithComps.Tick()`; it does not report a variable
 fire intensity. Whether `CompRefuelable` burns and how it signals active use remain to be
 verified before choosing thermal rates. No game process was started for this inspection.
+
+## Tests still to write
+
+Proposed 2026-10-08. Both come from the "open" line of `STATUS.md`; neither changes what pawns do.
+
+- **Bathroom thought.** No scenario asserts the thought stage of Dubs Bad Hygiene's own grading of the room, given on entering the bath. To write once a step can read a pawn's thought and the room's grade.
+- **Adding or removing the mod on an existing save.** Asked to Nelim's Pickle Tools on 2026-10-08: steps to save under a name, restart with another mod list, load that save and assert no load error. Cases: a save made without the mod loaded with it; a save made mid-bath with the mod loaded without it. `TESTING.md` line 88 calls it "not applicable" (RimWorld's own handling); that stays until NPT answers.
