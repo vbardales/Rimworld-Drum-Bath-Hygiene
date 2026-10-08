@@ -10,7 +10,7 @@ No change to the mod's behaviour: the DLL and the patch are those of 1.0.0.
 ### Changed
 
 - Workshop description: links to MMDrumcanMOD (Continued) and Dubs Bad Hygiene in the first sentence; credit to Mlie and dragon in the thanks.
-- Workshop gallery: new staged captures (`3-the-bath.jpg`, `4-the-needs-tab.jpg`) replace the first two (manual upload).
+- Workshop gallery: new staged captures (`1-the-bath.jpg`, `2-the-needs-tab.jpg`) replace the first two (manual upload).
 
 ## [1.0.1] — 2026-10-02
 
