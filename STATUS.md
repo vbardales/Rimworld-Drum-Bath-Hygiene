@@ -29,13 +29,13 @@ owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
 tested_on:    Pickle suite in game (RimWorld 1.6, Linux under WSL, Xvfb), English (run 22) and French (run 23), 2026-09-28: 21 scenarios of 21 played and green in each, exitReason passed, from revision 271365b (runs 8 and 9, 2026-09-23, revision 9df3305, were the 19-scenario passes before the Workshop images); earlier: Release rebuild and the Windows PowerShell XML/packaging suite, 2026-09-22
-workshop:      3806137182; 0.1.0 prepublished 2026-09-22 (item creation only), 1.0.0 sent by CI 2026-09-28, 1.0.1 2026-10-02; public per the owner
+workshop:      3806137182; 0.1.0 prepublished 2026-09-22 (item creation only), 1.0.0 sent by CI 2026-09-28,  1.0.1 2026-10-02, 1.0.2 2026-10-08 (description); public per the owner
 remaining:
   - published 2026-10-02 (1.0.0 and 1.0.1 on the page, item public per the owner); thanks to Mlie and Dubwise posted 2026-10-02 (WORKSHOP_COMMENTS.md). Left: the owner's manual steps of PUBLISHING.md "Mise en production d'une 1.0.0" (comment subscription, watching the mod and its parents), not confirmed.
   - open: no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); adding or removing the mod on an existing save has not been played.
   - feature: fire intensity, deferred in BACKLOG.md.
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
-updated:      2026-10-02
+updated:      2026-10-08
 ---
 
 # Drum Bath Hygiene — status
@@ -45,7 +45,7 @@ updated:      2026-10-02
 
 ## Current state (2026-10-02)
 
-- **On Steam:** item `3806137182`, public per the owner. `1.0.0` sent by CI 2026-09-28 (tag `v1.0.0`, `c6a0939`); `1.0.1`
+- **On Steam:** item `3806137182`, public per the owner. `1.0.2` (description: links, credits; tag `v1.0.2`, `93539d1`, dry-run 37757004462, publish 37757179159) sent 2026-10-08. `1.0.0` sent by CI 2026-09-28 (tag `v1.0.0`, `c6a0939`); `1.0.1`
   (new preview and icon) sent 2026-10-02 (tag `v1.0.1`, `55d5928`, dry-run 37032154323, publish 37032402412).
 - **Tested:** 21 scenarios of 21 green in English and French on `271365b` (runs 22 and 23). The offline suite
   (`pwsh -NoProfile -File scripts/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
