@@ -2,6 +2,8 @@
 
 **Updated 2026-10-10. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28), 1.0.1 (2026-10-02) and 1.0.2 (2026-10-08) sent by the CI, thanks to Mlie and Dubwise posted. This sheet is now the template for the next update.** The Steam description below is the source for the next version: its save sentence (removal tested) is not yet on the page nor in `About.xml`, and goes out with the next `update_description`.
 This sheet holds what the Workshop page asks for and the repository holds nowhere else, so that it can be used again at
+the next update and by whoever picks the mod up.
+
 ## Before an update
 
 This is an update of an existing item (`../PUBLISHING.md`, "Publier par la CI"; `Rimworld-Release-Admin/docs/OPERATIONS.md`). The 1.0.0 preparation, the first change notes and the production steps of 1.0.0 are in `docs/runs/publication-history.md`.
