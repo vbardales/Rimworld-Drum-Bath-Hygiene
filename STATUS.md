@@ -45,12 +45,12 @@ updated:      2026-10-10
 protocols_read_sha: b4bb8a9157ee29ba1541b90a7e3ed4215b6574ac
 ---
 
-# Drum Bath Hygiene — status
+# Drum Bath Hygiene: status
 
-`stage: published` = `tested -> prepublished -> published` established (2026-10-02). Older audits, test runs and the
+`workflow_stage: followUp[1.0.2]` (audit 2026-10-10). Older audits, test runs and the
 2026-09-12 preview notes were moved to `docs/runs/history.md` on 2026-10-02 (the full text stays in git).
 
-## Current state (2026-10-02)
+## Current state (2026-10-10)
 
 - **On Steam:** item `3806137182`, public per the owner. `1.0.2` (description: links, credits; tag `v1.0.2`, `93539d1`, dry-run 37757004462, publish 37757179159) sent 2026-10-08. `1.0.0` sent by CI 2026-09-28 (tag `v1.0.0`, `c6a0939`); `1.0.1`
   (new preview and icon) sent 2026-10-02 (tag `v1.0.1`, `55d5928`, dry-run 37032154323, publish 37032402412).
@@ -68,8 +68,3 @@ protocols_read_sha: b4bb8a9157ee29ba1541b90a7e3ed4215b6574ac
 
 Independent repository, `C:/Users/nelim/Documents/rimworld/DrumBathHygiene`, remote above, public. Update this file
 whenever a check or a remaining item changes; record only checks actually performed.
-
-
-## Preview source migration — 2026-10-02
-
-Copy, typography, layout and palette are consolidated in `Art/Preview.config.json`. The canonical inputs are `Art/Preview-source.png`, `Art/echo.png` and `Art/ModIcon-source.png`; the shared renderer writes temporary diagnostics under ignored `Art/.render/`. Existing distributed Preview, gallery and ICO outputs were preserved because they were present and coherent; no render was run for this migration. Superseded JSON files and generated QA intermediates were removed. Nothing published.
