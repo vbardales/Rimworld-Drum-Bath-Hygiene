@@ -5,7 +5,9 @@ covers part of it, and what has to be settled before the first line of code.
 
 An idea earns a place here only if it changes **what pawns do**. Anything already shipped is in
 the changelog instead, and anything that needs watching in play is in
-`Tests/FUNCTIONAL-SCENARIOS.md`.
+`Tests/FUNCTIONAL-SCENARIOS.md`. Two kinds of entry are exempt from that rule: upstream proposals
+(pull requests and answers from other mod authors) and tests still to write, since they are part
+of keeping the mod honest rather than ideas for new pawn behaviour.
 
 ---
 
@@ -14,12 +16,7 @@ the changelog instead, and anything that needs watching in play is in
 **Closed 2026-10-03: PR https://github.com/emipa606/MMDrumcanMOD/pull/2 declined by Mlie (no Publicizer dependency wanted); Mlie will link this mod in the description of MMDrumcanMOD. Fork branch deleted. Nothing left to do upstream.** Opened 2026-10-02 (PUBLISHING.md: once an origin repository exists, the pull request is systematic and stays here
 until done; it is independent of the Workshop publication).
 
-The drum bath mod this bridge sits on has a git repository: `https://github.com/emipa606/MMDrumcanMOD` (MMDrumcanMOD
-(Continued), Mlie; MIT; `main`; `1.6/` folder; last push 2025-07-30). No repository was found for Dubs Bad Hygiene
-(`upstream_mod_remotes` in `STATUS.md`). Nothing has been sent: a fork and a pull request are public and leave only with
-the owner's agreement. To settle first: what to propose (the hygiene component itself, or an issue pointing to this
-bridge), read against that repository's own `1.6/` defs and `Source/`, and whether it should stay a bridge so the drum
-mod does not depend on Dubs Bad Hygiene.
+Done and closed. The upstream repository is `https://github.com/emipa606/MMDrumcanMOD` (MMDrumcanMOD (Continued), Mlie; MIT; `main`; `1.6/` folder). No repository was found for Dubs Bad Hygiene (`upstream_mod_remotes` in `STATUS.md`). The pull request was proposed with the owner's agreement and declined; this mod stays a bridge, so the drum mod does not depend on Dubs Bad Hygiene.
 
 ## A drum bath fire that can be too strong
 
@@ -32,7 +29,7 @@ of how hard the drum is burning. So the water is hot or it is cold, and it is ne
 
 **What the mechanic would be.** A drum stoked past some point heats the water beyond comfort, and
 the bath stops being a straightforward good. What a bather does about it is the interesting half,
-and it is a choice between four different mods:
+and it is a choice between four possible designs:
 
 - they refuse to get in until it cools, which makes stoking a thing you can overdo;
 - they get in and climb out early, losing the rest of the joy;

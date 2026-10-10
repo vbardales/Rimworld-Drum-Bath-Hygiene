@@ -1,15 +1,15 @@
 # Publication sheet
 
-**Updated 2026-10-07. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28) and 1.0.1 (2026-10-02) sent by the CI, thanks to Mlie and Dubwise posted. This sheet is now the template for the next update.** The Workshop gallery is being redone (section "Captures"); the description gained links and the original author, to be sent with `update_description` in the next version (1.0.2).
+**Updated 2026-10-10. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28), 1.0.1 (2026-10-02) and 1.0.2 (2026-10-08) sent by the CI, thanks to Mlie and Dubwise posted. This sheet is now the template for the next update.** Sections marked *historical* describe the 1.0.0 preparation and are kept as a template. The Steam description below is the source for the next version: its save sentence (removal tested) is not yet on the page nor in `About.xml`, and goes out with the next `update_description`.
 This sheet holds what the Workshop page asks for and the repository holds nowhere else, so that it can be used again at
 the next update and by whoever picks the mod up.
 
-This is an **update of an existing item**, not a first creation (`../PUBLISHING.md`, "Publier par la CI", and
+*Historical (1.0.0 preparation).* This is an **update of an existing item**, not a first creation (`../PUBLISHING.md`, "Publier par la CI", and
 `Rimworld-Release-Admin/docs/OPERATIONS.md`, the Skill Icons section). Steam already holds the 0.1.0 content
 (`Mod/` as of `7b65a4f`); nothing in `Mod/` has changed since apart from the id file and `About/Preview.png` (below), so
 1.0.0 uploads the same payload plus that image.
 
-## Before the upload
+## Before the upload (historical: 1.0.0)
 
 - **Repository.** Working tree clean and pushed, and the distributed DLL matches the sources (SHA256 `865ACC8A…`, built
   from `Source/`, checked 2026-09-22; `git diff 7b65a4f HEAD -- Mod Source` on 2026-09-24 shows only the id file, and `git diff d7e1737 HEAD -- Mod Source` nothing at all).
@@ -97,7 +97,7 @@ While a colonist is in the bath:
 
 Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. This mod has no content of its own and does nothing without both.
 
-The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress continues washing after a save and reload. Adding it to, or removing it from, an existing save has not been tested.
+The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress continues washing after a save and reload. Removing the mod from an existing save has been tested; adding it to a save made without it has not been tested separately.
 
 ## IF I GO QUIET
 
@@ -170,10 +170,10 @@ Checked in the sources on 2026-09-24, not from intention.
 
 Steam shows the first one large: put the most demonstrative there, not the prettiest. The gallery folder is `Art/Gallery/`, numbered on one digit (`0-preview.png` is a byte copy of the Preview; `1-the-bath.jpg`, `2-the-needs-tab.jpg`).
 
-**State on 2026-10-07: the series on the Steam page is the first one and is being redone.** The two images on the page (taken 2026-09-28, validated then, in the flower glade of the studio with the colonist Miel) predate the rules of 2026-10-02 and 2026-10-06 (`../PUBLISHING.md`, "Images"): every gallery shot is a staged photograph (except menus), the series tells one story in the shared place, the images are opened and their anomalies reported. They stay until the new ones are validated.
+**State on 2026-10-10: the gallery on the Steam page is the second series** (`1-the-bath.jpg`, `2-the-needs-tab.jpg`, accepted by the owner 2026-10-08 and uploaded by hand with 1.0.2). The first series (taken 2026-09-28 in the flower glade of the studio with the colonist Miel) predated the rules of 2026-10-02 and 2026-10-06 (`../PUBLISHING.md`, "Images": every gallery shot is a staged photograph except menus, the series tells one story in the shared place, the images are opened and their anomalies reported) and was replaced.
 
 The new series is played by `07-workshop-captures.feature` on **Nelim's Sanctuary** (fixture `Nelims-tribe`, `PickleTools/docs/SANCTUAIRE-LIEUX.md`, `GALERIE.md`), pass map `Tests/Pickle/wsl-deps.sanctuary.map`, English only: **the colonist is Nelim herself** (Virginie, the only colonist; her own look is kept, she is dressed in a cream shirt and deep teal trousers, her old clothes put in her inventory), in the drum on the brown bank of `water-garden` (x 143-158, z 168-176; the burrow at 149,173 is avoided), with a torch lamp lit, a shelf and two grown plants around. Image 1 is the colonist in the bath, interface hidden; image 2 is the Needs tab with the hygiene gauge risen after 600 ticks of the real bath (a menu, not staged).
-No run of this feature has yet been read and validated: runs 8 to 12 on the sanctuary taught what to fix (the first spot stood in shallow water; the "hole" is a SteamGeyser (run 850a); StandingLamp needs power and `is lit` waited for a glow that never came; the pale blue clothes on the ground were her old clothes, dropped where she stood by the first `wears`).
+Earlier runs of this feature (8 to 12 on the sanctuary, before the accepted runs 606c and e17f below) were trials and taught what to fix (the first spot stood in shallow water; the "hole" is a SteamGeyser (run 850a); StandingLamp needs power and `is lit` waited for a glow that never came; the pale blue clothes on the ground were her old clothes, dropped where she stood by the first `wears`).
 
 Each image is opened before it is uploaded, against what the owner asked for. The page is English, so the English shots are used; they are converted to JPEG into `Art/Gallery/`. The dry-run lists that folder as a reminder of the manual gallery upload; Steam answers "file upload fail: 29" for an image already on the page, so only new or changed images are sent.
 
@@ -184,8 +184,8 @@ Not asserted in this feature: `no warnings from mod` (the sanctuary rolls 157 va
 ## The preview image
 
 `Mod/About/Preview.png` is generated by the shared `scripts/Render-Preview.cjs` renderer from
-`Art/Preview.png`, `Art/preview-copy.json`, `Art/preview-palette.json`, `Art/echo.png`, and
-`Art/ModIcon-cutout.png`. The compact top-left panel uses the RimWorld title font and Segoe UI description.
+`Art/Preview-source.png`, `Art/Preview.config.json` (copy, typography, layout, palette), `Art/echo.png`, and
+`Art/ModIcon-source.png`. The compact top-left panel uses the RimWorld title font and Segoe UI description.
 The echo is based on the actual vertical drum bath shown in `Art/Gallery/1-the-bath.jpg`, not on the wider
 illustrative bath in the background; the final transparent mask is used unchanged, coloured with the accent,
 flipped horizontally, and kept below half the panel width. The true-alpha mascot sits bottom-left at `+15°`,
@@ -203,14 +203,14 @@ opening any image added later, because the boxes commit the page.
 
 Mlie (crediting dragon too) and Dubwise: posted, texts in the git history of this file; `../WORKSHOP_COMMENTS.md` (rows `posted`). Pickle, RimLogging and PickleTools: this mod added to their `Covers`, nothing posted. Harmony: not used.
 
-## When 1.0.0 goes to production: by hand, by the owner
+## When 1.0.0 goes to production: by hand, by the owner (historical: done, confirmed 2026-10-08)
 
 The CI never sends the visibility, and `../PUBLISHING.md` ("Mise en production d'une 1.0.0") lists three things only she does on
 Steam: change the visibility of the item after testing it subscribed, subscribe to its comments, and "Watch all activity" of
 the mod and of its parent mods (MMDrumcanMOD and Dubs Bad Hygiene). They are written in `STATUS.md` (date, the three points)
 before the stage is `published`.
 
-## After the upload, and it cannot be undone
+## After the upload, and it cannot be undone (historical: 1.0.0; the item is public since)
 
 - **`Mod/About/PublishedFileId.txt` is committed and pushed** (done, `d7e1737`): lost, the next upload creates a second item.
 - **The item is private** until the owner switches it to public by hand, after subscribing to it and testing the content

@@ -58,9 +58,10 @@ content of its own and does nothing without both.
 
 The component stores two values (`started`, `ticks`) on a hediff that only exists while a pawn is
 in the bath. Those values disappear with the hediff. A bath in progress goes on washing after a save
-and a reload (played in the Pickle suite, `TESTING.md`). Adding the mod to an existing game and
-removing it outside or during a bath is the game's handling of its mod list and has not been
-tested; see `Tests/FUNCTIONAL-SCENARIOS.md`.
+and a reload (played in the Pickle suite, `TESTING.md`). Removing the mod from a save made with a
+colonist in the bath was played (run 28cc, 2026-10-08, no error logged); adding the mod to a save
+made without it is the game's handling of its mod list and has not been played as its own case;
+see `Tests/FUNCTIONAL-SCENARIOS.md`.
 
 ## Repository layout
 
