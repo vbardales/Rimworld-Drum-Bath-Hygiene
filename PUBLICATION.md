@@ -50,7 +50,7 @@ the next update and by whoever picks the mod up.
 
 ## Steam description
 
-**One source, decided by the owner on 2026-09-25** (`../PUBLISHING.md`; `Rimworld-Release-Admin/docs/OPERATIONS.md`,
+*Historical: September 2026 (migration to the Markdown source).* **One source, decided by the owner on 2026-09-25** (`../PUBLISHING.md`; `Rimworld-Release-Admin/docs/OPERATIONS.md`,
 "Changing where the Steam description comes from"): the description is written once, in Markdown, in the fenced block
 below. The CI converts it to Steam BBCode and generates the plain-text `<description>` of `Mod/About/About.xml` from it
 (`node .github/scripts/sync-about-description.mjs --write`), and every dry-run and publish stops if `About.xml` differs
@@ -61,7 +61,7 @@ regenerating rewrites its text (read the diff). The item being private, the dry-
 against the page, so it is read by hand once. Every publish with `update_description` on overwrites the Steam page: a
 later hand edit there would be lost, so this block stays the single source.
 
-What changed against the text of 0.1.0 (before the 2026-09-25 corrections, still readable in `git log -p -- Mod/About/About.xml`):
+*Historical: September 2026.* What changed against the text of 0.1.0 (before the 2026-09-25 corrections, still readable in `git log -p -- Mod/About/About.xml`):
 
 1. *"Nothing breaks if you load this without them … No error is thrown either way."* No run showed it and none can (a
    Pickle pass excludes only DLCs; RimWorld's handling of a missing dependency is not this mod's). Now: both mods are
@@ -177,7 +177,7 @@ Earlier runs of this feature (8 to 12 on the sanctuary, before the accepted runs
 
 Each image is opened before it is uploaded, against what the owner asked for. The page is English, so the English shots are used; they are converted to JPEG into `Art/Gallery/`. The dry-run lists that folder as a reminder of the manual gallery upload; Steam answers "file upload fail: 29" for an image already on the page, so only new or changed images are sent.
 
-**Accepted by the owner (2026-10-08), renumbered 3 -> 1 and 4 -> 2 once the first series was deleted.** `Art/Gallery/1-the-bath.jpg` (run 606c, scenario 1) and `2-the-needs-tab.jpg` (run e17f, scenario 2), taken on the Backlot map, each under 2 MB (322 and 367 KB; the folder is 3.1 MB of 8). Accepted candidates lose the word `candidate` and take their final index; refused ones are deleted. The first series (old `1-the-bath.jpg` and `2-the-needs-tab.jpg`, renumbered since) was refused by the owner (2026-10-08) and deleted; it is still on the Steam page until the next manual gallery upload.
+**Accepted by the owner (2026-10-08), renumbered 3 -> 1 and 4 -> 2 once the first series was deleted.** `Art/Gallery/1-the-bath.jpg` (run 606c, scenario 1) and `2-the-needs-tab.jpg` (run e17f, scenario 2), taken on the Backlot map, each under 2 MB (322 and 367 KB; the folder is 3.1 MB of 8). Accepted candidates lose the word `candidate` and take their final index; refused ones are deleted. The first series (old `1-the-bath.jpg` and `2-the-needs-tab.jpg`, renumbered since) was refused by the owner (2026-10-08) and deleted; The first series was rejected by the owner on 2026-10-08, deleted locally and replaced on the Steam page.
 
 Not asserted in this feature: `no warnings from mod` (the sanctuary rolls 157 vanilla warnings out of Pickle's buffer; scenarios `01` to `06` assert it on the test colony).
 
