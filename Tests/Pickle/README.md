@@ -47,14 +47,11 @@ on a real filth tracker with real filth in it.
 `../../TESTING.md` holds the table. In short, and the count is small on purpose:
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map
-powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Language French
+powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Filter '!07-workshop-captures,!08-removal-write'
+powershell.exe -ExecutionPolicy Bypass -File scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Filter '!07-workshop-captures,!08-removal-write' -Language French
 ```
 
-`wsl-deps.tools.map` stages two step packages, `nelim.pickletools.inspecttabs` (the Needs tab) and
-`nelim.pickletools.screenshotstudio` (the owner's photographic colony, whose save `07-workshop-captures.feature` loads), which that
-feature needs. It is not an optional mod (the mod is loaded as it is with nothing else), it names the pass `tools`,
-and a run without it fails `07` on undefined steps. Runs 8 and 9, made before `07` existed, ran without the map.
+`wsl-deps.tools.map` stages two step packages, `nelim.pickletools.inspecttabs` (the Needs tab) and `nelim.pickletools.screenshotstudio`. It is not an optional mod, it names the pass `tools`, and it plays features `01` to `06` (19 scenarios). `07-workshop-captures.feature` (the Workshop images) needs `wsl-deps.sanctuary.map`: its steps (`wears … dyed rgb`, the Sanctuary place steps) come from packages the `tools` map does not stage, so on `tools` it fails on undefined steps. `08-removal-write.feature` is `@requires:` its companion and belongs to the `wsl-deps.removal.map` chain. `TESTING.md` holds the table of passes and their commands. Runs 8 and 9, made before `07` existed, ran without the map.
 
 `wsl-ids.map` holds the Workshop ids of the two hard dependencies, which the shared table in `stage-pickle-wsl.sh` does not know; without it the staging stops with `no Workshop id known for Mlie.MMDrumcanMOD`. It is read in every pass and only resolves: nothing on it is activated, and it is **not** a set of optional mods, so no option is needed.
 

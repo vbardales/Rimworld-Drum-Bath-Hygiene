@@ -24,23 +24,26 @@ than discovered again.
 ## How many passes
 
 `../AUDIT.md` asks for three families: one without the optional mods, one per exclusive
-combination of optional mods, and one per declared incompatibility. This mod needs **two passes,
+combination of optional mods, and one per declared incompatibility. This mod needs **four runs in three sets (`tools` in two languages, `sanctuary` in two, `removal`),
 and neither of the last two families applies.** The count is small because the mod is small, and
 the reasons are the sort that expire:
 
 | Pass | Command | What it proves |
 | --- | --- | --- |
-| `tools`, English | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map` | the whole suite against Core, the DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod, plus one step package (below). This is the only set the mod can be loaded in today |
-| `tools`, French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Language French` | the same suite under a French game. No step spells an English label, so the features are unchanged; what differs is the capture a person then opens |
+| `tools`, English | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Filter '!07-workshop-captures,!08-removal-write'` | features `01` to `06`: 19 scenarios against Core, the DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod, plus two step packages (below). The mod is loaded as it is with nothing else |
+| `tools`, French | the same with `-Language French` | the same 19 scenarios under a French game. No step spells an English label, so the features are unchanged; what differs is the capture a person then opens |
+| `sanctuary`, English then French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sanctuary.map -Filter '::framed for the page' -Then '::the Needs tab of a colonist'` (and `-Language French`) | `07-workshop-captures`: the two Workshop images, taken in Nelim's Sanctuary (SanctuaryBacklot) with the Backlot's staging packages |
+| `removal`, two launches | `wsl-deps.removal.map`, `-ThenWithout` | `08-removal-write` saves with a colonist in the bath, then `Removal/` loads that save without the mod (row 12 below). Played once, 2026-10-08; replayed when the component or the patch changes |
 
-**The pass carries two step packages, and neither is an optional mod.** `Tests/Pickle/wsl-deps.tools.map` stages
-`nelim.pickletools.inspecttabs` (`PickleTools/InspectTabs`), the steps that open a pawn's inspect tabs, which the stock
-Pickle has not got, and `nelim.pickletools.screenshotstudio`, the owner's photographic colony (`nelim-zen-meadow-studio`, a
-meadow with a flower glade); `07-workshop-captures.feature` takes the Workshop images in that glade and opens the Needs tab. The mod under test is loaded exactly as
-it is with nothing else, so this is still the pass without optional mods, named after its map. **A run without the map
-would fail `07` on undefined steps: it is not a pass of this suite.** Runs 8 and 9 (2026-09-23, 19 scenarios, before `07`) are in `docs/runs/history.md`; a certifying pass is the whole suite. A filter exists for the other cases (`PickleTools/Headless/README.md`,
-"Choosing what to run"): `-Filter '07-workshop-captures'` plays the two Workshop images alone, to retake them, and is not a
-certification.
+**The `tools` pass is not the whole suite, and the whole suite is not one run.** The `tools` map stages
+`nelim.pickletools.inspecttabs` (`PickleTools/InspectTabs`, the steps that open a pawn's inspect tabs, which the stock Pickle
+has not got) and `nelim.pickletools.screenshotstudio`. Neither is an optional mod, so this is still the pass without optional
+mods, named after its map. Since `a39e287` (2026-10-07) `07` no longer runs there: it dresses a colonist with
+`wears … dyed rgb` (`nelim.pickletools.colonistrace`) and builds in the Sanctuary, so on the `tools` map it fails on undefined
+steps. `08` carries `@requires:nelim.drumbathhygiene.pickleremoval` and is skipped without its companion. A run of the `tools`
+map without the `-Filter` above therefore reports 22 scenarios, 19 passed, 2 failed (`07`) and 1 skipped (`08`): that
+is the wrong pass, not a defect of the mod (2026-10-11). Runs 8 and 9 (2026-09-23, 19 scenarios, before `07`) are in
+`docs/runs/history.md`. A filter also exists to retake one image (`PickleTools/Headless/README.md`, "Choosing what to run").
 
 **No pass with optional mods.** `Mod/About/About.xml` declares `loadAfter` on `Ludeon.RimWorld`,
 `Dubwise.DubsBadHygiene` and `Mlie.MMDrumcanMOD` — Core and the two hard dependencies. There is no
@@ -85,8 +88,7 @@ the Pickle scenario it names has passed: **both passes of 2026-09-23 are green, 
 | 12. Into a running save, and out of one | `01`: the two scribed values survive a save and a reload | **Removal played 2026-10-08** (run 28cc, `536e4bf`): `08-removal-write` saves with a colonist in the bath, `removal-check` loads it without the mod (`-ThenWithout`): both green, no error logged, the game runs 250 ticks and saves again. Adding the mod to a save made without it: every scenario loads Pickle's `test-colony`, not made with the mod, but that is not asserted as such; not played as its own case. What the mod writes into the save is the two scribed values |
 | Language check, English and French | the French pass, and the capture of each language | The text on screen is Dubs Bad Hygiene's and the drum mod's, not this bridge's (see `STATUS.md`, translation fields). What remains is **reading the two captures**, which is not a further manual test: it is reading an image that a scenario has already proved to show a colonist in the bath |
 
-**Scenario tags.** Nothing in the suite is `@wip`, and nothing is `@requires:`: the mod declares no optional mod, so
-no scenario is conditional. The only tags are `@review` and `@film` on the capture, and `@timeout`. Both facts are
+**Scenario tags.** Nothing in the suite is `@wip`. One scenario is `@requires:` (`08-removal-write`, which needs its companion mod `nelim.drumbathhygiene.pickleremoval` and is played by the `removal` pass, never skipped there); the mod declares no optional mod, so no other scenario is conditional. The only tags are `@review` and `@film` on the capture, and `@timeout`. Both facts are
 checked by a search of the features before a report is quoted, not assumed.
 
 So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are not applicable**, each with its reason above.
@@ -106,6 +108,8 @@ So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are 
 
 ## Status
 
-The offline suite passes. The Pickle suite is 21 scenarios in 7 features and is green in full, English (run 22) and French
-(run 23), `exitReason: passed`, from `271365b`; the mod is published (`STATUS.md`). One line per run: `docs/runs/README.md`.
+The offline suite passes. The Pickle suite is 22 scenarios in 8 features, played by the three sets above. Runs 22 and 23
+(`271365b`, 21 of 21, `tools`) predate the Sanctuary migration of `07` and the removal chain: they no longer certify the
+suite as it stands. The current certification is the non-regression of 2026-10-11 on `02b3cb8`, in `docs/runs/README.md`,
+which keeps one line per run.
 The first run's findings are in `Tests/Pickle/README.md`.
