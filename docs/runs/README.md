@@ -30,6 +30,10 @@ _Trimmed 2026-10-02 (published): runs 1-21 were development-era (suite in flux, 
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 22 | 2026-09-28 | `tools`, EN, full suite | `271365b` | **passed** | 21 of 21 / 21 / 0 | Final pass of the frozen 1.0.0 revision (changelog dated, images committed). Both `07` stills of the run are the images that were validated | `final-english-2/` (summary, junit, log, the `@review` still, film; the two Workshop stills deleted 2026-10-02, kept as `Art/Gallery/1-`, `2-`) |
 | 23 | 2026-09-28 | `tools`, FR, full suite | `271365b` | **passed** | 21 of 21 / 21 / 0 | Same revision, French | `final-french-2/` (summary, junit, log, the `@review` still, film; the two Workshop stills deleted 2026-10-02, kept as `Art/Gallery/1-`, `2-`) |
+| 24 | 2026-10-11 | `tools`, EN, bare map | `02b3cb8` | **failed** | 22 of 22 / 19 / 2 (1 skipped) | Non-regression. The 19 `tools` scenarios passed. The 2 failures are the `07` scenarios (need the `sanctuary` map); the skip is `08` (`@requires` pickleremoval). Wrong pass of the suite, not a mod defect | `regression-english/` (summary, junit and log gzip) |
+| 25 | 2026-10-11 | `tools`, FR, bare map | `02b3cb8` | **failed** | 22 of 22 / 19 / 2 (1 skipped) | Same, French (`20261011-000535-370-8a79`, exit 1) | `regression-french/` |
+| 26 | 2026-10-11 | `sanctuary`, EN, gallery 1 and 2 | `02b3cb8` | **passed** | 2 of 2 / 2 / 0 | `20261011-012507-926-51c6`. The two `@review` stills kept | `regression-gallery-english/seq1`, `seq2` |
+| 27 | 2026-10-11 | `sanctuary`, FR, gallery 1 and 2 | `02b3cb8` | **passed** | 2 of 2 / 2 / 0 | `20261011-012509-533-a933` | `regression-gallery-french/seq1`, `seq2` |
 
 ## What Evidence to keep, and in what form
 

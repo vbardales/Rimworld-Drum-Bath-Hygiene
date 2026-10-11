@@ -29,7 +29,7 @@ upstream_mod_remotes:
 owner:        Codex, task attached to this local repository
 dependencies: declared
 showcase:     preview approved by user; visual QA passed at full size and thumbnail; not verified in game
-tested_on:    Pickle suite in game (RimWorld 1.6, Linux under WSL, Xvfb), English (run 22) and French (run 23), 2026-09-28: 21 scenarios of 21 played and green in each, exitReason passed, from revision 271365b (runs 8 and 9, 2026-09-23, revision 9df3305, were the 19-scenario passes before the Workshop images); earlier: Release rebuild and the Windows PowerShell XML/packaging suite, 2026-09-22
+tested_on:    Pickle suite in game (RimWorld 1.6, Linux under WSL, Xvfb), non-regression 2026-10-11 on revision 02b3cb8 (runs 24 to 27): the 19 tools scenarios pass in English and French, the 2 gallery scenarios (sanctuary map) pass in both, removal chain passed 2026-10-08 (run 28cc, 536e4bf); runs 22 and 23 (271365b, 21 of 21) predate the Sanctuary migration; earlier: Release rebuild and the Windows PowerShell XML/packaging suite, 2026-09-22
 workshop:      3806137182; 0.1.0 prepublished 2026-09-22 (item creation only), 1.0.0 sent by CI 2026-09-28,  1.0.1 2026-10-02, 1.0.2 2026-10-08 (description); public per the owner
 remaining:
   - published 2026-10-02 (1.0.0 and 1.0.1 on the page, item public per the owner); thanks to Mlie and Dubwise posted 2026-10-02 (WORKSHOP_COMMENTS.md). Owner's manual steps of PUBLISHING.md "Mise en production d'une 1.0.0" (visibility, comment subscription, watching the mod and its parents MMDrumcanMOD and Dubs Bad Hygiene) confirmed done by the owner 2026-10-08.
@@ -54,9 +54,9 @@ protocols_read_sha: b4bb8a9157ee29ba1541b90a7e3ed4215b6574ac
 
 - **On Steam:** item `3806137182`, public per the owner. `1.0.2` (description: links, credits; tag `v1.0.2`, `93539d1`, dry-run 37757004462, publish 37757179159) sent 2026-10-08. `1.0.0` sent by CI 2026-09-28 (tag `v1.0.0`, `c6a0939`); `1.0.1`
   (new preview and icon) sent 2026-10-02 (tag `v1.0.1`, `55d5928`, dry-run 37032154323, publish 37032402412).
-- **Tested:** 21 scenarios of 21 green in English and French on `271365b` (runs 22 and 23). The offline suite
+- **Tested:** non-regression 2026-10-11 on `02b3cb8` (runs 24 to 27): the 19 `tools` scenarios pass in English and French, the 2 gallery scenarios (`sanctuary` map) pass in both; removal chain passed 2026-10-08 (run 28cc, `536e4bf`). Runs 22 and 23 (`271365b`, 21 of 21) predate the Sanctuary migration and no longer certify the suite. The offline suite
   (`pwsh -NoProfile -File scripts/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
-  No `@wip`, no `@requires:`, no manual test left. The distributed DLL has not changed since `d7e1737`.
+  No `@wip`; one `@requires` (08, `pickleremoval`); no manual test left. The distributed DLL has not changed since `d7e1737`.
 - **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared; no Harmony, no DLC.
 - **Settings and translation:** none (`not_applicable`); the mod owns no setting and no player-facing text.
 - **Thanks:** to Mlie and Dubwise posted 2026-10-02 (`../WORKSHOP_COMMENTS.md`).
