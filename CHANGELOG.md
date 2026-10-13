@@ -3,6 +3,10 @@
 Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This file serves the repository and the writing of Steam patch notes; RimWorld does not display it in game.
 
+## [Unreleased]
+
+Target version 1.1.0: RimWorld 1.7 pass. Nothing changes in `Mod/` until a green 1.7 run; `<li>1.7</li>` is added to `supportedVersions` only after it.
+
 ## [1.0.2] — 2026-10-08
 
 No change to the mod's behaviour: the DLL and the patch are those of 1.0.0.

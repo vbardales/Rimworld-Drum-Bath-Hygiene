@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: followUp[1.0.2]
+workflow_stage: code[1.1.0]
 code_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 settings_audit: not_applicable
@@ -41,13 +41,13 @@ remaining:
   - unverified: `echo_review_sha` (keep or redo decision), `social_preview_sha256` (a custom share image exists, `og:image` checked 2026-10-10; the sha of the file sent is not recorded). `publication_changelog_review_sha` set to `93539d1` on the owner's confirmation (2026-10-10); the new save sentence in the description reopens it for the next version.
   - followUp left: 14.a non-regression ticket on the published build (DLL unchanged since `d7e1737`; `Mod/` differs from runs 22 and 23 only by the `About.xml` description), 14.c clean-up of `STATUS.md`, `TESTING.md`, `PUBLICATION.md`, 14.d branches (only `main`, nothing to delete).
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
-updated:      2026-10-10
-protocols_read_sha: c4aea5fbde7151683d9e3ece368142ed2d63f050
+updated:      2026-10-13
+protocols_read_sha: 5e7c922c02ef44b3ee1357f59dde11a7da5e66f6
 ---
 
 # Drum Bath Hygiene: status
 
-`workflow_stage: followUp[1.0.2]` (audit 2026-10-10). Older audits, test runs and the
+`workflow_stage: code[1.1.0]` (version 1.1.0 opened 2026-10-13 for the RimWorld 1.7 pass; was `followUp[1.0.2]`, audit 2026-10-10). Older audits, test runs and the
 2026-09-12 preview notes were moved to `docs/runs/history.md` on 2026-10-02 (the full text stays in git).
 
 ## Current state (2026-10-10)
