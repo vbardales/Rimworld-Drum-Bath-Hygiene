@@ -42,7 +42,7 @@ remaining:
   - followUp left: 14.a non-regression ticket on the published build (DLL unchanged since `d7e1737`; `Mod/` differs from runs 22 and 23 only by the `About.xml` description), 14.c clean-up of `STATUS.md`, `TESTING.md`, `PUBLICATION.md`, 14.d branches (only `main`, nothing to delete).
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-10-10
-protocols_read_sha: b4bb8a9157ee29ba1541b90a7e3ed4215b6574ac
+protocols_read_sha: c4aea5fbde7151683d9e3ece368142ed2d63f050
 ---
 
 # Drum Bath Hygiene: status
