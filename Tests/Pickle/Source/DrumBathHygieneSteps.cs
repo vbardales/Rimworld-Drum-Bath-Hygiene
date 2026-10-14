@@ -343,7 +343,7 @@ namespace DrumBathHygiene.PickleSteps
                 return Bathing();
             }
 
-            const float seconds = 90f;
+            const float seconds = 180f;
             if (await PollUntil(ctx, Sample, seconds)) return;
 
             bool reachable = pawn.Spawned && drum.Spawned
