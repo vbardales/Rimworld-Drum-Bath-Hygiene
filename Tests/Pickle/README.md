@@ -5,14 +5,14 @@ A short suite, run inside a running RimWorld by
 
 **Read `scripts/Test-Mod.ps1` first.** It applies this mod's real patch XPath and payload over
 synthetic upstream defs, in all nine shapes the drum bath hediff could arrive in, plus the
-metadata, licence and packaging checks and the access waiver read off the compiled assembly — in
+metadata, licence and packaging checks and the access waiver read off the compiled assembly, in
 about a second, with no game. A Pickle run takes over a machine for tens of minutes. Nothing lives
 here that can be proved outside the game, and the one feature that was drafted and cut said so:
 a scenario re-asserting the patch over the same nine shapes would have confiscated the machine to
 repeat a check that already runs on every build.
 
 `Mod/` is a companion mod, **Drum Bath Hygiene - Pickle tests**, never published. It holds the
-feature files and the step assembly, so nothing test-related ships in the Workshop folder — which
+feature files and the step assembly, so nothing test-related ships in the Workshop folder, which
 matters here more than usual: `SteamUGC.SetItemContent` sends `Mod/` whole, with no filtering.
 
 ## What is left, and why it needs the game
@@ -62,7 +62,7 @@ fails with it. Both of those change the day the mod declares an optional mod or 
 incompatibility, and `TESTING.md` says so where a reader will meet it.
 
 The second pass is a language pass, not a second mod set. No step in this suite spells an English
-label — every one names a defName, a need def or a thought def — so the same features run
+label, every one names a defName, a need def or a thought def, so the same features run
 unchanged in French, and the two passes differ only in what `04-review-capture.feature` shows.
 
 ## The step assembly, and why there is one
@@ -72,8 +72,8 @@ unchanged in French, and the two passes differ only in what `04-review-capture.f
 It exists because Pickle ships `{string} needs {string} is below {int} percent` and **no matching
 "is above"**. This mod's whole job is to make a gauge go up, so its central assertion has no
 built-in form, and a plausible-looking invention would be an undefined step and a wasted run. The
-rest of the assembly is fixtures the built-ins cannot build — a stuffed drum spawned with its fire
-lit or out, a hygiene need taken away from a colonist — and readings they cannot take.
+rest of the assembly is fixtures the built-ins cannot build, a stuffed drum spawned with its fire
+lit or out, a hygiene need taken away from a colonist, and readings they cannot take.
 
 What each step does, whether it has been played, and which are general enough to lift into another mod's
 suite is indexed in `PickleTools/Elsewhere/DrumBathHygiene.md`, so a second mod finds them before writing
@@ -107,7 +107,7 @@ fails on undefined steps. (`Mod/Assemblies/DrumBathHygiene.dll`, the deliverable
   and the stage it picks is Dubs Bad Hygiene's judgement of impressiveness. A scenario naming a stage would
   assert DBH's room rules rather than this bridge's one call. **Not applicable**, with the reason in
   `TESTING.md`; the call itself going through is what `no errors` and `no warnings from mod` cover.
-- **Running without Dubs Bad Hygiene, and without the drum bath mod** — scenarios 10 and 11 of the
+- **Running without Dubs Bad Hygiene, and without the drum bath mod**, scenarios 10 and 11 of the
   prose file. **Not applicable.** Both are declared hard dependencies: what RimWorld does when one is
   missing is the game's, and the mod answers for what it *declares*, which is checked in the sources.
   The harness could not play it anyway: a pass map excludes only DLCs, and staging places every hard
@@ -156,7 +156,7 @@ Windows install, which a session never does.
 
 Through `scripts/Run-PickleWsl.ps1` in the rimworld folder, and through nothing else: it takes the
 machine lock, archives the previous report, stages, launches under `xvfb-run`, and releases the
-lock in a `finally`. `powershell.exe`, never `pwsh` — PowerShell 7 is not installed on this
+lock in a `finally`. `powershell.exe`, never `pwsh`, PowerShell 7 is not installed on this
 machine.
 
 **A session never starts the Windows RimWorld**, in any form. One machine, one game, one runner.
@@ -178,17 +178,17 @@ something:
 | a drum that burnt out makes the water cold | I named the memory `ColdBath`; DBH's is `ColdWater`. The report showed `ColdWater (-3)` on the pawn, so the mod did what it should | the right name |
 
 The run also showed a capture of a colonist standing **beside** the drum, info panel reading
-"Washing.", with the scenario green — the `@review` trap in person. Free colonists at low hygiene get
+"Washing.", with the scenario green, the `@review` trap in person. Free colonists at low hygiene get
 a job of their own from DBH, so every `given` scenario now drafts its pawn (control included), and the
 capture asks the game for a real bath and asserts it is under way before shooting.
 
 Three scenarios now go through the drum mod's own job, which the first run did not: an end-to-end
 wash, and the chilled pair in a burning and a burnt-out drum. They are the only ones that can see the
-component's drum lookup miss under a pawn the real driver placed — in which case `cold` defaults to
+component's drum lookup miss under a pawn the real driver placed, in which case `cold` defaults to
 `true` and hot water never happens.
 
 **Second run, same day: 16 of 16 played, 12 passed, 4 failed, `exitReason: failed`.** The four
-scenarios that stayed on the teleport path all passed, including the chilled pair — which confirms
+scenarios that stayed on the teleport path all passed, including the chilled pair, which confirms
 the reading of Dubs Bad Hygiene above. The four that failed were all new, and all came from the
 suite meeting the drum mod's real behaviour:
 

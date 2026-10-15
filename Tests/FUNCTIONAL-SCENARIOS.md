@@ -40,7 +40,7 @@ recheck the installed versions and member signatures before attributing the fail
 ## Setup for everything here
 
 Development mode on. Both source mods active alongside this one, this one loaded after them.
-One drum bath built and fuelled with wood, in a room. One colonist whose hygiene bar is low —
+One drum bath built and fuelled with wood, in a room. One colonist whose hygiene bar is low ,
 drive it down with the dev need editor rather than waiting.
 
 Empty `Player.log` before launching, as always, and read it afterwards rather than during.
@@ -63,15 +63,15 @@ colonist to bathe and open their Health tab while they soak.
 
 **Watch for in `Player.log`.** Four lines, each meaning a different failure:
 
-- `has comps but hediffClass is not HediffWithComps`, naming `Hed_BathingAtDrumBathPassive` — the
+- `has comps but hediffClass is not HediffWithComps`, naming `Hed_BathingAtDrumBathPassive`, the
   first half of the patch did not take. The comps were added to a hediff that cannot carry them.
-- `Could not find type named DrumBathHygiene.HediffCompProperties_DrumBathHygiene` — the assembly
+- `Could not find type named DrumBathHygiene.HediffCompProperties_DrumBathHygiene`, the assembly
   did not load. In 1.6 an unknown `Class=` takes the whole def down with it, so the bath itself
   will be missing, not just the washing.
-- `[Drum Bath Hygiene] Dubs Bad Hygiene found, but Need_Hygiene.clean could not be resolved` —
+- `[Drum Bath Hygiene] Dubs Bad Hygiene found, but Need_Hygiene.clean could not be resolved` ,
   the bridge broke on a Dubs Bad Hygiene update. The bath still gives joy and warmth, and washes
   nobody. This is the one line that says the mod is inert while everything looks fine.
-- `FieldAccessException` naming `carriedFilth`, at the **end** of a bath rather than at startup —
+- `FieldAccessException` naming `carriedFilth`, at the **end** of a bath rather than at startup ,
   the assembly was built without its access waiver. That fault shipped once, on 2026-09-12, and
   was caught by reading the assembly's attributes rather than by playing; see
   `Source/AccessChecks.cs`. It would take scenario 7 down, and the last onlooker check with it.
@@ -81,7 +81,7 @@ colonist to bathe and open their Health tab while they soak.
 
 ---
 
-## 1. The bath washes — the scenario the mod exists for
+## 1. The bath washes, the scenario the mod exists for
 
 **Do.** Note the hygiene percentage of a filthy colonist. Send them to bathe. Note it again the
 moment they climb out.
@@ -90,7 +90,7 @@ moment they climb out.
 a colonist who starts at zero is full before they are done soaking.
 
 **Why it matters.** This is the whole mod. If the gauge has not moved, the component is on the
-hediff — scenario 0 said so — and the need was never bound. Look for the warning line above; if
+hediff, scenario 0 said so, and the need was never bound. Look for the warning line above; if
 the log is silent as well, the pawn has no hygiene need at all, which is the quiet exit an animal
 takes.
 
@@ -122,7 +122,7 @@ suite plays both pairs; this scenario is the one a person watches in the mood ta
 **Why the detour.** A colonist cannot be ordered into a bath: joy is scheduled, and the drum
 offers no right-click option. The only thing that hands out the job refuses any drum at or below
 ten per cent fuel, so nobody ever sets off toward a cold bath. The job, once given, never looks
-at the fuel again — and this mod reads it at the moment the pawn gets in. Emptying the drum
+at the fuel again, and this mod reads it at the moment the pawn gets in. Emptying the drum
 during the walk is therefore the only way to reach the cold branch on purpose.
 
 **It is reachable by accident too, and worth knowing.** The drum burns no fuel standing idle, but
@@ -149,7 +149,7 @@ is the same lookup scenario 3 depends on.
 **Do.** Bathe in a room other colonists walk through, in plain sight. Then bathe alone behind a
 closed door.
 
-**Expect.** The `embarrassed` memory in the first case, and it stacks — the check runs every five
+**Expect.** The `embarrassed` memory in the first case, and it stacks, the check runs every five
 seconds for the length of the bath, and that memory stacks up to six times. Nothing in the second
 case.
 
@@ -158,7 +158,7 @@ through is exactly the situation the memory is for.
 
 ## 6. Soaking wet is forgotten on the way in
 
-**Do.** Get a colonist soaked — send them across a river, or leave them out in the rain — until
+**Do.** Get a colonist soaked, send them across a river, or leave them out in the rain, until
 they carry the vanilla `soaking wet` memory. Send them straight to the bath. Watch the mood tab
 while they get in.
 
@@ -195,8 +195,8 @@ and only after a reload means that second lookup is not happening.
 
 **Do.** Let the same colonist bathe twice, back to back, and a second colonist bathe after them.
 
-**Expect.** The second bath washes as well as the first, for both pawns. Entry effects — water
-temperature, room, soaking wet, the first onlooker check — fire again each time.
+**Expect.** The second bath washes as well as the first, for both pawns. Entry effects, water
+temperature, room, soaking wet, the first onlooker check, fire again each time.
 
 **Why it matters.** The bridge to Dubs Bad Hygiene is resolved once for the whole game session
 and shared; the per-bath state is not. A first bath that works and a second that does nothing
@@ -239,7 +239,7 @@ next load. One warning, once, and no repeat.
 
 ---
 
-## Language display check — English and French
+## Language display check, English and French
 
 Execution status: not run. Repeat scenarios 0–6 with English selected, then with French
 selected, restarting the game after changing language. Record RimWorld and dependency

@@ -49,7 +49,8 @@ Feature: climbing out of the bath
     And "Done" is cured of hediff "Hed_BathingAtDrumBathPassive"
     Then "Done" has no hediff "Hed_BathingAtDrumBathPassive"
     When Drum Bath Hygiene: I remember "Done" hygiene
-    And I wait 600 ticks
+    And I wait 300 ticks
+    And I wait 300 ticks
     Then Drum Bath Hygiene: "Done" hygiene did not rise
     And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged

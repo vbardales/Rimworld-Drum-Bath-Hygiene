@@ -90,7 +90,8 @@ Feature: the images of the Workshop page
     When Drum Bath Hygiene: I remember "Nelim" hygiene
     And Drum Bath Hygiene: "Nelim" is ordered to bathe in the drum at x=147 z=172
     Then Drum Bath Hygiene: "Nelim" is bathing in the drum at x=147 z=172
-    When I wait 600 ticks
+    When I wait 300 ticks
+    And I wait 300 ticks
     Then Drum Bath Hygiene: "Nelim" hygiene rose
     When game speed is paused
     Then Nelim's Pickle Tools: the "Needs" inspect tab is open
