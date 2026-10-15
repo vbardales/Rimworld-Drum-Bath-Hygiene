@@ -5,7 +5,11 @@ This file serves the repository and the writing of Steam patch notes; RimWorld d
 
 ## [Unreleased]
 
-Target version 1.1.0: RimWorld 1.7 pass. Nothing changes in `Mod/` until a green 1.7 run; `<li>1.7</li>` is added to `supportedVersions` only after it.
+Target version 1.1.0: RimWorld 1.7 pass. No change to the mod's behaviour: the DLL and the patch are those of 1.0.0. `<li>1.7</li>` is added to `supportedVersions` only after a green 1.7 run.
+
+### Changed
+
+- Workshop description: the save sentence now says that removing the mod from a save was tested; no em dash in the description.
 
 ## [1.0.2] — 2026-10-08
 

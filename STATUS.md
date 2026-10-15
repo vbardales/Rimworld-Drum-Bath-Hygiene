@@ -38,12 +38,13 @@ remaining:
   - audit 2026-10-10: state written `followUp[1.0.2]` (old `published`); protocols read at `b4bb8a9` (AUDIT, AGENTS, PUBLISHING, WELCOME read; TRANSLATIONS, MOD_SETTINGS, SEARCHING, STYLE_RIMWORLD, PICKLE not reread, per `docs/PROTOCOLS-READ.md`).
   - defect (audit 2026-10-10, partly fixed): the save sentence said removal from a save was untested; played 2026-10-08 (run 28cc). Fixed in `PUBLICATION.md` (Steam description source) and `README.md`; `Mod/About/About.xml` (generated from that block, `sync-about-description.mjs --write`) and the Steam page still carry the old sentence until the next version, not shipped on 2026-10-10 (owner). A `Mod/` change reopens `code_review_sha` and the `x.y` review of the description.
   - defect (audit 2026-10-10): em dashes (U+2014) in `Mod/About/About.xml` and in the Steam description (THANKS, Dubwise line), also in `README.md`, `PUBLICATION.md`, `TESTING.md`, `Tests/` and `Source/` comments (rule of 2026-10-10; `CHANGELOG.md` is append-only).
+  - known, accepted 2026-10-15: `Art/Preview-source.png` palette Vmean 0.184 (below 0.30, AUDIT.md 2.e), Preview already accepted and published, not reopened; `.build/` at the mod root (ignored, holds evidence).
   - unverified: `echo_review_sha` (keep or redo decision), `social_preview_sha256` (a custom share image exists, `og:image` checked 2026-10-10; the sha of the file sent is not recorded). `publication_changelog_review_sha` set to `93539d1` on the owner's confirmation (2026-10-10); the new save sentence in the description reopens it for the next version.
   - followUp left: 14.a non-regression ticket on the published build (DLL unchanged since `d7e1737`; `Mod/` differs from runs 22 and 23 only by the `About.xml` description), 14.c clean-up of `STATUS.md`, `TESTING.md`, `PUBLICATION.md`, 14.d branches (only `main`, nothing to delete).
   - open (1.7 pass, 2026-10-13 to 15, tickets 27c9, 2722, d108, 9910 queued): `tested_1_7` not decided. Feature 01: 4 of 6 scenarios pass on 1.7; the 2 left failed on Pickle's 5 s `I wait N ticks` deadline, replaced by `I let 600 ticks pass` (replay 9910). Features 02 to 06 not played on 1.7 (need `wsl-deps.tools-17.map` and a 1.7 Sanctuary Backlot for 07).
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-10-13
-protocols_read_sha: 6eeb289af92096fa3a7ee40825e3b5221030873d
+protocols_read_sha: e733386f133716f60efbad53c37602935eda7050
 ---
 
 # Drum Bath Hygiene: status
@@ -58,7 +59,7 @@ protocols_read_sha: 6eeb289af92096fa3a7ee40825e3b5221030873d
 - **Tested:** non-regression 2026-10-11 on `02b3cb8` (runs 24 to 27): the 19 `tools` scenarios pass in English and French, the 2 gallery scenarios (`sanctuary` map) pass in both; removal chain passed 2026-10-08 (run 28cc, `536e4bf`). Runs 22 and 23 (`271365b`, 21 of 21) predate the Sanctuary migration and no longer certify the suite. The offline suite
   (`pwsh -NoProfile -File scripts/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
   No `@wip`; one `@requires` (08, `pickleremoval`); no manual test left. The distributed DLL has not changed since `d7e1737`.
-- **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared; no Harmony, no DLC.
+- **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared (`modDependencies` and `loadAfter` in `About.xml`, no `LoadFolders.xml`); no Harmony, no DLC. Rechecked 2026-10-15 on `0aac039`; their Workshop pages tag 1.6 at most (read 2026-10-15), both load on 1.7.4976 (tickets `27c9`, `d108`).
 - **Settings and translation:** none (`not_applicable`); the mod owns no setting and no player-facing text.
 - **Thanks:** to Mlie and Dubwise posted 2026-10-02 (`../WORKSHOP_COMMENTS.md`).
 - **Upstream:** PR emipa606/MMDrumcanMOD#2 declined by Mlie (2026-10-03), who links this mod in his description; closed.
