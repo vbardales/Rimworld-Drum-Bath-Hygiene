@@ -46,15 +46,15 @@ is the wrong pass, not a defect of the mod (2026-10-11). Runs 8 and 9 (2026-09-2
 `docs/runs/history.md`. A filter also exists to retake one image (`PickleTools/Headless/README.md`, "Choosing what to run").
 
 **No pass with optional mods.** `Mod/About/About.xml` declares `loadAfter` on `Ludeon.RimWorld`,
-`Dubwise.DubsBadHygiene` and `Mlie.MMDrumcanMOD` — Core and the two hard dependencies. There is no
+`Dubwise.DubsBadHygiene` and `Mlie.MMDrumcanMOD`, Core and the two hard dependencies. There is no
 optional mod to add, so no second set exists. **The day `loadAfter` names a mod that is not a hard
 dependency, this table is wrong** and that mod needs a named set of its own.
 
-**`Tests/Pickle/wsl-ids.map` holds the two hard dependencies, and needs no option.** The shared table in `stage-pickle-wsl.sh` does not know their Workshop ids, and a dependency it cannot place stops the run before anything is launched — which is what the first attempt on 2026-09-21 did (`no Workshop id known for Mlie.MMDrumcanMOD`). That file is read in every pass, the bare one included, and it only *resolves*: nothing on it is activated, so it is not an optional set and it does not rename the pass. An earlier version of it was named `wsl-deps.sans-facultatifs.map` and had to be passed with `-DepMap`; it mislabelled a resolution table as a mod set and staged both mods twice, and the harness now has a place made for it (`scripts/PICKLE-WSL.md`, "Hard dependencies the shared table does not know").
+**`Tests/Pickle/wsl-ids.map` holds the two hard dependencies, and needs no option.** The shared table in `stage-pickle-wsl.sh` does not know their Workshop ids, and a dependency it cannot place stops the run before anything is launched, which is what the first attempt on 2026-09-21 did (`no Workshop id known for Mlie.MMDrumcanMOD`). That file is read in every pass, the bare one included, and it only *resolves*: nothing on it is activated, so it is not an optional set and it does not rename the pass. An earlier version of it was named `wsl-deps.sans-facultatifs.map` and had to be passed with `-DepMap`; it mislabelled a resolution table as a mod set and staged both mods twice, and the harness now has a place made for it (`scripts/PICKLE-WSL.md`, "Hard dependencies the shared table does not know").
 
 **No incompatibility pass.** The mod declares no `incompatibleWith`, and neither `README.md` nor
 `CHANGELOG.md` claims it breaks with anything. There is no assertion to go and re-check. The day
-one is written down — in either file, or in the Workshop description — it needs a
+one is written down, in either file, or in the Workshop description, it needs a
 `wsl-deps.incompat-<mod>.map` and a pass that **asserts the documented symptom** rather than
 expecting a red: `an error matching {string} was logged`, `mod {string} is not loaded`,
 `no def {string} was patched`, with `@allow-errors`. A suite where some reds are wanted and others

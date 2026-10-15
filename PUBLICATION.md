@@ -76,7 +76,7 @@ This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and
 ## THANKS
 
 - [Mlie](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive, and [dragon](https://steamcommunity.com/sharedfiles/filedetails/?id=2100895553), who made the drum bath in the first place. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
-- [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
+- [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over, the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
 - [Pickle](https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678), [RimLogging](https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696) and [Nelim's PickleTools](https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401), used for the in-game tests: development tools, never a dependency of this mod.
 
 No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.

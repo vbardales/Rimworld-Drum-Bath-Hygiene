@@ -43,7 +43,7 @@ remaining:
   - open (1.7 pass, 2026-10-13 and 14, tickets 27c9 and 2722 replay): `tested_1_7` not decided; the 3 failures are deterministic (replay 0 of 3), cause not found. 3 of 6 scenarios of 01 passed on 1.7 (gauge rise, no-need pawn, save and reload); 2 failed on the stock step `I wait 600 ticks` (5 s step timeout), 1 on the real-job walk (90 s). Replay those three alone before any verdict; features 02 to 06 not played on 1.7 (need NPT steps and Sanctuary Backlot built for 1.7).
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-10-13
-protocols_read_sha: 5e7c922c02ef44b3ee1357f59dde11a7da5e66f6
+protocols_read_sha: 6eeb289af92096fa3a7ee40825e3b5221030873d
 ---
 
 # Drum Bath Hygiene: status

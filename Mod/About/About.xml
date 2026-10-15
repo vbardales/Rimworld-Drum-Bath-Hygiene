@@ -21,7 +21,7 @@ While a colonist is in the bath:
 
 Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. This mod has no content of its own and does nothing without both.
 
-The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress continues washing after a save and reload. Adding it to, or removing it from, an existing save has not been tested.
+The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress continues washing after a save and reload. Removing the mod from an existing save has been tested; adding it to a save made without it has not been tested separately.
 
 IF I GO QUIET
 
@@ -34,7 +34,7 @@ This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and
 THANKS
 
 - Mlie (https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive, and dragon (https://steamcommunity.com/sharedfiles/filedetails/?id=2100895553), who made the drum bath in the first place. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
-- Dubwise (https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over — the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
+- Dubwise (https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over, the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
 - Pickle (https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678), RimLogging (https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696) and Nelim's PickleTools (https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401), used for the in-game tests: development tools, never a dependency of this mod.
 
 No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
