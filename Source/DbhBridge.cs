@@ -96,7 +96,7 @@ namespace DrumBathHygiene
 
         /// <summary>
         /// Binds this pawn's hygiene need to a delegate that fills it. Returns null if DBH is
-        /// absent, or if the pawn has no such need at all — an animal in the bath, for one.
+        /// absent, or if the pawn has no such need at all, an animal in the bath, for one.
         ///
         /// BOUND ONCE, NOT CALLED THROUGH REFLECTION. `Thing.DoTick` calls `Tick()` on every tick
         /// without condition, so the component's own tick runs sixty times a second for as long as

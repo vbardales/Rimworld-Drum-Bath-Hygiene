@@ -28,7 +28,7 @@ namespace DrumBathHygiene
     /// WHY ON A HEDIFF. The drum bath mod applies `Hed_BathingAtDrumBathPassive` for the whole
     /// length of the bath and removes it on the way out. That is already an exact marker for
     /// "this pawn is in the water": hooking onto it avoids patching its bath driver's `tickAction`
-    /// with a sledgehammer — a lambda locked inside an iterator, which would break on its first
+    /// with a sledgehammer, a lambda locked inside an iterator, which would break on its first
     /// update.
     ///
     /// Everything touching DBH goes through <see cref="DbhBridge"/>: without DBH, this component
@@ -82,7 +82,7 @@ namespace DrumBathHygiene
             var bath = FindBath(pawn);
 
             // Cold = the drum is no longer burning. The drum bath mod heats it through
-            // CompRefuelable: no more wood, no more hot water — and DBH already has both the
+            // CompRefuelable: no more wood, no more hot water, and DBH already has both the
             // "hot bath" and "cold bath" thoughts.
             var cold = true;
             var refuelable = bath?.TryGetComp<CompRefuelable>();
