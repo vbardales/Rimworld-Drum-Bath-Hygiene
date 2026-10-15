@@ -1,0 +1,8 @@
+# RimWorld 1.7 pass (AUDIT.md "Passe 1.7"): the tools pass on 1.7, for features 01 to 06 (not 07, 08).
+# Tool folders are net10.0 builds of the 1.7 session, outside this repository (WSL ~/pt17/mods), read by a path relative to the rimworld root.
+# ScreenshotStudio carries "I let N ticks pass", the wait with a long deadline (Pickle's own "I wait N ticks" stops at 5 s on 1.7).
+nelim.pickletools.inspecttabs      path:../../../../../../home/nelim/pt17/mods/InspectTabs
+nelim.pickletools.screenshotstudio path:../../../../../../home/nelim/pt17/mods/ScreenshotStudio
+nelim.pickletools.screenshotmode   path:../../../../../../home/nelim/pt17/mods/ScreenshotMode
+# The bundle is committed under PickleTools/Mod: this shell replaces it (see StandaloneBase).
+nelim.pickletools   path:PickleTools/Tests/Pickle/StandaloneBase/Mod

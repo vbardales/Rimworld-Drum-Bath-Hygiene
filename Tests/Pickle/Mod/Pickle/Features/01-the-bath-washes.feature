@@ -53,8 +53,7 @@ Feature: the drum bath washes the colonist soaking in it
     And I draft "Soaker"
     And Drum Bath Hygiene: I remember "Soaker" hygiene
     And "Soaker" is given hediff "Hed_BathingAtDrumBathPassive"
-    And I wait 300 ticks
-    And I wait 300 ticks
+    And Nelim's Pickle Tools: I let 600 ticks pass
     Then Drum Bath Hygiene: the bathing hediff of "Soaker" carries the component
     And Drum Bath Hygiene: "Soaker" hygiene rose
     And no warnings from mod "Drum Bath Hygiene"
@@ -68,8 +67,7 @@ Feature: the drum bath washes the colonist soaking in it
     And "Dusty" needs "Hygiene" is set to 10 percent
     When I draft "Dusty"
     And Drum Bath Hygiene: I remember "Dusty" hygiene
-    And I wait 300 ticks
-    And I wait 300 ticks
+    And Nelim's Pickle Tools: I let 600 ticks pass
     Then Drum Bath Hygiene: "Dusty" hygiene did not rise
     And no errors were logged
 
@@ -153,8 +151,7 @@ Feature: the drum bath washes the colonist soaking in it
     Then "Keeper" has hediff "Hed_BathingAtDrumBathPassive"
     And Drum Bath Hygiene: the bathing hediff of "Keeper" carries the component
     When Drum Bath Hygiene: I remember "Keeper" hygiene
-    And I wait 300 ticks
-    And I wait 300 ticks
+    And Nelim's Pickle Tools: I let 600 ticks pass
     Then Drum Bath Hygiene: "Keeper" hygiene rose
     And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
@@ -175,8 +172,7 @@ Feature: the drum bath washes the colonist soaking in it
     Then Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
     And Drum Bath Hygiene: the bathing hediff of "Bather" carries the component
     When Drum Bath Hygiene: I remember "Bather" hygiene
-    And I wait 300 ticks
-    And I wait 300 ticks
+    And Nelim's Pickle Tools: I let 600 ticks pass
     Then Drum Bath Hygiene: "Bather" hygiene rose
     And Drum Bath Hygiene: "Bather" is bathing in the drum at x=142 z=155
     And no warnings from mod "Drum Bath Hygiene"
