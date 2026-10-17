@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: code[1.1.0]
+workflow_stage: declareDependencies[1.1.0]
 code_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 settings_audit: not_applicable
@@ -34,7 +34,7 @@ workshop:      3806137182; 0.1.0 prepublished 2026-09-22 (item creation only), 1
 remaining:
   - published 2026-10-02 (1.0.0 and 1.0.1 on the page, item public per the owner); thanks to Mlie and Dubwise posted 2026-10-02 (WORKSHOP_COMMENTS.md). Owner's manual steps of PUBLISHING.md "Mise en production d'une 1.0.0" (visibility, comment subscription, watching the mod and its parents MMDrumcanMOD and Dubs Bad Hygiene) confirmed done by the owner 2026-10-08.
   - open (BACKLOG.md "Tests still to write"): no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); removing the mod from a save was played 2026-10-08 (run 28cc, green, `536e4bf`); adding it to a save made without it is not played as its own case.
-  - feature: fire intensity, deferred in BACKLOG.md.
+  - idea: fire intensity, deferred in BACKLOG.md (not part of 1.1.0).
   - audit 2026-10-10: state written `followUp[1.0.2]` (old `published`); protocols read at `b4bb8a9` (AUDIT, AGENTS, PUBLISHING, WELCOME read; TRANSLATIONS, MOD_SETTINGS, SEARCHING, STYLE_RIMWORLD, PICKLE not reread, per `docs/PROTOCOLS-READ.md`).
   - defect (audit 2026-10-10, partly fixed): the save sentence said removal from a save was untested; played 2026-10-08 (run 28cc). Fixed in `PUBLICATION.md` (Steam description source) and `README.md`; `Mod/About/About.xml` (generated from that block, `sync-about-description.mjs --write`) and the Steam page still carry the old sentence until the next version, not shipped on 2026-10-10 (owner). A `Mod/` change reopens `code_review_sha` and the `x.y` review of the description.
   - defect (audit 2026-10-10): em dashes (U+2014) in `Mod/About/About.xml` and in the Steam description (THANKS, Dubwise line), also in `README.md`, `PUBLICATION.md`, `TESTING.md`, `Tests/` and `Source/` comments (rule of 2026-10-10; `CHANGELOG.md` is append-only).
