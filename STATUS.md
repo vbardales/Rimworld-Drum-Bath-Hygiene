@@ -44,7 +44,7 @@ remaining:
   - open (1.7 pass, 2026-10-13 to 15, tickets 27c9, 2722, d108, 9910 done): `tested_1_7` not decided. Feature 01: 6 of 6 pass on 1.7 (4 in `d108`, last 2 in replay `9910`, 2 of 2 green, evidence `p17-dbh-01-replay3`, digested 2026-10-17). Features 02 to 06: ticket `f485` filed 2026-10-17 on `09e41a0` (`wsl-deps.tools-17.map`, evidence `p17-dbh-02-06`), waiting in queue; 07 needs a 1.7 Sanctuary Backlot.
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-10-17
-protocols_read_sha: 65b4e707e9a64ec96ab06507cdd54337c1f1443d
+protocols_read_sha: 6ccbec78fcd0a68c950b820dccaf062038bfff8a
 ---
 # Drum Bath Hygiene: status
 
