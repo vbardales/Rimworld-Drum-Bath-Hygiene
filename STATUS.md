@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: declareDependencies[1.1.0]
+workflow_stage: settings[1.1.0]
 code_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 settings_audit: not_applicable
@@ -44,7 +44,7 @@ remaining:
   - open (1.7 pass, 2026-10-13 to 15, tickets 27c9, 2722, d108, 9910 done): `tested_1_7` not decided. Feature 01: 6 of 6 pass on 1.7 (4 in `d108`, last 2 in replay `9910`, 2 of 2 green, evidence `p17-dbh-01-replay3`, digested 2026-10-17). Features 02 to 06: ticket `f485` filed 2026-10-17 on `09e41a0` (`wsl-deps.tools-17.map`, evidence `p17-dbh-02-06`), waiting in queue; 07 needs a 1.7 Sanctuary Backlot.
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-10-17
-protocols_read_sha: c25ae06225bd8489c501cf0fa400deac97b54192
+protocols_read_sha: 65b4e707e9a64ec96ab06507cdd54337c1f1443d
 ---
 # Drum Bath Hygiene: status
 
@@ -57,7 +57,7 @@ protocols_read_sha: c25ae06225bd8489c501cf0fa400deac97b54192
 - **Tested:** non-regression 2026-10-11 on `02b3cb8` (runs 24 to 27): 19 `tools` scenarios pass in English and French, 2 gallery scenarios (`sanctuary` map) pass in both; removal chain passed 2026-10-08 (run 28cc, `536e4bf`). Runs 22 and 23 (`271365b`, 21 of 21) predate Sanctuary migration, no longer certify suite. Offline suite
   (`pwsh -NoProfile -File scripts/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
   No `@wip`; one `@requires` (08, `pickleremoval`); no manual test left. Distributed DLL unchanged since `d7e1737`.
-- **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared (`modDependencies` and `loadAfter` in `About.xml`, no `LoadFolders.xml`); no Harmony, no DLC. Rechecked 2026-10-15 on `0aac039`; Workshop pages tag 1.6 at most (read 2026-10-15), both load on 1.7.4976 (tickets `27c9`, `d108`).
+- **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared (`modDependencies` and `loadAfter` in `About.xml`, no `LoadFolders.xml`); no Harmony, no DLC. Rechecked 2026-10-15 on `0aac039`; Workshop pages tag 1.6 at most (read 2026-10-15), both load on 1.7.4976 (tickets `27c9`, `d108`). Audit 4.a to 4.g replayed 2026-10-17 on `09e41a0`: sources use no Harmony and no DLC; DBH reached only by reflection (`DbhBridge`, inert if absent), drum bath only by XML guarded on `Hed_BathingAtDrumBathPassive` (`PatchOperationConditional`, quiet without it); both stay hard because the mod does nothing without both (stated in the description); `loadAfter` only, no cycle possible, no `incompatibleWith`; not an animal mod (4.f n/a); `sort-load-order.py` not run (no python on this machine).
 - **Settings and translation:** none (`not_applicable`); mod owns no setting, no player-facing text.
 - **Thanks:** to Mlie and Dubwise posted 2026-10-02 (`../WORKSHOP_COMMENTS.md`).
 - **Upstream:** PR emipa606/MMDrumcanMOD#2 declined by Mlie (2026-10-03), who links this mod in his description; closed.
