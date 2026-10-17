@@ -44,7 +44,7 @@ remaining:
   - open (1.7 pass, 2026-10-13 to 15, tickets 27c9, 2722, d108, 9910 queued): `tested_1_7` not decided. Feature 01: 4 of 6 scenarios pass on 1.7; the 2 left failed on Pickle's 5 s `I wait N ticks` deadline, replaced by `I let 600 ticks pass` (replay 9910). Features 02 to 06 not played on 1.7 (need `wsl-deps.tools-17.map` and a 1.7 Sanctuary Backlot for 07).
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-10-13
-protocols_read_sha: e733386f133716f60efbad53c37602935eda7050
+protocols_read_sha: c25ae06225bd8489c501cf0fa400deac97b54192
 ---
 
 # Drum Bath Hygiene: status
