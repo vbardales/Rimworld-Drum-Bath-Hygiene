@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: localize[1.1.0]
+workflow_stage: writeTests[1.1.0]
 code_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 settings_audit: not_applicable
