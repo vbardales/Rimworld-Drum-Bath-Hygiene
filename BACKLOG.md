@@ -1,79 +1,53 @@
 # Backlog
 
-Ideas for this mod that are not started. Each entry says what the mechanic would be, what already
-covers part of it, and what has to be settled before the first line of code.
+Ideas for this mod not started. Each entry say what mechanic would be, what already cover part of it, what must settle before first line of code.
 
-An idea earns a place here only if it changes **what pawns do**. Anything already shipped is in
-the changelog instead, and anything that needs watching in play is in
-`Tests/FUNCTIONAL-SCENARIOS.md`. Two kinds of entry are exempt from that rule: upstream proposals
-(pull requests and answers from other mod authors) and tests still to write, since they are part
-of keeping the mod honest rather than ideas for new pawn behaviour.
+Idea earn place here only if change **what pawns do**. Anything shipped go in changelog. Anything needing watch in play go in `Tests/FUNCTIONAL-SCENARIOS.md`. Two entry kinds exempt: upstream proposals (pull requests, answers from other mod authors) and tests still to write, since part of keeping mod honest, not ideas for new pawn behaviour.
 
 ---
 
 ## Pull request to the upstream drum bath mod
 
-**Closed 2026-10-03: PR https://github.com/emipa606/MMDrumcanMOD/pull/2 declined by Mlie (no Publicizer dependency wanted); Mlie will link this mod in the description of MMDrumcanMOD. Fork branch deleted. Nothing left to do upstream.** Opened 2026-10-02 (PUBLISHING.md: once an origin repository exists, the pull request is systematic and stays here
-until done; it is independent of the Workshop publication).
+**Closed 2026-10-03: PR https://github.com/emipa606/MMDrumcanMOD/pull/2 declined by Mlie (no Publicizer dependency wanted); Mlie will link this mod in description of MMDrumcanMOD. Fork branch deleted. Nothing left to do upstream.** Opened 2026-10-02 (PUBLISHING.md: once origin repository exists, pull request systematic, stays here until done; independent of Workshop publication).
 
-Done and closed. The upstream repository is `https://github.com/emipa606/MMDrumcanMOD` (MMDrumcanMOD (Continued), Mlie; MIT; `main`; `1.6/` folder). No repository was found for Dubs Bad Hygiene (`upstream_mod_remotes` in `STATUS.md`). The pull request was proposed with the owner's agreement and declined; this mod stays a bridge, so the drum mod does not depend on Dubs Bad Hygiene.
+Done, closed. Upstream repo `https://github.com/emipa606/MMDrumcanMOD` (MMDrumcanMOD (Continued), Mlie; MIT; `main`; `1.6/` folder). No repo found for Dubs Bad Hygiene (`upstream_mod_remotes` in `STATUS.md`). PR proposed with owner's agreement, declined; this mod stay bridge, so drum mod not depend on Dubs Bad Hygiene.
 
 ## A drum bath fire that can be too strong
 
 Proposed 2026-09-11.
 
-**The fire has two states today, lit and out.** Read in the drum bath assembly rather than
-assumed: the joy giver tests the fuel against a ten per cent threshold, the bath driver never
-reads the fuel at all, and this mod reads it once as the pawn gets in. Nowhere is there a notion
-of how hard the drum is burning. So the water is hot or it is cold, and it is never too hot.
+**Fire has two states today, lit and out.** Read in drum bath assembly, not assumed: joy giver test fuel against ten per cent threshold, bath driver never read fuel, this mod read it once as pawn get in. Nowhere notion of how hard drum burning. Water hot or cold, never too hot.
 
-**What the mechanic would be.** A drum stoked past some point heats the water beyond comfort, and
-the bath stops being a straightforward good. What a bather does about it is the interesting half,
-and it is a choice between four possible designs:
+**Mechanic would be.** Drum stoked past some point heat water beyond comfort, bath stop being plain good. What bather does about it is interesting half, choice between four designs:
 
-- they refuse to get in until it cools, which makes stoking a thing you can overdo;
-- they get in and climb out early, losing the rest of the joy;
-- they get in and take it, for a mood penalty that scales with how far past comfort it went;
-- they get in and take a small burn, which is the only version with a lasting cost.
+- refuse get in until cool, making stoking something you can overdo;
+- get in, climb out early, lose rest of joy;
+- get in and take it, mood penalty scaling with how far past comfort;
+- get in and take small burn, only version with lasting cost.
 
-The second and third are the ones that change what a pawn does without punishing a player for a
-building working as built.
+Second and third change what pawn does without punishing player for building working as built.
 
 ### What is already there, and what it blocks
 
 | Piece | What it gives | What it leaves |
 | --- | --- | --- |
-| `CompRefuelable` on the drum | fuel present or absent, and a burn rate that never varies | no intensity of any kind to read |
-| `CompProperties_HeatPusher` on the drum | room heating, capped at 28 °C | the cap means the room can never say the water is dangerous |
-| `Hed_BathingAtDrumBathPassive` | `ComfyTemperatureMax` +10 and `Flammability` -1.0 while soaking | the game **actively protects** the bather, and the idea has to work against that |
-| Dubs Bad Hygiene | a hot bath thought and a cold bath thought, both +3 | no third state, no scalding, nothing to reuse |
+| `CompRefuelable` on the drum | fuel present or absent, burn rate never varies | no intensity to read |
+| `CompProperties_HeatPusher` on the drum | room heating, capped at 28 °C | cap mean room never say water dangerous |
+| `Hed_BathingAtDrumBathPassive` | `ComfyTemperatureMax` +10 and `Flammability` -1.0 while soaking | game **actively protects** bather, idea must work against that |
+| Dubs Bad Hygiene | hot bath thought and cold bath thought, both +3 | no third state, no scalding, nothing to reuse |
 
-That third row is the real obstacle and the reason this is not a five-line patch. The bathing
-hediff was written to make a bath comfortable in any weather. An idea whose whole point is
-discomfort has to either suspend that stat offset or measure heat somewhere the offset does not
-reach.
+Third row real obstacle, reason not five-line patch. Bathing hediff written to make bath comfortable in any weather. Idea whose point is discomfort must either suspend that stat offset or measure heat somewhere offset not reach.
 
 ### Before starting
 
-1. **Decide where intensity comes from**, since nothing supplies it. Fuel level as a proxy is the
-   cheapest, recent stoking is the truest, and a second comp on the drum is the most honest. This
-   decision shapes everything else.
-2. **Decide whose territory it is.** This mod patches a hediff of someone else's mod and touches
-   nothing else of theirs. Adding heat to their building is a larger intrusion, and may argue for
-   a separate mod rather than a fifth feature here.
-3. Check what happens to an animal or a pawn without a hygiene need, as always here: the existing
-   component takes a quiet exit, and any new effect has to take the same one.
-4. Apply the usual duplicate search on the Workshop before writing anything.
+1. **Decide where intensity come from**, nothing supply it. Fuel level as proxy cheapest, recent stoking truest, second comp on drum most honest. Decision shape everything else.
+2. **Decide whose territory it is.** This mod patch hediff of someone else's mod, touch nothing else of theirs. Adding heat to their building larger intrusion, may argue for separate mod rather than fifth feature here.
+3. Check what happen to animal or pawn without hygiene need, as always here: existing component take quiet exit, any new effect must take same one.
+4. Apply usual duplicate search on Workshop before writing anything.
 
 ### Duplicate search — 2026-09-22
 
-Checked the current Workshop results for drum baths, overheating/scalding, Dubs Bad Hygiene and
-hot-spring compatibility. MMDrumcanMOD (Continued) remains a fuelled recreation bath; Dubs Bad
-Hygiene provides hot/cold bathing and heating systems; and the DBH & VFEC/Hot Spring Compatibility
-mod makes hot springs raise hygiene. None of the results identified a RimWorld 1.6 feature that
-turns excessive fuel in the MMDrumcanMOD drum bath into an overheating consequence. This clears
-the duplicate-search prerequisite only; it does not decide the intensity source or whether this
-belongs in the present bridge rather than a separate mod.
+Checked current Workshop results for drum baths, overheating/scalding, Dubs Bad Hygiene, hot-spring compatibility. MMDrumcanMOD (Continued) remain fuelled recreation bath; Dubs Bad Hygiene provide hot/cold bathing and heating systems; DBH & VFEC/Hot Spring Compatibility mod make hot springs raise hygiene. No result identified RimWorld 1.6 feature turning excessive fuel in MMDrumcanMOD drum bath into overheating consequence. Clear duplicate-search prerequisite only; not decide intensity source or whether belong in present bridge rather than separate mod.
 
 Pages reviewed: [MMDrumcanMOD (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756),
 [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), and
@@ -81,43 +55,17 @@ Pages reviewed: [MMDrumcanMOD (Continued)](https://steamcommunity.com/sharedfile
 
 ### Design decision — 2026-09-22
 
-**Source of intensity: a dedicated heat component on the drum. Scope: a separate mod.** This
-decision follows a fresh read of the installed MMDrumcanMOD (Continued) 1.6 `Drumcan_Bath.xml`:
-`CompProperties_Refuelable` has capacity `10.0`, a fixed consumption rate `5.0`,
-`initialFuelPercent` of `1`, and `consumeFuelOnlyWhenUsed` enabled. More stored wood does not
-make the flame stronger. Fuel percentage is therefore not a defensible temperature proxy, and
-`HasFuel` alone remains the correct hot/cold input for this hygiene bridge. The heat pusher is
-capped at 28 °C, so room temperature does not expose the water temperature either.
+**Source of intensity: dedicated heat component on drum. Scope: separate mod.** Decision follow fresh read of installed MMDrumcanMOD (Continued) 1.6 `Drumcan_Bath.xml`: `CompProperties_Refuelable` have capacity `10.0`, fixed consumption rate `5.0`, `initialFuelPercent` of `1`, `consumeFuelOnlyWhenUsed` enabled. More stored wood not make flame stronger. Fuel percentage therefore not defensible temperature proxy, `HasFuel` alone remain correct hot/cold input for this hygiene bridge. Heat pusher capped at 28 °C, so room temperature not expose water temperature either.
 
-The separate mod should attach a persistent component to `DrumBath`, with a bounded thermal
-state that increases while a fueled bath is occupied and cools while idle. It should explicitly
-model *heat retained after sustained use*, rather than claim that refuelling intensifies the
-flame. Its first gameplay consequence should be a discomfort thought with severity tied to the
-heat excess. That avoids an unproven job interruption and permanent burn while still making a
-long succession of baths costly. Do not alter the upstream hediff's temperature offsets or the
-DBH hot/cold integration. Animals and pawns without a hygiene need need their own explicit
-behavior in the new mod; the existing bridge's quiet exit is not a sufficient test for them.
+Separate mod should attach persistent component to `DrumBath`, with bounded thermal state that rise while fueled bath occupied, cool while idle. Should explicitly model *heat retained after sustained use*, not claim refuelling intensify flame. First gameplay consequence should be discomfort thought with severity tied to heat excess. Avoid unproven job interruption and permanent burn while still making long succession of baths costly. Do not alter upstream hediff's temperature offsets or DBH hot/cold integration. Animals and pawns without hygiene need need own explicit behavior in new mod; existing bridge's quiet exit not sufficient test for them.
 
-Before implementation, establish the upstream driver's actual occupied state and how its
-`CompRefuelable` reports use, then set heating/cooling rates and thresholds from observed bath
-duration (`joyDuration` is 4000 ticks). Write offline tests for the component's state transitions,
-save/reload and threshold math; keep the real bath and mood display as in-game scenarios. The
-new mod requires its own repository, package ID, rights/attribution review, localization and
-publication audit. No source code or distributed files for that separate mod belong in this
-bridge's `Mod/` folder.
+Before implementation, establish upstream driver's actual occupied state and how its `CompRefuelable` report use, then set heating/cooling rates and thresholds from observed bath duration (`joyDuration` is 4000 ticks). Write offline tests for component's state transitions, save/reload, threshold math; keep real bath and mood display as in-game scenarios. New mod require own repository, package ID, rights/attribution review, localization, publication audit. No source code or distributed files for that separate mod belong in this bridge's `Mod/` folder.
 
-The installed 1.6 `DrumBath.dll` was decompiled for the occupied-state question. Its
-`JobDriver_BathingAtDrumBath` adds `Hed_BathingAtDrumBathPassive` in the bath toil's
-`initAction`, removes it in that toil's finish action, and gives that toil a 4000-tick duration
-for humanlike pawns or 2000 ticks for other pawns. This is the specific occupancy signal the
-new component can read without guessing from `CurJob.targetA` (the driver rewrites its targets).
-`Building_DrumBath.Tick()` delegates to `ThingWithComps.Tick()`; it does not report a variable
-fire intensity. Whether `CompRefuelable` burns and how it signals active use remain to be
-verified before choosing thermal rates. No game process was started for this inspection.
+Installed 1.6 `DrumBath.dll` decompiled for occupied-state question. Its `JobDriver_BathingAtDrumBath` add `Hed_BathingAtDrumBathPassive` in bath toil's `initAction`, remove it in that toil's finish action, give that toil 4000-tick duration for humanlike pawns or 2000 ticks for other pawns. This is specific occupancy signal new component can read without guessing from `CurJob.targetA` (driver rewrite its targets). `Building_DrumBath.Tick()` delegate to `ThingWithComps.Tick()`; not report variable fire intensity. Whether `CompRefuelable` burn and how signal active use remain to verify before choosing thermal rates. No game process started for this inspection.
 
 ## Tests still to write
 
-Proposed 2026-10-08. Both come from the "open" line of `STATUS.md`; neither changes what pawns do.
+Proposed 2026-10-08. Both come from "open" line of `STATUS.md`; neither change what pawns do.
 
-- **Bathroom thought.** No scenario asserts the thought stage of Dubs Bad Hygiene's own grading of the room, given on entering the bath. To write once a step can read a pawn's thought and the room's grade.
-- **Adding the mod to a save made without it.** Removal was played 2026-10-08 (`TESTING.md` row 12, run 28cc). The launcher only removes a mod after the first launch (`-ThenWithout`), so "saved without the mod, loaded with it" has no chain of its own; it needs a save known to have been made without the mod, which `test-colony` probably is but nothing asserts. Low value: the mod adds no def of its own and grafts a component by patch.
+- **Bathroom thought.** No scenario assert thought stage of Dubs Bad Hygiene's own grading of room, given on entering bath. Write once step can read pawn's thought and room's grade.
+- **Adding mod to save made without it.** Removal played 2026-10-08 (`TESTING.md` row 12, run 28cc). Launcher only remove mod after first launch (`-ThenWithout`), so "saved without mod, loaded with it" have no chain of own; need save known made without mod, which `test-colony` probably is but nothing assert. Low value: mod add no def of own, graft component by patch.

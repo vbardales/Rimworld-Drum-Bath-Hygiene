@@ -1,13 +1,12 @@
 # Testing Drum Bath Hygiene
 
-Three layers, and the order matters: everything provable without the game is proved without it,
-because a Pickle run takes over a machine for tens of minutes and a headless check takes a second.
+Three layers, order matters: everything provable without game proved without it. Pickle run takes over machine tens of minutes, headless check takes second.
 
 | Layer | What runs it | What it covers |
 | --- | --- | --- |
-| Offline suite | `scripts/Test-Mod.ps1` | the patch XPath and payload over synthetic defs in all nine shapes the upstream hediff could take; metadata, licence copies, packaging; the compiled assembly's component types and its `IgnoresAccessChecksTo` waiver |
-| In-game suite | `Tests/Pickle/` | what needs a map, a pawn and a clock. See `Tests/Pickle/README.md` for the scenario-by-scenario reason |
-| Prose scenarios | nobody, now | `Tests/FUNCTIONAL-SCENARIOS.md` is the written source the Pickle scenarios are drawn from. What is not played is listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
+| Offline suite | `scripts/Test-Mod.ps1` | patch XPath and payload over synthetic defs in all nine shapes upstream hediff could take; metadata, licence copies, packaging; compiled assembly's component types and its `IgnoresAccessChecksTo` waiver |
+| In-game suite | `Tests/Pickle/` | what needs map, pawn, clock. See `Tests/Pickle/README.md` for scenario-by-scenario reason |
+| Prose scenarios | nobody, now | `Tests/FUNCTIONAL-SCENARIOS.md` is written source Pickle scenarios drawn from. What not played listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
 
 ```powershell
 dotnet build Source/DrumBathHygiene.csproj -c Release
@@ -16,100 +15,89 @@ powershell.exe -ExecutionPolicy Bypass -File scripts/Test-Mod.ps1
 ```
 
 `scripts/Test-Mod.ps1` reads compiled assembly metadata through
-`System.Reflection.PortableExecutable`, which Windows PowerShell 5.1 does not carry. Under 5.1 its
-first half passes and it stops at the metadata section. Run it under PowerShell 7 for the whole of
-it; PowerShell 7 is not installed on this machine, which is why that limit is written here rather
-than discovered again.
+`System.Reflection.PortableExecutable`, which Windows PowerShell 5.1 lacks. Under 5.1 first half passes, stops at metadata section. Run under PowerShell 7 for whole thing; PowerShell 7 not installed on this machine, so limit written here instead of rediscovered.
 
 ## How many passes
 
-`../AUDIT.md` asks for three families: one without the optional mods, one per exclusive
-combination of optional mods, and one per declared incompatibility. This mod needs **four runs in three sets (`tools` in two languages, `sanctuary` in two, `removal`),
-and neither of the last two families applies.** The count is small because the mod is small, and
-the reasons are the sort that expire:
+`../AUDIT.md` asks three families: one without optional mods, one per exclusive combination of optional mods, one per declared incompatibility. This mod needs **four runs in three sets (`tools` in two languages, `sanctuary` in two, `removal`), and neither of last two families applies.** Count small because mod small; reasons are sort that expire:
 
 | Pass | Command | What it proves |
 | --- | --- | --- |
-| `tools`, English | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Filter '!07-workshop-captures,!08-removal-write'` | features `01` to `06`: 19 scenarios against Core, the DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod, plus two step packages (below). The mod is loaded as it is with nothing else |
-| `tools`, French | the same with `-Language French` | the same 19 scenarios under a French game. No step spells an English label, so the features are unchanged; what differs is the capture a person then opens |
-| `sanctuary`, English then French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sanctuary.map -Filter '::framed for the page' -Then '::the Needs tab of a colonist'` (and `-Language French`) | `07-workshop-captures`: the two Workshop images, taken in Nelim's Sanctuary (SanctuaryBacklot) with the Backlot's staging packages |
-| `removal`, two launches | `wsl-deps.removal.map`, `-ThenWithout` | `08-removal-write` saves with a colonist in the bath, then `Removal/` loads that save without the mod (row 12 below). Played once, 2026-10-08; replayed when the component or the patch changes |
+| `tools`, English | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Filter '!07-workshop-captures,!08-removal-write'` | features `01` to `06`: 19 scenarios against Core, DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod, plus two step packages (below). Mod loaded as is, nothing else |
+| `tools`, French | same with `-Language French` | same 19 scenarios under French game. No step spells English label, so features unchanged; what differs is capture person then opens |
+| `sanctuary`, English then French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sanctuary.map -Filter '::framed for the page' -Then '::the Needs tab of a colonist'` (and `-Language French`) | `07-workshop-captures`: two Workshop images, taken in Nelim's Sanctuary (SanctuaryBacklot) with Backlot's staging packages |
+| `removal`, two launches | `wsl-deps.removal.map`, `-ThenWithout` | `08-removal-write` saves with colonist in bath, then `Removal/` loads that save without mod (row 12 below). Played once, 2026-10-08; replay when component or patch changes |
 
-**The `tools` pass is not the whole suite, and the whole suite is not one run.** The `tools` map stages
-`nelim.pickletools.inspecttabs` (`PickleTools/InspectTabs`, the steps that open a pawn's inspect tabs, which the stock Pickle
-has not got) and `nelim.pickletools.screenshotstudio`. Neither is an optional mod, so this is still the pass without optional
-mods, named after its map. Since `a39e287` (2026-10-07) `07` no longer runs there: it dresses a colonist with
-`wears … dyed rgb` (`nelim.pickletools.colonistrace`) and builds in the Sanctuary, so on the `tools` map it fails on undefined
-steps. `08` carries `@requires:nelim.drumbathhygiene.pickleremoval` and is skipped without its companion. A run of the `tools`
-map without the `-Filter` above therefore reports 22 scenarios, 19 passed, 2 failed (`07`) and 1 skipped (`08`): that
-is the wrong pass, not a defect of the mod (2026-10-11). Runs 8 and 9 (2026-09-23, 19 scenarios, before `07`) are in
-`docs/runs/history.md`. A filter also exists to retake one image (`PickleTools/Headless/README.md`, "Choosing what to run").
+**`tools` pass not whole suite, whole suite not one run.** `tools` map stages
+`nelim.pickletools.inspecttabs` (`PickleTools/InspectTabs`, steps opening pawn's inspect tabs, stock Pickle lacks) and `nelim.pickletools.screenshotstudio`. Neither optional mod, so still pass without optional
+mods, named after its map. Since `a39e287` (2026-10-07) `07` no longer runs there: dresses colonist with
+`wears … dyed rgb` (`nelim.pickletools.colonistrace`) and builds in Sanctuary, so on `tools` map fails on undefined
+steps. `08` carries `@requires:nelim.drumbathhygiene.pickleremoval`, skipped without companion. Run of `tools`
+map without `-Filter` above therefore reports 22 scenarios, 19 passed, 2 failed (`07`), 1 skipped (`08`): that
+wrong pass, not mod defect (2026-10-11). Runs 8 and 9 (2026-09-23, 19 scenarios, before `07`) in
+`docs/runs/history.md`. Filter also exists to retake one image (`PickleTools/Headless/README.md`, "Choosing what to run").
 
 **No pass with optional mods.** `Mod/About/About.xml` declares `loadAfter` on `Ludeon.RimWorld`,
-`Dubwise.DubsBadHygiene` and `Mlie.MMDrumcanMOD`, Core and the two hard dependencies. There is no
-optional mod to add, so no second set exists. **The day `loadAfter` names a mod that is not a hard
-dependency, this table is wrong** and that mod needs a named set of its own.
+`Dubwise.DubsBadHygiene` and `Mlie.MMDrumcanMOD`, Core and two hard dependencies. No optional mod to add, so no second set. **Day `loadAfter` names mod not hard
+dependency, this table wrong** and that mod needs named set of its own.
 
-**`Tests/Pickle/wsl-ids.map` holds the two hard dependencies, and needs no option.** The shared table in `stage-pickle-wsl.sh` does not know their Workshop ids, and a dependency it cannot place stops the run before anything is launched, which is what the first attempt on 2026-09-21 did (`no Workshop id known for Mlie.MMDrumcanMOD`). That file is read in every pass, the bare one included, and it only *resolves*: nothing on it is activated, so it is not an optional set and it does not rename the pass. An earlier version of it was named `wsl-deps.sans-facultatifs.map` and had to be passed with `-DepMap`; it mislabelled a resolution table as a mod set and staged both mods twice, and the harness now has a place made for it (`scripts/PICKLE-WSL.md`, "Hard dependencies the shared table does not know").
+**`Tests/Pickle/wsl-ids.map` holds two hard dependencies, needs no option.** Shared table in `stage-pickle-wsl.sh` does not know their Workshop ids, and dependency it cannot place stops run before anything launched, which first attempt 2026-09-21 did (`no Workshop id known for Mlie.MMDrumcanMOD`). File read in every pass, bare one included, only *resolves*: nothing on it activated, so not optional set, does not rename pass. Earlier version named `wsl-deps.sans-facultatifs.map`, had to be passed with `-DepMap`; it mislabelled resolution table as mod set and staged both mods twice, and harness now has place made for it (`scripts/PICKLE-WSL.md`, "Hard dependencies the shared table does not know").
 
-**No incompatibility pass.** The mod declares no `incompatibleWith`, and neither `README.md` nor
-`CHANGELOG.md` claims it breaks with anything. There is no assertion to go and re-check. The day
-one is written down, in either file, or in the Workshop description, it needs a
-`wsl-deps.incompat-<mod>.map` and a pass that **asserts the documented symptom** rather than
-expecting a red: `an error matching {string} was logged`, `mod {string} is not loaded`,
-`no def {string} was patched`, with `@allow-errors`. A suite where some reds are wanted and others
-are not cannot be read at a glance.
+**No incompatibility pass.** Mod declares no `incompatibleWith`, and neither `README.md` nor
+`CHANGELOG.md` claims it breaks with anything. No assertion to re-check. Day
+one written down, in either file, or Workshop description, it needs
+`wsl-deps.incompat-<mod>.map` and pass that **asserts documented symptom** rather than
+expecting red: `an error matching {string} was logged`, `mod {string} is not loaded`,
+`no def {string} was patched`, with `@allow-errors`. Suite where some reds wanted, others
+not, cannot be read at glance.
 
-**The language pass is not a mod set**, and it is the one place where the two runs differ by more
-than their name. Language is fixed at staging by `-Language`; a scenario that switched language
-mid-run would hang on a game being torn down under the runner.
+**Language pass not mod set**, and only place two runs differ by more
+than name. Language fixed at staging by `-Language`; scenario switching language
+mid-run would hang on game torn down under runner.
 
 ## What covers what
 
-`Tests/FUNCTIONAL-SCENARIOS.md` holds thirteen scenarios (0-12) and a language check, written for a person.
-`done -> tested` asks that no manual test be left to validate: what used to be ticked by hand is **automated and
-green, or listed as not applicable with its reason**. This is that list. A row is covered only when
-the Pickle scenario it names has passed: **both passes of 2026-09-23 are green, so the rows are covered.**
+`Tests/FUNCTIONAL-SCENARIOS.md` holds thirteen scenarios (0-12) and language check, written for person.
+`done -> tested` asks no manual test left to validate: what used to be ticked by hand **automated and
+green, or listed as not applicable with its reason**. This is that list. Row covered only when
+Pickle scenario it names has passed: **both passes of 2026-09-23 green, so rows covered.**
 
 | Prose scenario | Covered by | Not applicable, and why |
 | --- | --- | --- |
-| 0. It loads, both halves of the patch take | `01`: the patch lands on the hediff the game built; every scenario ends on `no errors were logged` | |
-| 1. The bath washes | `01`: the gauge climbs (with its control), and the end-to-end wash through the real job | |
-| 2. Half a bath is enough, nothing spills over | `01`: half a bath fills an empty gauge (above 0.9 after 2000 ticks); the gauge is full for the last 200 of them, with no warning from the mod | **"Nothing spills over" is not observable.** The fill goes through `Need_Hygiene.clean`, which reads `CurLevel = Min(CurLevel + x, 1)`, and the vanilla `CurLevel` setter clamps to `MaxLevel` as well (both read from the IL on 2026-09-23). It is the dependency's guarantee, so no assertion on the level can fail. An earlier version asserted "below 1.001" after 3000 ticks: it could not fail, and it lowered the floor of the rate check from 0.0004 to 0.00027 per tick |
-| 3. Hot water, and the cold water nobody can order | `02`: two pairs, the pair through the real job (the cold branch is reached on purpose, which no player can), and emptying the drum in the middle of a hot bath, which must not turn it cold because the fuel is read once | |
-| 4. The room is judged | nothing | **Not applicable.** `ApplyBathroomThought` is Dubs Bad Hygiene's grading of a scored room: asserting a stage tests DBH, which can only fail for a reason that is not this mod's. What the bridge owns is the call going through. The bridge reports a failed reflected call with `Log.WarningOnce`, never as an error, so `no errors were logged` cannot see it; every scenario that enters a bath therefore also ends on `no warnings from mod`, and it has to be every one, because `WarningOnce` prints once per session and only the first scenario to trigger it would show it |
-| 5. Onlookers keep noticing | `05`: alone for a full check interval, then an onlooker arrives halfway, and the memory has stacked at the next checks while the bath is still running | |
+| 0. It loads, both halves of the patch take | `01`: patch lands on hediff game built; every scenario ends on `no errors were logged` | |
+| 1. The bath washes | `01`: gauge climbs (with its control), and end-to-end wash through real job | |
+| 2. Half a bath is enough, nothing spills over | `01`: half a bath fills empty gauge (above 0.9 after 2000 ticks); gauge full for last 200 of them, no warning from mod | **"Nothing spills over" not observable.** Fill goes through `Need_Hygiene.clean`, which reads `CurLevel = Min(CurLevel + x, 1)`, and vanilla `CurLevel` setter clamps to `MaxLevel` as well (both read from IL 2026-09-23). Dependency's guarantee, so no assertion on level can fail. Earlier version asserted "below 1.001" after 3000 ticks: could not fail, and lowered floor of rate check from 0.0004 to 0.00027 per tick |
+| 3. Hot water, and the cold water nobody can order | `02`: two pairs, pair through real job (cold branch reached on purpose, which no player can), and emptying drum in middle of hot bath, which must not turn it cold because fuel read once | |
+| 4. The room is judged | nothing | **Not applicable.** `ApplyBathroomThought` is Dubs Bad Hygiene's grading of scored room: asserting stage tests DBH, can only fail for reason not this mod's. Bridge owns call going through. Bridge reports failed reflected call with `Log.WarningOnce`, never as error, so `no errors were logged` cannot see it; every scenario entering bath therefore also ends on `no warnings from mod`, and must be every one, because `WarningOnce` prints once per session and only first scenario to trigger it would show it |
+| 5. Onlookers keep noticing | `05`: alone for full check interval, then onlooker arrives halfway, memory stacked at next checks while bath still running | |
 | 6. Soaking wet is forgotten on the way in | `02` | |
-| 7. The mud comes off on the way out | `03`: carried filth cleared. It executes the `IgnoresAccessChecksTo` waiver | |
-| 8. It survives a save, and a reload | `01`: a bath survives a save and a reload and goes on washing | |
-| 9. Two baths in a row behave alike | `06`: two baths for one colonist and one for another, each asserted for its water memory, soaking wet and hygiene | |
-| 10. Without Dubs Bad Hygiene | nothing | **Not applicable.** DBH is a **hard dependency**: what RimWorld does when one is missing (the warning in the mod list, the load) is the game's, not the mod's: the game itself is not under test. What the mod answers for is what it **declares**: `modDependencies` carries the right package id and Workshop id, and `loadAfter` the right order. That was checked in the sources against the installed `About.xml` files on 2026-09-21. A pass could not play it anyway: the pass map excludes only DLCs. **One open consequence:** the Workshop description, already sent, says nothing breaks without them, which no run has shown |
-| 11. Without the drum bath mod | `scripts/Test-Mod.ps1`: the patch against an upstream that has no such hediff leaves every def unchanged | **Not applicable in game**, same reason as 10 |
-| 12. Into a running save, and out of one | `01`: the two scribed values survive a save and a reload | **Removal played 2026-10-08** (run 28cc, `536e4bf`): `08-removal-write` saves with a colonist in the bath, `removal-check` loads it without the mod (`-ThenWithout`): both green, no error logged, the game runs 250 ticks and saves again. Adding the mod to a save made without it: every scenario loads Pickle's `test-colony`, not made with the mod, but that is not asserted as such; not played as its own case. What the mod writes into the save is the two scribed values |
-| Language check, English and French | the French pass, and the capture of each language | The text on screen is Dubs Bad Hygiene's and the drum mod's, not this bridge's (see `STATUS.md`, translation fields). What remains is **reading the two captures**, which is not a further manual test: it is reading an image that a scenario has already proved to show a colonist in the bath |
+| 7. The mud comes off on the way out | `03`: carried filth cleared. Executes `IgnoresAccessChecksTo` waiver | |
+| 8. It survives a save, and a reload | `01`: bath survives save and reload, goes on washing | |
+| 9. Two baths in a row behave alike | `06`: two baths for one colonist and one for another, each asserted for water memory, soaking wet and hygiene | |
+| 10. Without Dubs Bad Hygiene | nothing | **Not applicable.** DBH is **hard dependency**: what RimWorld does when one missing (warning in mod list, load) is game's, not mod's: game itself not under test. Mod answers for what it **declares**: `modDependencies` carries right package id and Workshop id, `loadAfter` right order. Checked in sources against installed `About.xml` files 2026-09-21. Pass could not play it anyway: pass map excludes only DLCs. **One open consequence:** Workshop description, already sent, says nothing breaks without them, which no run has shown |
+| 11. Without the drum bath mod | `scripts/Test-Mod.ps1`: patch against upstream with no such hediff leaves every def unchanged | **Not applicable in game**, same reason as 10 |
+| 12. Into a running save, and out of one | `01`: two scribed values survive save and reload | **Removal played 2026-10-08** (run 28cc, `536e4bf`): `08-removal-write` saves with colonist in bath, `removal-check` loads it without mod (`-ThenWithout`): both green, no error logged, game runs 250 ticks and saves again. Adding mod to save made without it: every scenario loads Pickle's `test-colony`, not made with mod, but not asserted as such; not played as own case. What mod writes into save is two scribed values |
+| Language check, English and French | French pass, and capture of each language | Text on screen is Dubs Bad Hygiene's and drum mod's, not this bridge's (see `STATUS.md`, translation fields). What remains is **reading two captures**, not further manual test: reading image scenario already proved to show colonist in bath |
 
-**Scenario tags.** Nothing in the suite is `@wip`. One scenario is `@requires:` (`08-removal-write`, which needs its companion mod `nelim.drumbathhygiene.pickleremoval` and is played by the `removal` pass, never skipped there); the mod declares no optional mod, so no other scenario is conditional. The only tags are `@review` and `@film` on the capture, and `@timeout`. Both facts are
-checked by a search of the features before a report is quoted, not assumed.
+**Scenario tags.** Nothing in suite is `@wip`. One scenario is `@requires:` (`08-removal-write`, needs companion mod `nelim.drumbathhygiene.pickleremoval`, played by `removal` pass, never skipped there); mod declares no optional mod, so no other scenario conditional. Only tags are `@review` and `@film` on capture, and `@timeout`. Both facts
+checked by search of features before report quoted, not assumed.
 
-So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 are not applicable**, each with its reason above.
+So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 not applicable**, each with reason above.
 
 ## Reading a report
 
-- `exitReason` first, before any number. A run killed in flight leaves a `summary.json` that looks
-  like a result: "6 passed, 0 failed" over seventeen scenarios, with `exitReason: in-progress`.
-- Scenarios played against features discovered, second. `-pickle-include-wip` has truncated a run
-  to one feature of nineteen and reported `passed`. Nothing else catches that.
-- `@review` green last, and never as a verification. `04-review-capture.feature` attaches an image
-  for a person to open. Its green says the trajectory ran, not that the image shows anything.
-- A run overwrites the previous report, captures included. Copy what is needed before launching
-  again; `PickleReports-archive` keeps five runs and nothing survives past that. Launch with
-  `-EvidenceDir DrumBathHygiene/.build/evidence/<pass>`: the full report stays on disk and out of git
-  (`.build/` is ignored), and a **text summary** goes to `docs/runs/`, see `docs/runs/README.md`, which also says which Evidence to keep after a run (summary, log, the `@review` capture and the film, small) and what to delete.
+- `exitReason` first, before any number. Run killed in flight leaves `summary.json` looking like result: "6 passed, 0 failed" over seventeen scenarios, with `exitReason: in-progress`.
+- Scenarios played against features discovered, second. `-pickle-include-wip` has truncated run to one feature of nineteen and reported `passed`. Nothing else catches that.
+- `@review` green last, never as verification. `04-review-capture.feature` attaches image for person to open. Its green says trajectory ran, not that image shows anything.
+- Run overwrites previous report, captures included. Copy what needed before launching
+  again; `PickleReports-archive` keeps five runs, nothing survives past that. Launch with
+  `-EvidenceDir DrumBathHygiene/.build/evidence/<pass>`: full report stays on disk and out of git
+  (`.build/` ignored), and **text summary** goes to `docs/runs/`, see `docs/runs/README.md`, which also says which Evidence to keep after run (summary, log, `@review` capture and film, small) and what to delete.
 
 ## Status
 
-The offline suite passes. The Pickle suite is 22 scenarios in 8 features, played by the three sets above. Runs 22 and 23
-(`271365b`, 21 of 21, `tools`) predate the Sanctuary migration of `07` and the removal chain: they no longer certify the
-suite as it stands. The current certification is the non-regression of 2026-10-11 on `02b3cb8`, in `docs/runs/README.md`,
+Offline suite passes. Pickle suite is 22 scenarios in 8 features, played by three sets above. Runs 22 and 23
+(`271365b`, 21 of 21, `tools`) predate Sanctuary migration of `07` and removal chain: no longer certify
+suite as it stands. Current certification is non-regression of 2026-10-11 on `02b3cb8`, in `docs/runs/README.md`,
 which keeps one line per run.
-The first run's findings are in `Tests/Pickle/README.md`.
+First run's findings in `Tests/Pickle/README.md`.
