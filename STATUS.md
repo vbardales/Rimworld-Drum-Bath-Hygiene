@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: settings[1.1.0]
+workflow_stage: localize[1.1.0]
 code_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 settings_audit: not_applicable
@@ -58,7 +58,7 @@ protocols_read_sha: 65b4e707e9a64ec96ab06507cdd54337c1f1443d
   (`pwsh -NoProfile -File scripts/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
   No `@wip`; one `@requires` (08, `pickleremoval`); no manual test left. Distributed DLL unchanged since `d7e1737`.
 - **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared (`modDependencies` and `loadAfter` in `About.xml`, no `LoadFolders.xml`); no Harmony, no DLC. Rechecked 2026-10-15 on `0aac039`; Workshop pages tag 1.6 at most (read 2026-10-15), both load on 1.7.4976 (tickets `27c9`, `d108`). Audit 4.a to 4.g replayed 2026-10-17 on `09e41a0`: sources use no Harmony and no DLC; DBH reached only by reflection (`DbhBridge`, inert if absent), drum bath only by XML guarded on `Hed_BathingAtDrumBathPassive` (`PatchOperationConditional`, quiet without it); both stay hard because the mod does nothing without both (stated in the description); `loadAfter` only, no cycle possible, no `incompatibleWith`; not an animal mod (4.f n/a); `sort-load-order.py` not run (no python on this machine).
-- **Settings and translation:** none (`not_applicable`); mod owns no setting, no player-facing text.
+- **Settings and translation:** none (`not_applicable`); mod owns no setting, no player-facing text. Audit 5 and 6 replayed 2026-10-17 on `09e41a0`: `Mod/` ships only `About/`, `Assemblies/`, `Patches/AddComp.xml`, no `Languages/`; `Source/` holds 3 classes (`AccessChecks`, `DbhBridge`, `HediffComp_DrumBathHygiene`), no `Mod` or `ModSettings` subclass, no `Translate()`, no `Messages`/`Letters` text; the two tuning values (`cleanPerTick`, `privacyCheckInterval`) are fixed in the patch, no player-facing option wanted (5.b); no empty settings page, no MainButtons shortcut; `FRENCH_REVIEW.md` present.
 - **Thanks:** to Mlie and Dubwise posted 2026-10-02 (`../WORKSHOP_COMMENTS.md`).
 - **Upstream:** PR emipa606/MMDrumcanMOD#2 declined by Mlie (2026-10-03), who links this mod in his description; closed.
 - **Evidence:** on disk only, `.build/evidence/final-english-2/` and `final-french-2/` (summary, junit, log, `@review` still and film), ignored by git.
