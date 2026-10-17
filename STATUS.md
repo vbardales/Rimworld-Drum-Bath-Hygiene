@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: writeTests[1.1.0]
+workflow_stage: playTests[1.1.0]
 code_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 settings_audit: not_applicable
@@ -54,7 +54,7 @@ protocols_read_sha: 65b4e707e9a64ec96ab06507cdd54337c1f1443d
 
 - **On Steam:** item `3806137182`, public per owner. `1.0.2` (description: links, credits; tag `v1.0.2`, `93539d1`, dry-run 37757004462, publish 37757179159) sent 2026-10-08. `1.0.0` sent by CI 2026-09-28 (tag `v1.0.0`, `c6a0939`); `1.0.1`
   (new preview, icon) sent 2026-10-02 (tag `v1.0.1`, `55d5928`, dry-run 37032154323, publish 37032402412).
-- **Tested:** non-regression 2026-10-11 on `02b3cb8` (runs 24 to 27): 19 `tools` scenarios pass in English and French, 2 gallery scenarios (`sanctuary` map) pass in both; removal chain passed 2026-10-08 (run 28cc, `536e4bf`). Runs 22 and 23 (`271365b`, 21 of 21) predate Sanctuary migration, no longer certify suite. Offline suite
+- **Tested:** non-regression 2026-10-11 on `02b3cb8` (runs 24 to 27): 19 `tools` scenarios pass in English and French, 2 gallery scenarios (`sanctuary` map) pass in both; removal chain passed 2026-10-08 (run 28cc, `536e4bf`). Runs 22 and 23 (`271365b`, 21 of 21) predate Sanctuary migration, no longer certify suite. Offline suite Audit 7 replayed 2026-10-17 on `09e41a0` (Mod/ and Source/ unchanged): `Test-Mod.ps1` green (metadata, licensing, packaging, 10 XML patch cases, compiled types), DLL SHA256 `865ACC8A...` reproduced, Pickle suites written (features 01 to 08, maps `tools`, `tools-17`, `sanctuary`, `removal`), `scripts/Test-Mod.ps1` catalogued in `scripts/LOCAL_SCRIPTS.md`, scenarios in `Tests/FUNCTIONAL-SCENARIOS.md`, translations `not_applicable`.
   (`pwsh -NoProfile -File scripts/Test-Mod.ps1`, after `dotnet build Source/DrumBathHygiene.csproj -c Release`) passes.
   No `@wip`; one `@requires` (08, `pickleremoval`); no manual test left. Distributed DLL unchanged since `d7e1737`.
 - **Dependencies:** `Mlie.MMDrumcanMOD` and `Dubwise.DubsBadHygiene`, both hard and declared (`modDependencies` and `loadAfter` in `About.xml`, no `LoadFolders.xml`); no Harmony, no DLC. Rechecked 2026-10-15 on `0aac039`; Workshop pages tag 1.6 at most (read 2026-10-15), both load on 1.7.4976 (tickets `27c9`, `d108`). Audit 4.a to 4.g replayed 2026-10-17 on `09e41a0`: sources use no Harmony and no DLC; DBH reached only by reflection (`DbhBridge`, inert if absent), drum bath only by XML guarded on `Hed_BathingAtDrumBathPassive` (`PatchOperationConditional`, quiet without it); both stay hard because the mod does nothing without both (stated in the description); `loadAfter` only, no cycle possible, no `incompatibleWith`; not an animal mod (4.f n/a); `sort-load-order.py` not run (no python on this machine).
