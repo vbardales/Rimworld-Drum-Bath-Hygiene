@@ -7,7 +7,7 @@ folder, never as folders**. So it is split in two:
 
 | What | Where | In git |
 | --- | --- | --- |
-| **Evidence**: the report, the captures, the films, `Player.log` | `.build/evidence/<pass>/`, written by `Run-PickleWsl.ps1 -EvidenceDir DrumBathHygiene/.build/evidence/<pass>` | **No.** `.build/` is ignored |
+| **Evidence**: the report, the captures, the films, `Player.log` | `Tests/Pickle/Inbox/<run>` (`-EvidenceDir`), then minified into `Tests/Pickle/Evidence/` or parked | **No.** `Tests/Pickle/` evidence folders are ignored |
 | **History**: one line per run | the table below | Yes |
 
 The Evidence is a working copy: it survives on this machine only, and `PickleReports-archive` purges after five runs, so
