@@ -551,7 +551,7 @@ namespace DrumBathHygiene.PickleSteps
 
         /// <summary>
         /// The patch, observed on the hediff the game actually built rather than on the document a
-        /// headless run patched. `_tools/Test-Mod.ps1` proves the XPath and the payload over
+        /// headless run patched. the removed `Test-Mod.ps1` proved the XPath and the payload over
         /// synthetic defs; whether the loaded hediff ends up carrying the component is decided by
         /// the real patch engine, in load order, with every other active mod's operations in the
         /// same document.

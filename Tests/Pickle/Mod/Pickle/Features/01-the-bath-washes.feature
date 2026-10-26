@@ -1,10 +1,8 @@
 # What only a running game can say about Drum Bath Hygiene.
 #
-# Everything provable without the game is proved without it, by scripts/Test-Mod.ps1: the patch
-# XPath and payload run over synthetic defs in all nine shapes the upstream hediff could take, the
-# metadata, the licence copies, and the access waiver read off the compiled assembly. None of that
-# is repeated here. A run confiscates the machine for tens of minutes; a scenario restating a check
-# that takes two seconds offline buys nothing with it.
+# There is no offline suite: scripts/Test-Mod.ps1 was removed on 2026-10-26 (owner). Only what the
+# build proves is left outside the game. A run confiscates the machine for tens of minutes, so a
+# scenario restating a compile-time check buys nothing.
 #
 # What is left is what needs a map, a pawn and a clock:
 #

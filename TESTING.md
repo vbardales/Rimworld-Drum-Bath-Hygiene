@@ -1,21 +1,18 @@
 # Testing Drum Bath Hygiene
 
-Three layers, order matters: everything provable without game proved without it. Pickle run takes over machine tens of minutes, headless check takes second.
+Two layers. No offline suite: `scripts/Test-Mod.ps1` was removed 2026-10-26 (owner), so nothing runs without the game except the build itself. Pickle run takes over machine tens of minutes.
 
 | Layer | What runs it | What it covers |
 | --- | --- | --- |
-| Offline suite | `scripts/Test-Mod.ps1` | patch XPath and payload over synthetic defs in all nine shapes upstream hediff could take; metadata, licence copies, packaging; compiled assembly's component types and its `IgnoresAccessChecksTo` waiver |
 | In-game suite | `Tests/Pickle/` | what needs map, pawn, clock. See `Tests/Pickle/README.md` for scenario-by-scenario reason |
 | Prose scenarios | nobody, now | `Tests/FUNCTIONAL-SCENARIOS.md` is written source Pickle scenarios drawn from. What not played listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
 
 ```powershell
 dotnet build Source/DrumBathHygiene.csproj -c Release
 dotnet build Tests/Pickle/Source/DrumBathHygiene.PickleSteps.csproj -c Release
-powershell.exe -ExecutionPolicy Bypass -File scripts/Test-Mod.ps1
 ```
 
-`scripts/Test-Mod.ps1` reads compiled assembly metadata through
-`System.Reflection.PortableExecutable`, which Windows PowerShell 5.1 lacks. Under 5.1 first half passes, stops at metadata section. Run under PowerShell 7 for whole thing; PowerShell 7 not installed on this machine, so limit written here instead of rediscovered.
+The offline suite (patch XPath and payload over nine synthetic shapes, metadata, licence copies, packaging, component types, `IgnoresAccessChecksTo` waiver) is gone with the script; last version in git history (`git show 2d675b8:scripts/Test-Mod.ps1`). The waiver is still executed by `03-climbing-out`; the patch is still observed on the loaded hediff by `01`.
 
 ## How many passes
 
@@ -75,14 +72,14 @@ Pickle scenario it names has passed: **both passes of 2026-09-23 green, so rows 
 | 8. It survives a save, and a reload | `01`: bath survives save and reload, goes on washing | |
 | 9. Two baths in a row behave alike | `06`: two baths for one colonist and one for another, each asserted for water memory, soaking wet and hygiene | |
 | 10. Without Dubs Bad Hygiene | nothing | **Not applicable.** DBH is **hard dependency**: what RimWorld does when one missing (warning in mod list, load) is game's, not mod's: game itself not under test. Mod answers for what it **declares**: `modDependencies` carries right package id and Workshop id, `loadAfter` right order. Checked in sources against installed `About.xml` files 2026-09-21. Pass could not play it anyway: pass map excludes only DLCs. **One open consequence:** Workshop description, already sent, says nothing breaks without them, which no run has shown |
-| 11. Without the drum bath mod | `scripts/Test-Mod.ps1`: patch against upstream with no such hediff leaves every def unchanged | **Not applicable in game**, same reason as 10 |
+| 11. Without the drum bath mod | nothing | **Not applicable in game**, same reason as 10. Was checked offline (patch against upstream with no such hediff leaves every def unchanged) until `scripts/Test-Mod.ps1` was removed 2026-10-26: no check left, the patch is guarded by `PatchOperationConditional` |
 | 12. Into a running save, and out of one | `01`: two scribed values survive save and reload | **Removal played 2026-10-08** (run 28cc, `536e4bf`): `08-removal-write` saves with colonist in bath, `removal-check` loads it without mod (`-ThenWithout`): both green, no error logged, game runs 250 ticks and saves again. Adding mod to save made without it: every scenario loads Pickle's `test-colony`, not made with mod, but not asserted as such; not played as own case. What mod writes into save is two scribed values |
 | Language check, English and French | French pass, and capture of each language | Text on screen is Dubs Bad Hygiene's and drum mod's, not this bridge's (see `STATUS.md`, translation fields). What remains is **reading two captures**, not further manual test: reading image scenario already proved to show colonist in bath |
 
 **Scenario tags.** Nothing in suite is `@wip`. One scenario is `@requires:` (`08-removal-write`, needs companion mod `nelim.drumbathhygiene.pickleremoval`, played by `removal` pass, never skipped there); mod declares no optional mod, so no other scenario conditional. Only tags are `@review` and `@film` on capture, and `@timeout`. Both facts
 checked by search of features before report quoted, not assumed.
 
-So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 not applicable**, each with reason above.
+So Pickle plays scenarios 0 to 3 and 5 to 9; **4, 10, 11 and 12 not applicable**, each with reason above.
 
 ## Reading a report
 
@@ -96,7 +93,7 @@ So Pickle plays scenarios 0 to 3 and 5 to 9, and 11 offline; **4, 10 and 12 not 
 
 ## Status
 
-Offline suite passes. Pickle suite is 22 scenarios in 8 features, played by three sets above. Runs 22 and 23
+No offline suite (removed 2026-10-26). Pickle suite is 22 scenarios in 8 features, played by three sets above. Runs 22 and 23
 (`271365b`, 21 of 21, `tools`) predate Sanctuary migration of `07` and removal chain: no longer certify
 suite as it stands. Current certification is non-regression of 2026-10-11 on `02b3cb8`, in `docs/runs/README.md`,
 which keeps one line per run.

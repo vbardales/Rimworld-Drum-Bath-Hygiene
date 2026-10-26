@@ -3,13 +3,12 @@
 A short suite, run inside a running RimWorld by
 [Pickle](https://github.com/RimWorks/Rimworld-Pickle) (`rimworks.pickle`, Workshop 3791648678).
 
-**Read `scripts/Test-Mod.ps1` first.** It applies this mod's real patch XPath and payload over
-synthetic upstream defs, in all nine shapes the drum bath hediff could arrive in, plus the
-metadata, licence and packaging checks and the access waiver read off the compiled assembly, in
-about a second, with no game. A Pickle run takes over a machine for tens of minutes. Nothing lives
-here that can be proved outside the game, and the one feature that was drafted and cut said so:
-a scenario re-asserting the patch over the same nine shapes would have confiscated the machine to
-repeat a check that already runs on every build.
+**No offline suite.** `scripts/Test-Mod.ps1` (the patch XPath and payload over nine synthetic
+shapes of the drum bath hediff, metadata, licence and packaging checks, the access waiver read off
+the compiled assembly) was removed 2026-10-26 by the owner; it stays in git history. A Pickle run
+takes over a machine for tens of minutes. The one feature drafted and cut here said that a scenario
+re-asserting the patch over the nine shapes would repeat what that script checked; with the script
+gone, nothing asserts those shapes any more.
 
 `Mod/` is a companion mod, **Drum Bath Hygiene - Pickle tests**, never published. It holds the
 feature files and the step assembly, so nothing test-related ships in the Workshop folder, which
@@ -37,9 +36,9 @@ matters here more than usual: `SteamUGC.SetItemContent` sends `Mod/` whole, with
 
 `Source/AccessChecks.cs` records a defect that a clean build, a clean startup and a successful
 patch all hid: with the `IgnoresAccessChecksTo` waiver missing, every bath **ended** on a
-`FieldAccessException` thrown out of the hediff's removal. `Test-Mod.ps1` reads the waiver off the
-compiled assembly, which is cheap and catches the waiver being absent. It cannot catch a waiver
-that is present and names the wrong assembly. `03-climbing-out.feature` executes the instruction,
+`FieldAccessException` thrown out of the hediff's removal. The removed `Test-Mod.ps1` read the waiver off the
+compiled assembly, which caught the waiver being absent but not a waiver that is present and names
+the wrong assembly. Only the scenario below catches the second. `03-climbing-out.feature` executes the instruction,
 on a real filth tracker with real filth in it.
 
 ## How many passes
@@ -111,7 +110,7 @@ fails on undefined steps. (`Mod/Assemblies/DrumBathHygiene.dll`, the deliverable
   prose file. **Not applicable.** Both are declared hard dependencies: what RimWorld does when one is
   missing is the game's, and the mod answers for what it *declares*, which is checked in the sources.
   The harness could not play it anyway: a pass map excludes only DLCs, and staging places every hard
-  dependency. The patch against an upstream without the hediff is covered offline, by `Test-Mod.ps1`.
+  dependency. The patch against an upstream without the hediff is no longer checked (offline script removed 2026-10-26); the patch is guarded by `PatchOperationConditional`.
 - **Removing the mod from a save in progress**, prose scenario 12. **Not applicable.** How RimWorld
   loads a save under a different mod list is the game's; the mod's share is the two values it scribes,
   which the save-and-reload scenario covers.
@@ -135,7 +134,7 @@ fails on undefined steps. (`Mod/Assemblies/DrumBathHygiene.dll`, the deliverable
 - **The `PushingDrumcan` building**, which ships in the same mod but is an unrelated joy building
   with no hediff and no link to hygiene. The component is grafted onto the bathing hediff alone, and
   nothing in `Source/` or `Mod/` mentions it.
-- **Anything `scripts/Test-Mod.ps1` already proves.** A scenario that restates an offline check
+- **Anything the build already proves.** A scenario that restates a compile-time check
   costs a machine and buys nothing.
 
 ## Setup, once

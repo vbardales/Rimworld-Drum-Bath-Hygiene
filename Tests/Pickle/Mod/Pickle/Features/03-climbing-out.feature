@@ -7,10 +7,9 @@
 # missing, nothing said so - the build stayed clean, the patch applied, every bath started
 # normally, and every bath ENDED on a FieldAccessException thrown out of the hediff's removal.
 #
-# scripts/Test-Mod.ps1 reads the waiver off the compiled assembly, which is the cheap half of the
-# guard. This feature is the other half: the instruction actually executing, on a real tracker,
-# with real filth in it. A waiver present but pointing at the wrong assembly would pass the offline
-# check and fail here.
+# This feature is the guard: the instruction actually executing, on a real tracker, with real
+# filth in it. A waiver absent, or present but pointing at the wrong assembly, fails here (the
+# offline script that read the waiver off the compiled assembly was removed 2026-10-26).
 #
 # The second scenario is the mirror of the first feature's control. The gauge has to STOP when the
 # hediff goes, and nothing in the component says so explicitly: it stops because the comp stops
