@@ -1,9 +1,10 @@
 # Testing Drum Bath Hygiene
 
-Two layers. No offline suite: `scripts/Test-Mod.ps1` was removed 2026-10-26 (owner), so nothing runs without the game except the build itself. Pickle run takes over machine tens of minutes.
+Two layers, plus shared checks. `scripts/Test-Mod.ps1` was removed 2026-10-26 (owner): offline checks now come from the protocols repo scripts (`../scripts/`), not from a local script. Pickle run takes over machine tens of minutes.
 
 | Layer | What runs it | What it covers |
 | --- | --- | --- |
+| Shared offline check | `powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/Check-ModBasics.ps1 -ModRoot .` | `About.xml`, notices, images, XML well-formedness (PASS 2026-10-26: 2 XML files, 0 defs). `Run-UnitTests.ps1` needs a `Tests/*.Tests.csproj`, none here |
 | In-game suite | `Tests/Pickle/` | what needs map, pawn, clock. See `Tests/Pickle/README.md` for scenario-by-scenario reason |
 | Prose scenarios | nobody, now | `Tests/FUNCTIONAL-SCENARIOS.md` is written source Pickle scenarios drawn from. What not played listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
 
@@ -12,7 +13,7 @@ dotnet build Source/DrumBathHygiene.csproj -c Release
 dotnet build Tests/Pickle/Source/DrumBathHygiene.PickleSteps.csproj -c Release
 ```
 
-The offline suite (patch XPath and payload over nine synthetic shapes, metadata, licence copies, packaging, component types, `IgnoresAccessChecksTo` waiver) is gone with the script; last version in git history (`git show 2d675b8:scripts/Test-Mod.ps1`). The waiver is still executed by `03-climbing-out`; the patch is still observed on the loaded hediff by `01`.
+The removed offline suite (patch XPath and payload over nine synthetic shapes, metadata, licence copies, packaging, component types, `IgnoresAccessChecksTo` waiver) is not replaced by a shared script: none runs a patch over synthetic defs. Last version in git history (`git show 2d675b8:scripts/Test-Mod.ps1`). The waiver is still executed by `03-climbing-out`; the patch is still observed on the loaded hediff by `01`.
 
 ## How many passes
 
