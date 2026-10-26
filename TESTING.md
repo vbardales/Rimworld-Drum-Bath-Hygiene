@@ -5,6 +5,7 @@ Two layers, plus shared checks. `scripts/Test-Mod.ps1` was removed 2026-10-26 (o
 | Layer | What runs it | What it covers |
 | --- | --- | --- |
 | Shared offline check | `powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/Check-ModBasics.ps1 -ModRoot .` | `About.xml`, notices, images, XML well-formedness (PASS 2026-10-26: 2 XML files, 0 defs). `Run-UnitTests.ps1` needs a `Tests/*.Tests.csproj`, none here |
+| Shared XML checks | `../scripts/Check-XmlFields.ps1 -ModPath Mod`, `Check-TypeRefs.ps1 -ModPath Mod`, `Check-DefRefs.ps1 -ModPath Mod` | every element maps to a game field; no unguarded third-party type; every `ParentName` resolves (all clean 2026-10-26). `Check-XmlClasses.ps1` needs `-TypeLists`, not run |
 | In-game suite | `Tests/Pickle/` | what needs map, pawn, clock. See `Tests/Pickle/README.md` for scenario-by-scenario reason |
 | Prose scenarios | nobody, now | `Tests/FUNCTIONAL-SCENARIOS.md` is written source Pickle scenarios drawn from. What not played listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
 
