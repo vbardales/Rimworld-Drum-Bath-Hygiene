@@ -69,7 +69,7 @@ see `Tests/FUNCTIONAL-SCENARIOS.md`.
 Mod/       published to the Workshop; target of the junction into RimWorld/Mods
 Source/    never published
 Art/       full-size originals of the preview and icon; never published
-.build/    build intermediates, ignored by git
+Build/     build intermediates, ignored by git
 ```
 
 The Workshop uploader sends the mod folder as it stands, with no filtering ,

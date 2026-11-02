@@ -9,6 +9,8 @@ Two layers, plus shared checks. `scripts/Test-Mod.ps1` was removed 2026-10-26 (o
 | In-game suite | `Tests/Pickle/` | what needs map, pawn, clock. See `Tests/Pickle/README.md` for scenario-by-scenario reason |
 | Prose scenarios | nobody, now | `Tests/FUNCTIONAL-SCENARIOS.md` is written source Pickle scenarios drawn from. What not played listed **not applicable, with its reason**, in "What covers what" below: `tested` leaves no manual test to validate |
 
+**No unit-test project (AUDIT.md 7.b, written 2026-11-02).** The 3 classes of `Source/` (`AccessChecks`, `DbhBridge`, `HediffComp_DrumBathHygiene`) read live game state (hediff, room, pawn, tick) and the DBH needs by reflection: a unit test would need a mocked game. The automated proof is instead the shared checks above (`Check-ModBasics`, `Check-XmlFields`, `Check-TypeRefs`, `Check-DefRefs`, `Check-XmlClasses`) plus the Pickle suite in game (`Tests/Pickle/`, features 01 to 08), which observe the compiled mod on a loaded hediff. `Run-UnitTests.ps1` answers n/a for that reason.
+
 ```powershell
 dotnet build Source/DrumBathHygiene.csproj -c Release
 dotnet build Tests/Pickle/Source/DrumBathHygiene.PickleSteps.csproj -c Release
@@ -90,8 +92,8 @@ So Pickle plays scenarios 0 to 3 and 5 to 9; **4, 10, 11 and 12 not applicable**
 - `@review` green last, never as verification. `04-review-capture.feature` attaches image for person to open. Its green says trajectory ran, not that image shows anything.
 - Run overwrites previous report, captures included. Copy what needed before launching
   again; `PickleReports-archive` keeps five runs, nothing survives past that. Launch with
-  `-EvidenceDir DrumBathHygiene/.build/evidence/<pass>`: full report stays on disk and out of git
-  (`.build/` ignored), and **text summary** goes to `docs/runs/`, see `docs/runs/README.md`, which also says which Evidence to keep after run (summary, log, `@review` capture and film, small) and what to delete.
+  `-EvidenceDir DrumBathHygiene/Build/evidence/<pass>`: full report stays on disk and out of git
+  (`Build/` ignored), and **text summary** goes to `docs/runs/`, see `docs/runs/README.md`, which also says which Evidence to keep after run (summary, log, `@review` capture and film, small) and what to delete.
 
 ## Status
 
