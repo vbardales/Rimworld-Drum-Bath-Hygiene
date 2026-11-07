@@ -1,24 +1,14 @@
 {
   "panel": {
     "title": "Drum Bath Hygiene",
-    "titleSize": 49,
     "titleParts": [
-      {
-        "text": "Drum Bath Hygiene",
-        "scale": 1
-      }
+      { "text": "Drum Bath Hygiene" }
     ],
-    "copyLines": [
-      "The drum bath finally washes the colonist soaking in it."
-    ]
+    "description": "The drum bath finally washes the colonist soaking in it."
   },
-  "backgroundFile": "Preview-source.png",
-  "echo": {
-    "file": "echo-source.png"
-  },
-  "iconBadge": {
-    "file": "ModIcon-source.png"
-  },
+  "background": { "file": "Preview-source.png" },
+  "echo": { "file": "echo-source.png" },
+  "icon": { "file": "ModIcon-source.png" },
   "palette": {
     "veil": "#373329",
     "inkPrimary": "#F2ECE1",
