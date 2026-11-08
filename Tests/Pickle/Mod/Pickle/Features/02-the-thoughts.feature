@@ -134,7 +134,10 @@ Feature: the memories a bath leaves
     And Drum Bath Hygiene: "Shivering" is chilled to severity 0.5
     And "Shivering" needs "Joy" is set to 10 percent
     And game speed is ultrafast
-    When Drum Bath Hygiene: "Shivering" is ordered to bathe in the drum at x=142 z=155
+    # Placed three cells from the drum, because on the 1.7 host the default spawn 50 cells away is not
+    # walked in 180 s (ticket 7886, pawn 20 cells on). The driver still does the walking and the placing.
+    When Drum Bath Hygiene: "Shivering" stands 3 cells east of the drum at x=142 z=155
+    And Drum Bath Hygiene: "Shivering" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Shivering" is bathing in the drum at x=142 z=155
     # The memory is granted by the component's first tick, one tick after the hediff appears: without
     # this wait the assertion below can run in the same instant as the step above and see nothing.
@@ -176,13 +179,19 @@ Feature: the memories a bath leaves
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And Drum Bath Hygiene: "Steady" is chilled to severity 0.5
+    And game speed is ultrafast
     When Drum Bath Hygiene: "Steady" climbs into the drum at x=142 z=155
     And I draft "Steady"
     And "Steady" is given hediff "Hed_BathingAtDrumBathPassive"
     And I wait 10 ticks
     Then "Steady" has thought "HotBath"
     When Drum Bath Hygiene: the drum at x=142 z=155 has burnt out
-    And I wait 700 ticks
+    # A step times out after 5 s of real time, so each wait stays under 150 ticks (ticket 87c8).
+    And I wait 140 ticks
+    And I wait 140 ticks
+    And I wait 140 ticks
+    And I wait 140 ticks
+    And I wait 140 ticks
     Then "Steady" has no thought "ColdWater"
     And Drum Bath Hygiene: the bathing hediff of "Steady" carries the component
     And no warnings from mod "Drum Bath Hygiene"

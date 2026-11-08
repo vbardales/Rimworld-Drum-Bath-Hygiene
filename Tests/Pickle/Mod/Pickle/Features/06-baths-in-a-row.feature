@@ -41,6 +41,8 @@ Feature: baths in a row behave alike
     And "Twice" needs "Joy" is set to 10 percent
     And "Twice" is given thought "SoakingWet"
     When Drum Bath Hygiene: I remember "Twice" hygiene
+    # Placed three cells from the drum: on the 1.7 host the default spawn 50 cells away is not walked in 180 s (tickets 7886, 1a63).
+    And Drum Bath Hygiene: "Twice" stands 3 cells east of the drum at x=142 z=155
     And Drum Bath Hygiene: "Twice" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Twice" is bathing in the drum at x=142 z=155
     When I wait 10 ticks
@@ -73,6 +75,7 @@ Feature: baths in a row behave alike
     And "Other" needs "Joy" is set to 10 percent
     And "Other" is given thought "SoakingWet"
     And Drum Bath Hygiene: I remember "Other" hygiene
+    And Drum Bath Hygiene: "Other" stands 3 cells east of the drum at x=142 z=155
     And Drum Bath Hygiene: "Other" is ordered to bathe in the drum at x=142 z=155
     Then Drum Bath Hygiene: "Other" is bathing in the drum at x=142 z=155
     When I wait 10 ticks

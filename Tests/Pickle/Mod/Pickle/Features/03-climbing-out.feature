@@ -41,15 +41,20 @@ Feature: climbing out of the bath
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
     And Drum Bath Hygiene: the drum at x=142 z=155 is burning
     And "Done" needs "Hygiene" is set to 10 percent
+    And game speed is ultrafast
     When Drum Bath Hygiene: "Done" climbs into the drum at x=142 z=155
     And I draft "Done"
     And "Done" is given hediff "Hed_BathingAtDrumBathPassive"
-    And I wait 300 ticks
+    # A step times out after 5 s of real time, so each wait stays under 150 ticks (ticket 87c8).
+    And I wait 150 ticks
+    And I wait 150 ticks
     And "Done" is cured of hediff "Hed_BathingAtDrumBathPassive"
     Then "Done" has no hediff "Hed_BathingAtDrumBathPassive"
     When Drum Bath Hygiene: I remember "Done" hygiene
-    And I wait 300 ticks
-    And I wait 300 ticks
+    And I wait 150 ticks
+    And I wait 150 ticks
+    And I wait 150 ticks
+    And I wait 150 ticks
     Then Drum Bath Hygiene: "Done" hygiene did not rise
     And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
