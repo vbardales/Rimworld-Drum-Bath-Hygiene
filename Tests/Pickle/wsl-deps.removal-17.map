@@ -1,0 +1,6 @@
+# RimWorld 1.7 pass, feature 08 (removal chain), same chain as wsl-deps.removal.map on 1.6 (owner 2026-11-09: what is played on 1.6 is played on 1.7).
+# Submit with -Game /home/nelim/rimworld17 -DepMap wsl-deps.removal-17.map -Filter 08-removal-write -Then removal-check
+# -ThenWithout nelim.drumbathhygiene,nelim.drumbathhygiene.pickletests. Companion loaded by path relative to the monorepo root.
+nelim.drumbathhygiene.pickleremoval  path:DrumBathHygiene/Tests/Pickle/Removal/Mod
+# The bundle is committed under PickleTools/Mod: this shell replaces it (see StandaloneBase), as in wsl-deps.tools-17.map.
+nelim.pickletools   path:PickleTools/Tests/Pickle/StandaloneBase/Mod
