@@ -174,6 +174,7 @@ Feature: the memories a bath leaves
   # The colonist is chilled so that a cold reading has something to grant: with Hypothermia, DBH gives
   # ColdWater for cold water (and worsens it), and a healthy pawn in warm water gets nothing either way.
   # The hot-bath memory is asserted first, so the drum was read as burning at the door.
+  @timeout:60
   Scenario: emptying the drum in the middle of a hot bath does not turn it cold
     Given a colonist "Steady" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
@@ -186,12 +187,15 @@ Feature: the memories a bath leaves
     And I wait 10 ticks
     Then "Steady" has thought "HotBath"
     When Drum Bath Hygiene: the drum at x=142 z=155 has burnt out
-    # A step times out after 5 s of real time, so each wait stays under 150 ticks (ticket 87c8).
-    And I wait 140 ticks
-    And I wait 140 ticks
-    And I wait 140 ticks
-    And I wait 140 ticks
-    And I wait 140 ticks
+    # A step has 5 s of real time unless @timeout:N raises it (ticket e2fa: 140 ticks at 40 ms a tick
+    # timed out), so each wait stays at 100 ticks or less, 700 in all.
+    And I wait 100 ticks
+    And I wait 100 ticks
+    And I wait 100 ticks
+    And I wait 100 ticks
+    And I wait 100 ticks
+    And I wait 100 ticks
+    And I wait 100 ticks
     Then "Steady" has no thought "ColdWater"
     And Drum Bath Hygiene: the bathing hediff of "Steady" carries the component
     And no warnings from mod "Drum Bath Hygiene"

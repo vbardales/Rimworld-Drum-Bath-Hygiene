@@ -36,6 +36,7 @@ Feature: climbing out of the bath
     And no warnings from mod "Drum Bath Hygiene"
     And no errors were logged
 
+  @timeout:60
   Scenario: the gauge stops when the bath does
     Given a colonist "Done" exists
     And Drum Bath Hygiene: a drum bath stands at x=142 z=155
@@ -45,7 +46,7 @@ Feature: climbing out of the bath
     When Drum Bath Hygiene: "Done" climbs into the drum at x=142 z=155
     And I draft "Done"
     And "Done" is given hediff "Hed_BathingAtDrumBathPassive"
-    # A step times out after 5 s of real time, so each wait stays under 150 ticks (ticket 87c8).
+    # A step has 5 s of real time unless @timeout:N raises it (ticket e2fa), so each wait stays at 150 ticks.
     And I wait 150 ticks
     And I wait 150 ticks
     And "Done" is cured of hediff "Hed_BathingAtDrumBathPassive"
