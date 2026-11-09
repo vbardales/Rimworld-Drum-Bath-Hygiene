@@ -1,0 +1,34 @@
+# RimWorld 1.7 gallery pass for feature 07 (owner 2026-11-09: what is played on 1.6 is played on 1.7). 1.7 twin of wsl-deps.sanctuary.map.
+# DRAFT, NOT SUBMITTED: the Facial Animation set (Nals.FacialAnimation, FAExperimentals, VTEXE.FacialAnims, AKNExtras, lucius.eyegenes3,
+# astryl perf patch, sd.fa.movingvanillaeyes) waits for the owner's answer (1.7 pattern: PickleTools wsl-deps.look-catalogue-17.map).
+# Tool folders: net10.0 builds in PickleTools/Build17 (PiT 3b259a3). Sanctuary: net10.0 build SanctuaryBacklot/Tests/Pickle/Build17 (SaB 5134f1c).
+# The Nelims-tribe fixture lives only in the Backlot build (no copy here, else "Multiple fixtures named Nelims-tribe").
+# Settings seeds: Tests/Pickle/config/sanctuary/. 1.7 runs English only; proof = Player.log + Pickle report.
+nelim.pickletools.screenshotstudio path:PickleTools/Build17/ScreenshotStudio
+nelim.pickletools.camerazoom path:PickleTools/Build17/CameraZoom
+nelim.pickletools.stagedecor path:PickleTools/Build17/StageDecor
+nelim.pickletools.coatsteps path:PickleTools/Build17/CoatSteps
+nelim.pickletools.clearscreen path:PickleTools/Build17/ClearScreen
+nelim.pickletools.colonistrace path:PickleTools/Build17/ColonistRace
+nelim.pickletools.clickdiagnostics path:PickleTools/Build17/ClickDiagnostics
+nelim.pickletools.inspecttabs path:PickleTools/Build17/InspectTabs
+nelim.pickletools.screenshotmode path:PickleTools/Build17/ScreenshotMode
+nelim.pickletools path:PickleTools/Tests/Pickle/StandaloneBase/Mod
+# 1.6-only mods load on 1.7 through No Version Warning (read Player.log for what breaks):
+brrainz.harmony 2009463077
+Mlie.NoVersionWarning 2599504692
+# Bodies and clothes (VenusTouchWaistlines list, owner 2026-11-09):
+tiagocc0.FemaleBodyVariants 3798082132
+tiagocc0.FemaleApparelVariants 3799726535
+wdi.realistic.bodies 3527486510
+ab.vplrf 2986402536
+# VenusTouchWaistlines' own mods (1.7 declared: Harmony, General Textures Collection; 1.6 or older only: the others):
+astryl.tailormade 3756915448
+Kas.GeneralCollection 3789119336
+nalsnoir.ApparelPaperPattern 2480887589
+WRK.APPBodyTypeOverrider 2839443438
+LoneKin.ChildrenWearAnything 3688530033
+Malistaticy.UnderWhere 1870010563
+nelim.venustouch.waistlines path:VenusTouchWaistlines/Mod
+# The Backlot, net10.0:
+nelim.sanctuarybacklot path:SanctuaryBacklot/Tests/Pickle/Build17/SanctuaryBacklot
