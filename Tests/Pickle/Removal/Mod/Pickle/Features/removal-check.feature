@@ -3,11 +3,14 @@
 # component. The drum mod (MMDrumcanMOD) and Dubs Bad Hygiene stay loaded: only the component's class is gone.
 Feature: A game saved with Drum Bath Hygiene, a colonist in the bath, loaded without it
 
+  @timeout:60
   Scenario: the save loads and runs without the mod
     Given mod "nelim.drumbathhygiene" is not loaded
     And the save "dbh-removal-with-mod" is loaded
-    And game speed is fast
-    When I wait 250 ticks
+    And game speed is ultrafast
+    When I wait 100 ticks
+    And I wait 100 ticks
+    And I wait 50 ticks
     Then no errors were logged
     And the engine is alive
     When I save and reload as "dbh-removal-without-mod"
