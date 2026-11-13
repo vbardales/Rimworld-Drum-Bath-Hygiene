@@ -73,6 +73,32 @@ protocols_read_sha: 2662ac460346298294f4be0ddf4954cbd2b8677e
 - **Upstream:** PR emipa606/MMDrumcanMOD#2 declined by Mlie (2026-10-03), who links this mod in his description; closed.
 - **Evidence:** on disk only, `Tests/Pickle/Evidence/` (minified, each with `RELEASE.md`): `final-french-2/`, `p17-dbh-01-replay3/`, `p17-dbh-02-06-b/`; ignored by git. Inbox sorted 2026-10-19, reds and unjudged runs deleted.
 
+## NSB (synced 2026-11-14)
+
+Places read: 2026-11-14 Tribe read: 2026-11-14 Steps read: 2026-11-14
+
+Owner rules of 2026-11-05 (2026-11-06 and 2026-11-07 additions): everything in NSB (places, colonists, domestic animals) is free to use; a colonist or a domestic animal outside NSB needs the owner's express validation first (an animal the mod adds or addresses is authorized by default); a colonist's properties change only with the owner's express validation; every outfit is free; every animal the mod includes appears in the gallery.
+
+What changed in NSB since the gallery of 1.0.1: nothing that breaks this mod. `water-garden` was validated "nothing in the water" (2026-11-06) with a brown bank at x 143-158, z 168-176; the final decor fixture `Nelims-tribe-decor-mods-z3.rws` sits beside `Nelims-tribe.rws` (2026-11-09); Nelim has a 14-outfit wardrobe. New NPT steps (studio hides the main bar, speed controls and mouse-over readout; decor that burns) change nothing the mod calls (Check-Status and Check-Steps resolve every step, 2026-11-13). Left alone: the three gallery images are accepted and published, scenario 07 is unchanged.
+
+For the shotlist (9.0, `write-shotlist`): the NSB "Baignade" outfit (`Swimwear_Sukumizu`, emerald `#1F7A5C`, hair `Roo_HD_Hair_Highpony`, validated 2026-11-06) is free to use and may serve a bath shot better than the cream shirt and teal trousers; the fixture choice (`Nelims-tribe` today, `z3` has the final decor) and the burrow at (149, 173) that NSB says to avoid (the scenario calls that cell a natural steam geyser) are to settle there. Nothing is changed before `shootGallery` writes the shotlist.
+
+| Place | Shots that use it | Changes made for the gallery | Last read |
+| --- | --- | --- | --- |
+| `water-garden`, west bank | 07: burning drum on the west bank; Needs tab | drum bath at (147, 172) burning; `TorchLamp` (146, 174), `Shelf` (149, 170), soil with `Plant_Rose` (150, 172) and `Plant_Daylily` (149, 175); animals removed; none in NSB itself | 2026-11-14 |
+
+| Colonist | Shots | Outfit per shot | Last read of its profile | Exceptions |
+| --- | --- | --- | --- | --- |
+| Nelim | both 07 shots | `Apparel_BasicShirt` dyed rgb (238, 224, 190) and `Apparel_Pants` dyed rgb (30, 98, 104), shed in the bath, as the 1.0.1 story | 2026-11-14 (profile header, wardrobe table of `VALIDE.md`; roster not reopened) | none (no property changed) |
+
+| Animal | Shots | Outfit | Last read | Exceptions |
+| --- | --- | --- | --- | --- |
+| none | none | none | none | none (animals are removed from the place) |
+
+| Included animal (rule 5) | Shots |
+| --- | --- |
+| none: the mod adds no animal (patch only, `Mod/` holds no `PawnKindDef`) | not applicable |
+
 ## Ownership and repository
 
 Independent repository, `C:/Users/nelim/Documents/rimworld/DrumBathHygiene`, remote above, public. Update file whenever check or remaining item changes; record only checks actually performed.
