@@ -5,7 +5,7 @@ This file serves the repository and the writing of Steam patch notes; RimWorld d
 
 ## [Unreleased]
 
-Target version 1.1.0: RimWorld 1.7 pass. No change to the mod's behaviour: the DLL and the patch are those of 1.0.0. `<li>1.7</li>` is added to `supportedVersions` only after a green 1.7 run.
+Target version 1.1.0: RimWorld 1.7 pass. No change to the mod's behaviour: the DLL and the patch are those of 1.0.0. `<li>1.7</li>` added to `supportedVersions` 2026-11-13 after the green 1.7 run (features 01 to 08); Preview badge now 1.7.
 
 ### Changed
 
