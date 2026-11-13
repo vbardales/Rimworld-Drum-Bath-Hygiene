@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: playTests[1.1.0]
+workflow_stage: shootGallery[1.1.0]
 tested_1_7:   yes
 code_review_sha: 389ae092f68bc9ee93639c402ff62f0fd0ae6b05
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
@@ -36,6 +36,7 @@ workshop:      3806137182; 0.1.0 prepublished 2026-09-22 (item creation only), 1
 remaining:
   - replay 2026-11-13, second pass (ledger `.replays/DrumBathHygiene-20261113.tsv`, sections 1 to 8 read: 56 done, 14 n/a, 2 open 8.m and 8.n at that time, 8.m closed the same day, see the code review line). Pending owner mission (AGENTS.md Local scripts): generated `Tests/Test-Mod.ps1` and a fresh `.github` are missing, Check-CiTemplate shows 3 differ and 5 missing: ask CI/CD for `generate-publish-workflow.sh DrumBathHygiene --regenerate`. Earlier first pass: 4.g was open for lack of `workshop_required_items`; owner confirmed the 2 Required items are on the Steam page 2026-11-13, field written, stage back to `playTests[1.1.0]`). Sections 5 to 7 not re-read in this replay. Open: 8.m code review (Source comment-only commit `8001b16` since `code_review_sha`, DLL rebuilt 2026-11-13 identical, SHA256 `865ACC8A`).
   - code review 8.m done 2026-11-13 (Opus sub-agent, range 93539d1 to 389ae09, `code_review_sha` set): Source changes are comments only (em dash to comma), DLL and patch unchanged, `<li>1.7</li>` rests on the 1.7 play pass (the DLL is built against the 1.6 reference, 1.7 runs the same binary). Defects consigned, not fixed (a `Source/` change would rebuild the DLL and reopen playTests), for the next version: (medium) `DbhBridge.cs:59-62` `GetMethod` without parameter types, a DBH overload throws AmbiguousMatchException and switches cleaning off; (low) `DbhBridge.cs:141-149` hard-coded Invoke arguments, check `GetParameters()` in Resolve; `HediffComp_DrumBathHygiene.cs:87-92` `bath == null` leaves `cold` true and passes a null fixture to `BathroomThought`; `:74` `privacyCheckInterval` 0 divides by zero; `:121` hard-coded defName `DrumBath`; `:102-107` `BathingPrivacy` when the pawn is not spawned; (nit) `DbhBridge.cs:181` WarningOnce key by hash, `Mod/Patches/AddComp.xml:12-14` comment says both mods are optional, About.xml declares them hard.
+  - 2026-11-14: playTests closed (8.a to 8.m done, 8.n), stage `shootGallery[1.1.0]`; next is 9.0 shotlist (skill write-shotlist, place steps via NPT and SanctuaryBacklot). Note for 8.0: AUDIT 2 bis (patch mods: also search the root of the patched mod) arrived after the PiI study of 2026-11-13, ask PiI whether a refresh is due.
   - published 2026-10-02 (1.0.0 and 1.0.1 on the page, item public per the owner); thanks to Mlie and Dubwise posted 2026-10-02 (WORKSHOP_COMMENTS.md). Owner's manual steps of PUBLISHING.md "Mise en production d'une 1.0.0" (visibility, comment subscription, watching the mod and its parents MMDrumcanMOD and Dubs Bad Hygiene) confirmed done by the owner 2026-10-08.
   - open (BACKLOG.md "Tests still to write"): no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); removing the mod from a save was played 2026-10-08 (run 28cc, green, `536e4bf`); adding it to a save made without it is not applicable (AUDIT.md 8.i, owner 2026-11-06, scenario D).
   - idea: fire intensity, deferred in BACKLOG.md (not part of 1.1.0).
@@ -47,13 +48,13 @@ remaining:
   - followUp left: 14.a non-regression ticket on the published build (DLL unchanged since `d7e1737`; `Mod/` differs from runs 22 and 23 only by the `About.xml` description), 14.c clean-up of `STATUS.md`, `TESTING.md`, `PUBLICATION.md`, 14.d branches (only `main`, nothing to delete).
   - done 2026-11-13: 1.7 pass, features 01 to 08 green on 1.7, `tested_1_7: yes`; ticket-by-ticket log in `Docs/runs/history.md` (entry 2026-11-13).
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
-updated:      2026-11-13
+updated:      2026-11-14
 upstream_synced: 2026-11-13 emipa606/MMDrumcanMOD@cf7d438 (Dubs Bad Hygiene: no repo, N/A)
-protocols_read_sha: 9fe3593d4a35957cc626ebee3f5d488d30296f49
+protocols_read_sha: 2662ac460346298294f4be0ddf4954cbd2b8677e
 ---
 # Drum Bath Hygiene: status
 
-`workflow_stage: playTests[1.1.0]` (replay 2026-11-13: 4.g closed by the owner, sections 5 to 7 not re-read in that replay, 8.m open; version 1.1.0 opened 2026-10-13 for RimWorld 1.7 pass; was `followUp[1.0.2]`, audit 2026-10-10). Older audits, test runs, 2026-09-12 preview notes moved to `docs/runs/history.md` on 2026-10-02 (full text stays in git).
+`workflow_stage: shootGallery[1.1.0]` (moved from playTests 2026-11-14 after 8.m; replay 2026-11-13: 4.g closed by the owner, sections 5 to 7 not re-read in that replay, 8.m open; version 1.1.0 opened 2026-10-13 for RimWorld 1.7 pass; was `followUp[1.0.2]`, audit 2026-10-10). Older audits, test runs, 2026-09-12 preview notes moved to `docs/runs/history.md` on 2026-10-02 (full text stays in git).
 
 ## Current state (2026-10-10)
 
