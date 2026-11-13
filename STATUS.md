@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: playTests[1.1.0]
+workflow_stage: declareDependencies[1.1.0]
 tested_1_7:   yes
 code_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
@@ -33,6 +33,7 @@ showcase:     preview approved by user; visual QA passed at full size and thumbn
 tested_on:    Pickle suite in game (RimWorld 1.6, Linux under WSL, Xvfb), non-regression 2026-10-11 on revision 02b3cb8 (runs 24 to 27): the 19 tools scenarios pass in English and French, the 2 gallery scenarios (sanctuary map) pass in both, removal chain passed 2026-10-08 (run 28cc, 536e4bf); runs 22 and 23 (271365b, 21 of 21) predate the Sanctuary migration; earlier: Release rebuild and the Windows PowerShell XML/packaging suite, 2026-09-22
 workshop:      3806137182; 0.1.0 prepublished 2026-09-22 (item creation only), 1.0.0 sent by CI 2026-09-28,  1.0.1 2026-10-02, 1.0.2 2026-10-08 (description); public per the owner
 remaining:
+  - replay 2026-11-13 (ledger `.replays/DrumBathHygiene-20261113.tsv`, sections 1 to 4 read, 24 done, 5 n/a): first open sub-step 4.g, no `workshop_required_items` field in this file; the mod is published and `About.xml` has 2 mandatory Workshop dependencies (MMDrumcanMOD (Continued) 3417093756, Dubs Bad Hygiene 836308268), so the owner sets them as Required items on the Steam page 3806137182 by hand, then the session writes `workshop_required_items: done, <date>` here. Stage moved back from `playTests[1.1.0]` to `declareDependencies[1.1.0]`; nothing deleted. Back to `playTests` after that: 8.m code review is also open (Source comment-only commit `8001b16` since `code_review_sha`, DLL rebuilt 2026-11-13 identical, SHA256 `865ACC8A`).
   - published 2026-10-02 (1.0.0 and 1.0.1 on the page, item public per the owner); thanks to Mlie and Dubwise posted 2026-10-02 (WORKSHOP_COMMENTS.md). Owner's manual steps of PUBLISHING.md "Mise en production d'une 1.0.0" (visibility, comment subscription, watching the mod and its parents MMDrumcanMOD and Dubs Bad Hygiene) confirmed done by the owner 2026-10-08.
   - open (BACKLOG.md "Tests still to write"): no scenario asserts the bathroom-thought stage (Dubs Bad Hygiene's own grading of a room); removing the mod from a save was played 2026-10-08 (run 28cc, green, `536e4bf`); adding it to a save made without it is not played as its own case.
   - idea: fire intensity, deferred in BACKLOG.md (not part of 1.1.0).
@@ -46,11 +47,11 @@ remaining:
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-11-13
 upstream_synced: 2026-11-13 emipa606/MMDrumcanMOD@cf7d438 (Dubs Bad Hygiene: no repo, N/A)
-protocols_read_sha: e4c9afffdd67faa80688c7f2aa9ad78ee01b949a
+protocols_read_sha: 08534e790c840f46614a48899f8f8174ce0553f3
 ---
 # Drum Bath Hygiene: status
 
-`workflow_stage: code[1.1.0]` (version 1.1.0 opened 2026-10-13 for RimWorld 1.7 pass; was `followUp[1.0.2]`, audit 2026-10-10). Older audits, test runs, 2026-09-12 preview notes moved to `docs/runs/history.md` on 2026-10-02 (full text stays in git).
+`workflow_stage: declareDependencies[1.1.0]` (replay 2026-11-13, sub-step 4.g open; version 1.1.0 opened 2026-10-13 for RimWorld 1.7 pass; was `followUp[1.0.2]`, audit 2026-10-10). Older audits, test runs, 2026-09-12 preview notes moved to `docs/runs/history.md` on 2026-10-02 (full text stays in git).
 
 ## Current state (2026-10-10)
 
