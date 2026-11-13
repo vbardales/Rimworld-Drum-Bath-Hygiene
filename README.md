@@ -72,7 +72,7 @@ Art/       full-size originals of the preview and icon; never published
 Build/     build intermediates, ignored by git
 ```
 
-The Workshop uploader sends the mod folder as it stands, with no filtering ,
+The Workshop uploader sends the mod folder as it stands, with no filtering,
 `SteamUGC.SetItemContent` takes the root directory and nothing else. Keeping the sources out of
 `Mod/` is the only way not to publish them, and `Source/Directory.Build.props` keeps `obj/` out
 too: without it, the publicised `Assembly-CSharp.dll` it contains, about 6 MB of Ludeon's own

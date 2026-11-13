@@ -1,6 +1,6 @@
 # Publication sheet
 
-**Updated 2026-10-10. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28), 1.0.1 (2026-10-02) and 1.0.2 (2026-10-08) sent by the CI, thanks to Mlie and Dubwise posted. This sheet is now the template for the next update.** The Steam description below is the source for the next version: its save sentence (removal tested) is not yet on the page nor in `About.xml`, and goes out with the next `update_description`.
+**Updated 2026-10-10. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28), 1.0.1 (2026-10-02) and 1.0.2 (2026-10-08) sent by the CI, thanks to Mlie and Dubwise were posted. This sheet is now the template for the next update.** The Steam description below is the source for the next version: its save sentence (removal tested) is not yet on the page nor in `About.xml`, and goes out with the next `update_description`.
 This sheet holds what the Workshop page asks for and the repository holds nowhere else, so that it can be used again at
 the next update and by whoever picks the mod up.
 
@@ -76,7 +76,7 @@ This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and
 ## THANKS
 
 - [Mlie](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive, and [dragon](https://steamcommunity.com/sharedfiles/filedetails/?id=2100895553), who made the drum bath in the first place. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
-- [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over, the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
+- [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over; the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
 - [Pickle](https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678), [RimLogging](https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696) and [Nelim's PickleTools](https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401), used for the in-game tests: development tools, never a dependency of this mod.
 
 No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
