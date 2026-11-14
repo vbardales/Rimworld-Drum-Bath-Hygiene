@@ -121,7 +121,7 @@ Plan scores (`score-gallery`, mechanical): shot 1: 5 - 0.5 j = 4.5; shot 2: 5; s
 
 Director pass (Opus, one call): kept 1, 2, 4 (zoom 7), 7 (tight shot 2), 8 (face after the job, 20 degrees), 10 (18:00), 12 (shot 3 unreadable at 268 px, assumed); not kept: towel on the stool, dirt trace, clothes as decor and an unlit drum (no listed step, claims dropped), remark 9 and 11 (the Hygiene setter and the hide steps exist). Open: nothing to ask NPT before the first scenario.
 
-Scenarios written 2026-11-14 (`07-workshop-captures.feature` rewritten, shotlist in its header, `Art/Gallery/1-the-bath.jpg` and `2-the-needs-tab.jpg` removed with `git rm` in the same commit). `Check-ShotlistVsScenario.ps1` exit 0. Not played, no ticket yet. Still to do: `rate-gallery` (place, DepMap `wsl-deps.sanctuary-17.map`, steps, tickets).
+Scenarios written 2026-11-14 (`07-workshop-captures.feature` rewritten, shotlist in its header, `Art/Gallery/1-the-bath.jpg` and `2-the-needs-tab.jpg` removed with `git rm` in the same commit). `Check-ShotlistVsScenario.ps1` exit 0. Not played yet. Tickets filed 2026-11-14 on tree `ab20ecb`, filter `07-workshop-captures::Nelim`: `0681` (1.6, `wsl-deps.sanctuary.map`, Inbox/gallery-07-16) and `fb82` (1.7, `wsl-deps.sanctuary-17.map`, Inbox/gallery-07-17), both WAITING. Still to do: read the captures (`score-gallery`, REDO under 4/5), then subtitles, one owner review at the end.
 
 ## Ownership and repository
 
