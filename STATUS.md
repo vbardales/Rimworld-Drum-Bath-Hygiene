@@ -99,54 +99,29 @@ For the shotlist (9.0, `write-shotlist`): the NSB "Baignade" outfit (`Swimwear_S
 | --- | --- |
 | none: the mod adds no animal (patch only, `Mod/` holds no `PawnKindDef`) | not applicable |
 
-## Shotlist (draft 2026-11-14, NOT final, not scored)
+## Shotlist (plan of 2026-11-14, rated on paper, no capture of this series yet)
 
-Status: first draft by the session plus the Opus director pass (one call). `score-gallery` loop to 5, scenarios, `Check-ShotlistVsScenario.ps1` and every ticket are NOT done: no capture is taken before they are.
+`no capture yet: rating the plan.` The images in `Art/Gallery/` (`1-the-bath.jpg`, `2-the-needs-tab.jpg`, accepted 2026-10-08) belong to the previous series: its scenes are rewritten below, so their captures are removed (`git rm`) when the scenarios are rewritten.
 
-Director remarks to apply in the final shotlist (kept unless stated): (1) shot 1: the drum is already burning, so say she brings a log to FEED it, not to light it, subtitle too; (2) put Nelim at (146, 172) facing East with the log, stack at (146, 170) one log short; (3) towel or cloth on the stool, reframe away from the dark hole at (149, 173) (it reads as a burrow, not steam: NSB says avoid it); (4) shot 1 zoom about 9, not 12, for 268 px legibility; (5) no garment is visible in the accepted images, so do not claim clothes on the ground: ask NPT whether apparel can be placed as decor; (6) dirt or mud trace on the soil: ask NPT for a step; (7) shot 2 tight (zoom 3 to 4), shot 3 medium with the panel, so the series has a real tight shot; (8) accepted images show a red flushed neutral face and Outdoors 39C: set temperature 20 and the face steps AFTER the bath job is asserted; (9) setting a need level (Hygiene 10 percent) has no listed step: ask NPT; (10) start the series at 18:00, not 17:00, so the fire and torch glow; (11) mask the learning helper, resource readout, colonist bar, selection brackets (brackets not in the known mask list: ask NPT); (12) the Needs tab is NOT readable at 268 px (Hygiene bar about 17x1.5 px): crop on panel plus drum so the drum with her head is the thumbnail subject, criterion j on shot 3 stays a known weakness unless the owner wants a tighter crop.
+STORY. Nelim (Virginie, founder of the Sanctuary, the only colonist of the save) ends a day on the brown bank of the water garden: she brings a log to the burning drum bath, soaks in it, and the Needs tab shows the water washing her. One evening, 18:00 to about 18:10 game time, weather Clear, one place (`water-garden`, west bank, drum at (147, 172), band x 143-158, z 168-176). Start hour set once (`I set the hour to 18`), then cumulative waits per scenario: shot 1 setup only (60 ticks), shot 2 +208 ticks (5 min), shot 3 +417 ticks (10 min). Rhythm: wide opener (the place and the fire), tight (the bath), medium with the Needs tab (the proof, closing). One outfit all evening: `Apparel_BasicShirt` dyed rgb (238, 224, 190), `Apparel_Pants` dyed rgb (30, 98, 104) (the game undresses her in the bath, as in the 2026-10-08 images; no garment is claimed on the ground). Hair: her roster hairstyle `Roo_HD_Hair_Highpony`, no hat. Face, in this order after the bath job is asserted: `Nelim has her own face`, `mouth is "MouthSmile"`, `lids are "LidCheerful"`, map temperature 20 degrees, then `facial expression is "normal+blink"` in ONE last call, five frames, no tick before the shot (owner rules 2026-10-25 and 2026-11-03: she smiles, no sweat; the 2026-10-08 images showed a flushed neutral face at 39C). Mods: `wsl-deps.sanctuary-17.map` as it is, nothing added.
 
-Asks for NPT (not sent yet): apparel as decor, dirt trace step, set a need level, hide selection brackets, an unlit or low-fuel drum state.
+Shared corner, laid for each shot and removed by the suite's own AfterScenario: drum bath burning at (147, 172); `TorchLamp` (146, 174) lit; `Shelf` (149, 170); `Stool` (145, 172); `WoodLog` stack (146, 170) (an item, allowed as decor); soil at (150, 172) with `Plant_Rose` and soil at (149, 175) with `Plant_Daylily`, both fully grown; the natural hole at (149, 173) stays in frame (the feature calls it a steam geyser, NSB says burrow, to avoid: it is part of the place, not covered). Animals removed from the place. Studio presentation mode, colonist bar, learning helper, tooltips, resource readout, alerts and selection brackets hidden, game paused before the camera.
 
-Draft as written before the director pass:
+| Shot | a time frame | b decor | c living | d pawn | e action | f composition | g subject | j mod, 268 px |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 `workshop-1-the-bank` (wide opener) | water-garden west bank, 18:00, Clear, setup 60 ticks | drum burning, lit torch, shelf, stool, log stack, rose and daylily on soil, lily pads and bamboo around, bank soil not bare | rose, daylily, reeds, lilies; no animal | Nelim, cream shirt, teal trousers, Highpony, smile, no sweat | carries `WoodLog` toward the drum, placed at (146, 172) facing East; instant: just before she feeds the fire; game paused at the carry | zoom 7 centred (147, 170), drum right third, torch left, bamboo behind, reeds in the foreground | "Nelim brings a log to feed the burning drum bath." | WEAK, assumed: wide frame, drum about 14 px at 268 px (-0.5) |
+| 2 `workshop-2-the-bath` (tight) | same bank, 18:05 (+208 ticks), Clear | same props packed in a 12 x 7 cell frame: torch, shelf, stool, logs, rose, daylily, hole, fire under the drum | same plants; no animal | Nelim in the bath, smile, no sweat, hair Highpony | `Job_BathingAtDrumBath` running (asserted before the shot); instant: just after she stepped in, the water starts to wash her; paused at the asserted tick | zoom 3.5 centred (147, 172), drum centre-left, fire low foreground, torch and daylily lighting the right | "Nelim soaks in the burning drum bath, smiling." | ok: drum and head about 28 px at 268 px |
+| 3 `workshop-3-the-needs-tab` (medium, closing) | same bank, 18:10 (+417 ticks), Clear | same props, Needs tab open at the left | same plants; no animal | Nelim in the bath, smile, no sweat | same job still running; Hygiene set to 10 percent at the start, partway up now with "Refreshing in the bath" in the list; instant: the bath is half done | zoom 5, drum shifted right of centre by 0.46 N cells for the inspector, torch above | "The Needs tab shows her hygiene climbing while she bathes." | WEAK, assumed: the panel bars are about 2 px at 268 px, the red drum with her head is the thumbnail subject (-0.5) |
 
-STORY. Nelim (Virginie, founder of the Sanctuary, the only colonist of the save) ends a long day on the brown bank of the water garden: she brings the log that feeds the drum, steps in, soaks, and the water washes the day off her (hygiene need rising, the room judged, soaking wet forgotten). One evening, 17:00 to about 17:10 game time, weather Clear, one place (`water-garden`, brown west bank, drum at (147, 172), band x 143-158, z 168-176). Start hour set once (`I set the hour to 17`), then cumulative waits per scenario: shot 1 setup only (60 ticks), shot 2 +208 ticks (5 min), shot 3 +417 ticks (10 min). Rhythm: wide opener (the place and the fire), medium-tight (the bath), tight-medium with the Needs tab (the proof, closing). Nelim keeps one outfit across the evening (cream shirt rgb (238, 224, 190), deep teal trousers rgb (30, 98, 104)); in the bath she is undressed by the game and the garments lie by the drum, as seen in the accepted 2026-10-08 images. Face: `Nelim has her own face` then `mouth is "MouthSmile"` and `lids are "LidCheerful"`, then `facial expression is "normal+blink"` in ONE last call, map temperature 20 degrees, so she smiles and does not sweat (owner rules 2026-11-03 and 2026-10-25). Hair: her roster hairstyle, no hat. Mods in the DepMap: the Sanctuary map as it is (`wsl-deps.sanctuary-17.map`), nothing added.
+k, series: one evening, one corner, three episodes that move on: wide opener (the place and the fire), tight (the bath), medium with the panel (the proof, closing image); 0, +5, +10 minutes; same outfit and props throughout. ok.
 
-Shared props, one corner, laid for each shot and removed after it: drum bath burning at (147, 172); `TorchLamp` at (146, 174) lit; `Shelf` at (149, 170); `Stool` at (145, 172) where her clothes end; soil patches at (150, 172) and (149, 175) with `Plant_Rose` and `Plant_Daylily` fully grown; a `WoodLog` stack at (146, 170) (the drum's fuel); the natural steam geyser at (149, 173) stays (it steams). Animals of the place are removed (no animal in the story; ducks would hide the drum). Presentation mode on, main bar, speed controls and readout hidden, game paused before the camera.
+Subtitles (`PUBLICATION.md`, "Gallery subtitles", at the end): 1 "Nelim brings a log to feed the burning drum bath." 2 "Nelim soaks in the burning drum bath, smiling." 3 "The Needs tab shows her hygiene climbing while she bathes."
 
-SHOT 1  workshop-1-the-bank (story scene, wide opener)
-- a. water-garden west bank, 17:00, Clear, setup only (60 ticks).
-- b. drum burning, lit torch, shelf, stool, log stack, rose and daylily on soil, steam geyser, bamboo grove and lily pads around; floor not bare (soil, reeds); light source in frame (torch, drum fire).
-- c. plants (rose, daylily, reeds, lilies); no animal.
-- d. Nelim in cream shirt and teal trousers, smile, no sweat, face to the drum.
-- e. she carries a log (`"Nelim" carries the item "WoodLog"`), half a step from the drum; instant: just before she feeds the fire and steps in; obtained by placing her at (145, 171) facing East with the log in hands, game paused.
-- f. wide: zoom 12, centred on (150, 171), drum on the right third, torch and stool left, bamboo north background, water both sides, reeds in the foreground.
-- g. "Nelim brings a log to light her evening bath."
-- j. the drum and the colonist are identifiable at 268 px (drum 3 cells tall at zoom 12 reads as a red barrel with fire).
-- Subtitle: "Nelim brings a log to feed the drum before her evening bath."
+Plan scores (`score-gallery`, mechanical): shot 1: 5 - 0.5 j = 4.5; shot 2: 5; shot 3: 5 - 0.5 j = 4.5; k ok, no step or object missing (read: `carries the item`, `stands at ... facing`, `I place the decor` for items, `is lit`, `fully grown`, `needs ... is set to`, `facial expression`, hide steps, all in `PickleTools/docs/steps.md` or `GALERIE.md`; NOT checked: that `Stool` and `WoodLog` place on that bank, found when played). Series mean 4.67. Two wide-frame and tab-frame j weaknesses are assumed, not fixable on paper.
 
-SHOT 2  workshop-2-the-bath (story scene, medium-tight)
-- a. same bank, 17:05 (208 ticks after the start), Clear.
-- b. same props, drum fire and torch glowing, steam.
-- c. same plants; no animal.
-- d. Nelim in the bath, smile, no sweat; clothes on the stool/ground beside the drum.
-- e. `Job_BathingAtDrumBath` running (asserted before the shot), she is mid-soak, just after stepping in; the hygiene need is rising; game paused at the tick the job is asserted.
-- f. zoom 5, centred on the drum, subject slightly left, torch in the left foreground, steam geyser right, shelf bottom right.
-- g. "Nelim soaks in the drum and the water washes the day off her."
-- j. head and shoulders in the drum, fire under it, readable at 268 px.
-- Subtitle: "Nelim soaks in the burning drum while the water washes her."
+Director pass (Opus, one call): kept 1, 2, 4 (zoom 7), 7 (tight shot 2), 8 (face after the job, 20 degrees), 10 (18:00), 12 (shot 3 unreadable at 268 px, assumed); not kept: towel on the stool, dirt trace, clothes as decor and an unlit drum (no listed step, claims dropped), remark 9 and 11 (the Hygiene setter and the hide steps exist). Open: nothing to ask NPT before the first scenario.
 
-SHOT 3  workshop-3-the-needs-tab (story scene with an inspector tab, closing)
-- a. same bank, 17:10 (417 ticks after the start), Clear.
-- b. same props; the Needs tab open at the left, the drum, torch and plants in the right of the frame.
-- c. same plants; no animal.
-- d. Nelim in the bath, smile, no sweat.
-- e. same bath job still running; the Hygiene bar caught partway up (set to 10 percent at the start, about 45 percent now) and the memory "Refreshing in the bath" listed; instant: the bath is half done.
-- f. zoom 6, drum right of centre to leave the inspector panel on the left (shift by 0.46 N cells), torch above the drum.
-- g. "The Needs tab shows her hygiene climbing while she bathes."
-- j. the mod's effect is the Hygiene bar rising: the panel with its cyan bars and the red drum are identifiable at 268 px.
-- Subtitle: "The bath now fills her hygiene need as she soaks."
-
-SERIES (k). One evening, one corner, three episodes: wide (1), medium-tight (2), tight-with-panel (3); opening image sets the place and the fire, closing image is the proof; rhythm 0, +5, +10 minutes; same outfit and props throughout.
+Still to do before any ticket: write the 3 scenarios (rewrite of `07-workshop-captures.feature`, `git rm` of the two old captures in the same commit), `Check-ShotlistVsScenario.ps1`, then `rate-gallery`.
 
 ## Ownership and repository
 
