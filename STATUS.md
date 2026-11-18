@@ -50,7 +50,7 @@ remaining:
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-11-14
 upstream_synced: 2026-11-13 emipa606/MMDrumcanMOD@cf7d438 (Dubs Bad Hygiene: no repo, N/A)
-protocols_read_sha: 7e16765d0b403ddd1e809dc698102ca8ad663a28
+protocols_read_sha: 8df42b9eaaf54291c1f3cd2ad6b9762e319b1c6a
 ---
 # Drum Bath Hygiene: status
 
