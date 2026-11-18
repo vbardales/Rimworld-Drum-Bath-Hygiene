@@ -1,7 +1,7 @@
 # Publication sheet
 
 **Updated 2026-10-10. The mod is published: item `3806137182` public, 1.0.0 (2026-09-28), 1.0.1 (2026-10-02) and 1.0.2 (2026-10-08) sent by the CI, thanks to Mlie and Dubwise were posted. This sheet is now the template for the next update.** The Steam description below is the source for the next version: its save sentence (removal tested) is not yet on the page nor in `About.xml`, and goes out with the next `update_description`.
-This sheet holds what the Workshop page asks for and the repository holds nowhere else, so that it can be used again at
+This sheet holds what the Workshop page requires and what the repository does not keep anywhere else, so that it can be used again at
 the next update and by whoever picks the mod up.
 
 ## Before an update
@@ -23,8 +23,9 @@ below. The CI converts it to Steam BBCode and generates the plain-text `<descrip
 from it. The block cannot contain a code fence, and its last line is the source link. Adopted on 2026-09-26, migrating
 from the BBCode block sent since 2026-09-25 under the old heading "The description text": until the workflow is
 regenerated with the options above, `About.xml` stays as it is, and the first `sync-about-description.mjs --write` after
-regenerating rewrites its text (read the diff). The item being private, the dry-run cannot diff the converted text
-against the page, so it is read by hand once. Every publish with `update_description` on overwrites the Steam page: a
+regenerating rewrites its text (read the diff). At that time the item was still private, so the dry-run could not diff the converted text
+against the page and it was read by hand once; the item is public now (2026-10), and whether the dry-run compares the page is
+for `Rimworld-Release-Admin/docs/OPERATIONS.md` to say. Every publish with `update_description` on overwrites the Steam page: a
 later hand edit there would be lost, so this block stays the single source.
 
 *Historical: September 2026.* What changed against the text of 0.1.0 (before the 2026-09-25 corrections, still readable in `git log -p -- Mod/About/About.xml`):
