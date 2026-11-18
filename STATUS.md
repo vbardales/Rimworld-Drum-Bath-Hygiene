@@ -51,7 +51,7 @@ remaining:
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
 updated:      2026-11-14
 upstream_synced: 2026-11-13 emipa606/MMDrumcanMOD@cf7d438 (Dubs Bad Hygiene: no repo, N/A)
-protocols_read_sha: 8df42b9eaaf54291c1f3cd2ad6b9762e319b1c6a
+protocols_read_sha: 113f53ea8c2130a1425348e87f66394898f2e328
 ---
 # Drum Bath Hygiene: status
 
@@ -74,9 +74,11 @@ protocols_read_sha: 8df42b9eaaf54291c1f3cd2ad6b9762e319b1c6a
 - **Upstream:** PR emipa606/MMDrumcanMOD#2 declined by Mlie (2026-10-03), who links this mod in his description; closed.
 - **Evidence:** on disk only, `Tests/Pickle/Evidence/` (minified, each with `RELEASE.md`): `final-french-2/`, `p17-dbh-01-replay3/`, `p17-dbh-02-06-b/`; ignored by git. Inbox sorted 2026-10-19, reds and unjudged runs deleted.
 
-## NSB (synced 2026-11-14)
+## NSB (synced 2026-11-14, rechecked 2026-11-18)
 
-Places read: 2026-11-14 Tribe read: 2026-11-14 Steps read: 2026-11-15
+Places read: 2026-11-18 Tribe read: 2026-11-18 Steps read: 2026-11-18
+
+Recheck 2026-11-18 (git log of NSB docs since 2026-11-14 and NPT `steps.md` and catalogues since 2026-11-15, diffs read by commit list, not whole files): NSB changed only for other colonists (VALIDE: Soren, Ada, Lyra, Miel, Quill, Quo, Quaren, Emi, Celeste, Daichi, Dalia, Iori; BiB gene renames; VTW body tests); no commit touches the place docs (`SANCTUAIRE-LIEUX`, `SANCTUAIRE-CASES`, `EMBELLISSEMENT-LIEUX`), the roster or the animals catalogue, Nelim's profile or `water-garden`. New NSB plan `RECONSTRUCTION-SAUVEGARDE.md` (2026-11-18): a rebuilt save `Nelims-tribe-v2` is only a proposal, gated on BiB 1.1.0, VTW, NPT; nothing built, the fixtures this mod loads are unchanged, same place names and centres promised. NPT: only `face-parts.md` (vanilla face section, 2026-11-17), no step added, renamed or removed; the face steps scenario 07 calls are unchanged. Nothing updated in the shotlist or scenarios; the tables below stand.
 
 Owner rules of 2026-11-05 (2026-11-06 and 2026-11-07 additions): everything in NSB (places, colonists, domestic animals) is free to use; a colonist or a domestic animal outside NSB needs the owner's express validation first (an animal the mod adds or addresses is authorized by default); a colonist's properties change only with the owner's express validation; every outfit is free; every animal the mod includes appears in the gallery.
 
