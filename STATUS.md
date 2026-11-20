@@ -80,7 +80,9 @@ protocols_read_sha: 9df075039c4b6cad38c1712f690172bd481b083f
 
 ## NSB (synced 2026-11-14, rechecked 2026-11-18)
 
-Places read: 2026-11-18 Tribe read: 2026-11-18 Steps read: 2026-11-18
+Places read: 2026-11-18 Tribe read: 2026-11-18 Steps read: 2026-11-20
+
+NPT recheck 2026-11-20 (stage `ecosystem`, nothing written to the shotlist): `docs/steps.md` and `ColonistRace/docs/catalogues` have no commit since 2026-11-18; the NPT commits of 2026-11-19 and 2026-11-20 touch other mods' sets (core-filth-dust, coats), StageDecor (`the filth ... at thickness {int}` added, existing filth step unchanged), CameraZoom (probe and README only: the steps widen the camera range, asked 6 reads 6; the zoom 7 and 3.5 of scenario 07 are unchanged) and the bundle rebuild. No step this mod calls was renamed or removed. NSB: only `RECONSTRUCTION-SAUVEGARDE.md` (2026-11-18, already read) and a Docs migration commit (2026-11-19, no place or tribe doc). Nothing to change in the shotlist or scenarios.
 
 Recheck 2026-11-18 (git log of NSB docs since 2026-11-14 and NPT `steps.md` and catalogues since 2026-11-15, diffs read by commit list, not whole files): NSB changed only for other colonists (VALIDE: Soren, Ada, Lyra, Miel, Quill, Quo, Quaren, Emi, Celeste, Daichi, Dalia, Iori; BiB gene renames; VTW body tests); no commit touches the place docs (`SANCTUAIRE-LIEUX`, `SANCTUAIRE-CASES`, `EMBELLISSEMENT-LIEUX`), the roster or the animals catalogue, Nelim's profile or `water-garden`. New NSB plan `RECONSTRUCTION-SAUVEGARDE.md` (2026-11-18): a rebuilt save `Nelims-tribe-v2` is only a proposal, gated on BiB 1.1.0, VTW, NPT; nothing built, the fixtures this mod loads are unchanged, same place names and centres promised. NPT: only `face-parts.md` (vanilla face section, 2026-11-17), no step added, renamed or removed; the face steps scenario 07 calls are unchanged. Nothing updated in the shotlist or scenarios; the tables below stand.
 
