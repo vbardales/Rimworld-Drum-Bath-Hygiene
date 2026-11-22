@@ -55,7 +55,7 @@ remaining:
 updated:      2026-11-20
 ecosystem_line: 1.1
 upstream_synced: 2026-11-13 emipa606/MMDrumcanMOD@cf7d438 (Dubs Bad Hygiene: no repo, N/A)
-protocols_read_sha: 9df075039c4b6cad38c1712f690172bd481b083f
+protocols_read_sha: 2b5cd389e2c10fd4acfcfd5f1c4ca69f1a5f2248
 ---
 # Drum Bath Hygiene: status
 
