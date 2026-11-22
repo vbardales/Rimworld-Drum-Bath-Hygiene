@@ -29,3 +29,6 @@ astryl.FacialAnimationPerformancePatch 3790129900
 sd.fa.movingvanillaeyes 3753978140
 # Gallery shot 5 (owner order 2026-11-18): [CF] Dubs Bad Hygiene Upscaled, texture-only, declares 1.6 at most, loads after dubwise.dubsbadhygiene (staged first by wsl-ids.map).
 DBH.Upscaled 3163175368
+
+# Dubs Bad Hygiene is no longer a hard dependency (2026-11-23, Lite support): it is activated here.
+Dubwise.DubsBadHygiene 836308268

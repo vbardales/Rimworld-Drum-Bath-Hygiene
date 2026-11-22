@@ -50,7 +50,7 @@ applicable).
 0.1.0 one plus `About/Preview.png`, the id file and this text.
 
 ```markdown
-Makes the drum can bath actually wash people, by connecting [MMDrumcanMOD (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756) to [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268).
+Makes the drum can bath actually wash people, by connecting [MMDrumcanMOD (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756) to [Dubs Bad Hygiene](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268) or to [Dubs Bad Hygiene Lite](https://steamcommunity.com/sharedfiles/filedetails/?id=2570319432).
 
 On its own, soaking in a drum bath is pure recreation: it gives joy, a warm mood buff and a rest bonus, but a colonist climbs out exactly as filthy as when they got in. This bridges the two.
 
@@ -62,7 +62,7 @@ While a colonist is in the bath:
 - the room gives its usual bathroom thought,
 - the "soaking wet" memory is cleared, and so is the filth on their body when they climb out.
 
-Both mods are declared as dependencies, so RimWorld will flag a missing one in the mod list. This mod has no content of its own and does nothing without both.
+MMDrumcanMOD (Continued) is declared as a dependency, so RimWorld will flag it in the mod list when it is missing. Dubs Bad Hygiene and Dubs Bad Hygiene Lite replace each other, so neither is declared as a dependency: install the one you play with. With neither of them, this mod does nothing. It has no content of its own.
 
 The mod stores two temporary values on the bathing hediff while a pawn is in the bath. A bath in progress continues washing after a save and reload. Removing the mod from an existing save has been tested; adding it to a save made without it has not been tested separately.
 
@@ -77,7 +77,7 @@ This mod's code was written with Claude Code (Anthropic) and Codex (OpenAI), and
 ## THANKS
 
 - [Mlie](https://steamcommunity.com/sharedfiles/filedetails/?id=3417093756), for keeping MMDrumcanMOD (Continued) alive, and [dragon](https://steamcommunity.com/sharedfiles/filedetails/?id=2100895553), who made the drum bath in the first place. The drum bath is theirs; this mod is nothing without it, and adds no content of its own.
-- [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene, to which this mod simply hands the bath over; the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
+- [Dubwise](https://steamcommunity.com/sharedfiles/filedetails/?id=836308268), for Dubs Bad Hygiene and its [Lite version](https://steamcommunity.com/sharedfiles/filedetails/?id=2570319432), to which this mod simply hands the bath over; the hygiene need, the privacy reactions, the water temperature and the bathroom thoughts are all theirs.
 - [Pickle](https://steamcommunity.com/sharedfiles/filedetails/?id=3791648678), [RimLogging](https://steamcommunity.com/sharedfiles/filedetails/?id=3733484696) and [Nelim's PickleTools](https://steamcommunity.com/sharedfiles/filedetails/?id=3806142401), used for the in-game tests: development tools, never a dependency of this mod.
 
 No code from either mod is reused here. See ATTRIBUTION.md in the mod folder.
@@ -105,9 +105,7 @@ Checked in the sources on 2026-09-24, not from intention.
 - **MMDrumcanMOD (Continued), Mlie, `Mlie.MMDrumcanMOD`, Workshop `3417093756`: hard, declared** in `modDependencies`
   with its Steam URL and in `loadAfter`. The patch grafts the component onto that mod's `Hed_BathingAtDrumBathPassive`
   and the code reads its `DrumBath` building: without it there is nothing to patch.
-- **Dubs Bad Hygiene, Dubwise, `Dubwise.DubsBadHygiene`, Workshop `836308268`: hard, declared** likewise. The code reaches
-  it by reflection only, which is a choice about breakage (a rework degrades the mod instead of stopping the game), not
-  a sign that it is optional: without it the component binds nothing and the mod does nothing.
+- **Dubs Bad Hygiene, Dubwise, `Dubwise.DubsBadHygiene`, Workshop `836308268`, and Dubs Bad Hygiene Lite, `Dubwise.DubsBadHygiene.Lite`, Workshop `2570319432`: not declared as dependencies, both in `loadAfter`** (owner, 2026-11-23). Lite replaces the full mod (`incompatibleWith Dubwise.DubsBadHygiene` in its `About.xml`), so a hard dependency on the full mod would keep every Lite player from loading this one. The code reaches either by reflection (`DbhBridge` looks for the assembly `BadHygiene`, which both ship) and is inert without them: with neither installed the mod does nothing and RimWorld shows no warning.
 - **DLC: none required.** `supportedVersions` is `1.6`; no `LoadFolders.xml`, so no `IfModActive` branch to check. Every
   Pickle pass runs on Core plus the five DLC and passes, which shows the mod does not object to them, not that it needs
   them.

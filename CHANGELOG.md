@@ -5,10 +5,13 @@ This file serves the repository and the writing of Steam patch notes; RimWorld d
 
 ## [Unreleased]
 
-Target version 1.1.0: RimWorld 1.7 pass. No change to the mod's behaviour: the DLL and the patch are those of 1.0.0. `<li>1.7</li>` added to `supportedVersions` 2026-11-13 after the green 1.7 run (features 01 to 08); Preview badge now 1.7.
+Target version 1.1.0: RimWorld 1.7 pass and Dubs Bad Hygiene Lite support. No change to the mod's behaviour: the DLL and the patch are those of 1.0.0. `<li>1.7</li>` added to `supportedVersions` 2026-11-13 after the green 1.7 run (features 01 to 08); Preview badge now 1.7.
 
 ### Changed
 
+- Dubs Bad Hygiene Lite is supported: Dubs Bad Hygiene is no longer a hard dependency (Lite replaces it and declares it incompatible, so the hard dependency kept every Lite player from loading the mod). Both are in `loadAfter`; with neither installed the mod does nothing and RimWorld shows no warning. MMDrumcanMOD (Continued) stays a hard dependency. Workshop description and README updated.
+
+- Dubs Bad Hygiene Lite is supported: Dubs Bad Hygiene is no longer a hard dependency (Lite replaces it and declares it incompatible, so the hard dependency kept every Lite player from loading the mod). Both are in `loadAfter`; with neither installed the mod does nothing and RimWorld shows no warning. MMDrumcanMOD (Continued) stays a hard dependency. Workshop description and README updated.
 - Workshop description: the save sentence now says that removing the mod from a save was tested; no em dash in the description.
 
 ## [1.0.2] — 2026-10-08

@@ -25,6 +25,7 @@ The removed offline suite (patch XPath and payload over nine synthetic shapes, m
 | Pass | Command | What it proves |
 | --- | --- | --- |
 | `tools`, English | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.tools.map -Filter '!07-workshop-captures,!08-removal-write'` | features `01` to `06`: 19 scenarios against Core, DLC, Harmony, RimLogging, Pickle, both hard dependencies and this mod, plus two step packages (below). Mod loaded as is, nothing else |
+| `lite`, English and 1.7 | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.lite.map` (1.7: `wsl-deps.lite-17.map`, pinned `-Game`) | features 01 to 06 with Dubs Bad Hygiene Lite in place of the full mod (Lite replaces it); not run yet (2026-11-23) |
 | `tools`, French | same with `-Language French` | same 19 scenarios under French game. No step spells English label, so features unchanged; what differs is capture person then opens |
 | `sanctuary`, English then French | `scripts/Run-PickleWsl.ps1 -Mod DrumBathHygiene -DepMap wsl-deps.sanctuary.map -Filter '::framed for the page' -Then '::the Needs tab of a colonist'` (and `-Language French`) | `07-workshop-captures`: two Workshop images, taken in Nelim's Sanctuary (SanctuaryBacklot) with Backlot's staging packages |
 | `removal`, two launches | `wsl-deps.removal.map`, `-ThenWithout` | `08-removal-write` saves with colonist in bath, then `Removal/` loads that save without mod (row 12 below). Played once, 2026-10-08; replay when component or patch changes |

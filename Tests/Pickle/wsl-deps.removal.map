@@ -4,3 +4,6 @@
 # -ThenWithout nelim.drumbathhygiene,nelim.drumbathhygiene.pickletests.
 # The companion lives in this repository and is loaded by path relative to the monorepo root, hence DrumBathHygiene/.
 nelim.drumbathhygiene.pickleremoval  path:DrumBathHygiene/Tests/Pickle/Removal/Mod
+
+# Dubs Bad Hygiene is no longer a hard dependency (2026-11-23, Lite support): it is activated here, so the suite still tests the full mod.
+Dubwise.DubsBadHygiene 836308268

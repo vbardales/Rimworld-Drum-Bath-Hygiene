@@ -20,6 +20,12 @@ iterator, which no patch should be aimed at. **No file from that mod is copied o
 here**, and the patch is conditional on the hediff existing rather than on the mod being
 installed, so a rename, a local copy or the `_steam` suffix all keep working.
 
+## Dubs Bad Hygiene Lite, by Dubwise
+
+https://steamcommunity.com/sharedfiles/filedetails/?id=2570319432
+
+The stripped-down variant of Dubs Bad Hygiene (needs Hygiene and Bladder, no plumbing), supported since 1.1.0. It ships the same `BadHygiene` assembly, so the reflection below reaches it unchanged; it replaces the full mod and never runs beside it. No code from it is reused here.
+
 ## Dubs Bad Hygiene, by Dubwise
 
 https://steamcommunity.com/sharedfiles/filedetails/?id=836308268

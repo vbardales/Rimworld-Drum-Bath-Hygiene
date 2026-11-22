@@ -52,3 +52,6 @@ rooboid.hdhair.continued 3559870636
 akairo.LetsHaveaCat 3682940618
 # The Backlot, net10.0 (SaB 5134f1c):
 nelim.sanctuarybacklot path:SanctuaryBacklot/Tests/Pickle/Build17/SanctuaryBacklot
+
+# Dubs Bad Hygiene is no longer a hard dependency (2026-11-23, Lite support): it is activated here, so the suite still tests the full mod.
+Dubwise.DubsBadHygiene 836308268

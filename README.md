@@ -1,7 +1,7 @@
 # Drum Bath Hygiene
 
 Makes the drum can bath actually wash people, by connecting **MMDrumcanMOD (Continued)** to
-**Dubs Bad Hygiene**. RimWorld 1.6.
+**Dubs Bad Hygiene** or **Dubs Bad Hygiene Lite**. RimWorld 1.6 and 1.7.
 
 ## What the mod does
 
@@ -51,8 +51,9 @@ hard reference would also break the first time their author reworks them. If `Ne
 cannot be resolved, the bridge logs one warning and the component goes inert; every other call
 guards itself separately.
 
-Both mods are declared in `<modDependencies>`, so RimWorld flags a missing one in the mod list. The mod has no
-content of its own and does nothing without both.
+MMDrumcanMOD (Continued) is declared in `<modDependencies>`, so RimWorld flags it in the mod list when it is
+missing. Dubs Bad Hygiene and Dubs Bad Hygiene Lite replace each other, so neither is declared as a dependency:
+install the one you play with. With neither of them the mod does nothing. It has no content of its own.
 
 ## Saves
 

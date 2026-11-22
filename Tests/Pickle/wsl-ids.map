@@ -19,3 +19,4 @@
 # packageId                      workshopId
 Mlie.MMDrumcanMOD                3417093756   # the drum bath, and Hed_BathingAtDrumBathPassive
 Dubwise.DubsBadHygiene           836308268    # the hygiene need, DubDef.SoakingWet, the bath memories
+Dubwise.DubsBadHygiene.Lite      2570319432   # Dubs Bad Hygiene Lite: replaces the full mod, same assembly BadHygiene (Lite pass, wsl-deps.lite.map)

@@ -6,3 +6,6 @@ nelim.pickletools.screenshotstudio path:PickleTools/Build17/ScreenshotStudio
 nelim.pickletools.screenshotmode   path:PickleTools/Build17/ScreenshotMode
 # The bundle is committed under PickleTools/Mod: this shell replaces it (see StandaloneBase).
 nelim.pickletools   path:PickleTools/Tests/Pickle/StandaloneBase/Mod
+
+# Dubs Bad Hygiene is no longer a hard dependency (2026-11-23, Lite support): it is activated here, so the suite still tests the full mod.
+Dubwise.DubsBadHygiene 836308268

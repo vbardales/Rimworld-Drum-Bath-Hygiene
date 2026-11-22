@@ -54,3 +54,6 @@ akairo.LetsHaveaCat 3682940618
 nelim.sanctuarybacklot path:SanctuaryBacklot/Tests/Pickle/Build17/SanctuaryBacklot
 # Gallery shot 4 (owner order 2026-11-18): MMDrumcanMOD Retexture, texture-only, declares 1.6 at most, loads after Mlie.MMDrumcanMOD (staged first by wsl-ids.map).
 drilledhead.MMDrumcanMODRetexture 3713171862
+
+# Dubs Bad Hygiene is no longer a hard dependency (2026-11-23, Lite support): it is activated here, so the suite still tests the full mod.
+Dubwise.DubsBadHygiene 836308268
