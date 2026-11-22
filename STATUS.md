@@ -10,7 +10,7 @@ folder:       C:/Users/nelim/Documents/rimworld/DrumBathHygiene
 visibility:   public
 repo_visibility: public
 detached:     yes
-workflow_stage: ecosystem[1.1.0]
+workflow_stage: writeTests[1.1.0]
 tested_1_7:   yes
 code_review_sha: 389ae092f68bc9ee93639c402ff62f0fd0ae6b05
 publication_changelog_review_sha: 93539d13a9cb9e959f469956614114f2edb59b3c
@@ -34,6 +34,7 @@ showcase:     preview approved by user; visual QA passed at full size and thumbn
 tested_on:    2026-11-10 pickle 1.7 green, features 01 to 08 (tickets 43bc, 7e75, 1a63, 1c29, 9910, 4f90, 21c4; DLL SHA256 865ACC8A unchanged); Pickle suite in game (RimWorld 1.6, Linux under WSL, Xvfb), non-regression 2026-10-11 on revision 02b3cb8 (runs 24 to 27): the 19 tools scenarios pass in English and French, the 2 gallery scenarios (sanctuary map) pass in both, removal chain passed 2026-10-08 (run 28cc, 536e4bf); runs 22 and 23 (271365b, 21 of 21) predate the Sanctuary migration; earlier: Release rebuild and the Windows PowerShell XML/packaging suite, 2026-09-22
 workshop:      3806137182; 0.1.0 prepublished 2026-09-22 (item creation only), 1.0.0 sent by CI 2026-09-28,  1.0.1 2026-10-02, 1.0.2 2026-10-08 (description); public per the owner
 remaining:
+  - replay 2026-11-22 (ledger `.replays/DrumBathHygiene-20261122.tsv`, sections 1 to 7): stage `writeTests[1.1.0]` (owner oui 2026-11-22). Open 7.d: write the tests with Dubs Bad Hygiene Lite 2570319432 (map `wsl-deps.sanctuary-lite*.map` or `tools`, scenario, `@requires`; read Lite first: replaces DBH or adds to it), then 7.i. 1.7 gallery ticket `9247` (auto, evidence `Inbox/gallery-07-17-eq`) waits; the owner chose `-Runner auto`, no explicit azure or hetzner.
   - replay 2026-11-20 (owner typed, ledger `.replays/DrumBathHygiene-20261120.tsv`, sections 1 and 2 read, stopped at 2.h): `ecosystem_line` absent, the 1.1 line has no recorded ecosystem passage (2.g, 2.h, 2.i open). Do: skill `ecosystem` as a short DELTA (PiI refresh of 2026-11-18 already exists, see Ecosystem refresh below), write `ecosystem_line: 1.1`, replay to return to `shootGallery[1.1.0]`. Gallery work (shots 1 to 5, tickets, 1.6 shots 4 and 5 green in Inbox `gallery-04-16` and `gallery-05-16`, 1.7 refile pending) waits and is not judged here. Also open: `npt-sync` WARN (NPT steps changed 2026-11-19, run sync-nsb-npt, update Steps read date).
   - 2026-11-18 resume: sync-nsb-npt done (nothing to change); shotlist of 2026-11-14 stands. `bb1c` (1.7, hetzner) ended exit 10 infra, nothing played; refiled once on auto as `2a89` (20261118-181735-338-2a89, 1.7, filter `07-workshop-captures::Nelim`, `wsl-deps.sanctuary-17.map`, tree `f9ee06b`, Inbox `gallery-07-17-auto`), pending; Cloud told via TM. Inbox triaged 2026-11-18: no-report folders and the old reds `gallery-07-17-2` (2 of 3 timed out on load 180 s and frame 150 s, local lane RAM) and `-3` (0 of 2, same waits) deleted, causes already logged above; Inbox and Parked empty.
   - done 2026-11-18 (translation review): ChatGPT page 1, three rounds: 2 changes applied (`f7e9ed0`), 1 applied (image check sentence), then a round with nothing applied, recorded: the review of page 1 is finished (1/1 pages clean). No proper noun to decide. Review validated by the owner in chat 2026-11-18 ("je valide la review"). Open: gallery 07 shots 4 and 5 (owner order) filed as `967c` `d918` `74a5` `94e2`, with `2a89` for shots 1 to 3; Cat to be told when the retexture shots are done (PiI protects both mods until then).
@@ -52,10 +53,10 @@ remaining:
   - followUp left: 14.a non-regression ticket on the published build (DLL unchanged since `d7e1737`; `Mod/` differs from runs 22 and 23 only by the `About.xml` description), 14.c clean-up of `STATUS.md`, `TESTING.md`, `PUBLICATION.md`, 14.d branches (only `main`, nothing to delete).
   - done 2026-11-13: 1.7 pass, features 01 to 08 green on 1.7, `tested_1_7: yes`; ticket-by-ticket log in `Docs/runs/history.md` (entry 2026-11-13).
   - done: upstream pull request emipa606/MMDrumcanMOD#2 declined by Mlie 2026-10-03, who will link this mod in his description; closed, BACKLOG.md.
-updated:      2026-11-20
+updated:      2026-11-22
 ecosystem_line: 1.1
 upstream_synced: 2026-11-13 emipa606/MMDrumcanMOD@cf7d438 (Dubs Bad Hygiene: no repo, N/A)
-protocols_read_sha: 2b5cd389e2c10fd4acfcfd5f1c4ca69f1a5f2248
+protocols_read_sha: 1326756da09852380fc06a23fb62224f7a35b9d9
 ---
 # Drum Bath Hygiene: status
 
