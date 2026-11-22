@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OptionalCompat>
+  <!-- The mod works with ONE of these two; Lite replaces the full mod (incompatibleWith). Neither is a hard dependency; the startup alert (StartupCheck) warns when neither is active. -->
+  <li>
+    <packageId>Dubwise.DubsBadHygiene</packageId>
+    <workshopId>836308268</workshopId>
+    <kind>synergy</kind>
+  </li>
+  <li>
+    <packageId>Dubwise.DubsBadHygiene.Lite</packageId>
+    <workshopId>2570319432</workshopId>
+    <kind>synergy</kind>
+  </li>
+</OptionalCompat>
